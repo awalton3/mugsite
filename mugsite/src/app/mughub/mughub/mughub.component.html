@@ -1,3 +1,14 @@
-<p>
-  mughub works!
-</p>
+<div fxLayout="column" fxLayoutAlign="center center" style="height: 100vh">
+  <img class="logo--width" src="https://firebasestorage.googleapis.com/v0/b/mugsite-95f7c.appspot.com/o/mughub_logo_onlight.png?alt=media&token=7862ca74-e8e9-41c5-a95b-b9cfd7f4bae6">
+  <form fxLayout="column" fxLayoutAlign="center center">
+    <mat-form-field floatLabel="never" class="auth-input" fxLayoutAlign="center center">
+      <input matInput placeholder="Email" class="auth-input-field" fxLayoutAlign="center center">
+      <span matPrefix><i class="material-icons auth-input-field-icon" fxLayoutAlign="center center">email</i></span>
+    </mat-form-field>
+    <mat-form-field floatLabel="never" class="auth-input" fxLayoutAlign="center center">
+      <input matInput type="password" placeholder="Password" class="auth-input-field" fxLayoutAlign="center center">
+      <span matPrefix><i class="material-icons auth-input-field-icon" fxLayoutAlign="center center">lock</i></span>
+    </mat-form-field>
+    <button mat-raised-button color="accent" type="button" class="auth-btn">LOGIN</button>
+  </form>
+</div>

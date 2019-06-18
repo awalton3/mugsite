@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './mughub.component.html',
   styleUrls: ['./mughub.component.css']
 })
+
 export class MughubComponent implements OnInit {
 
   constructor() { }
