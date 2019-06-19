@@ -6,8 +6,8 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 
 const routes: Routes = [
-
-  { path: 'mughub', component: MughubComponent,
+  //lazy loading in use
+  { path: '', component: MughubComponent,
     children: [
       { path: '', redirectTo: 'auth', pathMatch: 'full'},
       { path: 'auth', component: AuthComponent, children: [
