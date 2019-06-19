@@ -16,8 +16,6 @@ import { AboutModule } from './about/about.module';
 import { MughubModule } from './mughub/mughub.module';
 import { HttpClientModule } from '@angular/common/http';
 
-//Firebase
-
 @NgModule({
   declarations: [
     AppComponent
@@ -27,7 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
     AngularFireModule.initializeApp(environment.firebaseConfig, 'mugsite'),
     AngularFirestoreModule,
     AngularFireStorageModule,
-    AngularFireAuthModule, 
+    AngularFireAuthModule,
     HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,

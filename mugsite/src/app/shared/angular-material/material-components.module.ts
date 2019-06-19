@@ -3,6 +3,8 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatRadioModule } from '@angular/material/radio';
+
 
 
 @NgModule({
@@ -10,14 +12,16 @@ import { MatButtonModule } from '@angular/material/button';
     FlexLayoutModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatRadioModule
   ],
   exports: [
     FlexLayoutModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatRadioModule
   ]
 })
 
-export class MaterialComponentsModule {}
+export class MaterialComponentsModule { }

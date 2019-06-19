@@ -20,15 +20,15 @@ export class RegisterComponent implements OnInit {
 
   private initForm() {
     this.registerForm = new FormGroup ({
-      'firstname': new FormControl (null, Validators.required),
-      'lastname': new FormControl (null, Validators.required),
+      'name': new FormControl (null, Validators.required),
       'email': new FormControl (null, [Validators.required, Validators.email]),
-      'password': new FormControl (null, [Validators.required, Validators.minLength(5)])
+      'password': new FormControl (null, [Validators.required, Validators.minLength(6)]),
+      'type': new FormControl('student', Validators.required)
     });
   }
 
   onSubmit() {
-    if(this.registerForm.valid) {
+    if(this.registerForm.valid && confirm('Are you sure you want to register as a ' + this.registerForm.value.type + '?')) {
       let email = this.registerForm.value.email;
       let password = this.registerForm.value.password;
       this.authService.register(email, password)
@@ -38,6 +38,7 @@ export class RegisterComponent implements OnInit {
           console.log(error)
         })
     }
-    this.registerForm.reset();
+    this.initForm();
   }
+  
 }

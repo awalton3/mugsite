@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 interface AuthResponseData {
   kind: string;
@@ -14,7 +15,7 @@ interface AuthResponseData {
 
 export class AuthService {
 
-  registerEndpoint: string = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyAMtxK1CsD3dJbKPh-09PcF3fXmxsxz2Bo'
+  registerEndpoint: string = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=' + environment.firebaseConfig.apiKey;
 
   constructor(private http: HttpClient) {}
 

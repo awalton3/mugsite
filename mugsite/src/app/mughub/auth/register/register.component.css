@@ -8,7 +8,7 @@
   padding-left: 25px;
 }
 
-.auth-input-firstname {
+/* .auth-input-firstname {
   width: 147px;
   border-radius: 33.5px 0px 0px 33.5px;
   margin-right: 3px;
@@ -18,7 +18,7 @@
   width: 147px;
   border-radius: 0px 33.5px 33.5px 0px;
   margin-left: 3px;
-}
+} */
 
 .auth-input-field {
   color: #eee;
@@ -31,6 +31,23 @@
   color: white;
   font-size: 17px;
   padding-right: 12px;
+}
+
+.auth-radio-label {
+  margin-top: 5px;
+  font-weight: 600;
+  color: #2b5570;
+}
+
+.auth-radio-group {
+  margin: 10px;
+  margin-top: 0px;
+}
+
+.auth-radio-buttons {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  padding: 10px;
 }
 
 .auth-btn {
