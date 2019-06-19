@@ -4,6 +4,7 @@ import { MughubComponent } from './mughub.component';
 import { MaterialComponentsModule } from '../shared/angular-material/material-components.module';
 import { MughubRoutingModule } from './mughub-routing.module';
 import { AuthModule } from './auth/auth.module';
+import { ManageModule } from './manage/manage.module';
 
 @NgModule({
   declarations: [MughubComponent],
@@ -11,7 +12,8 @@ import { AuthModule } from './auth/auth.module';
     CommonModule,
     MaterialComponentsModule,
     MughubRoutingModule,
-    AuthModule
+    AuthModule,
+    ManageModule
   ]
 })
 

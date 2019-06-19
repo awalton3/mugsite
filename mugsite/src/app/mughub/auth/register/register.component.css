@@ -41,6 +41,14 @@
   font-size: 16px;
 }
 
+/* .auth-bth-disabled {
+  border-radius: 33.5px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  width: 300px;
+  font-size: 16px;
+} */
+
 .auth-switch-prompt {
   color: grey;
   font-size: 13px;

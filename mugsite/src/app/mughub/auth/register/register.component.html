@@ -1,20 +1,20 @@
-<form fxLayout="column" fxLayoutAlign="center center" autocomplete="off">
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutAlign="center center" autocomplete="off">
   <div fxLayout="row" fxLayoutAlign="space-between center">
     <mat-form-field floatLabel="never" class="auth-input auth-input-firstname" fxLayoutAlign="start center">
-      <input matInput type="text" placeholder="First name" class="auth-input-field" fxLayoutAlign="center center">
+      <input matInput formControlName="firstname" type="text" placeholder="First name" class="auth-input-field" fxLayoutAlign="center center">
     </mat-form-field>
     <mat-form-field floatLabel="never" class="auth-input auth-input-lastname" fxLayoutAlign="start center">
-      <input matInput type="text" placeholder="Last name" class="auth-input-field" fxLayoutAlign="center center">
+      <input matInput formControlName="lastname" type="text" placeholder="Last name" class="auth-input-field" fxLayoutAlign="center center">
     </mat-form-field>
   </div>
   <mat-form-field floatLabel="never" class="auth-input" fxLayoutAlign="start center">
-    <input matInput type="email" placeholder="Email" class="auth-input-field" fxLayoutAlign="center center">
+    <input matInput formControlName="email" type="email" placeholder="Email" class="auth-input-field" fxLayoutAlign="center center">
     <span matPrefix><i class="material-icons auth-input-field-icon" fxLayoutAlign="center center">email</i></span>
   </mat-form-field>
   <mat-form-field floatLabel="never" class="auth-input" fxLayoutAlign="start center">
-    <input matInput type="password" placeholder="Password" class="auth-input-field" fxLayoutAlign="center center">
+    <input matInput formControlName="password" type="password" placeholder="Password" class="auth-input-field" fxLayoutAlign="center center">
     <span matPrefix><i class="material-icons auth-input-field-icon" fxLayoutAlign="center center">lock</i></span>
   </mat-form-field>
-  <button mat-raised-button color="accent" type="button" class="auth-btn">REGISTER</button>
+  <button mat-raised-button color="accent" type="submit" class="auth-btn" [disabled]="registerForm.invalid">REGISTER</button>
   <p class="auth-switch-prompt" routerLink="/mughub/auth/login">Already have an account, login here.</p>
 </form>

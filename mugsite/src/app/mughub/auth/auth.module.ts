@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { AuthComponent } from './auth.component';
 import { MaterialComponentsModule } from 'src/app/shared/angular-material/material-components.module';
@@ -15,6 +17,8 @@ import { RegisterComponent } from './register/register.component';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
     MaterialComponentsModule,
     AuthRoutingModule
   ]
