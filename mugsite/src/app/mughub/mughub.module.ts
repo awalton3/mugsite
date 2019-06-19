@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MughubComponent } from './mughub/mughub.component';
-import { RouterModule } from '@angular/router';
+import { MughubComponent } from './mughub.component';
 import { MaterialComponentsModule } from '../shared/angular-material/material-components.module';
+import { MughubRoutingModule } from './mughub-routing.module';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [MughubComponent],
   imports: [
     CommonModule,
     MaterialComponentsModule,
-    RouterModule.forChild([
-      //lazy-loading optimization
-      { path: '', component: MughubComponent }
-    ])
+    MughubRoutingModule,
+    AuthModule
   ]
 })
+
 export class MughubModule { }

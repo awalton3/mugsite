@@ -6,10 +6,10 @@
   background-color: #2b5570;
   border-radius: 33.5px;
   font-size: 14px;
-  max-width: 300px;
-  min-width: 250px;
+  width: 300px;
   height: 38px;
   margin-bottom: 13px;
+  padding-left: 25px;
 }
 
 .auth-input-field {
@@ -29,9 +29,24 @@
   border-radius: 33.5px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  max-width: 300px;
-  min-width: 250px;
+  width: 300px;
   font-size: 16px;
+}
+
+.auth-register-prompt {
+  color: grey;
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 320px) {
+  .auth-input {
+    width: 250px;
+  }
+  .auth-btn {
+    width: 250px;
+  }
 }
 
 ::ng-deep .mat-form-field-underline,  ::ng-deep .mat-form-field-ripple{
