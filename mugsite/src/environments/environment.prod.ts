@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   firebaseConfig: {
-    apiKey: "AIzaSyAMtxK1CsD3dJbKPh-09PcF3fXmxsxz2Bo",
+    apiKey: "secure",
     authDomain: "mugsite-95f7c.firebaseapp.com",
     databaseURL: "https://mugsite-95f7c.firebaseio.com",
     projectId: "mugsite-95f7c",
