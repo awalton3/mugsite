@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { User } from 'src/app/shared/models/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -40,11 +42,18 @@ export class RegisterComponent implements OnInit {
         .subscribe(resData => {
           console.log(resData);
           this.userService.addUser(user);
-        }, error => {
-          console.log(error);
+        }, errorMessage => {
+          this.handleError(errorMessage)
         })
     }
     this.initForm();
+  }
+
+  handleError(errorMessage) {
+    alert(errorMessage);
+    if (errorMessage === 'The email address is already in use by another account. Try logging in.') {
+      this.router.navigate(['/mughub/auth/login']);
+    }
   }
 
 }
