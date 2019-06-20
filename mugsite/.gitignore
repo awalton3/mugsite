@@ -1,5 +1,9 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+#secured api keys
+/src/environments/environment.prod.ts
+/src/environments/environment.ts
+
 # compiled output
 /dist
 /tmp
