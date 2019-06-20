@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthComponent } from './auth.component';
+import { TutorAppComponent } from './tutor-app.component';
 
 const routes: Routes = [
-
-  { path: 'mughub/auth', component: AuthComponent }
-
+  //lazy loaded
+  { path: '', component: TutorAppComponent}
 ]
 
 @NgModule({
@@ -13,4 +12,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 
-export class AuthRoutingModule {}
+export class TutorAppRoutingModule {}

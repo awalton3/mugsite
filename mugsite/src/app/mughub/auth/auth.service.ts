@@ -1,68 +1,77 @@
+import * as firebase from 'firebase';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { UserService } from 'src/app/shared/services/user.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
-interface AuthResponseData {
-  kind: string;
-  idToken: string;
-  email: string;
-  refreshToken: string;
-  expiresIn: string;
-  localId: string;
-}
-
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 
 export class AuthService {
 
-  registerEndpoint = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=' + environment.firebaseConfig.apiKey;
-  loginEndpoint = 'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=' + environment.firebaseConfig.apiKey;
+  constructor(
+    private userService: UserService,
+    private db: AngularFirestore
+  ) { }
 
-  constructor(private http: HttpClient) {}
+  register(formData: { email: string; password: string; name: any; type: string; }) {
+    firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password)
+      .then(userObj => {
 
-  register(email: string, password: string) {
-    return this.http.post<AuthResponseData>(this.registerEndpoint, {
-      email: email,
-      password: password,
-      returnSecureToken: true
-    }).pipe(catchError(errorRes => {
-      return throwError(this.getErrorMessage(errorRes.error.error.message))
-    }));
+        //add user to Firebase User collection
+        let user = userObj.user;
+        this.db.collection('/users')
+          .doc(user.uid)
+          .set({
+            name: formData.name,
+            photoUrl: '',
+            email: user.email,
+            type: formData.type,
+            uid: user.uid
+          });
+
+        //update users collection
+        this.userService.updateLocalUser(
+          user.displayName,
+          user.photoURL,
+          user.email,
+          formData.type,
+          user.uid
+        );
+
+      })
+      .catch(error => {
+        alert(error.message)
+      })
   }
 
-  login(email: string, password: string) {
-    return this.http.post<AuthResponseData>(this.loginEndpoint, {
-      email: email,
-      password: password,
-      returnSecureToken: true
-    }).pipe(catchError(errorRes => {
-      return throwError(this.getErrorMessage(errorRes.error.error.message))
-    }));
-  }
+  // addToUserCollection(uid: string, user) {
+  //   this.db.collection('/users')
+  //     .doc(uid)
+  //     .set({
+  //       name: user.displayname,
+  //       photoUrl: user.photoUrl,
+  //     });
+  // }
 
-  getErrorMessage(errorResMessage) {
-    let errorMessage = '';
-    switch(errorResMessage) {
-      case 'EMAIL_NOT_FOUND':
-        errorMessage = "Email not found. Please create an account.";
-        break;
-      case 'INVALID_PASSWORD':
-        errorMessage = "Incorrect password";
-        break;
-      case 'USER_DISABLED':
-        errorMessage = "Your account is currently disabled. Please contact ---.";
-        break;
-      case 'EMAIL_EXISTS':
-        errorMessage = "The email address is already in use by another account. Try logging in.";
-        break;
-      case 'TOO_MANY_ATTEMPTS_TRY_LATER':
-        errorMessage = "We have blocked all requests from this device due to unusual activity. Try again later."
-        break;
-      default: errorMessage = "An unknown error occurred. Please contact awalton3@nd.edu."
-    }
-    return errorMessage;
+  login(formData: { email: string; password: string; }) {
+    firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
+      .then(user => {
+        let newUser = user.user;
+        let type = '';
+        this.userService.getUserTypeFromFirebase(newUser.uid)
+          .subscribe(userData => {
+            type = userData.data().type;
+          })
+
+        this.userService.updateLocalUser(
+          newUser.displayName,
+          newUser.photoURL,
+          newUser.email,
+          type,
+          newUser.uid)
+      })
+      .catch(error => {
+        alert(error.message)
+      })
   }
 
 }

@@ -4,7 +4,8 @@ import { MughubComponent } from './mughub.component';
 import { MaterialComponentsModule } from '../shared/angular-material/material-components.module';
 import { MughubRoutingModule } from './mughub-routing.module';
 import { AuthModule } from './auth/auth.module';
-import { ManageModule } from './manage/manage.module';
+import { TutorAppModule } from './tutor-app/tutor-app.module';
+import { StudentAppModule } from './student-app/student-app.module';
 
 @NgModule({
   declarations: [MughubComponent],
@@ -13,7 +14,8 @@ import { ManageModule } from './manage/manage.module';
     MaterialComponentsModule,
     MughubRoutingModule,
     AuthModule,
-    ManageModule
+    TutorAppModule,
+    StudentAppModule
   ]
 })
 

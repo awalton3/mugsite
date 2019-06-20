@@ -16,7 +16,8 @@ const routes: Routes = [
         { path: 'register', component: RegisterComponent },
         { path: '**', redirectTo: 'login', pathMatch: 'full' }
       ]},
-      { path: 'manage-website', loadChildren: './manage/manage.module#ManageModule' }
+      { path: 'tutor-app', loadChildren: './tutor-app/tutor-app.module#TutorAppModule' },
+      { path: 'student-app', loadChildren: './student-app/student-app.module#StudentAppModule' }
     ]
   }
 ]

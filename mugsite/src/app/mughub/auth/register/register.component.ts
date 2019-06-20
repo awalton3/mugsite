@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { UserService } from 'src/app/shared/services/user.service';
-import { User } from 'src/app/shared/models/user.model';
 import { Router } from '@angular/router';
+import { User } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
+  user: any;
 
   constructor(
     private authService: AuthService,
@@ -34,26 +35,8 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    if(this.registerForm.valid && confirm('Are you sure you want to register as a ' + this.registerForm.value.type + '?')) {
-      let data = this.registerForm.value;
-      let user = new User(data.name, data.email, data.type);
-      this.authService.register(data.email, data.password)
-        .subscribe(resData => {
-          console.log(resData);
-          this.userService.addUser(user);
-        }, errorMessage => {
-          this.handleError(errorMessage)
-        })
+    onSubmit() {
+      this.authService.register(this.registerForm.value);
     }
-    this.initForm();
-  }
-
-  handleError(errorMessage) {
-    alert(errorMessage);
-    if (errorMessage === 'The email address is already in use by another account. Try logging in.') {
-      this.router.navigate(['/mughub/auth/login']);
-    }
-  }
 
 }
