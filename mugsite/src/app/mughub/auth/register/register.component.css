@@ -2,7 +2,7 @@
   background-color: #2b5570;
   border-radius: 33.5px;
   font-size: 14px;
-  width: 300px;
+  width: 320px;
   height: 38px;
   margin-bottom: 13px;
   padding-left: 25px;
@@ -36,25 +36,29 @@
 .auth-radio-label {
   margin-top: 5px;
   font-weight: 600;
+  font-size: 15px;
   color: #2b5570;
 }
 
 .auth-radio-group {
+  width: 100%;
   margin: 10px;
   margin-top: 0px;
+  color: #2b5570;
 }
 
 .auth-radio-buttons {
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
-  padding: 10px;
+  font-size: 15px;
+  padding: 5px;
 }
 
 .auth-btn {
   border-radius: 33.5px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  width: 300px;
+  width: 320px;
   font-size: 16px;
 }
 
@@ -78,6 +82,9 @@
     width: 250px;
   }
   .auth-btn {
+    width: 250px;
+  }
+  .auth-radio-group {
     width: 250px;
   }
 }

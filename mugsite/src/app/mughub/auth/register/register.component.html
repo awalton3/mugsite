@@ -11,8 +11,8 @@
     <input matInput formControlName="password" type="password" placeholder="Password" class="auth-input-field" fxLayoutAlign="center center">
     <span matPrefix><i class="material-icons auth-input-field-icon" fxLayoutAlign="center center">lock</i></span>
   </mat-form-field>
-  <label class="auth-radio-label">REGISTER AS A:</label>
-  <mat-radio-group formControlName="type" aria-label="Select an option" fxLayoutAlign="center center" class="auth-radio-group">
+  <mat-radio-group formControlName="type" aria-label="Select an option" fxLayout="row" fxLayoutAlign="space-around center" class="auth-radio-group">
+    <label class="auth-radio-label">REGISTER AS A:</label>
     <mat-radio-button value="student" class="auth-radio-buttons">Student</mat-radio-button>
     <mat-radio-button value="tutor" class="auth-radio-buttons">Tutor</mat-radio-button>
   </mat-radio-group>
