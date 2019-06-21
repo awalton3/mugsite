@@ -21,6 +21,13 @@
   padding-right: 12px;
 }
 
+.auth-input-field-forgot {
+  color: white;
+  font-size: 17px;
+  margin-left: 50px;
+  cursor: pointer !important;
+}
+
 .auth-btn {
   border-radius: 33.5px;
   font-family: 'Montserrat', sans-serif;
@@ -42,6 +49,9 @@
   }
   .auth-btn {
     width: 250px;
+  }
+  .auth-input-field-forgot{
+    margin-left: -12px;
   }
 }
 

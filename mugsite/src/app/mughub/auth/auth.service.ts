@@ -55,6 +55,14 @@ export class AuthService {
       .catch(() => { alert("An error occured when sending an email verification to your email. Please try again.") });
   }
 
+  resetPassword(email: string) {
+    firebase.auth().sendPasswordResetEmail(email).then(() => {
+      alert("A password reset email was sent.");
+    }).catch(error => {
+      alert(error.message);
+    });
+  }
+
   ifNewUser(metadata: firebase.auth.UserMetadata) {
     return metadata.creationTime === metadata.lastSignInTime;
   }

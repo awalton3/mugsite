@@ -33,6 +33,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     });
   }
 
+  onResetPassword() {
+    if(!this.loginForm.value.email)
+      alert("Please enter an email address and try again.")
+    else
+      this.authService.resetPassword(this.loginForm.value.email);
+  }
+
   onSubmit() {
     this.authService.login(this.loginForm.value)
     this.userSub = this.userService.user.subscribe(user => {
