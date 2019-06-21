@@ -16,7 +16,8 @@ export class AuthService {
   register(formData: { email: string; password: string; name: any; type: string; }) {
     firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password)
       .then(userObj => {
-        this.verifyEmail();
+
+        //save user data that is not on firebase userObj
         this.tempUser = {
           name: formData.name,
           photoUrl: null,
@@ -25,6 +26,10 @@ export class AuthService {
           uid: userObj.user.uid
         };
         this.tempUserCreated.next(this.tempUser);
+
+        //prompt user to verify email
+        this.verifyEmail();
+
       })
       .catch(error => { alert(error.message) })
   }
@@ -32,12 +37,14 @@ export class AuthService {
   login(formData: { email: string; password: string; }) {
     firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
       .then(userObj => {
+
         if (userObj.user.emailVerified) {
-          if (userObj.user.metadata.creationTime === userObj.user.metadata.lastSignInTime)
-            this.userService.addUserToFbCollect(this.tempUser.name, this.tempUser.photoUrl, this.tempUser.email, this.tempUser.type, this.tempUser.uid);
           this.userService.createLocalUser(userObj.user.uid);
+          if (this.ifNewUser(userObj.user.metadata))
+            this.userService.addUserToFbCollect(this.tempUser.name, this.tempUser.photoUrl, this.tempUser.email, this.tempUser.type, this.tempUser.uid);
         }
         else alert("Please verify your email before loggin in.");
+
       })
       .catch(error => { alert(error.message) })
   }
@@ -46,5 +53,9 @@ export class AuthService {
     firebase.auth().currentUser.sendEmailVerification()
       .then(() => { alert("An email verification has been sent. Please verify your email before logging in.") })
       .catch(() => { alert("An error occured when sending an email verification to your email. Please try again.") });
+  }
+
+  ifNewUser(metadata: firebase.auth.UserMetadata) {
+    return metadata.creationTime === metadata.lastSignInTime;
   }
 }
