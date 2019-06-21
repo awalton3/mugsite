@@ -43,7 +43,8 @@
 .auth-radio-group {
   width: 100%;
   margin: 10px;
-  margin-top: 0px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   color: #2b5570;
 }
 
@@ -52,6 +53,13 @@
   font-weight: 400;
   font-size: 15px;
   padding: 5px;
+}
+
+.auth-input-password-hint {
+  font-size: 12px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  margin-top: 5px;
 }
 
 .auth-btn {

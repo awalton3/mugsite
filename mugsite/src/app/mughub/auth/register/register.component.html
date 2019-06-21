@@ -8,7 +8,8 @@
     <span matPrefix><i class="material-icons auth-input-field-icon" fxLayoutAlign="center center">email</i></span>
   </mat-form-field>
   <mat-form-field floatLabel="never" class="auth-input" fxLayoutAlign="start center">
-    <input matInput formControlName="password" type="password" placeholder="Password" class="auth-input-field" fxLayoutAlign="center center">
+    <mat-hint align="start" class="auth-input-password-hint">*Must be a min of 6 characters</mat-hint>
+    <input matInput formControlName="password" type="password" placeholder="Password" class="auth-input-field" fxLayoutAlign="center center" #input>
     <span matPrefix><i class="material-icons auth-input-field-icon" fxLayoutAlign="center center">lock</i></span>
   </mat-form-field>
   <mat-radio-group formControlName="type" aria-label="Select an option" fxLayout="row" fxLayoutAlign="space-around center" class="auth-radio-group">

@@ -3,7 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
-    //lazy load main links
+
+    //lazy loaded modules
     { path: 'about', loadChildren: './about/about.module#AboutModule' },
     { path: 'mughub', loadChildren: './mughub/mughub.module#MughubModule'}
 ];

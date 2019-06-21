@@ -6,7 +6,6 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 
 const routes: Routes = [
-  //lazy loading in use
   { path: '', component: MughubComponent,
     children: [
       { path: '', redirectTo: 'auth', pathMatch: 'full'},
@@ -16,6 +15,7 @@ const routes: Routes = [
         { path: 'register', component: RegisterComponent },
         { path: '**', redirectTo: 'login', pathMatch: 'full' }
       ]},
+      //lazy loaded modules
       { path: 'tutor-app', loadChildren: './tutor-app/tutor-app.module#TutorAppModule' },
       { path: 'student-app', loadChildren: './student-app/student-app.module#StudentAppModule' }
     ]
