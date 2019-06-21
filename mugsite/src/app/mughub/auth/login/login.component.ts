@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onResetPassword() {
-    if(!this.loginForm.value.email)
+    if (!this.loginForm.value.email)
       alert("Please enter an email address and try again.")
     else
       this.authService.resetPassword(this.loginForm.value.email);
@@ -43,9 +43,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.authService.login(this.loginForm.value)
     this.userSub = this.userService.user.subscribe(user => {
-      if (user) {
+      if (user)
         this.router.navigate(['mughub', user.type])
-      }
     })
   }
 
