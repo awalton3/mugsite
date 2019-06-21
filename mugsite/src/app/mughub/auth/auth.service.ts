@@ -10,68 +10,51 @@ export class AuthService {
   constructor(
     private userService: UserService,
     private db: AngularFirestore
-  ) { }
+  ) {}
 
   register(formData: { email: string; password: string; name: any; type: string; }) {
     firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password)
       .then(userObj => {
 
         //add user to Firebase User collection
-        let user = userObj.user;
         this.db.collection('/users')
-          .doc(user.uid)
+          .doc(userObj.user.uid)
           .set({
             name: formData.name,
             photoUrl: '',
-            email: user.email,
+            email: userObj.user.email,
             type: formData.type,
-            uid: user.uid
+            uid: userObj.user.uid
           });
 
-        //update users collection
+        //update local userObj
         this.userService.updateLocalUser(
-          user.displayName,
-          user.photoURL,
-          user.email,
+          userObj.user.displayName,
+          userObj.user.photoURL,
+          userObj.user.email,
           formData.type,
-          user.uid
+          userObj.user.uid
         );
 
       })
-      .catch(error => {
-        alert(error.message)
-      })
+      .catch(error => { alert(error.message) })
   }
-
-  // addToUserCollection(uid: string, user) {
-  //   this.db.collection('/users')
-  //     .doc(uid)
-  //     .set({
-  //       name: user.displayname,
-  //       photoUrl: user.photoUrl,
-  //     });
-  // }
 
   login(formData: { email: string; password: string; }) {
     firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
-      .then(user => {
-        let newUser = user.user;
-        let type = '';
-        this.userService.getUserTypeFromFirebase(newUser.uid)
-          .subscribe(userData => {
-            type = userData.data().type;
+      .then(userObj => {
+        this.db.collection('/users').doc(userObj.user.uid).get()
+          .subscribe(userObj => {
+            this.userService.updateLocalUser(
+              userObj.data().name,
+              userObj.data().photoUrl,
+              userObj.data().email,
+              userObj.data().type,
+              userObj.data().uid
+            )
           })
-
-        this.userService.updateLocalUser(
-          newUser.displayName,
-          newUser.photoURL,
-          newUser.email,
-          type,
-          newUser.uid)
       })
-      .catch(error => {
-        alert(error.message)
-      })
+      .catch(error => { alert(error.message) })
   }
 
 }
