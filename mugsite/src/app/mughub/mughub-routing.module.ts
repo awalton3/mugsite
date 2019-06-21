@@ -4,6 +4,7 @@ import { MughubComponent } from './mughub.component';
 import { AuthComponent } from './auth/auth.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   { path: '', component: MughubComponent,
@@ -16,8 +17,8 @@ const routes: Routes = [
         { path: '**', redirectTo: 'login', pathMatch: 'full' }
       ]},
       //lazy loaded modules
-      { path: 'tutor-app', loadChildren: './tutor-app/tutor-app.module#TutorAppModule' },
-      { path: 'student-app', loadChildren: './student-app/student-app.module#StudentAppModule' }
+      { path: 'tutor', loadChildren: './tutor-app/tutor-app.module#TutorAppModule', canLoad: [AuthGuard]},
+      { path: 'student', loadChildren: './student-app/student-app.module#StudentAppModule', canLoad: [AuthGuard]}
     ]
   }
 ]

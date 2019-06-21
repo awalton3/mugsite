@@ -43,10 +43,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.authService.login(this.loginForm.value)
     this.userSub = this.userService.user.subscribe(user => {
-      if (user && user.type === 'student')
-        this.router.navigate(['mughub/student-app'])
-      if (user && user.type === 'tutor')
-        this.router.navigate(['mughub/tutor-app'])
+      if (user) {
+        this.router.navigate(['mughub', user.type])
+      }
     })
   }
 

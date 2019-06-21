@@ -10,12 +10,16 @@ export class UserService {
   private currentUser: User;
   userFbCollectSub : Subscription;
 
-  user = new Subject<User>(); 
+  user = new Subject<User>();
 
   constructor(private db: AngularFirestore) { }
 
   getLocalUser() {
     return this.currentUser;
+  }
+
+  isUserAuthenticated(attemptedRoute: string) {
+    return (this.currentUser && (this.currentUser.type === attemptedRoute))
   }
 
   getUserFromFbCollect(uid: string) {
