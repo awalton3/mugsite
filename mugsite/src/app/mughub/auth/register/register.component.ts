@@ -1,9 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
-import { UserService } from 'src/app/shared/services/user.service';
 import { Router } from '@angular/router';
-import { User } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-register',
@@ -11,14 +9,12 @@ import { User } from 'src/app/shared/models/user.model';
   styleUrls: ['./register.component.css']
 })
 
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
 
   registerForm: FormGroup;
-  user: any;
 
   constructor(
     private authService: AuthService,
-    private userService: UserService,
     private router: Router
   ) { }
 
@@ -37,6 +33,15 @@ export class RegisterComponent implements OnInit {
 
     onSubmit() {
       this.authService.register(this.registerForm.value);
+      this.authService.tempUserCreated.subscribe(user => {
+        if (user)
+          this.router.navigate(['/mughub/auth/login'])
+      })
+    }
+
+    ngOnDestroy() {
+      if(this.authService.tempUserCreated)
+        this.authService.tempUserCreated.unsubscribe()
     }
 
 }

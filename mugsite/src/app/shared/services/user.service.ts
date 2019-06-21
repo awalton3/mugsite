@@ -8,8 +8,9 @@ import { Subject, Subscription } from 'rxjs';
 export class UserService {
 
   private currentUser: User;
+  userFbCollectSub : Subscription;
 
-  user = new Subject<User>();
+  user = new Subject<User>(); 
 
   constructor(private db: AngularFirestore) { }
 
@@ -18,7 +19,7 @@ export class UserService {
   }
 
   getUserFromFbCollect(uid: string) {
-    return this.db.collection('/users').doc(uid).get();
+    return this.db.collection('/users').doc(uid).get()
   }
 
   addUserToFbCollect(name: string, photoUrl: string, email: string, type: string, uid: string) {
@@ -34,17 +35,16 @@ export class UserService {
   }
 
   createLocalUser(uid: string) {
-    let userSub: Subscription = this.getUserFromFbCollect(uid)
+    this.userFbCollectSub = this.getUserFromFbCollect(uid)
       .subscribe(userObj => {
         this.currentUser = new User(
           userObj.data().name,
           userObj.data().photoUrl,
           userObj.data().email,
           userObj.data().type,
-          userObj.data().uid,
-          true)
+          userObj.data().uid)
+        this.user.next(this.currentUser);
       })
-    userSub.unsubscribe();
   }
 
   // updateLocalUser(name: string, photoUrl: string, email: string, type: string, uid: string) {
