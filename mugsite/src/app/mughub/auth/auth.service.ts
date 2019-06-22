@@ -10,14 +10,13 @@ export class AuthService {
 
   private tempUser: User;
   tempUserCreated = new Subject<User>();
+  // userTimedOut = new Subject();
 
   constructor(private userService: UserService) { }
 
   register(formData: { email: string; password: string; name: any; type: string; }) {
     firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password)
       .then(userObj => {
-
-        //save user data that is not on firebase userObj
         this.tempUser = {
           name: formData.name,
           photoUrl: null,
@@ -26,10 +25,7 @@ export class AuthService {
           uid: userObj.user.uid
         };
         this.tempUserCreated.next(this.tempUser);
-
-        //prompt user to verify email
         this.verifyEmail();
-
       })
       .catch(error => { alert(error.message) })
   }
@@ -38,24 +34,17 @@ export class AuthService {
     firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
       .then(userObj => {
         if (userObj.user.emailVerified) {
-
-          //update user service
-          this.userService.createLocalUser(userObj.user.uid);
-
-          //update local storage
-          this.userService.user.subscribe(user => {
-            localStorage.setItem('user', JSON.stringify(user))
-          })
-
-          //update firebase users collection if first time user
-          if (this.ifNewUser(userObj.user.metadata))
-            this.userService.addUserToFbCollect(this.tempUser.name, this.tempUser.photoUrl, this.tempUser.email, this.tempUser.type, this.tempUser.uid);
-
-        }
-        else
-          alert("Please verify your email before loggin in.");
+          this.handleAuth(userObj.user)
+        } else
+          alert("Please verify your email before logging in.");
       })
       .catch(error => { alert(error.message) })
+  }
+
+  handleAuth(userObj: firebase.User) {
+    this.userService.createLocalUser(userObj.uid);
+    if (this.ifNewUser(userObj.metadata))
+      this.userService.addUserToFbCollect(this.tempUser.name, this.tempUser.photoUrl, this.tempUser.email, this.tempUser.type, this.tempUser.uid);
   }
 
   verifyEmail() {
@@ -81,4 +70,11 @@ export class AuthService {
     if(!user) return;
     this.userService.createLocalUser(user.uid);
   }
+
+  // onUserTimedOut() {
+  //   console.log("WORDS")
+  //   this.userTimedOut.next()
+  //   return;
+  // }
+
 }

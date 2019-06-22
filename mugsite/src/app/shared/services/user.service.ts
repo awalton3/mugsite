@@ -37,8 +37,6 @@ export class UserService {
   }
 
   createLocalUser(uid: string) {
-    console.log("Fetching data for " + uid);
-    // let idToken = this.getUserIdToken();
     this.userFbCollectSub = this.getUserFromFbCollect(uid)
       .subscribe(userObj => {
         this.currentUser = new User(
@@ -48,6 +46,8 @@ export class UserService {
           userObj.data().type,
           userObj.data().uid)
         this.user.next(this.currentUser);
+        if (!localStorage.getItem('user'))
+          localStorage.setItem('user', JSON.stringify(this.currentUser))
       })
   }
 
