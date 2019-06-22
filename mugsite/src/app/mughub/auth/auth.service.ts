@@ -37,14 +37,23 @@ export class AuthService {
   login(formData: { email: string; password: string; }) {
     firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
       .then(userObj => {
-
         if (userObj.user.emailVerified) {
+
+          //update user service
           this.userService.createLocalUser(userObj.user.uid);
+
+          //update local storage
+          this.userService.user.subscribe(user => {
+            localStorage.setItem('user', JSON.stringify(user))
+          })
+
+          //update firebase users collection if first time user
           if (this.ifNewUser(userObj.user.metadata))
             this.userService.addUserToFbCollect(this.tempUser.name, this.tempUser.photoUrl, this.tempUser.email, this.tempUser.type, this.tempUser.uid);
-        }
-        else alert("Please verify your email before loggin in.");
 
+        }
+        else
+          alert("Please verify your email before loggin in.");
       })
       .catch(error => { alert(error.message) })
   }
@@ -65,5 +74,11 @@ export class AuthService {
 
   ifNewUser(metadata: firebase.auth.UserMetadata) {
     return metadata.creationTime === metadata.lastSignInTime;
+  }
+
+  autoLogin() {
+    let user = JSON.parse(localStorage.getItem('user'));
+    if(!user) return;
+    this.userService.createLocalUser(user.uid);
   }
 }

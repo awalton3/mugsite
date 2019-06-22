@@ -2,24 +2,22 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { User } from '../models/user.model';
 import { Subject, Subscription } from 'rxjs';
+import * as firebase from 'firebase';
 
 @Injectable({ providedIn: 'root' })
 
 export class UserService {
 
   private currentUser: User;
-  userFbCollectSub : Subscription;
+  userFbCollectSub: Subscription;
 
   user = new Subject<User>();
 
   constructor(private db: AngularFirestore) { }
 
-  getLocalUser() {
-    return this.currentUser;
-  }
-
   isUserAuthenticated(attemptedRoute: string) {
-    return (this.currentUser && (this.currentUser.type === attemptedRoute))
+    let user = JSON.parse(localStorage.getItem('user'))
+    return (user && (user.type === attemptedRoute))
   }
 
   getUserFromFbCollect(uid: string) {
@@ -39,6 +37,8 @@ export class UserService {
   }
 
   createLocalUser(uid: string) {
+    console.log("Fetching data for " + uid);
+    // let idToken = this.getUserIdToken();
     this.userFbCollectSub = this.getUserFromFbCollect(uid)
       .subscribe(userObj => {
         this.currentUser = new User(
@@ -49,6 +49,16 @@ export class UserService {
           userObj.data().uid)
         this.user.next(this.currentUser);
       })
+  }
+
+  getUserIdToken() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        user.getIdTokenResult().then(idToken => {
+          console.log(idToken);
+        });
+      }
+    });
   }
 
   // updateLocalUser(name: string, photoUrl: string, email: string, type: string, uid: string) {

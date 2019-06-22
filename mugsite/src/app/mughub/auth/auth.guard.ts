@@ -1,20 +1,26 @@
 import { Injectable } from '@angular/core';
-import { CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanLoad, Route, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate, Router } from '@angular/router';
 import { UserService } from 'src/app/shared/services/user.service';
 
 @Injectable({ providedIn: 'root' })
 
 export class AuthGuard implements CanActivate, CanLoad {
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private router: Router
+  ) { }
 
-  canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> | Promise<boolean> | boolean {
+  canLoad(route: Route): boolean {
+    if (!this.userService.isUserAuthenticated(route.path))
+      this.router.navigate(['mughub/auth/login'])
     return this.userService.isUserAuthenticated(route.path);
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-    return this.userService.isUserAuthenticated(route._urlSegment.segments[1].path);
+    if (!this.userService.isUserAuthenticated(route.parent.routeConfig.path))
+      this.router.navigate(['mughub/auth/login'])
+    return this.userService.isUserAuthenticated(route.parent.routeConfig.path);
   }
 
 }
