@@ -16,9 +16,9 @@ const routes: Routes = [
         { path: 'register', component: RegisterComponent },
         { path: '**', redirectTo: 'login', pathMatch: 'full' }
       ]},
-      //lazy loaded modules
       { path: 'tutor', loadChildren: './tutor-app/tutor-app.module#TutorAppModule', canLoad: [AuthGuard]},
-      { path: 'student', loadChildren: './student-app/student-app.module#StudentAppModule', canLoad: [AuthGuard]}
+      { path: 'student', loadChildren: './student-app/student-app.module#StudentAppModule', canLoad: [AuthGuard]},
+      { path: '**', redirectTo: 'auth', pathMatch: 'full'}
     ]
   }
 ]
