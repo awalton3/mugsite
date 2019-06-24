@@ -4,7 +4,8 @@ export class User {
     public photoUrl: string,
     public email: string,
     public type: string,
-    public uid: string
+    public uid: string,
+    public creationTime: number
   ) { }
 
 }

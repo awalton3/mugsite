@@ -13,6 +13,7 @@
   padding-top: 13px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 200;
+  caret-color: white !important;
 }
 
 .auth-input-field-icon {
@@ -68,4 +69,10 @@
 
 ::ng-deep .mat-focused .mat-form-field-label {
   display: none !important;
+}
+
+/* fix chrome autofill styling */
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #2b5570 inset !important;
+    -webkit-text-fill-color: #eee;
 }

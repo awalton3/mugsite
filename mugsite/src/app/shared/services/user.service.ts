@@ -12,10 +12,28 @@ export class UserService {
   userFbCollectSub: Subscription;
 
   user = new Subject<User>();
+  isAuthenticated = new Subject<boolean>();
 
   constructor(private db: AngularFirestore) { }
 
+  ifTimedOut() {
+    const currTime = new Date().getTime();
+    const currUser = JSON.parse(localStorage.getItem('user'));
+    // if (currUser && (currTime - currUser.creationTime >= 10000)) {
+    //   alert("Your current session has timed out. Rerouting to login page...")
+    //   this.authService.logout();
+    //   this.router.navigate(['mughub/auth/login']);
+    // }
+    this.isAuthenticated.next(currUser && (currTime - currUser.creationTime >= 10000))
+  }
+  //
+  // handleTimedOut() {
+  //   alert("Your current session has timed out. Rerouting to login page...")
+  //   this.router.navigate(['/mughub/auth/login']);
+  // }
+
   isUserAuthenticated(attemptedRoute: string) {
+    console.log("Checking user authentication")
     let user = JSON.parse(localStorage.getItem('user'))
     return (user && (user.type === attemptedRoute))
   }
@@ -39,12 +57,14 @@ export class UserService {
   createLocalUser(uid: string) {
     this.userFbCollectSub = this.getUserFromFbCollect(uid)
       .subscribe(userObj => {
+        let creationTime = new Date().getTime();
         this.currentUser = new User(
           userObj.data().name,
           userObj.data().photoUrl,
           userObj.data().email,
           userObj.data().type,
-          userObj.data().uid)
+          userObj.data().uid,
+          creationTime)
         this.user.next(this.currentUser);
         if (!localStorage.getItem('user'))
           localStorage.setItem('user', JSON.stringify(this.currentUser))
@@ -60,6 +80,7 @@ export class UserService {
       }
     });
   }
+
 
   // updateLocalUser(name: string, photoUrl: string, email: string, type: string, uid: string) {
   //   //parameters are null if they should not be updated

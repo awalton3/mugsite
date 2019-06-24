@@ -10,7 +10,6 @@ export class AuthService {
 
   private tempUser: User;
   tempUserCreated = new Subject<User>();
-  // userTimedOut = new Subject();
 
   constructor(private userService: UserService) { }
 
@@ -22,7 +21,8 @@ export class AuthService {
           photoUrl: null,
           email: userObj.user.email,
           type: formData.type,
-          uid: userObj.user.uid
+          uid: userObj.user.uid,
+          creationTime: null
         };
         this.tempUserCreated.next(this.tempUser);
         this.verifyEmail();
@@ -71,10 +71,8 @@ export class AuthService {
     this.userService.createLocalUser(user.uid);
   }
 
-  // onUserTimedOut() {
-  //   console.log("WORDS")
-  //   this.userTimedOut.next()
-  //   return;
-  // }
-
+  logout() {
+    firebase.auth().signOut();
+    localStorage.clear();
+  }
 }
