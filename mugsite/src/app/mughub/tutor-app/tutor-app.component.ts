@@ -1,33 +1,33 @@
-import { Component, OnInit, OnDestroy, OnChanges } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { UserService } from 'src/app/shared/services/user.service';
+import { Component, OnInit, OnDestroy, ViewChild, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-tutor-app',
   templateUrl: './tutor-app.component.html',
   styleUrls: ['./tutor-app.component.css']
 })
-export class TutorAppComponent implements OnInit, OnDestroy, OnChanges {
+export class TutorAppComponent implements OnInit, OnDestroy {
 
-  authCheckInterval: any;
-  //authSub: Subscription;
-  //isAuth: boolean;
+  @ViewChild('navDrawer', { static: false }) navDrawer: any;
+  openDrawerByDef: boolean;
+  drawerMode: string;
 
-  constructor(private userService: UserService) { }
-
-  ngOnInit() {
-    this.authCheckInterval = setInterval(this.userService.ifTimedOut, 1000)
-    // this.authSub = this.userService.isAuthenticated.subscribe(isUserAuth => {
-    //   this.isAuth = isUserAuth;
-    // })
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    if(window.innerWidth <  960) {
+      this.navDrawer.opened = false;
+      this.navDrawer.mode = 'over';
+    } else {
+      this.navDrawer.opened = true;
+      this.navDrawer.mode = 'side';
+    }
   }
 
-  ngOnChanges(changes) {
-    //console.log(changes.isAuth)
+  constructor() {}
+
+  ngOnInit() {
   }
 
   ngOnDestroy() {
-    clearInterval(this.authCheckInterval);
   }
 
 }
