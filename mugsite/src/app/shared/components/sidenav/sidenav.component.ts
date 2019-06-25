@@ -1,28 +1,21 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
 
 @Component({
-  selector: 'app-sidenav',
+  selector: 'mughub-sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.css']
 })
+
 export class SidenavComponent implements OnInit {
 
-  @ViewChild('navDrawer', { static: false }) navDrawer: any;
-  openDrawerByDef: boolean;
-  drawerMode: string;
-  navDestTitle: string;
-  screenWidth: any; 
+  @Output() navDest = new EventEmitter<string>();
+  @Output() closeNav = new EventEmitter();
+
+  screenWidth: any;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.screenWidth = window.innerWidth;
-    if(window.innerWidth <  960) {
-      this.navDrawer.opened = false;
-      this.navDrawer.mode = 'over';
-    } else {
-      this.navDrawer.opened = true;
-      this.navDrawer.mode = 'side';
-    }
   }
 
   constructor() { }
@@ -31,7 +24,11 @@ export class SidenavComponent implements OnInit {
   }
 
   onNav(destination: string) {
-    this.navDestTitle = destination;
+    this.navDest.emit(destination);
+  }
+
+  onClose() {
+    this.closeNav.emit();
   }
 
 }

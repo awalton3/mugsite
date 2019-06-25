@@ -13,10 +13,11 @@ import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
 import { ManageSiteComponent } from './manage-site/manage-site.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
+import { ManageSiteEditComponent } from './manage-site/manage-site-edit/manage-site-edit.component';
 
 
 @NgModule({
-  declarations: [ManageComponent, ManageSiteComponent, ManageUsersComponent],
+  declarations: [ManageComponent, ManageSiteComponent, ManageUsersComponent, ManageSiteEditComponent],
   imports: [
     CommonModule,
     MaterialComponentsModule,

@@ -1,36 +1,28 @@
-<mat-drawer-container style="height: 100vh">
-  <mat-drawer #navDrawer class="sideDrawer" mode="side" opened="true">
-    <div *ngIf="screenWidth <= 400" fxLayout="row" fxLayoutAlign="space-between center" style="margin: 20px">
-      <span></span>
-      <i class="material-icons sideDrawer-close-btn" (click)="navDrawer.close()" style="cursor: pointer">close</i>
-    </div>
-    <div fxLayout="column" fxLayoutAlign="space-between center" class="sideDrawer-content">
-      <div fxLayout="column" fxLayoutAlign="center center">
-        <div class="profile-image-container"></div>
-        <p class="profile-name">ANA WALTON</p>
-      </div>
-      <mat-nav-list fxLayout="column" style="width: 100%">
-        <a mat-list-item [routerLink]="['manage']" (click)="onNav('INBOX')" class="sideDrawer-links" fxLayoutAlign="center center">
-          <span class="sideDrawer-links-text" fxLayoutAlign="center center">INBOX</span>
-        </a>
-        <a mat-list-item [routerLink]="['manage']" (click)="onNav('UPLOADS')" class="sideDrawer-links" fxLayoutAlign="center center">
-          <span class="sideDrawer-links-text" fxLayoutAlign="center center">UPLOADS</span>
-        </a>
-        <a mat-list-item [routerLink]="['manage']" (click)="onNav('MANAGE')"class="sideDrawer-links" fxLayoutAlign="center center">
-          <span class="sideDrawer-links-text" fxLayoutAlign="center center">MANAGE</span>
-        </a>
-        <a mat-list-item [routerLink]="['manage']" (click)="onNav('HOUR LOG')" class="sideDrawer-links" fxLayoutAlign="center center">
-          <span class="sideDrawer-links-text" fxLayoutAlign="center center">HOUR LOG</span>
-        </a>
-        <a mat-list-item [routerLink]="['manage']" (click)="onNav('SETTINGS')" class="sideDrawer-links" fxLayoutAlign="center center">
-          <span class="sideDrawer-links-text" fxLayoutAlign="center center">SETTINGS</span>
-        </a>
-      </mat-nav-list>
-      <img class="logo" src="https://firebasestorage.googleapis.com/v0/b/mugsite-95f7c.appspot.com/o/mughub_logo_ondark.png?alt=media&token=cc211c92-0870-4618-8f23-fecdc2b46ffc">
-    </div>
-  </mat-drawer>
-  <mat-drawer-content style="padding: 0; background-color: #eee">
-    <app-headnav title="{{ navDestTitle }}" (sidenavToggled)="navDrawer.toggle()"></app-headnav>
-    <router-outlet></router-outlet>
-  </mat-drawer-content>
-</mat-drawer-container>
+<div *ngIf="screenWidth <= 400" fxLayout="row" fxLayoutAlign="space-between center" style="margin: 20px">
+  <span></span>
+  <i class="material-icons sideDrawer-close-btn" (click)="onClose()" style="cursor: pointer">close</i>
+</div>
+<div fxLayout="column" fxLayoutAlign="space-between center" class="sideDrawer-content">
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <div class="profile-image-container"></div>
+    <p class="profile-name">ANA WALTON</p>
+  </div>
+  <mat-nav-list fxLayout="column" style="width: 100%">
+    <a mat-list-item [routerLink]="['manage']" (click)="onNav('INBOX')" class="sideDrawer-links" fxLayoutAlign="center center">
+      <span class="sideDrawer-links-text" fxLayoutAlign="center center">INBOX</span>
+    </a>
+    <a mat-list-item [routerLink]="['manage']" (click)="onNav('UPLOADS')" class="sideDrawer-links" fxLayoutAlign="center center">
+      <span class="sideDrawer-links-text" fxLayoutAlign="center center">UPLOADS</span>
+    </a>
+    <a mat-list-item [routerLink]="['manage']" (click)="onNav('MANAGE')" class="sideDrawer-links" fxLayoutAlign="center center">
+      <span class="sideDrawer-links-text" fxLayoutAlign="center center">MANAGE</span>
+    </a>
+    <a mat-list-item [routerLink]="['manage']" (click)="onNav('HOUR LOG')" class="sideDrawer-links" fxLayoutAlign="center center">
+      <span class="sideDrawer-links-text" fxLayoutAlign="center center">HOUR LOG</span>
+    </a>
+    <a mat-list-item [routerLink]="['manage']" (click)="onNav('SETTINGS')" class="sideDrawer-links" fxLayoutAlign="center center">
+      <span class="sideDrawer-links-text" fxLayoutAlign="center center">SETTINGS</span>
+    </a>
+  </mat-nav-list>
+  <img class="logo" src="https://firebasestorage.googleapis.com/v0/b/mugsite-95f7c.appspot.com/o/mughub_logo_ondark.png?alt=media&token=cc211c92-0870-4618-8f23-fecdc2b46ffc">
+</div>

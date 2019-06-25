@@ -1,1 +1,12 @@
+.sidenav {
+  width: 260px;
+  height: 100vh;
+  background-color: #2b5570;
+  color: #eee;
+}
 
+@media only screen and (max-width: 400px) {
+  .sidenav {
+    width: 100vw;
+  }
+}
