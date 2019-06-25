@@ -11,10 +11,12 @@ import { faUserMd } from '@fortawesome/free-solid-svg-icons';
 import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
+import { ManageSiteComponent } from './manage-site/manage-site.component';
+import { ManageUsersComponent } from './manage-users/manage-users.component';
 
 
 @NgModule({
-  declarations: [ManageComponent],
+  declarations: [ManageComponent, ManageSiteComponent, ManageUsersComponent],
   imports: [
     CommonModule,
     MaterialComponentsModule,
