@@ -4,8 +4,12 @@ import { TutorAppComponent } from './tutor-app.component';
 import { AuthGuard } from '../auth/auth.guard';
 
 const routes: Routes = [
-  //lazy loaded
-  { path: '', component: TutorAppComponent, canActivate: [AuthGuard]}
+  //lazy loaded module
+  {
+    path: '', component: TutorAppComponent, canActivate: [AuthGuard], children: [
+      { path: 'manage', loadChildren: './manage/manage.module#ManageModule' }
+    ]
+  }
 ]
 
 @NgModule({
@@ -13,4 +17,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 
-export class TutorAppRoutingModule {}
+export class TutorAppRoutingModule { }

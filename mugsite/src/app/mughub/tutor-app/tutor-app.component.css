@@ -3,7 +3,7 @@
 }
 
 .sideDrawer {
-  width: 280px;
+  width: 260px;
   height: 100vh;
   background-color: #2b5570;
   color: #eee;
@@ -12,8 +12,12 @@
 .sideDrawer-links {
   color: #eee;
   font-family: 'Montserrat', sans-serif;
-  margin: 8px 0px;
-  font-size: 17px;
+  /* margin: 2px 0px; */
+  font-size: 16px;
+}
+
+.sideDrawer-links-text {
+  width: 100px; 
 }
 
 .link-active {
@@ -46,4 +50,8 @@
   color: #2b5570;
   font-family: 'Montserrat', sans-serif;
   font-size:  18px;
+}
+
+::ng-deep .mat-list-item-content {
+  padding: 0px 80px !important;
 }

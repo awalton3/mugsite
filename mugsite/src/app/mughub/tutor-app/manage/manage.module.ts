@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { MaterialComponentsModule } from 'src/app/shared/angular-material/material-components.module';
 import { ManageRoutingModule } from './manage-routing.module';
 import { ManageComponent } from './manage.component';
+import { MaterialComponentsModule } from 'src/app/shared/angular-material/material-components.module';
 
 @NgModule({
   declarations: [ManageComponent],
@@ -13,5 +12,4 @@ import { ManageComponent } from './manage.component';
     ManageRoutingModule
   ]
 })
-
-export class ManageModule {}
+export class ManageModule { }

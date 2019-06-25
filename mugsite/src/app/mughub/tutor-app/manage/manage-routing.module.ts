@@ -3,7 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { ManageComponent } from './manage.component';
 
 const routes: Routes = [
-  { path: '', component: ManageComponent}
+  //lazy loaded module
+  { path: '', component: ManageComponent }
 ]
 
 @NgModule({
@@ -11,4 +12,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 
-export class ManageRoutingModule {}
+export class ManageRoutingModule { }
