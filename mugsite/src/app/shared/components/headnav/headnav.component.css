@@ -1,0 +1,10 @@
+.headnav {
+  background-color: #eee;
+  color: #2b5570;
+  font-family: 'Montserrat', sans-serif;
+  font-size:  18px;
+}
+
+.sidenav-toggle-btn {
+  cursor: pointer;
+}

@@ -7,6 +7,7 @@ const routes: Routes = [
   //lazy loaded module
   {
     path: '', component: TutorAppComponent, canActivate: [AuthGuard], children: [
+      { path: '', redirectTo: 'manage', pathMatch: 'full'}, 
       { path: 'manage', loadChildren: './manage/manage.module#ManageModule' }
     ]
   }

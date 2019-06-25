@@ -1,0 +1,46 @@
+.sideDrawer {
+  width: 260px;
+  height: 100vh;
+  background-color: #2b5570;
+  color: #eee;
+}
+
+.profile-image-container {
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/mugsite-95f7c.appspot.com/o/headshot.jpeg?alt=media&token=b46f579f-f170-440f-9965-ae2a3e3496a6');
+  background-position: center center;
+  background-size: contain;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  border: 3px solid #eee;
+}
+
+.profile-name {
+  color: #eee;
+  font-size: 15px;
+}
+
+.sideDrawer-links {
+  color: #eee;
+  font-family: 'Montserrat', sans-serif;
+  /* margin: 2px 0px; */
+  font-size: 16px;
+}
+
+.sideDrawer-links-text {
+  width: 100px;
+}
+
+.link-active {
+  /* background-color: #eee;
+  color: #2b5570; */
+  text-decoration: underline;
+}
+
+::ng-deep .mat-list-item-content {
+  padding: 0px 80px !important;
+}
+
+.logo {
+  width: 160px;
+}
