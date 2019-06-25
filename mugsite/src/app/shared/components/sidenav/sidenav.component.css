@@ -5,6 +5,11 @@
   color: #eee;
 }
 
+.sideDrawer-content {
+  height: 100%;
+  padding: 50px 0px
+}
+
 .profile-image-container {
   background-image: url('https://firebasestorage.googleapis.com/v0/b/mugsite-95f7c.appspot.com/o/headshot.jpeg?alt=media&token=b46f579f-f170-440f-9965-ae2a3e3496a6');
   background-position: center center;
@@ -43,4 +48,17 @@
 
 .logo {
   width: 160px;
+}
+
+@media only screen and (max-width: 400px) {
+  .sideDrawer {
+    width: 100vw;
+  }
+  ::ng-deep .mat-list-item-content {
+    padding: 0px 120px !important;
+  }
+  .sideDrawer-content {
+    padding: 30px 0px;
+    margin-top: -50px;
+  }
 }

@@ -1,6 +1,10 @@
 <mat-drawer-container style="height: 100vh">
   <mat-drawer #navDrawer class="sideDrawer" mode="side" opened="true">
-    <div fxLayout="column" fxLayoutAlign="space-between center" style="height: 100%; padding: 50px 0px">
+    <div *ngIf="screenWidth <= 400" fxLayout="row" fxLayoutAlign="space-between center" style="margin: 20px">
+      <span></span>
+      <i class="material-icons sideDrawer-close-btn" (click)="navDrawer.close()" style="cursor: pointer">close</i>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="space-between center" class="sideDrawer-content">
       <div fxLayout="column" fxLayoutAlign="center center">
         <div class="profile-image-container"></div>
         <p class="profile-name">ANA WALTON</p>

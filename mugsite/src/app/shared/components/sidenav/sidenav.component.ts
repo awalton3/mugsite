@@ -11,9 +11,11 @@ export class SidenavComponent implements OnInit {
   openDrawerByDef: boolean;
   drawerMode: string;
   navDestTitle: string;
+  screenWidth: any; 
 
   @HostListener('window:resize', ['$event'])
   onResize() {
+    this.screenWidth = window.innerWidth;
     if(window.innerWidth <  960) {
       this.navDrawer.opened = false;
       this.navDrawer.mode = 'over';
