@@ -8,7 +8,7 @@ import { Component, OnInit, OnDestroy, ViewChild, HostListener } from '@angular/
 
 export class TutorAppComponent implements OnInit, OnDestroy {
 
-  navDest: string = 'MANAGE';
+  navDest: string; 
 
   @ViewChild('navDrawer', { static: false }) navDrawer: any;
 

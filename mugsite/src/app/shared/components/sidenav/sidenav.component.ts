@@ -1,4 +1,5 @@
-import { Component, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, OnInit, Output, HostListener } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'mughub-sidenav',
@@ -8,8 +9,8 @@ import { Component, OnInit, Output, EventEmitter, HostListener } from '@angular/
 
 export class SidenavComponent implements OnInit {
 
-  @Output() navDest = new EventEmitter<string>();
-  @Output() closeNav = new EventEmitter();
+  @Output() navDest = new Subject<string>();
+  @Output() closeNav = new Subject();
 
   screenWidth: any;
 
@@ -24,11 +25,11 @@ export class SidenavComponent implements OnInit {
   }
 
   onNav(destination: string) {
-    this.navDest.emit(destination);
+    this.navDest.next(destination);
   }
 
   onClose() {
-    this.closeNav.emit();
+    this.closeNav.next();
   }
 
 }

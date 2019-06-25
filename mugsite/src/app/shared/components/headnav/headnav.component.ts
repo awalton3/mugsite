@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-headnav',
@@ -8,7 +9,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class HeadnavComponent implements OnInit {
 
   @Input() title: string;
-  @Output() sidenavToggled = new EventEmitter();
+  @Output() sidenavToggled = new Subject();
 
   constructor() { }
 
@@ -17,7 +18,7 @@ export class HeadnavComponent implements OnInit {
   }
 
   onSidenavToggle() {
-    this.sidenavToggled.emit();
+    this.sidenavToggled.next();
   }
 
 }
