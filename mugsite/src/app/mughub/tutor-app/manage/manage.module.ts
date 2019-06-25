@@ -3,13 +3,33 @@ import { CommonModule } from '@angular/common';
 import { ManageRoutingModule } from './manage-routing.module';
 import { ManageComponent } from './manage.component';
 import { MaterialComponentsModule } from 'src/app/shared/angular-material/material-components.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
+import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
+import { faUserMd } from '@fortawesome/free-solid-svg-icons';
+import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
+import { faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
+
 
 @NgModule({
   declarations: [ManageComponent],
   imports: [
     CommonModule,
     MaterialComponentsModule,
-    ManageRoutingModule
+    ManageRoutingModule,
+    FontAwesomeModule
   ]
 })
-export class ManageModule { }
+export class ManageModule {
+  constructor() {
+    //font-awesome icons
+    library.add(faHome)
+    library.add(faLightbulb)
+    library.add(faUserMd)
+    library.add(faBookOpen)
+    library.add(faCalendar)
+    library.add(faBriefcase)
+  }
+}

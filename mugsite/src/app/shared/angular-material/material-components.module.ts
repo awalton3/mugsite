@@ -7,6 +7,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatRippleModule } from '@angular/material/core';
 
 
 
@@ -20,7 +22,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatRadioModule,
     MatSidenavModule,
     MatListModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDividerModule,
+    MatRippleModule
   ],
   exports: [
     FlexLayoutModule,
@@ -30,7 +34,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatRadioModule,
     MatSidenavModule,
     MatListModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDividerModule,
+    MatRippleModule
   ]
 })
 
