@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from './auth/auth.service';
-import { UserService } from '../shared/services/user.service';
 import { Router } from '@angular/router';
+import { UserService } from './auth/user.service';
 
 @Component({
   selector: 'app-mughub',

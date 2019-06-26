@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { MaterialComponentsModule } from 'src/app/shared/angular-material/material-components.module';
 import { TutorAppRoutingModule } from './tutor-app-routing.module';
 import { ManageModule } from './manage/manage.module';
-import { SidenavComponent } from 'src/app/shared/components/sidenav/sidenav.component';
-import { HeadnavComponent } from 'src/app/shared/components/headnav/headnav.component';
+import { SidenavComponent } from '../sidenav/sidenav.component';
+import { HeadnavComponent } from '../headnav/headnav.component';
 
 @NgModule({
   declarations: [TutorAppComponent, SidenavComponent, HeadnavComponent],

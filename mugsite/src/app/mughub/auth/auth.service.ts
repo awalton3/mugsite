@@ -1,8 +1,8 @@
 import * as firebase from 'firebase';
 import { Injectable } from '@angular/core';
-import { UserService } from 'src/app/shared/services/user.service';
-import { User } from 'src/app/shared/models/user.model';
 import { Subject } from 'rxjs';
+import { UserService } from './user.service';
+import { User } from './user.model';
 
 @Injectable({ providedIn: 'root' })
 

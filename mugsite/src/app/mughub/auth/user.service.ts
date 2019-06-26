@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { User } from '../models/user.model';
 import { Subject, Subscription } from 'rxjs';
+import { User } from './user.model';
 
 @Injectable({ providedIn: 'root' })
 
