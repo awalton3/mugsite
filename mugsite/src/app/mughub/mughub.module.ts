@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { MughubComponent } from './mughub.component';
 import { MaterialComponentsModule } from '../shared/angular-material/material-components.module';
@@ -17,7 +17,6 @@ import { RegisterComponent } from './auth/register/register.component';
     MaterialComponentsModule,
     MughubRoutingModule,
     ReactiveFormsModule,
-    FormsModule,
     MaterialComponentsModule,
     TutorAppModule,
     StudentAppModule

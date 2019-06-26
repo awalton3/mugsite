@@ -7,8 +7,13 @@
     <!--side editor-->
     <mat-drawer-container [hasBackdrop]="false" style="height: 100vh;">
 
-      <mat-drawer #editor class="editor" mode="over" position="end" >
-        <mughub-manage-site-edit></mughub-manage-site-edit>
+      <mat-drawer #editor class="editor" mode="over" position="end" opened="false">
+        <manage-site-edit-about *ngIf="pageToManage === 'about'"></manage-site-edit-about>
+        <manage-site-edit-events *ngIf="pageToManage === 'events'"></manage-site-edit-events>
+        <manage-site-edit-home *ngIf="pageToManage === 'home'"></manage-site-edit-home>
+        <manage-site-edit-job *ngIf="pageToManage === 'job'"></manage-site-edit-job>
+        <manage-site-edit-ss *ngIf="pageToManage === 'ss'"></manage-site-edit-ss>
+        <manage-site-edit-tutoring *ngIf="pageToManage === 'tutoring'"></manage-site-edit-tutoring>
       </mat-drawer>
 
       <mat-drawer-content style="padding: 0; background-color: #eee; height: 100vh">

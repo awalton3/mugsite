@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ManageService } from '../manage.service';
 
 @Component({
   selector: 'mughub-manage-site',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageSiteComponent implements OnInit {
 
-  constructor() { }
+  constructor(private manageService: ManageService) { }
 
   ngOnInit() {
+  }
+
+  onManage(pageToEdit) {
+    this.manageService.onManage.next(pageToEdit); 
   }
 
 }

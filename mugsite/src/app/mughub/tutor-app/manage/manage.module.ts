@@ -13,11 +13,26 @@ import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
 import { ManageSiteComponent } from './manage-site/manage-site.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
-import { ManageSiteEditComponent } from './manage-site-edit/manage-site-edit.component';
+import { ManageSiteEditHomeComponent } from './manage-site-edit-home/manage-site-edit-home.component';
+import { ManageSiteEditAboutComponent } from './manage-site-edit-about/manage-site-edit-about.component';
+import { ManageSiteEditSsComponent } from './manage-site-edit-ss/manage-site-edit-ss.component';
+import { ManageSiteEditTutoringComponent } from './manage-site-edit-tutoring/manage-site-edit-tutoring.component';
+import { ManageSiteEditEventsComponent } from './manage-site-edit-events/manage-site-edit-events.component';
+import { ManageSiteEditJobComponent } from './manage-site-edit-job/manage-site-edit-job.component';
 
 
 @NgModule({
-  declarations: [ManageComponent, ManageSiteComponent, ManageUsersComponent, ManageSiteEditComponent],
+  declarations: [
+    ManageComponent,
+    ManageSiteComponent,
+    ManageUsersComponent,
+    ManageSiteEditHomeComponent,
+    ManageSiteEditAboutComponent,
+    ManageSiteEditSsComponent,
+    ManageSiteEditTutoringComponent,
+    ManageSiteEditEventsComponent,
+    ManageSiteEditJobComponent
+  ],
   imports: [
     CommonModule,
     MaterialComponentsModule,
@@ -25,9 +40,12 @@ import { ManageSiteEditComponent } from './manage-site-edit/manage-site-edit.com
     FontAwesomeModule
   ],
   exports: [
-    ManageSiteEditComponent,
-    ManageSiteComponent,
-    ManageUsersComponent
+    ManageSiteEditHomeComponent,
+    ManageSiteEditAboutComponent,
+    ManageSiteEditSsComponent,
+    ManageSiteEditTutoringComponent,
+    ManageSiteEditEventsComponent,
+    ManageSiteEditJobComponent
   ]
 })
 export class ManageModule {
