@@ -2,14 +2,17 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Component({
-  selector: 'app-headnav',
+  selector: 'mughub-headnav',
   templateUrl: './headnav.component.html',
   styleUrls: ['./headnav.component.css']
 })
 export class HeadnavComponent implements OnInit {
 
   @Input() title: string;
-  @Output() sidenavToggled = new Subject();
+  @Input() iconLeft: string;
+  @Input() iconRight: string;
+  @Output() leftIconToggled = new Subject(); 
+  @Output() rightIconToggled = new Subject();
 
   constructor() { }
 
@@ -17,8 +20,8 @@ export class HeadnavComponent implements OnInit {
     this.title = 'MANAGE'; //default
   }
 
-  onSidenavToggle() {
-    this.sidenavToggled.next();
+  onLeftIconToggle() {
+    this.leftIconToggled.next();
   }
 
 }

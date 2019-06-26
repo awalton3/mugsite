@@ -17,7 +17,7 @@
       </mat-drawer>
 
       <mat-drawer-content style="padding: 0; background-color: #eee; height: 100vh">
-        <app-headnav title="{{ navDest }}" (sidenavToggled)="navDrawer.toggle()"></app-headnav>
+        <mughub-headnav title="{{ navDest }}"  iconLeft="menu" iconRight="edit" (leftIconToggled)="navDrawer.toggle()"></mughub-headnav>
         <router-outlet></router-outlet>
       </mat-drawer-content>
 

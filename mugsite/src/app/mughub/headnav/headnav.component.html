@@ -1,5 +1,5 @@
 <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center" class="headnav">
-  <i class="material-icons sidenav-toggle-btn" (click)="onSidenavToggle()">menu</i>
+  <i class="material-icons sidenav-toggle-btn" (click)="onLeftIconToggle()">{{iconLeft}}</i>
   <p>{{ title }}</p>
-  <span></span>
+  <i class="material-icons sidenav-toggle-btn" (click)="onRightIconToggle()">{{iconRight}}</i>
 </mat-toolbar>
