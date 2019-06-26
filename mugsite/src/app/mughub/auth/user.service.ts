@@ -15,8 +15,8 @@ export class UserService {
   constructor(private db: AngularFirestore) {}
 
   isUserAuthenticated(attemptedRoute: string) {
-    console.log("Checking user authentication to access" + attemptedRoute);
-    let user = JSON.parse(localStorage.getItem('user'));
+    console.log("Checking user authentication to access " + attemptedRoute);
+    let user = JSON.parse(sessionStorage.getItem('user'));
     return (user && (user.type === attemptedRoute));
   }
 
@@ -48,8 +48,8 @@ export class UserService {
           userObj.data().uid,
           creationTime)
         this.user.next(this.currentUser);
-        if (!localStorage.getItem('user'))
-          localStorage.setItem('user', JSON.stringify(this.currentUser));
+        if (!sessionStorage.getItem('user'))
+          sessionStorage.setItem('user', JSON.stringify(this.currentUser));
       })
   }
 
@@ -75,7 +75,7 @@ export class UserService {
 
   // checkUserSession() {
   //   const currTime = new Date().getTime();
-  //   const currUser = JSON.parse(localStorage.getItem('user'));
+  //   const currUser = JSON.parse(sessionStorage.getItem('user'));
   //   if (currUser && (currTime - currUser.creationTime >= 10000)) {
   //     alert("Your session has timed out. Rerouting to login page.")
   //     this.router.navigate(['/mughub/auth/login']);

@@ -50,7 +50,7 @@ export class AuthService {
   verifyEmail() {
     firebase.auth().currentUser.sendEmailVerification()
       .then(() => { alert("An email verification has been sent. Please verify your email before logging in.") })
-      .catch(() => { alert("An error occured when sending an email verification to your email. Please try again.") });
+      .catch(() => { alert("An error occured when sending an email verification. Please try again.") });
   }
 
   resetPassword(email: string) {
@@ -66,13 +66,13 @@ export class AuthService {
   }
 
   autoLogin() {
-    let user = JSON.parse(localStorage.getItem('user'));
+    let user = JSON.parse(sessionStorage.getItem('user'));
     if(!user) return;
     this.userService.createLocalUser(user.uid);
   }
 
   logout() {
     firebase.auth().signOut();
-    localStorage.clear();
+    sessionStorage.clear();
   }
 }

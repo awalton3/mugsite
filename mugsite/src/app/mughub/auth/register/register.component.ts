@@ -35,7 +35,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.authService.register(this.registerForm.value);
       this.authService.tempUserCreated.subscribe(user => {
         if (user)
-          this.router.navigate(['/mughub/auth/login'])
+          this.router.navigate(['/mughub/login'])
       })
     }
 
