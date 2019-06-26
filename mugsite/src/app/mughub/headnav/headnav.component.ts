@@ -9,15 +9,15 @@ import { Subject } from 'rxjs';
 export class HeadnavComponent implements OnInit {
 
   @Input() title: string;
-  @Input() iconLeft: string;
-  @Input() iconRight: string;
-  @Output() leftIconToggled = new Subject(); 
+  @Input() iconLeft?: string;
+  @Input() iconRight?: string;
+  @Output() leftIconToggled = new Subject();
   @Output() rightIconToggled = new Subject();
 
   constructor() { }
 
   ngOnInit() {
-    this.title = 'MANAGE'; //default
+    // this.title = 'MANAGE'; //default
   }
 
   onLeftIconToggle() {

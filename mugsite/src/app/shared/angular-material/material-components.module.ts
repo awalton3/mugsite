@@ -9,6 +9,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatRippleModule } from '@angular/material/core';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+
 
 @NgModule({
   imports: [
@@ -21,7 +23,8 @@ import { MatRippleModule } from '@angular/material/core';
     MatListModule,
     MatToolbarModule,
     MatDividerModule,
-    MatRippleModule
+    MatRippleModule,
+    MatBottomSheetModule
   ],
   exports: [
     FlexLayoutModule,
@@ -33,7 +36,8 @@ import { MatRippleModule } from '@angular/material/core';
     MatListModule,
     MatToolbarModule,
     MatDividerModule,
-    MatRippleModule
+    MatRippleModule,
+    MatBottomSheetModule
   ]
 })
 

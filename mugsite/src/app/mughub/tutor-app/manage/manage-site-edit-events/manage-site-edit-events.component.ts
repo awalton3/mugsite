@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatBottomSheet} from '@angular/material/bottom-sheet';
+
+import { ManageService } from '../manage.service';
+import { EditorBottomSheetEventsComponent } from './editor-bottom-sheet-events/editor-bottom-sheet-events.component';
 
 @Component({
   selector: 'manage-site-edit-events',
@@ -7,9 +11,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageSiteEditEventsComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private manageService: ManageService,
+    private bottomSheet: MatBottomSheet
+  ) { }
 
   ngOnInit() {
   }
 
+  onCancel() {
+    this.manageService.onManageCancel.next();
+  }
+
+  onSubmit() {
+    //...
+  }
+
+  onAdd() {
+    this.bottomSheet.open(EditorBottomSheetEventsComponent, {
+      hasBackdrop: false
+    })
+  }
 }

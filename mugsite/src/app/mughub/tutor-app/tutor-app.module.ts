@@ -5,15 +5,16 @@ import { MaterialComponentsModule } from 'src/app/shared/angular-material/materi
 import { TutorAppRoutingModule } from './tutor-app-routing.module';
 import { ManageModule } from './manage/manage.module';
 import { SidenavComponent } from '../sidenav/sidenav.component';
-import { HeadnavComponent } from '../headnav/headnav.component';
+import { HeadnavModule } from '../headnav/headnav.module';
 
 @NgModule({
-  declarations: [TutorAppComponent, SidenavComponent, HeadnavComponent],
+  declarations: [TutorAppComponent, SidenavComponent],
   imports: [
     CommonModule,
     MaterialComponentsModule,
     TutorAppRoutingModule,
-    ManageModule
+    ManageModule,
+    HeadnavModule
   ]
 })
 

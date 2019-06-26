@@ -9,7 +9,7 @@ import { ManageService } from './manage/manage.service';
 
 export class TutorAppComponent implements OnInit, OnDestroy {
 
-  navDest: string;
+  navDest: string = "MANAGE"
   pageToManage: string;
 
   @ViewChild('navDrawer', { static: false }) navDrawer: any;
@@ -32,6 +32,9 @@ export class TutorAppComponent implements OnInit, OnDestroy {
     this.manageService.onManage.subscribe(pageToManage => {
       this.pageToManage = pageToManage;
       this.editor.toggle();
+    })
+    this.manageService.onManageCancel.subscribe(() => {
+      this.editor.close();
     })
   }
 
