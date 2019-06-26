@@ -29,7 +29,19 @@ export class ManageSiteEditEventsComponent implements OnInit {
 
   onAdd() {
     this.bottomSheet.open(EditorBottomSheetEventsComponent, {
-      hasBackdrop: false
+      hasBackdrop: false,
+      data: {
+        isEditMode: false
+      }
+    })
+  }
+
+  onEdit() {
+    this.bottomSheet.open(EditorBottomSheetEventsComponent, {
+      hasBackdrop: false,
+      data: {
+        isEditMode: true
+      }
     })
   }
 }

@@ -1,6 +1,6 @@
 <mughub-headnav title="EVENTS" iconLeft="close" iconRight="done" (leftIconToggled)="onCancel()" (rightIconToggled)="onSubmit()"></mughub-headnav>
 
-<app-event-list-item></app-event-list-item>
+<app-event-list-item (click)="onEdit()"></app-event-list-item>
 
 <div (click)="onAdd()" class="action-btn" fxLayoutAlign="center center" mat-ripple>
   ADD
