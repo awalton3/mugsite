@@ -1,22 +1,31 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutAlign="center center" autocomplete="off" class="fade-in">
-  <mat-form-field floatLabel="never" class="auth-input" fxLayoutAlign="start center">
-    <input matInput formControlName="name" type="text" placeholder="Name" class="auth-input-field" fxLayoutAlign="center center">
-    <span matPrefix><i class="material-icons auth-input-field-icon" fxLayoutAlign="center center">person</i></span>
-  </mat-form-field>
-  <mat-form-field floatLabel="never" class="auth-input" fxLayoutAlign="start center">
-    <input matInput formControlName="email" type="email" placeholder="Email" class="auth-input-field" fxLayoutAlign="center center">
-    <span matPrefix><i class="material-icons auth-input-field-icon" fxLayoutAlign="center center">email</i></span>
-  </mat-form-field>
-  <mat-form-field floatLabel="never" class="auth-input" fxLayoutAlign="start center">
-    <mat-hint align="start" class="auth-input-password-hint">*Must be a min of 6 characters</mat-hint>
-    <input matInput formControlName="password" type="password" placeholder="Password" class="auth-input-field" fxLayoutAlign="center center" #input>
-    <span matPrefix><i class="material-icons auth-input-field-icon" fxLayoutAlign="center center">lock</i></span>
-  </mat-form-field>
-  <mat-radio-group formControlName="type" aria-label="Select an option" fxLayout="row" fxLayoutAlign="space-around center" class="auth-radio-group">
-    <label class="auth-radio-label">REGISTER AS A:</label>
-    <mat-radio-button value="student" class="auth-radio-buttons">Student</mat-radio-button>
-    <mat-radio-button value="tutor" class="auth-radio-buttons">Tutor</mat-radio-button>
-  </mat-radio-group>
-  <button mat-raised-button color="accent" type="submit" class="auth-btn" [disabled]="registerForm.invalid">REGISTER AS A {{ registerForm.value.type | uppercase }}</button>
-  <p class="auth-switch-prompt" routerLink="/mughub/auth/login">Already have an account, login here.</p>
-</form>
+<div fxLayout="column" fxLayoutAlign="center center" style="height: 100vh" class="fade-in">
+  <img class="logo--width" src="https://firebasestorage.googleapis.com/v0/b/mugsite-95f7c.appspot.com/o/mughub_logo_onlight.png?alt=media&token=7862ca74-e8e9-41c5-a95b-b9cfd7f4bae6">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutAlign="center center" autocomplete="off" class="fade-in">
+
+    <mat-form-field floatLabel="never" class="auth-input" fxLayoutAlign="start start">
+      <input matInput formControlName="name" type="text" placeholder="Name" class="auth-input-field" fxLayoutAlign="center center">
+      <span matPrefix><i class="material-icons auth-input-field-icon" fxLayoutAlign="center center">person</i></span>
+    </mat-form-field>
+
+    <mat-form-field floatLabel="never" class="auth-input" fxLayoutAlign="start start">
+      <input matInput formControlName="email" type="email" placeholder="Email" class="auth-input-field" fxLayoutAlign="center center">
+      <span matPrefix><i class="material-icons auth-input-field-icon" fxLayoutAlign="center center">email</i></span>
+    </mat-form-field>
+
+    <mat-form-field floatLabel="never" class="auth-input" fxLayoutAlign="start start">
+      <mat-hint align="start" class="auth-input-password-hint">*Must be a min of 6 characters</mat-hint>
+      <input matInput formControlName="password" type="password" placeholder="Password" class="auth-input-field" fxLayoutAlign="center center" #input>
+      <span matPrefix><i class="material-icons auth-input-field-icon" fxLayoutAlign="center center">lock</i></span>
+    </mat-form-field>
+
+    <mat-radio-group formControlName="type" aria-label="Select an option" fxLayout="row" fxLayoutAlign="space-around center" class="auth-radio-group">
+      <label class="auth-radio-label">REGISTER AS A:</label>
+      <mat-radio-button value="student" class="auth-radio-buttons">Student</mat-radio-button>
+      <mat-radio-button value="tutor" class="auth-radio-buttons">Tutor</mat-radio-button>
+    </mat-radio-group>
+
+    <button mat-raised-button color="accent" type="submit" class="auth-btn" [disabled]="registerForm.invalid">REGISTER AS A {{ registerForm.value.type | uppercase }}</button>
+    <p class="auth-switch-prompt" routerLink="/mughub/login">Already have an account, login here.</p>
+    
+  </form>
+</div>

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 //Firebase
 import { AngularFireModule } from '@angular/fire';
@@ -11,10 +12,11 @@ import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
+//custom modules
 import { HomeModule } from './home/home.module';
 import { AboutModule } from './about/about.module';
 import { MughubModule } from './mughub/mughub.module';
-import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [

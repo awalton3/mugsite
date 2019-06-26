@@ -1,3 +1,7 @@
+.logo--width {
+  width: 180px;
+}
+
 .auth-input{
   background-color: #2b5570;
   border-radius: 33.5px;
@@ -5,26 +9,15 @@
   width: 320px;
   height: 38px;
   margin-bottom: 13px;
-  padding-left: 25px;
+  padding: 0px 25px;
 }
-
-/* .auth-input-firstname {
-  width: 147px;
-  border-radius: 33.5px 0px 0px 33.5px;
-  margin-right: 3px;
-}
-
-.auth-input-lastname {
-  width: 147px;
-  border-radius: 0px 33.5px 33.5px 0px;
-  margin-left: 3px;
-} */
 
 .auth-input-field {
   color: #eee;
-  padding-top: 13px;
+  margin-top: -4px;
   font-family: 'Montserrat', sans-serif;
-  font-weight: 200;
+  font-weight: 400;
+  caret-color: white !important;
 }
 
 .auth-input-field-icon {
@@ -70,14 +63,6 @@
   font-size: 16px;
 }
 
-/* .auth-bth-disabled {
-  border-radius: 33.5px;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  width: 300px;
-  font-size: 16px;
-} */
-
 .auth-switch-prompt {
   color: grey;
   font-size: 13px;
@@ -103,11 +88,17 @@
 
 ::ng-deep .mat-form-field-label{
   font-family: 'Montserrat', sans-serif !important;
-  font-weight: 200 !important;
-  color: #eee !important;
-  top: 27px !important;
+  font-weight: 400 !important;
+  color: white !important;
+  top: 12px !important;
 }
 
 ::ng-deep .mat-focused .mat-form-field-label {
   display: none !important;
+}
+
+/* fix chrome autofill styling */
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #2b5570 inset !important;
+    -webkit-text-fill-color: #eee;
 }

@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    console.log("login component was launched")
     this.initForm();
   }
 

@@ -5,6 +5,13 @@
   color: #eee;
 }
 
+.editor {
+  width: 550px;
+  height: 100vh;
+  background-color: #eee;
+  color: grey;
+}
+
 @media only screen and (max-width: 400px) {
   .sidenav {
     width: 100vw;
