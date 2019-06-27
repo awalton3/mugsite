@@ -54,3 +54,25 @@
   font-size: 13px;
   margin: 0;
 }
+
+.empty-state {
+  height: 85vh;
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/mugsite-95f7c.appspot.com/o/umbrella-waiting.jpg?alt=media&token=73683943-b34c-42da-a164-d7ad42429c3e');
+  background-position: center;
+  background-size: cover;
+  color: white;
+}
+
+.empty-state-title {
+  font-weight: 600;
+  font-size: 20px;
+  margin: 10px;
+}
+
+.empty-state-text {
+  font-weight: 400;
+  margin: 10px;
+  padding: 0 60px;
+  text-align: center;
+  line-height: 30px;
+}

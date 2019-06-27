@@ -1,4 +1,4 @@
-<mughub-headnav title="{{ data.isEditMode ? 'EDIT' : 'ADD' }}" iconLeft="close" iconRight="done" (leftIconToggled)="onCancel()" (rightIconToggled)="onSubmit()"></mughub-headnav>
+<mughub-headnav title="{{ data.isEditMode ? 'EDIT' : 'ADD' }}" iconLeft="arrow_back" iconRight="done" (leftIconToggled)="onCancel()" (rightIconToggled)="onSubmit()"></mughub-headnav>
 
 <div *ngIf="data.isEditMode" (click)="onAdd()" class="action-btn" fxLayoutAlign="center center" mat-ripple>
   DELETE

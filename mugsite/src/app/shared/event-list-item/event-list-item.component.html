@@ -1,11 +1,18 @@
 <div fxLayout="row" fxLayoutAlign="center center" class="event" mat-ripple>
-  <div class="date" fxLayout="column" fxLayoutAlign="center center">
-    <p class="day">23</p>
-    <p class="month">MAR</p>
+  <div fxLayout="column" fxLayoutAlign="center center" class="date-container">
+    <div class="date" fxLayout="column" fxLayoutAlign="center center">
+      <p class="day">{{ event.dateFrom.day }}</p>
+      <p class="month">{{ event.dateFrom.month | uppercase }}</p>
+    </div>
+    <div *ngIf="event.dateTo" style="margin: 10px 0px 10px 10px">|</div>
+    <div *ngIf="event.dateTo" class="date" fxLayout="column" fxLayoutAlign="center center">
+      <p class="day">{{ event.dateTo.day }}</p>
+      <p class="month">{{ event.dateTo.month | uppercase }}</p>
+    </div>
   </div>
   <mat-divider vertical="true" class="divider"></mat-divider>
   <div class="text">
-    <p class="title">Ana’s Birthday Celebration</p>
-    <p class="desc">Join us for great conversation, food, and games</p>
+    <p class="title">{{ event.title }}</p>
+    <p class="desc">{{ event.description }}</p>
   </div>
 </div>
