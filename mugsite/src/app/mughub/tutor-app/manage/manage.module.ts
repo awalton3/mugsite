@@ -24,6 +24,8 @@ import { ManageSiteEditJobComponent } from './manage-site-edit-job/manage-site-e
 import { HeadnavModule } from '../../headnav/headnav.module';
 import { EventListItemModule } from 'src/app/shared/event-list-item/event-list-item.module';
 import { EditorBottomSheetEventsComponent } from './manage-site-edit-events/editor-bottom-sheet-events/editor-bottom-sheet-events.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { StickyBitsDirective } from 'src/app/shared/stickybits/stickybits.directive';
 
 
 @NgModule({
@@ -38,6 +40,7 @@ import { EditorBottomSheetEventsComponent } from './manage-site-edit-events/edit
     ManageSiteEditEventsComponent,
     ManageSiteEditJobComponent,
     EditorBottomSheetEventsComponent,
+    StickyBitsDirective
   ],
   entryComponents: [EditorBottomSheetEventsComponent],
   imports: [
@@ -46,7 +49,8 @@ import { EditorBottomSheetEventsComponent } from './manage-site-edit-events/edit
     ManageRoutingModule,
     FontAwesomeModule,
     HeadnavModule,
-    EventListItemModule
+    EventListItemModule,
+    ReactiveFormsModule,
   ],
   exports: [
     ManageSiteEditHomeComponent,

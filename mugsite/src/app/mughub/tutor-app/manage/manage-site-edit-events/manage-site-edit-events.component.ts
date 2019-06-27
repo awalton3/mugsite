@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatBottomSheet} from '@angular/material/bottom-sheet';
+import { QueryDocumentSnapshot, DocumentData } from '@angular/fire/firestore';
 
 import { ManageService } from '../manage.service';
 import { EditorBottomSheetEventsComponent } from './editor-bottom-sheet-events/editor-bottom-sheet-events.component';
-import { QueryDocumentSnapshot, DocumentData } from '@angular/fire/firestore';
 
 @Component({
   selector: 'manage-site-edit-events',
@@ -42,11 +42,12 @@ export class ManageSiteEditEventsComponent implements OnInit {
     })
   }
 
-  onEdit() {
+  onEdit(eventToEdit: QueryDocumentSnapshot<DocumentData>) {
     this.bottomSheet.open(EditorBottomSheetEventsComponent, {
       hasBackdrop: false,
       data: {
-        isEditMode: true
+        isEditMode: true,
+        eventToEdit: eventToEdit
       }
     })
   }

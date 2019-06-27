@@ -1,5 +1,50 @@
 <mughub-headnav title="{{ data.isEditMode ? 'EDIT' : 'ADD' }}" iconLeft="arrow_back" iconRight="done" (leftIconToggled)="onCancel()" (rightIconToggled)="onSubmit()"></mughub-headnav>
 
-<div *ngIf="data.isEditMode" (click)="onAdd()" class="action-btn" fxLayoutAlign="center center" mat-ripple>
+<form [formGroup]="editForm" fxLayout="column" class="editForm">
+  <p class="editForm-label">TITLE</p>
+  <mat-form-field>
+    <input matInput formControlName="title" type="text" class="editForm-input">
+  </mat-form-field>
+  <p class="editForm-label">DESCRIPTION</p>
+  <mat-form-field>
+    <textarea matInput formControlName="description" type="text" rows="6" class="editForm-input">
+      </textarea>
+  </mat-form-field>
+  <p class="editForm-label" style="margin-bottom: 20px;">DATE</p>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-form-field class="editForm-input-date">
+      <input matInput formControlName="dateFrom" [matDatepicker]="dpFrom" placeholder="FROM: " class="editForm-input">
+      <mat-datepicker-toggle matSuffix [for]="dpFrom"></mat-datepicker-toggle>
+      <mat-datepicker #dpFrom></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="editForm-input-date">
+      <input matInput formControlName="dateTo" [matDatepicker]="dpTo" placeholder="TO: " class="editForm-input">
+      <mat-datepicker-toggle matSuffix [for]="dpTo"></mat-datepicker-toggle>
+      <mat-datepicker #dpTo></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <p class="editForm-label">LOCATION</p>
+  <mat-form-field>
+    <input matInput formControlName="location" type="text" class="editForm-input">
+  </mat-form-field>
+  <p class="editForm-label">TIME</p>
+  <mat-form-field>
+    <textarea matInput formControlName="time" type="text" class="editForm-input" rows="3"></textarea>
+  </mat-form-field>
+  <p class="editForm-label">POINT OF CONTACT</p>
+  <mat-form-field>
+    <input matInput formControlName="contact" type="text" class="editForm-input">
+  </mat-form-field>
+  <p class="editForm-label">SPECIAL INSTRUCTIONS</p>
+  <mat-form-field>
+    <input matInput formControlName="instructions" type="text" class="editForm-input">
+  </mat-form-field>
+  <p class="editForm-label">ATTACHMENTS</p>
+  <!-- <mat-form-field *ngFor="let attachment of data.eventToEdit.attachments">
+    <input matInput type="text" class="editForm-input">
+  </mat-form-field> -->
+</form>
+
+<div appStickyBits *ngIf="data.isEditMode" (click)="onAdd()" class="action-btn" fxLayoutAlign="center center" mat-ripple>
   DELETE
 </div>

@@ -1,10 +1,10 @@
 <mughub-headnav title="EVENTS" iconLeft="close" iconRight="done" (leftIconToggled)="onCancel()" (rightIconToggled)="onSubmit()"></mughub-headnav>
 
-<div *ngIf="!events">
-  <app-event-list-item *ngFor="let event of events" (click)="onEdit()" [event]="event.data()"></app-event-list-item>
+<div *ngIf="events">
+  <app-event-list-item *ngFor="let event of events" (click)="onEdit(event.data())" [event]="event.data()"></app-event-list-item>
 </div>
 
-<div *ngIf="events" fxLayout="column" fxLayoutAlign="center center" class="empty-state">
+<div *ngIf="!events" fxLayout="column" fxLayoutAlign="center center" class="empty-state">
   <p class="empty-state-title">SPREAD THE WORD</p>
   <p class="empty-state-text">Start by clicking the add button below to create an event.</p>
 </div>

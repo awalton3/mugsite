@@ -8,8 +8,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatRippleModule } from '@angular/material/core';
+import { MatRippleModule, MatNativeDateModule } from '@angular/material/core';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 @NgModule({
@@ -24,7 +25,12 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
     MatToolbarModule,
     MatDividerModule,
     MatRippleModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+  ],
+  providers: [
+    MatDatepickerModule
   ],
   exports: [
     FlexLayoutModule,
@@ -37,7 +43,9 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
     MatToolbarModule,
     MatDividerModule,
     MatRippleModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 

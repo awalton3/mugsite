@@ -18,6 +18,31 @@
   }
 }
 
+.editForm {
+  margin: 20px 40px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.editForm-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: grey;
+  margin: 5px 0 0 0;
+}
+
+.editForm-input {
+  font-family: 'Montserrat', sans-serif;
+  color: grey;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 20px;
+}
+
+.editForm-input-date {
+  width: 45%;
+}
+
 .action-btn {
   font-family: 'Montserrat', sans-serif;
   font-size: 17px;
