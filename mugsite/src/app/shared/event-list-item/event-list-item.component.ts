@@ -9,11 +9,13 @@ import { EventItem } from './EventItem.model';
 export class EventListItemComponent implements OnInit {
 
   @Input() event?: EventItem;
+  formattedDateFrom: { day: string, month: string};
+  formattedDateTo: { day: string, month: string};
 
   defaultEvent: EventItem = {
     title: 'Camp Funtastic 2019',
     description: '$200 per child, Ages 9 - 14. Math intensives and fitness, writing and comic book design, environmetal science, overnight stay at Camp Round Meadow in Thurmont, MD, dinner included!.',
-    dateFrom: {day: '09', month: 'JUL'},
+    dateFrom: { day: '09', month: 'JUL' },
     dateTo: { day: '08', month: 'AUG' },
     location: '408 Addison Rd S, Capitol Heights, MD 20743',
     time: 'Tuesdays, Wednesdays, Thursdays, 4 - 7:30 pm',
@@ -26,9 +28,27 @@ export class EventListItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.event);
-    if (!this.event)
+    if (this.event) {
+      this.formattedDateFrom = this.formatDate(this.event.dateFrom);
+      this.formattedDateTo = this.formatDate(this.event.dateTo);
+    }
+    else
       this.event = this.defaultEvent;
+  }
+
+  formatDate(date: { day: string, month: string}) {
+
+    if (!date)
+      return;
+
+    let months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
+    let month = months[+date.month - 1];
+    let day = null;
+    if (JSON.stringify(date.day).length === 1)
+      day = '0' + JSON.stringify(date.day)
+
+    return { day: day, month: month}
+
   }
 
 }

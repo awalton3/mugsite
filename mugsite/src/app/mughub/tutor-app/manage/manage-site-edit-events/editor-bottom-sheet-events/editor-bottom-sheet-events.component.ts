@@ -18,7 +18,7 @@ export class EditorBottomSheetEventsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.data);
+    console.log(this.data.eventToEdit);
     this.initForm();
   }
 
