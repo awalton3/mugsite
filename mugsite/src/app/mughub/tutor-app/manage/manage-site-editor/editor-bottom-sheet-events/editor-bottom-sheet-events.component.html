@@ -1,47 +1,55 @@
 <mughub-headnav title="{{ data.isEditMode ? 'EDIT' : 'ADD' }}" iconLeft="arrow_back" iconRight="done" (leftIconToggled)="onCancel()" (rightIconToggled)="onSubmit()"></mughub-headnav>
 
-<form *ngIf=data.isEditMode [formGroup]="editForm" fxLayout="column" class="editForm">
+<form [formGroup]="editForm" fxLayout="column" class="editForm">
+
   <p class="editForm-label">TITLE</p>
-  <mat-form-field>
-    <input matInput formControlName="title" type="text" class="editForm-input">
+  <mat-form-field floatLabel="never">
+    <input matInput formControlName="title" type="text" class="editForm-input" placeholder="{{ placeholder.title }}">
   </mat-form-field>
+
   <p class="editForm-label">DESCRIPTION</p>
-  <mat-form-field>
-    <textarea matInput formControlName="description" type="text" rows="6" class="editForm-input">
+  <mat-form-field floatLabel="never">
+    <textarea matInput formControlName="description" type="text" rows="6" class="editForm-input" placeholder="{{ placeholder.description }}">
       </textarea>
   </mat-form-field>
+
   <p class="editForm-label" style="margin-bottom: 20px;">DATE</p>
   <div fxLayout="row" fxLayoutAlign="space-between center">
-    <mat-form-field class="editForm-input-date">
-      <input matInput formControlName="dateFrom" [matDatepicker]="dpFrom" placeholder="FROM: " class="editForm-input">
+    <mat-form-field floatLabel="never" class="editForm-input-date">
+      <input (click)="dpFrom.open()" matInput formControlName="dateFrom" [matDatepicker]="dpFrom" [min]="minDateFrom" placeholder="FROM: " class="editForm-input">
       <mat-datepicker-toggle matSuffix [for]="dpFrom"></mat-datepicker-toggle>
-      <mat-datepicker #dpFrom></mat-datepicker>
+      <mat-datepicker #dpFrom [color]="'accent'"></mat-datepicker>
     </mat-form-field>
-    <mat-form-field class="editForm-input-date">
-      <input matInput formControlName="dateTo" [matDatepicker]="dpTo" placeholder="TO: " class="editForm-input">
+    <mat-form-field floatLabel="never" class="editForm-input-date">
+      <input (click)="dpFrom.open()" matInput formControlName="dateTo" [matDatepicker]="dpTo" [min]="minDateTo" placeholder="TO: " class="editForm-input">
       <mat-datepicker-toggle matSuffix [for]="dpTo"></mat-datepicker-toggle>
       <mat-datepicker #dpTo></mat-datepicker>
     </mat-form-field>
   </div>
+
   <p class="editForm-label">LOCATION</p>
-  <mat-form-field>
-    <input matInput formControlName="location" type="text" class="editForm-input">
+  <mat-form-field floatLabel="never">
+    <input matInput formControlName="location" type="text" class="editForm-input" placeholder="{{ placeholder.location }}">
   </mat-form-field>
+
   <p class="editForm-label">TIME</p>
-  <mat-form-field>
-    <textarea matInput formControlName="time" type="text" class="editForm-input" rows="3"></textarea>
+  <mat-form-field floatLabel="never">
+    <input matInput formControlName="time" type="text" class="editForm-input" rows="3" placeholder="{{ placeholder.time }}">
   </mat-form-field>
+
   <p class="editForm-label">POINT OF CONTACT</p>
-  <mat-form-field>
-    <input matInput formControlName="contact" type="text" class="editForm-input">
+  <mat-form-field floatLabel="never">
+    <input matInput formControlName="contact" type="text" class="editForm-input" placeholder="{{ placeholder.contact }}">
   </mat-form-field>
+
   <p class="editForm-label">SPECIAL INSTRUCTIONS</p>
-  <mat-form-field>
-    <input matInput formControlName="instructions" type="text" class="editForm-input">
+  <mat-form-field floatLabel="never">
+    <input matInput formControlName="instructions" type="text" class="editForm-input" placeholder="{{ placeholder.instructions }}">
   </mat-form-field>
+
   <p class="editForm-label">ATTACHMENTS</p>
 </form>
 
-<div appStickyBits *ngIf="data.isEditMode" (click)="onAdd()" class="action-btn" fxLayoutAlign="center center" mat-ripple>
+<div appStickyBits *ngIf="data.isEditMode" (click)="onDelete()" class="action-btn" fxLayoutAlign="center center" mat-ripple>
   DELETE
 </div>

@@ -11,6 +11,18 @@ import { FormGroup, FormControl } from '@angular/forms';
 export class EditorBottomSheetEventsComponent implements OnInit {
 
   editForm: FormGroup;
+  placeholder = {
+    title: 'Ex. Camp Funtastic 2019',
+    description: 'Ex. $200 per child, Ages 9 - 14. Math intensives and fitness, writing and comic book design, environmetal science...',
+    dateFrom: '07/09/2019',
+    dateTo: '08/09/2019',
+    location: 'Ex. 408 Addison Rd S, Capitol Heights, MD 20743',
+    time: 'Ex.  4 - 7:30 pm Tuesdays, Wednesdays, Thursdays',
+    contact: 'Ex. Call 301-***-**** / visit m-u-g.org.',
+    instructions: 'Ex. Please fill out both forms below.'
+  }
+  minDateFrom = new Date();
+  minDateTo = new Date();
 
   constructor(
     private bottomSheetRef: MatBottomSheetRef<EditorBottomSheetEventsComponent>,
@@ -18,10 +30,11 @@ export class EditorBottomSheetEventsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.data.dataToEdit)
+    if (this.data.isEditMode)
       this.initFormWithValues();
-    else
+    else {
       this.initForm();
+    }
   }
 
   private initForm() {
@@ -55,11 +68,16 @@ export class EditorBottomSheetEventsComponent implements OnInit {
   }
 
   onCancel() {
-    this.bottomSheetRef.dismiss();
+    if (confirm("Performing this action will lose all changes that have been made. Are you sure, you want to cancel?"))
+      this.bottomSheetRef.dismiss();
   }
 
   onSubmit() {
     //...
+  }
+
+  onDelete() {
+
   }
 
 }

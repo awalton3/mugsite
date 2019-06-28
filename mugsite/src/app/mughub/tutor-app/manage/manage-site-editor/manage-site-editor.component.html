@@ -1,6 +1,7 @@
 <div style="height: 100vh">
   <mughub-headnav title="{{ pageToManage | uppercase }}" iconLeft="close" iconRight="done" (leftIconToggled)="onCancel()" (rightIconToggled)="onSubmit()"></mughub-headnav>
 
+    <!--events--->
     <div *ngIf="pageToManage === 'events' && data" style="height: 80vh;">
       <app-event-list-item *ngFor="let event of data" (click)="onEdit(event.data())" [event]="event.data()"></app-event-list-item>
     </div>

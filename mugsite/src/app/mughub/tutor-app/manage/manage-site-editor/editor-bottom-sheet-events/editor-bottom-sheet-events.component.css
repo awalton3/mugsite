@@ -55,3 +55,13 @@
   cursor: pointer;
   font-weight: 600;
 }
+
+::ng-deep .mat-form-field-label{
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 200 !important;
+  color: grey !important;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+  display: none !important;
+}
