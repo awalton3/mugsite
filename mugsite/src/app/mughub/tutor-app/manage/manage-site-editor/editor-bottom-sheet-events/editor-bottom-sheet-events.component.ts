@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MatSelectionList } from '@angular/material/list';
+import { ManageService } from '../../manage.service';
 
 @Component({
   selector: 'editor-bottom-sheet-events',
@@ -30,7 +31,8 @@ export class EditorBottomSheetEventsComponent implements OnInit {
 
   constructor(
     private bottomSheetRef: MatBottomSheetRef<EditorBottomSheetEventsComponent>,
-    @Inject(MAT_BOTTOM_SHEET_DATA) public data: any
+    @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
+    private manageService: ManageService
   ) { }
 
   ngOnInit() {
@@ -77,7 +79,7 @@ export class EditorBottomSheetEventsComponent implements OnInit {
   }
 
   onSubmit() {
-    //...
+    this.manageService.addNewEvent(this.editForm.value);
   }
 
   onDelete() {
@@ -91,7 +93,7 @@ export class EditorBottomSheetEventsComponent implements OnInit {
 
   onDeleteAttachment() {
     this.attachmentsList.selectedOptions.selected.map((attachment, index) => {
-      this.attachments.splice(attachment.value - index, 1)
+      this.attachments.splice(attachment.value - index, 1); 
     })
   }
 

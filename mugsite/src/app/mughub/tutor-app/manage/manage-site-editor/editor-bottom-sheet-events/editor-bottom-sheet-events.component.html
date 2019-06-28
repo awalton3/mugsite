@@ -21,7 +21,7 @@
       <mat-datepicker #dpFrom [color]="'accent'"></mat-datepicker>
     </mat-form-field>
     <mat-form-field floatLabel="never" class="editForm-input-date">
-      <input (click)="dpFrom.open()" matInput formControlName="dateTo" [matDatepicker]="dpTo" [min]="minDateTo" placeholder="TO: " class="editForm-input">
+      <input (click)="dpTo.open()" matInput formControlName="dateTo" [matDatepicker]="dpTo" [min]="minDateTo" placeholder="TO: " class="editForm-input">
       <mat-datepicker-toggle matSuffix [for]="dpTo"></mat-datepicker-toggle>
       <mat-datepicker #dpTo></mat-datepicker>
     </mat-form-field>

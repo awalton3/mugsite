@@ -24,4 +24,8 @@ export class HeadnavComponent implements OnInit {
     this.leftIconToggled.next();
   }
 
+  onRightIconToggle() {
+    this.rightIconToggled.next();
+  }
+
 }
