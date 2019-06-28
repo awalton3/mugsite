@@ -10,7 +10,7 @@
   <p class="editForm-label">DESCRIPTION</p>
   <mat-form-field floatLabel="never">
     <textarea matInput formControlName="description" type="text" rows="6" class="editForm-input" placeholder="{{ placeholder.description }}">
-      </textarea>
+        </textarea>
   </mat-form-field>
 
   <p class="editForm-label" style="margin-bottom: 20px;">DATE</p>
@@ -47,7 +47,28 @@
     <input matInput formControlName="instructions" type="text" class="editForm-input" placeholder="{{ placeholder.instructions }}">
   </mat-form-field>
 
-  <p class="editForm-label">ATTACHMENTS</p>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <p class="editForm-label">ATTACHMENTS</p>
+    <input (change)="onFileSubmit($event)" type="file" id="file" class="editForm-input" class="fileUploader">
+    <label for="file"><i class="material-icons add-attachment-btn" mat-ripple>add_circle</i></label>
+  </div>
+  <div *ngIf="attachments.length !== 0" >
+    <mat-selection-list class="attachment-list" #attachmentsList>
+      <mat-list-option id="option" *ngFor="let attachment of attachments; let i = index" value="{{ i }}" class="attachment-list-item">
+        {{ attachment.name }}
+      </mat-list-option>
+    </mat-selection-list>
+    <br>
+    <div *ngIf="attachmentsList.selectedOptions.selected.length !== 0" fxLayout="row" fxLayoutAlign="space-between center">
+      <span></span>
+      <button (click)="onDeleteAttachment()" mat-button class="delete-active">DELETE</button>
+    </div>
+  </div>
+  <div *ngIf="attachments.length === 0">
+    <p class="add-attachment-prompt">To add an attachment, click the button above. </p>
+  </div>
+
+
 </form>
 
 <div appStickyBits *ngIf="data.isEditMode" (click)="onDelete()" class="action-btn" fxLayoutAlign="center center" mat-ripple>

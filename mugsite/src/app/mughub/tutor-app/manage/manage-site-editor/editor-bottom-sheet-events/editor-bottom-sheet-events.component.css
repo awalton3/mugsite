@@ -56,6 +56,54 @@
   font-weight: 600;
 }
 
+.fileUploader {
+  width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.add-attachment-btn {
+  color: #2b5570;
+  cursor: pointer;
+  font-size: 24px;
+  padding: 3px 10px;
+  vertical-align: middle;
+}
+
+.add-attachment-prompt {
+  color: grey;
+  font-size: 12px;
+  margin: 0; 
+}
+
+.attachment-list {
+  font-family: 'Montserrat', sans-serif;
+  color: grey;
+  font-size: 14px;
+}
+
+.attachment-list-item {
+  font-family: 'Montserrat', sans-serif;
+  color: grey;
+  font-size: 13px;
+  height: 30px;
+}
+
+.delete-disabled {
+  color: grey;
+}
+
+.delete-active {
+  color: #de0005;
+}
+
+::ng-deep .mat-list-item-content {
+  padding: 18px !important;
+}
+
 ::ng-deep .mat-form-field-label{
   font-family: 'Montserrat', sans-serif !important;
   font-weight: 200 !important;

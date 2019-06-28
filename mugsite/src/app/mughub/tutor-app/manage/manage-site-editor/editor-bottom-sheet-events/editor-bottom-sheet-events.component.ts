@@ -1,6 +1,7 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { FormGroup, FormControl } from '@angular/forms';
+import { MatSelectionList } from '@angular/material/list';
 
 @Component({
   selector: 'editor-bottom-sheet-events',
@@ -23,6 +24,9 @@ export class EditorBottomSheetEventsComponent implements OnInit {
   }
   minDateFrom = new Date();
   minDateTo = new Date();
+
+  @ViewChild('attachmentsList', {static: false}) attachmentsList: MatSelectionList;
+  attachments: File[] = [];
 
   constructor(
     private bottomSheetRef: MatBottomSheetRef<EditorBottomSheetEventsComponent>,
@@ -78,6 +82,17 @@ export class EditorBottomSheetEventsComponent implements OnInit {
 
   onDelete() {
 
+  }
+
+  onFileSubmit(event) {
+    this.attachments.push(event.target.files[0]);
+    document.getElementById('option').scrollIntoView(true);
+  }
+
+  onDeleteAttachment() {
+    this.attachmentsList.selectedOptions.selected.map((attachment, index) => {
+      this.attachments.splice(attachment.value - index, 1)
+    })
   }
 
 }
