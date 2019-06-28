@@ -15,17 +15,12 @@ import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
 
 import { ManageSiteComponent } from './manage-site/manage-site.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
-import { ManageSiteEditHomeComponent } from './manage-site-edit-home/manage-site-edit-home.component';
-import { ManageSiteEditAboutComponent } from './manage-site-edit-about/manage-site-edit-about.component';
-import { ManageSiteEditSsComponent } from './manage-site-edit-ss/manage-site-edit-ss.component';
-import { ManageSiteEditTutoringComponent } from './manage-site-edit-tutoring/manage-site-edit-tutoring.component';
-import { ManageSiteEditEventsComponent } from './manage-site-edit-events/manage-site-edit-events.component';
-import { ManageSiteEditJobComponent } from './manage-site-edit-job/manage-site-edit-job.component';
 import { HeadnavModule } from '../../headnav/headnav.module';
 import { EventListItemModule } from 'src/app/shared/event-list-item/event-list-item.module';
-import { EditorBottomSheetEventsComponent } from './manage-site-edit-events/editor-bottom-sheet-events/editor-bottom-sheet-events.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { StickyBitsDirective } from 'src/app/shared/stickybits/stickybits.directive';
+import { ManageSiteEditorComponent } from './manage-site-editor/manage-site-editor.component';
+import { EditorBottomSheetEventsComponent } from './manage-site-editor/editor-bottom-sheet-events/editor-bottom-sheet-events.component';
 
 
 @NgModule({
@@ -33,14 +28,9 @@ import { StickyBitsDirective } from 'src/app/shared/stickybits/stickybits.direct
     ManageComponent,
     ManageSiteComponent,
     ManageUsersComponent,
-    ManageSiteEditHomeComponent,
-    ManageSiteEditAboutComponent,
-    ManageSiteEditSsComponent,
-    ManageSiteEditTutoringComponent,
-    ManageSiteEditEventsComponent,
-    ManageSiteEditJobComponent,
-    EditorBottomSheetEventsComponent,
-    StickyBitsDirective
+    StickyBitsDirective,
+    ManageSiteEditorComponent,
+    EditorBottomSheetEventsComponent
   ],
   entryComponents: [EditorBottomSheetEventsComponent],
   imports: [
@@ -53,12 +43,7 @@ import { StickyBitsDirective } from 'src/app/shared/stickybits/stickybits.direct
     ReactiveFormsModule,
   ],
   exports: [
-    ManageSiteEditHomeComponent,
-    ManageSiteEditAboutComponent,
-    ManageSiteEditSsComponent,
-    ManageSiteEditTutoringComponent,
-    ManageSiteEditEventsComponent,
-    ManageSiteEditJobComponent
+    ManageSiteEditorComponent
   ]
 })
 export class ManageModule {

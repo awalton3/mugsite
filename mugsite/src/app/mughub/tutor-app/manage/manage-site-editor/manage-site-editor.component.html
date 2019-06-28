@@ -1,0 +1,17 @@
+<div style="height: 100vh">
+  <mughub-headnav title="{{ pageToManage | uppercase }}" iconLeft="close" iconRight="done" (leftIconToggled)="onCancel()" (rightIconToggled)="onSubmit()"></mughub-headnav>
+
+    <div *ngIf="pageToManage === 'events' && data" style="height: 80vh;">
+      <app-event-list-item *ngFor="let event of data" (click)="onEdit(event.data())" [event]="event.data()"></app-event-list-item>
+    </div>
+
+    <div *ngIf="!data" fxLayout="column" fxLayoutAlign="center center" class="empty-state">
+      <p class="empty-state-title">{{ emptyState.mainTxt }}</p>
+      <p class="empty-state-text">{{ emptyState.subTxt }}</p>
+    </div>
+
+    <div appStickyBits (click)="onAdd()" class="action-btn" fxLayoutAlign="center center" mat-ripple>
+      ADD
+    </div>
+
+</div>

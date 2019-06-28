@@ -61,7 +61,6 @@ export class StickyBitsDirective implements AfterContentInit, OnChanges, OnDestr
                 stickyChangeClass: this.changeClass,
                 parentClass: this.parentClass
             });
-            console.log(this.instance);
         }
     }
 

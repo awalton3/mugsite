@@ -18,12 +18,28 @@ export class EditorBottomSheetEventsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.data.eventToEdit);
-    this.initForm();
+    if (this.data.dataToEdit)
+      this.initFormWithValues();
+    else
+      this.initForm();
   }
 
   private initForm() {
-    let eventData = this.data.eventToEdit;
+    this.editForm = new FormGroup({
+      'title': new FormControl(null),
+      'description': new FormControl(null),
+      'dateFrom': new FormControl(null),
+      'dateTo': new FormControl(null),
+      'location': new FormControl(null),
+      'time': new FormControl(null),
+      'contact': new FormControl(null),
+      'instructions': new FormControl(null),
+      'attachments': new FormControl(null)
+    })
+  }
+
+  private initFormWithValues() {
+    let eventData = this.data.dataToEdit;
 
     this.editForm = new FormGroup({
       'title': new FormControl(eventData.title),

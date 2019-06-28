@@ -1,19 +1,14 @@
 <mat-drawer-container style="height: 100vh">
   <mat-drawer #navDrawer class="sidenav" mode="side" opened="true">
-    <mughub-sidenav (navDest)="getNavDest($event)" (closeNav)="navDrawer.close()"></mughub-sidenav>
+    <mughub-sidenav (navDest)="navDest = $event" (closeNav)="navDrawer.close()"></mughub-sidenav>
   </mat-drawer>
   <mat-drawer-content style="padding: 0; background-color: #eee;">
 
-    <!--side editor-->
     <mat-drawer-container [hasBackdrop]="false" style="height: 100vh;">
 
+      <!--editor-->
       <mat-drawer #editor class="editor" mode="over" position="end" opened="false">
-        <manage-site-edit-about *ngIf="pageToManage === 'about'"></manage-site-edit-about>
-        <manage-site-edit-events *ngIf="pageToManage === 'events'"></manage-site-edit-events>
-        <manage-site-edit-home *ngIf="pageToManage === 'home'"></manage-site-edit-home>
-        <manage-site-edit-job *ngIf="pageToManage === 'job'"></manage-site-edit-job>
-        <manage-site-edit-ss *ngIf="pageToManage === 'ss'"></manage-site-edit-ss>
-        <manage-site-edit-tutoring *ngIf="pageToManage === 'tutoring'"></manage-site-edit-tutoring>
+        <mughub-manage-site-editor *ngIf="pageToManage" [pageToManage]="pageToManage"></mughub-manage-site-editor>
       </mat-drawer>
 
       <mat-drawer-content style="padding: 0; background-color: #eee; height: 100vh">

@@ -35,10 +35,12 @@ export class TutorAppComponent implements OnInit, OnDestroy {
     })
     this.manageService.onManageCancel.subscribe(() => {
       this.editor.close();
-    })
+    }) 
   }
 
   ngOnDestroy() {
+    this.manageService.onManage.unsubscribe();
+    this.manageService.onManageCancel.unsubscribe();
   }
 
   getNavDest(navDest: string) {
