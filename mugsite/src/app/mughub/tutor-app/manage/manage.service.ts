@@ -22,17 +22,34 @@ export class ManageService {
   }
 
   addNewEvent(event) {
-    this.db.collection('/events').add({
+    return this.db.collection('/events').add({
       title: event.title,
       description: event.description,
-      dateFrom: { day: event.dateFrom.getDay(), month: event.dateFrom.getMonth() },
-      dateTo: { day: event.dateTo.getDay(), month: event.dateTo.getMonth() },
+      dateFrom: {
+        day: event.dateFrom.getDate(),
+        month: event.dateFrom.getMonth() + 1
+      },
+      dateTo: {
+        day: this.getDayMonth(event.dateTo, true),
+        month: this.getDayMonth(event.dateTo, false)
+      },
       location: event.location,
       time: event.time,
       contact: event.contact,
       instructions: event.instructions,
-      attachments: null
-    })
+      attachments: null,
+      dateOption: event.dateOption
+    });
+  }
+
+  deleteEvent(id) {
+    return this.db.collection('/events').doc(id).delete(); 
+  }
+
+  getDayMonth(property: any, isDay: boolean) {
+    if (!property)
+      return null;
+    return isDay ? property.getDate() : property.getMonth() + 1
   }
 
   getEmptyState(pageToManage) {

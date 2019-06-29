@@ -24,11 +24,11 @@ export class EditorBottomSheetEventsComponent implements OnInit {
     contact: 'Ex. Call 301-***-**** / visit m-u-g.org.',
     instructions: 'Ex. Please fill out both forms below.'
   }
-  minDateFrom = new Date();
-  minDateTo = new Date();
+  minDateFrom = new Date(); //current date
+  minDateTo: Date; //always same or date after the picked dateFrom
 
-  @ViewChild('dateOption', {static: false}) dateOption: MatRadioGroup;
-  @ViewChild('attachmentsList', {static: false}) attachmentsList: MatSelectionList;
+  @ViewChild('dateOption', { static: false }) dateOption: MatRadioGroup;
+  @ViewChild('attachmentsList', { static: false }) attachmentsList: MatSelectionList;
   attachments: File[] = [];
 
   constructor(
@@ -47,47 +47,72 @@ export class EditorBottomSheetEventsComponent implements OnInit {
 
   private initForm() {
     this.editForm = new FormGroup({
-      'title': new FormControl(null, [Validators.required]),
-      'description': new FormControl(null, [Validators.required]),
-      'dateFrom': new FormControl(null),
+      'title': new FormControl(null, Validators.required),
+      'description': new FormControl(null, Validators.required),
+      'dateFrom': new FormControl(null, Validators.required),
       'dateTo': new FormControl(null),
       'location': new FormControl(null),
       'time': new FormControl(null),
       'contact': new FormControl(null),
       'instructions': new FormControl(null),
       'attachments': new FormControl(null),
-      'dateOption': new FormControl('oneTime')
+      'dateOption': new FormControl('oneTime', Validators.required)
     })
   }
 
   private initFormWithValues() {
     let eventData = this.data.dataToEdit;
 
+    let dateFrom = new Date()
+    dateFrom.setDate(eventData.dateFrom.day);
+    dateFrom.setMonth(eventData.dateFrom.month - 1)
+
+    let dateTo = null;
+    if (eventData.dateOption === 'extended') {
+      dateTo = new Date();
+      dateTo.setDate(eventData.dateTo.day);
+      dateTo.setMonth(eventData.dateTo.month - 1);
+    }
+
     this.editForm = new FormGroup({
-      'title': new FormControl(eventData.title),
-      'description': new FormControl(eventData.description),
-      'dateFrom': new FormControl(new Date(eventData.dateFrom.year, eventData.dateFrom.month, eventData.dateFrom.day)),
-      'dateTo': new FormControl(new Date(eventData.dateTo.year, eventData.dateTo.month, eventData.dateTo.day)),
+      'title': new FormControl(eventData.title, Validators.required),
+      'description': new FormControl(eventData.description, Validators.required),
+      'dateFrom': new FormControl(dateFrom, Validators.required),
+      'dateTo': new FormControl(dateTo),
       'location': new FormControl(eventData.location),
       'time': new FormControl(eventData.time),
       'contact': new FormControl(eventData.contact),
       'instructions': new FormControl(eventData.instructions),
       'attachments': new FormControl(eventData.attachments),
-      'dateOption': new FormControl(eventData.dateOption)
+      'dateOption': new FormControl(eventData.dateOption, Validators.required)
     })
   }
 
   onCancel() {
-    if (confirm("Performing this action will lose all changes that have been made. Are you sure, you want to cancel?"))
+    if (confirm("Performing this action will lose all changes that have been made."))
       this.bottomSheetRef.dismiss();
   }
 
   onSubmit() {
-    this.manageService.addNewEvent(this.editForm.value);
+    if (this.editForm.valid) {
+      this.manageService.addNewEvent(this.editForm.value)
+        .then(() => {
+          alert('Your event was successfully published.');
+          this.bottomSheetRef.dismiss();
+        })
+        .catch(error => console.log(error));
+    }
   }
 
   onDelete() {
-
+    if (confirm("This action will permanently delete the event from the website.")) {
+      this.manageService.deleteEvent(this.data.docId)
+        .then(() => {
+          alert('The event was successfully deleted.')
+          this.bottomSheetRef.dismiss();
+        })
+        .catch(error => console.log(error))
+    }
   }
 
   onFileSubmit(event) {
@@ -99,6 +124,10 @@ export class EditorBottomSheetEventsComponent implements OnInit {
     this.attachmentsList.selectedOptions.selected.map((attachment, index) => {
       this.attachments.splice(attachment.value - index, 1);
     })
+  }
+
+  getValidDates() {
+    this.minDateTo = this.editForm.value.dateFrom;
   }
 
 }

@@ -1,4 +1,4 @@
-<mughub-headnav title="{{ data.isEditMode ? 'EDIT' : 'ADD' }}" iconLeft="arrow_back" iconRight="done" (leftIconToggled)="onCancel()" (rightIconToggled)="onSubmit()"></mughub-headnav>
+<mughub-headnav title="{{ data.isEditMode ? 'EDIT' : 'ADD' }}" iconLeft="arrow_back" iconRight="done" (leftIconToggled)="onCancel()" (rightIconToggled)="onSubmit()" [enableIconRight]="editForm.valid"></mughub-headnav>
 
 <form [formGroup]="editForm" fxLayout="column" class="editForm">
 
@@ -27,7 +27,7 @@
       <mat-datepicker #dpFrom [color]="'accent'"></mat-datepicker>
     </mat-form-field>
     <mat-form-field *ngIf="editForm.value.dateOption === 'extended'" floatLabel="never" class="editForm-input-date">
-      <input (click)="dpTo.open()" matInput formControlName="dateTo" [matDatepicker]="dpTo" [min]="minDateTo" placeholder="TO: " class="editForm-input">
+      <input (click)="dpTo.open()" (click)="getValidDates()" matInput formControlName="dateTo" [matDatepicker]="dpTo" [min]="minDateTo" placeholder="TO: " class="editForm-input">
       <mat-datepicker-toggle matSuffix [for]="dpTo"></mat-datepicker-toggle>
       <mat-datepicker #dpTo></mat-datepicker>
     </mat-form-field>

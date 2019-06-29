@@ -4,8 +4,8 @@
       <p class="day">{{ formattedDateFrom.day }}</p>
       <p class="month">{{ formattedDateFrom.month | uppercase }}</p>
     </div>
-    <div *ngIf="event.dateTo" style="margin: 10px 0px 10px 10px">|</div>
-    <div *ngIf="event.dateTo" class="date" fxLayout="column" fxLayoutAlign="center center">
+    <div *ngIf="event.dateOption === 'extended'" style="margin: 10px 0px 10px 10px">|</div>
+    <div *ngIf="event.dateOption === 'extended'" class="date" fxLayout="column" fxLayoutAlign="center center">
       <p class="day">{{ formattedDateTo.day }}</p>
       <p class="month">{{ formattedDateTo.month | uppercase }}</p>
     </div>

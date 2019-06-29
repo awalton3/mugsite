@@ -21,7 +21,7 @@ export class ManageSiteEditorComponent implements OnInit {
     this.manageService.fetchData(this.pageToManage).subscribe(resData => {
       this.data = resData.docs;
     })
-    this.emptyState = this.manageService.getEmptyState(this.pageToManage); 
+    this.emptyState = this.manageService.getEmptyState(this.pageToManage);
   }
 
   onCancel() {
@@ -41,12 +41,13 @@ export class ManageSiteEditorComponent implements OnInit {
     })
   }
 
-  onEdit(dataToEdit: QueryDocumentSnapshot<DocumentData>) {
+  onEdit(dataToEdit: QueryDocumentSnapshot<DocumentData>, docId: string) {
     this.bottomSheet.open(EditorBottomSheetEventsComponent, {
       hasBackdrop: false,
       data: {
         isEditMode: true,
-        dataToEdit: dataToEdit
+        dataToEdit: dataToEdit,
+        docId: docId
       }
     })
   }

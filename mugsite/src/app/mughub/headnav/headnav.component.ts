@@ -11,13 +11,13 @@ export class HeadnavComponent implements OnInit {
   @Input() title: string;
   @Input() iconLeft?: string;
   @Input() iconRight?: string;
+  @Input() enableIconRight?: boolean = true;
   @Output() leftIconToggled = new Subject();
   @Output() rightIconToggled = new Subject();
 
   constructor() { }
 
   ngOnInit() {
-    // this.title = 'MANAGE'; //default
   }
 
   onLeftIconToggle() {
@@ -25,7 +25,8 @@ export class HeadnavComponent implements OnInit {
   }
 
   onRightIconToggle() {
-    this.rightIconToggled.next();
+    if (this.enableIconRight)
+      this.rightIconToggled.next();
   }
 
 }

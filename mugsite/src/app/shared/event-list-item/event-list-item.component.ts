@@ -29,8 +29,10 @@ export class EventListItemComponent implements OnInit {
 
   ngOnInit() {
     if (this.event) {
+      console.log(this.event.dateFrom.day)
       this.formattedDateFrom = this.formatDate(this.event.dateFrom);
       this.formattedDateTo = this.formatDate(this.event.dateTo);
+      console.log(this.formattedDateFrom)
     }
     // else
     //   this.event = this.defaultEvent;
@@ -42,12 +44,12 @@ export class EventListItemComponent implements OnInit {
       return;
 
     let months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
-    let month = months[+date.month - 1];
-    let day = null;
+    let formattedMonth = months[+date.month - 1];
+    let formattedDay = date.day;
     if (JSON.stringify(date.day).length === 1)
-      day = '0' + JSON.stringify(date.day)
+      formattedDay = '0' + JSON.stringify(date.day)
 
-    return { day: day, month: month}
+    return { day: formattedDay, month: formattedMonth}
 
   }
 

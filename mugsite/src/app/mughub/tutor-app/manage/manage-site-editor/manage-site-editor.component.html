@@ -3,7 +3,7 @@
 
     <!--events--->
     <div *ngIf="pageToManage === 'events' && data" style="height: 80vh;">
-      <app-event-list-item *ngFor="let event of data" (click)="onEdit(event.data())" [event]="event.data()"></app-event-list-item>
+      <app-event-list-item *ngFor="let event of data" (click)="onEdit(event.data(), event.id)" [event]="event.data()"></app-event-list-item>
     </div>
 
     <div *ngIf="!data" fxLayout="column" fxLayoutAlign="center center" class="empty-state">
