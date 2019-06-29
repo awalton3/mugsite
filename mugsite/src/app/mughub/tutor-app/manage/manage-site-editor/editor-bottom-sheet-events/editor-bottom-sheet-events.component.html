@@ -14,13 +14,19 @@
   </mat-form-field>
 
   <p class="editForm-label" style="margin-bottom: 20px;">DATE</p>
+  <div fxLayout="row">
+    <mat-radio-group formControlName="dateOption" aria-label="Select an option" #dateOption>
+      <mat-radio-button value="oneTime" class="date-option" style="padding-left: 0" [ngStyle]="{'color': editForm.value.dateOption === 'oneTime' ? '#2b5570' : 'grey'}">ONE TIME</mat-radio-button>
+      <mat-radio-button value="extended" class="date-option" [ngStyle]="{'color': editForm.value.dateOption === 'extended' ? '#2b5570' : 'grey'}">EXTENDED</mat-radio-button>
+    </mat-radio-group>
+  </div>
   <div fxLayout="row" fxLayoutAlign="space-between center">
-    <mat-form-field floatLabel="never" class="editForm-input-date">
-      <input (click)="dpFrom.open()" matInput formControlName="dateFrom" [matDatepicker]="dpFrom" [min]="minDateFrom" placeholder="FROM: " class="editForm-input">
+    <mat-form-field floatLabel="never" class="editForm-input-date" [ngStyle]="{'width': editForm.value.dateOption === 'extended' ? '47%' : '100%'}">
+      <input (click)="dpFrom.open()" matInput formControlName="dateFrom" [matDatepicker]="dpFrom" [min]="minDateFrom" placeholder="{{ editForm.value.dateOption === 'extended' ? 'FROM: ' : 'Ex: 4/2/19'}}" class="editForm-input">
       <mat-datepicker-toggle matSuffix [for]="dpFrom"></mat-datepicker-toggle>
       <mat-datepicker #dpFrom [color]="'accent'"></mat-datepicker>
     </mat-form-field>
-    <mat-form-field floatLabel="never" class="editForm-input-date">
+    <mat-form-field *ngIf="editForm.value.dateOption === 'extended'" floatLabel="never" class="editForm-input-date">
       <input (click)="dpTo.open()" matInput formControlName="dateTo" [matDatepicker]="dpTo" [min]="minDateTo" placeholder="TO: " class="editForm-input">
       <mat-datepicker-toggle matSuffix [for]="dpTo"></mat-datepicker-toggle>
       <mat-datepicker #dpTo></mat-datepicker>
@@ -52,7 +58,7 @@
     <input (change)="onFileSubmit($event)" type="file" id="file" class="editForm-input" class="fileUploader">
     <label for="file"><i class="material-icons add-attachment-btn" mat-ripple>add_circle</i></label>
   </div>
-  <div *ngIf="attachments.length !== 0" >
+  <div *ngIf="attachments.length !== 0">
     <mat-selection-list class="attachment-list" #attachmentsList>
       <mat-list-option id="option" *ngFor="let attachment of attachments; let i = index" value="{{ i }}" class="attachment-list-item">
         {{ attachment.name }}

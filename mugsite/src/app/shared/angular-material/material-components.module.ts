@@ -27,7 +27,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatRippleModule,
     MatBottomSheetModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
   ],
   providers: [
     MatDatepickerModule
@@ -45,7 +45,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatRippleModule,
     MatBottomSheetModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
   ]
 })
 

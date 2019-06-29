@@ -1,8 +1,9 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSelectionList } from '@angular/material/list';
 import { ManageService } from '../../manage.service';
+import { MatRadioGroup } from '@angular/material/radio';
 
 @Component({
   selector: 'editor-bottom-sheet-events',
@@ -26,6 +27,7 @@ export class EditorBottomSheetEventsComponent implements OnInit {
   minDateFrom = new Date();
   minDateTo = new Date();
 
+  @ViewChild('dateOption', {static: false}) dateOption: MatRadioGroup;
   @ViewChild('attachmentsList', {static: false}) attachmentsList: MatSelectionList;
   attachments: File[] = [];
 
@@ -45,15 +47,16 @@ export class EditorBottomSheetEventsComponent implements OnInit {
 
   private initForm() {
     this.editForm = new FormGroup({
-      'title': new FormControl(null),
-      'description': new FormControl(null),
+      'title': new FormControl(null, [Validators.required]),
+      'description': new FormControl(null, [Validators.required]),
       'dateFrom': new FormControl(null),
       'dateTo': new FormControl(null),
       'location': new FormControl(null),
       'time': new FormControl(null),
       'contact': new FormControl(null),
       'instructions': new FormControl(null),
-      'attachments': new FormControl(null)
+      'attachments': new FormControl(null),
+      'dateOption': new FormControl('oneTime')
     })
   }
 
@@ -69,7 +72,8 @@ export class EditorBottomSheetEventsComponent implements OnInit {
       'time': new FormControl(eventData.time),
       'contact': new FormControl(eventData.contact),
       'instructions': new FormControl(eventData.instructions),
-      'attachments': new FormControl(eventData.attachments)
+      'attachments': new FormControl(eventData.attachments),
+      'dateOption': new FormControl(eventData.dateOption)
     })
   }
 
@@ -93,7 +97,7 @@ export class EditorBottomSheetEventsComponent implements OnInit {
 
   onDeleteAttachment() {
     this.attachmentsList.selectedOptions.selected.map((attachment, index) => {
-      this.attachments.splice(attachment.value - index, 1); 
+      this.attachments.splice(attachment.value - index, 1);
     })
   }
 

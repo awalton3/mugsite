@@ -26,7 +26,7 @@
 .editForm-label {
   font-family: 'Montserrat', sans-serif;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   color: grey;
   margin: 5px 0 0 0;
 }
@@ -40,7 +40,7 @@
 }
 
 .editForm-input-date {
-  width: 45%;
+  width: 47%;
 }
 
 .action-btn {
@@ -76,7 +76,7 @@
 .add-attachment-prompt {
   color: grey;
   font-size: 12px;
-  margin: 0; 
+  margin: 0;
 }
 
 .attachment-list {
@@ -98,6 +98,14 @@
 
 .delete-active {
   color: #de0005;
+}
+
+.date-option {
+  color: grey;
+  font-size: 12px;
+  font-family: 'Montserrat', sans-serif;
+  padding: 0 10px;
+  font-weight: 600;
 }
 
 ::ng-deep .mat-list-item-content {
