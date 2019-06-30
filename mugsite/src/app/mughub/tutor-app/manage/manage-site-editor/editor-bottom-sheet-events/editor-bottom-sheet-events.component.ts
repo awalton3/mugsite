@@ -120,16 +120,17 @@ export class EditorBottomSheetEventsComponent implements OnInit {
 
       let edited = !this.editForm.controls[formField].pristine;
       let exists = !!this.editForm.controls[formField];
+      let isDate = formField === 'dateFrom' || formField === 'dateTo'
 
-      if (edited && exists) {
-        if (formField === 'dateFrom' || formField === 'dateTo') {
-          changedFields[formField]['day'] = this.editForm.value[formField].getDate();
-          changedFields[formField]['month'] = this.editForm.value[formField].getMonth() + 1;
-        } else {
-          changedFields[formField] = this.editForm.value[formField]; 
+      if (edited && exists && isDate) {
+        changedFields[formField] = {
+          day: this.editForm.value[formField].getDate(),
+          month: this.editForm.value[formField].getMonth() + 1
         }
       }
 
+      if (edited && exists && !isDate)
+        changedFields[formField] = this.editForm.value[formField];
     });
     return changedFields;
   }

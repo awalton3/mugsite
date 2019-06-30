@@ -29,10 +29,8 @@ export class EventListItemComponent implements OnInit {
 
   ngOnInit() {
     if (this.event) {
-      console.log("DATEFROM IN EVENT: ", this.event.dateFrom.day)
       this.formattedDateFrom = this.formatDate(this.event.dateFrom);
       this.formattedDateTo = this.formatDate(this.event.dateTo);
-      console.log("FORMMATTED DATE: ", this.formattedDateFrom)
     }
     // else
     //   this.event = this.defaultEvent;
