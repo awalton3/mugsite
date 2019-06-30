@@ -8,6 +8,7 @@ export class ManageService {
 
   onManage = new Subject<string>();
   onManageCancel = new Subject();
+  onDataChange = new Subject();
 
   constructor(private db: AngularFirestore) { }
 
@@ -43,7 +44,7 @@ export class ManageService {
   }
 
   deleteEvent(id) {
-    return this.db.collection('/events').doc(id).delete(); 
+    return this.db.collection('/events').doc(id).delete();
   }
 
   getDayMonth(property: any, isDay: boolean) {

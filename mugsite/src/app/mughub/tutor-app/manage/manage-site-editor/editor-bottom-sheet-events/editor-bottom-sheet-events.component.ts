@@ -96,9 +96,10 @@ export class EditorBottomSheetEventsComponent implements OnInit {
   onSubmit() {
     if (this.editForm.valid) {
       this.manageService.addNewEvent(this.editForm.value)
-        .then(() => {
+        .then((res) => {
           alert('Your event was successfully published.');
           this.bottomSheetRef.dismiss();
+          this.manageService.onDataChange.next();
         })
         .catch(error => console.log(error));
     }
@@ -110,6 +111,7 @@ export class EditorBottomSheetEventsComponent implements OnInit {
         .then(() => {
           alert('The event was successfully deleted.')
           this.bottomSheetRef.dismiss();
+          this.manageService.onDataChange.next();
         })
         .catch(error => console.log(error))
     }

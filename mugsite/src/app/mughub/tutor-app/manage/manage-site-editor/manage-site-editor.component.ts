@@ -1,27 +1,37 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { QueryDocumentSnapshot, DocumentData } from '@angular/fire/firestore';
 import { ManageService } from '../manage.service';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { EditorBottomSheetEventsComponent } from './editor-bottom-sheet-events/editor-bottom-sheet-events.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'mughub-manage-site-editor',
   templateUrl: './manage-site-editor.component.html',
   styleUrls: ['./manage-site-editor.component.css']
 })
-export class ManageSiteEditorComponent implements OnInit {
+export class ManageSiteEditorComponent implements OnInit, OnDestroy {
 
   @Input() pageToManage: string;
   data: QueryDocumentSnapshot<DocumentData>[];
-  emptyState: { mainTxt:  string, subTxt: string }
+  dataSub: Subscription;
+  dataChangedSub: Subscription;
+  emptyState: { mainTxt: string, subTxt: string }
 
   constructor(private manageService: ManageService, private bottomSheet: MatBottomSheet) { }
 
   ngOnInit() {
-    this.manageService.fetchData(this.pageToManage).subscribe(resData => {
+    this.fetchData();
+    this.emptyState = this.manageService.getEmptyState(this.pageToManage);
+    this.dataChangedSub = this.manageService.onDataChange.subscribe(() => {
+      this.fetchData();
+    })
+  }
+
+  fetchData() {
+    this.dataSub = this.manageService.fetchData(this.pageToManage).subscribe(resData => {
       this.data = resData.docs;
     })
-    this.emptyState = this.manageService.getEmptyState(this.pageToManage);
   }
 
   onCancel() {
@@ -50,6 +60,11 @@ export class ManageSiteEditorComponent implements OnInit {
         docId: docId
       }
     })
+  }
+
+  ngOnDestroy() {
+    this.dataChangedSub.unsubscribe();
+    this.dataSub.unsubscribe();
   }
 
 }
