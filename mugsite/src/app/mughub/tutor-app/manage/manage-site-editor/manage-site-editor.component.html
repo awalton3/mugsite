@@ -1,5 +1,5 @@
 <div style="height: 100vh">
-  <mughub-headnav title="{{ pageToManage | uppercase }}" iconLeft="close" iconRight="done" (leftIconToggled)="onCancel()" (rightIconToggled)="onSubmit()"></mughub-headnav>
+  <mughub-headnav title="{{ pageToManage | uppercase }}" iconLeft="close" (leftIconToggled)="onCancel()"></mughub-headnav>
 
     <!--events--->
     <div *ngIf="pageToManage === 'events' && data" style="height: 80vh;">

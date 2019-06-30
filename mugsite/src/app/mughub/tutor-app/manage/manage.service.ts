@@ -47,6 +47,10 @@ export class ManageService {
     return this.db.collection('/events').doc(id).delete();
   }
 
+  updateEvent(changedFieldsObj: {}, docId) {
+    return this.db.collection('/events').doc(docId).update(changedFieldsObj);
+  }
+
   getDayMonth(property: any, isDay: boolean) {
     if (!property)
       return null;

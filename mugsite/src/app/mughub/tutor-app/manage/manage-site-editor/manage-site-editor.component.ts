@@ -38,10 +38,6 @@ export class ManageSiteEditorComponent implements OnInit, OnDestroy {
     this.manageService.onManageCancel.next();
   }
 
-  onSubmit() {
-    //...
-  }
-
   onAdd() {
     this.bottomSheet.open(EditorBottomSheetEventsComponent, {
       hasBackdrop: false,

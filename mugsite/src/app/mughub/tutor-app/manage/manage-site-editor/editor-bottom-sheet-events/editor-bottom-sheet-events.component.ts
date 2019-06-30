@@ -94,15 +94,44 @@ export class EditorBottomSheetEventsComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.editForm.valid) {
+    //add
+    if (!this.data.isEditMode) {
       this.manageService.addNewEvent(this.editForm.value)
-        .then((res) => {
-          alert('Your event was successfully published.');
+        .then(() => {
+          alert('Your event was successfully created.');
           this.bottomSheetRef.dismiss();
           this.manageService.onDataChange.next();
-        })
-        .catch(error => console.log(error));
+        }).catch(error => console.log(error));
+    } else {
+      //edit
+      this.manageService.updateEvent(this.getChangedFields(), this.data.docId)
+        .then(() => {
+          alert('Your event was successfully updated.');
+          this.bottomSheetRef.dismiss();
+          this.manageService.onDataChange.next();
+        }).catch(error => console.log(error));
     }
+  }
+
+  getChangedFields() {
+    let changedFields = {};
+
+    Object.keys(this.editForm.controls).map(formField => {
+
+      let edited = !this.editForm.controls[formField].pristine;
+      let exists = !!this.editForm.controls[formField];
+
+      if (edited && exists) {
+        if (formField === 'dateFrom' || formField === 'dateTo') {
+          changedFields[formField]['day'] = this.editForm.value[formField].getDate();
+          changedFields[formField]['month'] = this.editForm.value[formField].getMonth() + 1;
+        } else {
+          changedFields[formField] = this.editForm.value[formField]; 
+        }
+      }
+
+    });
+    return changedFields;
   }
 
   onDelete() {
