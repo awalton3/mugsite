@@ -7,7 +7,7 @@
     </div>
 
     <div *ngIf="!data" fxLayout="column" fxLayoutAlign="center center" class="empty-state">
-      <p class="empty-state-title">{{ emptyState.mainTxt }}</p>
+      <p class="empty-state-title">{{ emptyState.mainTxt | uppercase }}</p>
       <p class="empty-state-text">{{ emptyState.subTxt }}</p>
     </div>
 

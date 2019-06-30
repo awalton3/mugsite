@@ -30,7 +30,10 @@ export class ManageSiteEditorComponent implements OnInit, OnDestroy {
 
   fetchData() {
     this.dataSub = this.manageService.fetchData(this.pageToManage).subscribe(resData => {
-      this.data = resData.docs;
+      if (resData.empty)
+        this.data = null;
+      else
+        this.data = resData.docs;
     })
   }
 
@@ -44,7 +47,7 @@ export class ManageSiteEditorComponent implements OnInit, OnDestroy {
       data: {
         isEditMode: false
       }
-    })
+    });
   }
 
   onEdit(dataToEdit: QueryDocumentSnapshot<DocumentData>, docId: string) {
@@ -55,7 +58,7 @@ export class ManageSiteEditorComponent implements OnInit, OnDestroy {
         dataToEdit: dataToEdit,
         docId: docId
       }
-    })
+    });
   }
 
   ngOnDestroy() {
