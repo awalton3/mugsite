@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSelectionList } from '@angular/material/list';
 import { ManageService } from '../../manage.service';
 import { MatRadioGroup } from '@angular/material/radio';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'editor-bottom-sheet-events',
@@ -25,7 +26,7 @@ export class EditorBottomSheetEventsComponent implements OnInit {
     instructions: 'Ex. Please fill out both forms below.'
   }
   minDateFrom = new Date(); //current date
-  minDateTo: Date; //always same or date after the picked dateFrom
+  minDateTo: Date; //always same or date after dateFrom
 
   @ViewChild('dateOption', { static: false }) dateOption: MatRadioGroup;
   @ViewChild('attachmentsList', { static: false }) attachmentsList: MatSelectionList;
@@ -34,7 +35,8 @@ export class EditorBottomSheetEventsComponent implements OnInit {
   constructor(
     private bottomSheetRef: MatBottomSheetRef<EditorBottomSheetEventsComponent>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
-    private manageService: ManageService
+    private manageService: ManageService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
@@ -62,7 +64,6 @@ export class EditorBottomSheetEventsComponent implements OnInit {
 
   private initFormWithValues() {
     let eventData = this.data.dataToEdit;
-
     let dateFrom = new Date()
     dateFrom.setDate(eventData.dateFrom.day);
     dateFrom.setMonth(eventData.dateFrom.month - 1)
@@ -97,19 +98,21 @@ export class EditorBottomSheetEventsComponent implements OnInit {
     //add
     if (!this.data.isEditMode) {
       this.manageService.addNewEvent(this.editForm.value)
-        .then(() => {
-          alert('Your event was successfully created.');
-          this.bottomSheetRef.dismiss();
-          this.manageService.onDataChange.next();
-        }).catch(error => console.log(error));
+        .then(() => this.onActionSuccess("Event was successfully added."))
+        .catch(error => this.onActionError(error))
     } else {
       //edit
       this.manageService.updateEvent(this.getChangedFields(), this.data.docId)
-        .then(() => {
-          alert('Your event was successfully updated.');
-          this.bottomSheetRef.dismiss();
-          this.manageService.onDataChange.next();
-        }).catch(error => console.log(error));
+        .then(() => this.onActionSuccess("Event was successfully updated."))
+        .catch(error => this.onActionError(error))
+    }
+  }
+
+  onDelete() {
+    if (confirm("This action will permanently delete this event.")) {
+      this.manageService.deleteEvent(this.data.docId)
+        .then(() => this.onActionSuccess("The event was successfully deleted."))
+        .catch(error => this.onActionError(error))
     }
   }
 
@@ -135,16 +138,17 @@ export class EditorBottomSheetEventsComponent implements OnInit {
     return changedFields;
   }
 
-  onDelete() {
-    if (confirm("This action will permanently delete the event from the website.")) {
-      this.manageService.deleteEvent(this.data.docId)
-        .then(() => {
-          alert('The event was successfully deleted.')
-          this.bottomSheetRef.dismiss();
-          this.manageService.onDataChange.next();
-        })
-        .catch(error => console.log(error))
-    }
+  onActionSuccess(message: string) {
+    this.snackBar.open(message, null, { duration: 2000 });
+    this.bottomSheetRef.dismiss();
+    this.manageService.onDataChange.next();
+  }
+
+  onActionError(message: string) {
+    let snackBarRef = this.snackBar.open(message, 'RETRY', { duration: 2000 });
+    snackBarRef.onAction().subscribe(() => {
+      console.log('The snack-bar action was triggered!');
+    });
   }
 
   onFileSubmit(event) {
@@ -161,5 +165,6 @@ export class EditorBottomSheetEventsComponent implements OnInit {
   getValidDates() {
     this.minDateTo = this.editForm.value.dateFrom;
   }
+
 
 }

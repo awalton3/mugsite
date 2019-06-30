@@ -11,6 +11,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatRippleModule, MatNativeDateModule } from '@angular/material/core';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 
 @NgModule({
@@ -28,6 +30,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatBottomSheetModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSnackBarModule
   ],
   providers: [
     MatDatepickerModule
@@ -46,6 +49,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatBottomSheetModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatSnackBarModule
   ]
 })
 
