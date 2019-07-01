@@ -5,7 +5,7 @@ export class User {
     public email: string,
     public type: string,
     public uid: string,
-    public creationTime: number
+    public isNewUser: boolean
   ) { }
 
 }

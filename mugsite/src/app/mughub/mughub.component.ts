@@ -20,11 +20,16 @@ export class MughubComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.authService.autoLogin();
     this.userService.user.subscribe(user => {
-      if (user && !sessionStorage.getItem('newUser')) {
+
+      //old users
+      if (user && !user.isNewUser) {
         this.router.navigate(['mughub', user.type]);
       }
-      if (user && sessionStorage.getItem('newUser'))
+
+      //new users
+      if (user && user.isNewUser)
         this.router.navigate(['mughub/welcome'])
+        
     })
   }
 

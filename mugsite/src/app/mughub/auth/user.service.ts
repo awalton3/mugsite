@@ -18,16 +18,21 @@ export class UserService {
   }
 
   isUserAuthenticated(attemptedRoute: string) {
-    console.log("Checking user authentication to access " + attemptedRoute);
     let user = JSON.parse(sessionStorage.getItem('user'));
-    return (user && (user.type === attemptedRoute));
+
+    if (attemptedRoute === 'student' || attemptedRoute === 'tutor')
+      return (user && (user.type === attemptedRoute));
+    else if (attemptedRoute === 'welcome')
+      return (user && (user.isNewUser))
+    else
+      return !!user
   }
 
   getUserFromFbCollect(uid: string) {
     return this.db.collection('/users').doc(uid).get();
   }
 
-  addUserToFbCollect(name: string, photoUrl: string, email: string, type: string, uid: string) {
+  addUserToFbCollect(name: string, photoUrl: string, email: string, type: string, uid: string, isNewUser: boolean) {
     this.db.collection('/users')
       .doc(uid)
       .set({
@@ -35,7 +40,8 @@ export class UserService {
         photoUrl: photoUrl,
         email: email,
         type: type,
-        uid: uid
+        uid: uid,
+        isNewUser: isNewUser
       });
   }
 
@@ -43,14 +49,13 @@ export class UserService {
     this.getUserFromFbCollect(uid)
       .pipe(first())
       .subscribe(userObj => {
-        let creationTime = new Date().getTime();
         this.currentUser = new User(
           userObj.data().name,
           userObj.data().photoUrl,
           userObj.data().email,
           userObj.data().type,
           userObj.data().uid,
-          creationTime)
+          userObj.data().isNewUser)
         this.user.next(this.currentUser);
         if (!sessionStorage.getItem('user'))
           sessionStorage.setItem('user', JSON.stringify(this.currentUser));
