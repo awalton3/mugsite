@@ -72,7 +72,7 @@ export class AuthService {
   autoLogin() {
     let user = JSON.parse(sessionStorage.getItem('user'));
     if (!user) return;
-    this.userService.createLocalUser(user.uid, false);
+    this.userService.createLocalUser(user.uid, user.isNewUser);
   }
 
   logout() {

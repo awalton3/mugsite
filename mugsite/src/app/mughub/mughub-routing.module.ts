@@ -12,6 +12,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
+      { path: 'welcome', loadChildren: './welcome/welcome.module#WelcomeModule' },
       { path: 'tutor', loadChildren: './tutor-app/tutor-app.module#TutorAppModule', canLoad: [AuthGuard] },
       { path: 'student', loadChildren: './student-app/student-app.module#StudentAppModule', canLoad: [AuthGuard] },
       { path: '**', redirectTo: 'login', pathMatch: 'full' }
