@@ -61,17 +61,17 @@
   <div *ngIf="attachments.length !== 0">
     <mat-selection-list class="attachment-list" #attachmentsList>
       <mat-list-option id="option" *ngFor="let attachment of attachments; let i = index" value="{{ i }}" class="attachment-list-item">
-        {{ attachment.name }}
+        {{ attachment.nameRef }}
       </mat-list-option>
     </mat-selection-list>
     <br>
     <div *ngIf="attachmentsList.selectedOptions.selected.length !== 0" fxLayout="row" fxLayoutAlign="space-between center">
       <span></span>
-      <button (click)="onDeleteAttachment()" mat-button class="delete-active">DELETE</button>
+      <button (click)="onDeleteAttachments()" mat-button class="delete-active">DELETE</button>
     </div>
   </div>
   <div *ngIf="attachments.length === 0">
-    <p class="add-attachment-prompt">To add an attachment, click the button above. </p>
+    <p class="add-attachment-prompt">To add an attachment, click the button above.</p>
   </div>
 
 

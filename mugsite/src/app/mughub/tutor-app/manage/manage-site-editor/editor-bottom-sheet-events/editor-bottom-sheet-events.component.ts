@@ -5,6 +5,7 @@ import { MatSelectionList } from '@angular/material/list';
 import { ManageService } from '../../manage.service';
 import { MatRadioGroup } from '@angular/material/radio';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Attachment } from 'src/app/shared/attachment.model';
 
 @Component({
   selector: 'editor-bottom-sheet-events',
@@ -30,7 +31,8 @@ export class EditorBottomSheetEventsComponent implements OnInit {
 
   @ViewChild('dateOption', { static: false }) dateOption: MatRadioGroup;
   @ViewChild('attachmentsList', { static: false }) attachmentsList: MatSelectionList;
-  attachments: File[] = [];
+
+  attachments: Attachment[] = [];
 
   constructor(
     private bottomSheetRef: MatBottomSheetRef<EditorBottomSheetEventsComponent>,
@@ -63,6 +65,7 @@ export class EditorBottomSheetEventsComponent implements OnInit {
   }
 
   private initFormWithValues() {
+
     let eventData = this.data.dataToEdit;
     let dateFrom = new Date()
     dateFrom.setDate(eventData.dateFrom.day);
@@ -74,6 +77,8 @@ export class EditorBottomSheetEventsComponent implements OnInit {
       dateTo.setDate(eventData.dateTo.day);
       dateTo.setMonth(eventData.dateTo.month - 1);
     }
+
+    this.getAttachmentsArraOnEdit(eventData.attachments)
 
     this.editForm = new FormGroup({
       'title': new FormControl(eventData.title, Validators.required),
@@ -89,6 +94,12 @@ export class EditorBottomSheetEventsComponent implements OnInit {
     })
   }
 
+  getAttachmentsArraOnEdit(attachmentNameRefs: string[]) {
+    attachmentNameRefs.map(nameRef => {
+      this.attachments.push(new Attachment(null, nameRef, false, false, true))
+    })
+  }
+
   onCancel() {
     if (confirm("Performing this action will lose all changes that have been made."))
       this.bottomSheetRef.dismiss();
@@ -97,8 +108,11 @@ export class EditorBottomSheetEventsComponent implements OnInit {
   onSubmit() {
     //add
     if (!this.data.isEditMode) {
-      this.manageService.addNewEvent(this.editForm.value)
-        .then(() => this.onActionSuccess("Event was successfully added."))
+      this.manageService.addNewEvent(this.editForm.value, this.getAttachmentNameRefs())
+        .then(() => {
+          this.manageService.uploadAttachments(this.getAttachmentFileObjs());
+          this.onActionSuccess("Event was successfully added.")
+        })
         .catch(error => this.onActionError(error))
     } else {
       //edit
@@ -135,7 +149,21 @@ export class EditorBottomSheetEventsComponent implements OnInit {
       if (edited && exists && !isDate)
         changedFields[formField] = this.editForm.value[formField];
     });
+
+    let updatedAttachments = this.getUpdatedAttachments()
+    if(updatedAttachments)
+      changedFields['attachments'] = updatedAttachments;
+
     return changedFields;
+  }
+
+  getUpdatedAttachments() {
+    let updatedAttachmentNameRefs = [];
+    this.attachments.map(attachment => {
+      if (attachment.shouldDelete || !attachment.inDataStorage)
+        updatedAttachmentNameRefs.push(attachment.nameRef);
+    })
+    return updatedAttachmentNameRefs;
   }
 
   onActionSuccess(message: string) {
@@ -151,19 +179,38 @@ export class EditorBottomSheetEventsComponent implements OnInit {
     });
   }
 
-  onFileSubmit(event) {
-    this.attachments.push(event.target.files[0]);
-    document.getElementById('option').scrollIntoView(true);
+  onFileSubmit(onUploadFile) {
+    let newFileObj = onUploadFile.target.files[0];
+    this.attachments.push(new Attachment(newFileObj, newFileObj.name, false, false, false));
   }
 
-  onDeleteAttachment() {
+  onDeleteAttachments() {
     this.attachmentsList.selectedOptions.selected.map((attachment, index) => {
-      this.attachments.splice(attachment.value - index, 1);
+      this.attachments[attachment.value - index].shouldDelete = true;
+      // if (this.attachments[attachment.value - index].inDataStorage)
+      //   this.manageService.deleteAttachment(this.attachments[attachment.value - index].nameRef);
+      // this.attachments.splice(attachment.value - index, 1);
     })
   }
 
   getValidDates() {
     this.minDateTo = this.editForm.value.dateFrom;
+  }
+
+  getAttachmentNameRefs() {
+    let attachmentNameRefs = []
+    this.attachments.map(attachment => {
+      attachmentNameRefs.push(attachment.nameRef);
+    })
+    return attachmentNameRefs;
+  }
+
+  getAttachmentFileObjs() {
+    let attachmentFileObjs = [];
+    this.attachments.map(attachment => {
+      attachmentFileObjs.push(attachment.fileObj);
+    })
+    return attachmentFileObjs;
   }
 
 

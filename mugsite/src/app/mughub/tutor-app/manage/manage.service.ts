@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/firestore';
+import * as firebase from 'firebase';
 
 @Injectable({ providedIn: 'root' })
 
@@ -22,7 +23,7 @@ export class ManageService {
     return this.db.collection('/events').get();
   }
 
-  addNewEvent(event) {
+  addNewEvent(event, attachments: string[]) {
     return this.db.collection('/events').add({
       title: event.title,
       description: event.description,
@@ -38,9 +39,24 @@ export class ManageService {
       time: event.time,
       contact: event.contact,
       instructions: event.instructions,
-      attachments: null,
+      attachments: attachments,
       dateOption: event.dateOption
     });
+  }
+
+  uploadAttachments(attachments: File[]) {
+    let storageRef = firebase.storage().ref();
+    attachments.map(attachment => {
+      let fileRef = storageRef.child(attachment.name);
+      fileRef.put(attachment).then((res) => { console.log(res) })
+    })
+  }
+
+  deleteAttachment(nameRef: string) {
+    let storageRef = firebase.storage().ref();
+    storageRef.child(nameRef).delete().then(() => {
+      console.log('deleted attachment successfully');
+    }).catch(error => console.log(error))
   }
 
   deleteEvent(id) {
