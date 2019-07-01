@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, HostListener } from '@angular/core';
 import { ManageService } from './manage/manage.service';
-import { UserService } from '../auth/user.service';
 
 @Component({
   selector: 'app-tutor-app',
@@ -28,14 +27,9 @@ export class TutorAppComponent implements OnInit, OnDestroy {
     }
   }
 
-  constructor(
-    private userService: UserService,
-    private manageService: ManageService
-  ) { }
+  constructor(private manageService: ManageService) { }
 
   ngOnInit() {
-
-    this.isNewUser = this.userService.getCurrentUser().isNewUser; 
 
     this.manageService.onManage.subscribe(pageToManage => {
       this.pageToManage = pageToManage;

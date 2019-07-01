@@ -1,31 +1,30 @@
 import * as firebase from 'firebase';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
 import { UserService } from './user.service';
-import { User } from './user.model';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 
 export class AuthService {
 
-  private tempUser: User;
-  tempUserCreated = new Subject<User>();
-
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private router: Router
+  ) { }
 
   register(formData: { email: string; password: string; name: any; type: string; }) {
     firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password)
       .then(userObj => {
-        this.tempUser = {
+        let tempUser = {
           name: formData.name,
           photoUrl: null,
           email: userObj.user.email,
           type: formData.type,
           uid: userObj.user.uid,
-          isNewUser: true,
           creationTime: null
         };
-        this.tempUserCreated.next(this.tempUser);
+        sessionStorage.setItem('newUser', JSON.stringify(tempUser));
+        this.router.navigate(['/mughub/login']);
         this.verifyEmail();
       })
       .catch(error => { alert(error.message) })
@@ -35,20 +34,20 @@ export class AuthService {
     firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
       .then(userObj => {
         if (userObj.user.emailVerified) {
-          this.handleAuth(userObj.user)
+          this.handleAuth(userObj.user.uid)
+          this.router.navigate(['mughub']);
         } else
           alert("Please verify your email before logging in.");
       })
       .catch(error => { alert(error.message) })
   }
 
-  handleAuth(userObj: firebase.User) {
-    if (this.ifNewUser(userObj.metadata)) {
-      this.userService.addUserToFbCollect(this.tempUser.name, this.tempUser.photoUrl, this.tempUser.email, this.tempUser.type, this.tempUser.uid);
-      this.userService.createLocalUser(userObj.uid, true);
-    } else {
-      this.userService.createLocalUser(userObj.uid, false);
+  handleAuth(uid: string) {
+    if (!!sessionStorage.getItem('newUser')) {
+      let newUser = JSON.parse(sessionStorage.getItem('newUser'));
+      this.userService.addUserToFbCollect(newUser.name, newUser.photoUrl, newUser.email, newUser.type, newUser.uid);
     }
+    this.userService.createLocalUser(uid);
   }
 
   verifyEmail() {
@@ -65,14 +64,10 @@ export class AuthService {
     });
   }
 
-  ifNewUser(metadata: firebase.auth.UserMetadata) {
-    return metadata.creationTime === metadata.lastSignInTime;
-  }
-
   autoLogin() {
     let user = JSON.parse(sessionStorage.getItem('user'));
     if (!user) return;
-    this.userService.createLocalUser(user.uid, user.isNewUser);
+    this.userService.createLocalUser(user.uid);
   }
 
   logout() {

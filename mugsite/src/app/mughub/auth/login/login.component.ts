@@ -1,9 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthService } from '../auth.service';
-import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
-import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-login',
@@ -11,16 +8,12 @@ import { UserService } from '../user.service';
   styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-  userSub: Subscription;
 
   constructor(
-    private authService: AuthService,
-    private userService: UserService,
-    private router: Router
-  ) { }
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.initForm();
@@ -42,17 +35,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.authService.login(this.loginForm.value)
-    this.userSub = this.userService.user.subscribe(user => {
-      if (user)
-        this.router.navigate(['mughub', user.type])
-    })
-  }
-
-  ngOnDestroy() {
-    if (this.userSub)
-      this.userSub.unsubscribe();
-    if (this.userService.userFbCollectSub)
-      this.userService.userFbCollectSub.unsubscribe();
   }
 
 }

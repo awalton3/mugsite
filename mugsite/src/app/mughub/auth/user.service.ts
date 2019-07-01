@@ -1,22 +1,20 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Subject, Subscription } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { User } from './user.model';
-import { AuthService } from './auth.service';
 
 @Injectable({ providedIn: 'root' })
 
 export class UserService {
 
   private currentUser: User;
-  userFbCollectSub: Subscription;
-
   user = new Subject<User>();
 
   constructor(private db: AngularFirestore) { }
 
   getCurrentUser() {
-    return this.currentUser; 
+    return this.currentUser;
   }
 
   isUserAuthenticated(attemptedRoute: string) {
@@ -41,8 +39,9 @@ export class UserService {
       });
   }
 
-  createLocalUser(uid: string, isNewUser: boolean) {
-    this.userFbCollectSub = this.getUserFromFbCollect(uid)
+  createLocalUser(uid: string) {
+    this.getUserFromFbCollect(uid)
+      .pipe(first())
       .subscribe(userObj => {
         let creationTime = new Date().getTime();
         this.currentUser = new User(
@@ -51,7 +50,6 @@ export class UserService {
           userObj.data().email,
           userObj.data().type,
           userObj.data().uid,
-          isNewUser,
           creationTime)
         this.user.next(this.currentUser);
         if (!sessionStorage.getItem('user'))
