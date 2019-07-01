@@ -22,6 +22,7 @@ export class AuthService {
           email: userObj.user.email,
           type: formData.type,
           uid: userObj.user.uid,
+          isNewUser: true,
           creationTime: null
         };
         this.tempUserCreated.next(this.tempUser);
@@ -42,9 +43,12 @@ export class AuthService {
   }
 
   handleAuth(userObj: firebase.User) {
-    this.userService.createLocalUser(userObj.uid);
-    if (this.ifNewUser(userObj.metadata))
+    if (this.ifNewUser(userObj.metadata)) {
       this.userService.addUserToFbCollect(this.tempUser.name, this.tempUser.photoUrl, this.tempUser.email, this.tempUser.type, this.tempUser.uid);
+      this.userService.createLocalUser(userObj.uid, true);
+    } else {
+      this.userService.createLocalUser(userObj.uid, false);
+    }
   }
 
   verifyEmail() {
@@ -67,8 +71,8 @@ export class AuthService {
 
   autoLogin() {
     let user = JSON.parse(sessionStorage.getItem('user'));
-    if(!user) return;
-    this.userService.createLocalUser(user.uid);
+    if (!user) return;
+    this.userService.createLocalUser(user.uid, false);
   }
 
   logout() {

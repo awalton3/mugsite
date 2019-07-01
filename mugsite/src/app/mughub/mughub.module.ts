@@ -9,6 +9,7 @@ import { TutorAppModule } from './tutor-app/tutor-app.module';
 import { StudentAppModule } from './student-app/student-app.module';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [MughubComponent, LoginComponent, RegisterComponent],

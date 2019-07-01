@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild, HostListener } from '@angular/core';
 import { ManageService } from './manage/manage.service';
+import { UserService } from '../auth/user.service';
 
 @Component({
   selector: 'app-tutor-app',
@@ -11,6 +12,7 @@ export class TutorAppComponent implements OnInit, OnDestroy {
 
   navDest: string = "MANAGE"
   pageToManage: string;
+  isNewUser: boolean;
 
   @ViewChild('navDrawer', { static: false }) navDrawer: any;
   @ViewChild('editor', { static: false }) editor: any;
@@ -26,16 +28,22 @@ export class TutorAppComponent implements OnInit, OnDestroy {
     }
   }
 
-  constructor(private manageService: ManageService) { }
+  constructor(
+    private userService: UserService,
+    private manageService: ManageService
+  ) { }
 
   ngOnInit() {
+
+    this.isNewUser = this.userService.getCurrentUser().isNewUser; 
+
     this.manageService.onManage.subscribe(pageToManage => {
       this.pageToManage = pageToManage;
       this.editor.toggle();
     })
     this.manageService.onManageCancel.subscribe(() => {
       this.editor.close();
-    }) 
+    })
   }
 
   ngOnDestroy() {
