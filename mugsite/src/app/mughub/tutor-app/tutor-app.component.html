@@ -1,7 +1,4 @@
 
-<!-- <mughub-welcome *ngIf="isNewUser"></mughub-welcome> -->
-
-
 <mat-drawer-container style="height: 100vh">
   <mat-drawer #navDrawer class="sidenav" mode="side" opened="true">
     <mughub-sidenav (navDest)="navDest = $event" (closeNav)="navDrawer.close()"></mughub-sidenav>
