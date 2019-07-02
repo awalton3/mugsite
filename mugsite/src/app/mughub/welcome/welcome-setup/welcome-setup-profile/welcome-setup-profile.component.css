@@ -1,0 +1,41 @@
+.profile-image{
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/mugsite-95f7c.appspot.com/o/headshot.jpeg?alt=media&token=b46f579f-f170-440f-9965-ae2a3e3496a6');
+  background-position: center center;
+  background-size: contain;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+  /* border: 3px solid #de6600; */
+}
+
+.profile-image-add {
+  position: relative;
+  top: 75px;
+  left: 70px;
+  border-radius: 50%;
+  background-color: #de6600;
+  width: 25px;
+  height: 25px;
+  color: white;
+}
+
+.profile-image-add-icon {
+  font-size: 17px;
+  padding-top: 4px
+}
+
+.profile-name {
+  color: grey;
+  font-size: 15px;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  margin-left: 25px;
+  cursor: pointer;
+}
+
+.profile-name-icon-edit {
+  font-size: 16px;
+  padding: 5px;
+  vertical-align: center;
+}

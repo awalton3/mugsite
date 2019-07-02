@@ -1,11 +1,54 @@
-.title {
-  font-size: 25px;
-  font-weight: 600;
-  text-align: center;
-  color: #2b5570;
+.stepper {
+  background-color: #2B5670;
+  font-family: 'Montserrat', sans-serif;
+  height: 80px;
+
 }
 
-.stepper-label {
-  font-family: 'Montserrat', sans-serif !important;
-  color: #2b5570 !important;
+.step {
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+}
+
+.step-label-active {
+  color: white;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.step-label-inactive {
+  color: #4487b2;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.step-header-active {
+  border-radius: 50%;
+  border: 1.2px solid white;
+  height: 25px;
+  width: 25px;
+  font-size: 13px;
+  font-weight: 200;
+  color: white;
+  margin-right: 10px;
+
+}
+
+.step-header-inactive {
+  border-radius: 50%;
+  border: 1.2px solid #4487b2;
+  height: 25px;
+  width: 25px;
+  font-size: 13px;
+  font-weight: 200;
+  color: #4487b2;
+  margin-right: 10px;
+}
+
+.stepper-divider {
+  background-color: #4487b2;
+  width: 50%;
 }

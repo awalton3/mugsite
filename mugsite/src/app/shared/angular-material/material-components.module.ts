@@ -12,8 +12,6 @@ import { MatRippleModule, MatNativeDateModule } from '@angular/material/core';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatStepperModule } from '@angular/material/stepper';
-
 
 
 @NgModule({
@@ -31,8 +29,7 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatBottomSheetModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSnackBarModule,
-    MatStepperModule
+    MatSnackBarModule
   ],
   providers: [
     MatDatepickerModule
@@ -51,8 +48,7 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatBottomSheetModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSnackBarModule,
-    MatStepperModule
+    MatSnackBarModule
   ]
 })
 

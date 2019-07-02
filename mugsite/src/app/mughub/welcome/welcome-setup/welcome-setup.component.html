@@ -1,39 +1,22 @@
-<p class="title">LET'S GET STARTED</p>
-<mat-horizontal-stepper [linear]="true" #stepper style="background-color: #eee">
-  <mat-step>
-    <ng-template matStepLabel class="stepper-label">PROFILE</ng-template>
-    <welcome-setup-profile></welcome-setup-profile>
-  </mat-step>
-  <mat-step>
-    <form>
-      <ng-template matStepLabel>SETTINGS</ng-template>
-      <mat-form-field>
-        <input matInput placeholder="Address" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step>
-    <form>
-      <ng-template matStepLabel>STUDENTS</ng-template>
-      <mat-form-field>
-        <input matInput placeholder="Address" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Finished</ng-template>
-    You are now done.
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button>Reset</button>
-    </div>
-  </mat-step>
-</mat-horizontal-stepper>
+<!--stepper-->
+<div fxLayout="row" fxLayoutAlign="center center" class="stepper">
+  <div class="step" fxLayout="row" fxLayoutAlign="center center" matRipple>
+    <div class="step-header-active" fxLayoutAlign="center center">1</div>
+    <div class="step-label-active">PROFILE</div>
+  </div>
+  <mat-divider class="stepper-divider"></mat-divider>
+  <div class="step" fxLayout="row" fxLayoutAlign="center center" matRipple>
+    <div class="step-header-inactive" fxLayoutAlign="center center">2</div>
+    <div class="step-label-inactive">SETTINGS</div>
+  </div>
+  <mat-divider class="stepper-divider"></mat-divider>
+  <div class="step" fxLayout="row" fxLayoutAlign="center center" matRipple>
+    <div class="step-header-inactive" fxLayoutAlign="center center">3</div>
+    <div class="step-label-inactive">STUDENTS</div>
+  </div>
+  <mat-divider class="stepper-divider"></mat-divider>
+  <div class="step" fxLayout="row" fxLayoutAlign="center center" matRipple>
+    <div class="step-header-inactive" fxLayoutAlign="center center">4</div>
+    <div class="step-label-inactive">FINISHED</div>
+  </div>
+</div>
