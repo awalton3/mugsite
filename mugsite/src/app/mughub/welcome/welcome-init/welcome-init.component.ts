@@ -9,15 +9,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class WelcomeInitComponent implements OnInit {
 
   constructor(
-    private router: Router,
-    private route: ActivatedRoute
+    private router: Router
   ) { }
 
   ngOnInit() {
   }
 
   onGetStarted() {
-    this.router.navigate(['account-setup'], { relativeTo: this.route })
+    this.router.navigate(['/mughub/welcome/account-setup'])
   }
 
 
