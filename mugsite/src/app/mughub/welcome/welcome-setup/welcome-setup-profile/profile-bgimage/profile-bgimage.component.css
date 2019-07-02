@@ -1,0 +1,46 @@
+.image {
+  background-position: center center;
+  background-size: cover;
+  width: 146px;
+  height: 146px;
+  margin: 8px;
+  cursor: pointer;
+  background-color: #b1b2b3; 
+}
+
+.background-images {
+  position: absolute;
+  bottom: 0;
+  height: 50%;
+  width: 100%;
+  background-color: #d7d8da;
+  padding: 5px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.background-images-title {
+  color: grey;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.profile-image{
+  background-position: center center;
+  background-size: cover;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
+  /* border: 3px solid #de6600; */
+}
+
+.profile-name {
+  color: grey;
+  font-size: 15px;
+  font-family: 'Montserrat', sans-serif;
+  text-align: center;
+  cursor: pointer;
+  margin-left: 10px;
+}

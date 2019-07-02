@@ -12,8 +12,12 @@ const routes: Routes = [
       { path: '', component: WelcomeInitComponent },
       {
         path: 'account-setup', component: WelcomeSetupComponent, children: [
-          { path: '', redirectTo: "profile", pathMatch: 'full'},
-          { path: 'profile', component: WelcomeSetupProfileComponent }
+          { path: '', redirectTo: "profile", pathMatch: 'full' },
+          {
+            path: 'profile', component: WelcomeSetupProfileComponent, children: [
+              { path: 'image', loadChildren: './welcome-setup/welcome-setup-profile/profile-bgimage/profile-bgimage.module#ProfileBgimageModule' }
+            ]
+          }
         ]
       },
       { path: '**', redirectTo: '', pathMatch: 'full' }

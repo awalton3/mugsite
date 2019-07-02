@@ -3,6 +3,7 @@
   font-size: 30px;
   font-weight: 600;
   text-align: center;
+  padding: 0px 10px;
 }
 
 .profile-image{
@@ -58,4 +59,23 @@
 .button-icon {
   font-size: 17px;
   padding: 0px 5px;
+}
+
+.profileImageEditor {
+  width: 500px;
+  height: 100%;
+  background-color: #eee;
+  color: grey;
+}
+
+@media only screen and (max-width: 500px) {
+  .profileImageEditor {
+    width: 100vw;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .button {
+    width: 250px;
+  }
 }

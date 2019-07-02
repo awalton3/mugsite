@@ -12,6 +12,7 @@ export class HeadnavComponent implements OnInit {
   @Input() iconLeft?: string;
   @Input() iconRight?: string;
   @Input() enableIconRight?: boolean = true;
+  
   @Output() leftIconToggled = new Subject();
   @Output() rightIconToggled = new Subject();
 

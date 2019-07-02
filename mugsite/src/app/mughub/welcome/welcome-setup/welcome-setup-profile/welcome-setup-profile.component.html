@@ -1,18 +1,26 @@
-<div fxLayout="column" fxLayoutAlign="center center" style="height: 80vh">
-  <p class="title">CUSTOMIZE YOUR PROFILE</p>
-  <br><br>
-  <div fxLayout="column" fxLayoutAlign="center center" style="background: #eee; width: 100 %">
-    <div class="profile-image">
-      <div class="profile-image-add">
-        <i fxLayoutAlign="center center" class="material-icons profile-image-add-icon">add</i>
+<mat-drawer-container class="example-container" [hasBackdrop]="false">
+  <mat-drawer #profileImageEditor mode="over" position="end" (openedStart)="loadImages()" class="profileImageEditor">
+    <mughub-headnav title="PROFILE IMAGE" iconLeft="close" iconRight="done" (leftIconToggled)="profileImageEditor.close()" (rightIconToggled)="profileImageEditor.close()"></mughub-headnav>
+    <router-outlet></router-outlet>
+  </mat-drawer>
+  <mat-drawer-content style="background: #eee">
+    <div fxLayout="column" fxLayoutAlign="center center" style="height: 92vh">
+      <p class="title">CUSTOMIZE YOUR PROFILE</p>
+      <br><br>
+      <div fxLayout="column" fxLayoutAlign="center center" style="background: #eee; width: 100%">
+        <div (click)="profileImageEditor.open()" class="profile-image">
+          <div class="profile-image-add">
+            <i fxLayoutAlign="center center" class="material-icons profile-image-add-icon">add</i>
+          </div>
+        </div>
+        <p class="profile-name" fxLayoutAlign="center center">
+          ANA WALTON <i class="material-icons profile-name-icon-edit">edit</i>
+        </p>
       </div>
+      <br><br>
+      <button (click)="onContinue()" mat-raised-button color="accent" class="button" fxLayoutAlign="center center">
+        CONTINUE <i class="material-icons button-icon">arrow_forward</i>
+      </button>
     </div>
-    <p class="profile-name" fxLayoutAlign="center center">
-      ANA WALTON <i class="material-icons profile-name-icon-edit">edit</i>
-    </p>
-  </div>
-  <br><br>
-  <button (click)="onContinue()" mat-raised-button color="accent" class="button">
-    CONTINUE <i class="material-icons button-icon">arrow_forward</i>
-  </button>
-</div>
+  </mat-drawer-content>
+</mat-drawer-container>

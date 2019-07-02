@@ -6,13 +6,17 @@ import { WelcomeRoutingModule } from './welcome-routing.module';
 import { WelcomeSetupComponent } from './welcome-setup/welcome-setup.component';
 import { WelcomeInitComponent } from './welcome-init/welcome-init.component';
 import { WelcomeSetupProfileComponent } from './welcome-setup/welcome-setup-profile/welcome-setup-profile.component';
+import { HeadnavModule } from '../headnav/headnav.module';
+import { ProfileBgimageModule } from './welcome-setup/welcome-setup-profile/profile-bgimage/profile-bgimage.module';
 
 @NgModule({
   declarations: [WelcomeComponent, WelcomeSetupComponent, WelcomeInitComponent, WelcomeSetupProfileComponent],
   imports: [
     CommonModule,
     WelcomeRoutingModule,
-    MaterialComponentsModule
+    MaterialComponentsModule,
+    HeadnavModule,
+    ProfileBgimageModule
   ]
 })
 export class WelcomeModule { }
