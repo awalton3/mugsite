@@ -4,12 +4,18 @@ import { WelcomeComponent } from './welcome.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { WelcomeSetupComponent } from './welcome-setup/welcome-setup.component';
 import { WelcomeInitComponent } from './welcome-init/welcome-init.component';
+import { WelcomeSetupProfileComponent } from './welcome-setup/welcome-setup-profile/welcome-setup-profile.component';
 
 const routes: Routes = [
   {
     path: '', component: WelcomeComponent, canActivate: [AuthGuard], children: [
       { path: '', component: WelcomeInitComponent },
-      { path: 'account-setup', component: WelcomeSetupComponent },
+      {
+        path: 'account-setup', component: WelcomeSetupComponent, children: [
+          { path: '', redirectTo: "profile", pathMatch: 'full'},
+          { path: 'profile', component: WelcomeSetupProfileComponent }
+        ]
+      },
       { path: '**', redirectTo: '', pathMatch: 'full' }
     ]
   }

@@ -1,19 +1,18 @@
-<div fxLayout="column" fxLayoutAlign="center center" style="background: #eee; width: 100 %">
-  <div class="profile-image">
-    <div class="profile-image-add">
-      <i fxLayoutAlign="center center" class="material-icons profile-image-add-icon">add</i>
+<div fxLayout="column" fxLayoutAlign="center center" style="height: 80vh">
+  <p class="title">CUSTOMIZE YOUR PROFILE</p>
+  <br><br>
+  <div fxLayout="column" fxLayoutAlign="center center" style="background: #eee; width: 100 %">
+    <div class="profile-image">
+      <div class="profile-image-add">
+        <i fxLayoutAlign="center center" class="material-icons profile-image-add-icon">add</i>
+      </div>
     </div>
+    <p class="profile-name" fxLayoutAlign="center center">
+      ANA WALTON <i class="material-icons profile-name-icon-edit">edit</i>
+    </p>
   </div>
-  <p class="profile-name" fxLayoutAlign="center center">
-    ANA WALTON <i class="material-icons profile-name-icon-edit">edit</i>
-  </p>
+  <br><br>
+  <button (click)="onContinue()" mat-raised-button color="accent" class="button">
+    CONTINUE <i class="material-icons button-icon">arrow_forward</i>
+  </button>
 </div>
-
-<!-- <form>
-  <mat-form-field>
-    <input matInput placeholder="Last name, First name" required>
-  </mat-form-field>
-  <div>
-    <button mat-button matStepperNext>Next</button>
-  </div>
-</form> -->

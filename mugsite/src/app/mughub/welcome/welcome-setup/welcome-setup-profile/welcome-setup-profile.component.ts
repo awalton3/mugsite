@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { WelcomeService } from '../../welcome.service';
 
 @Component({
   selector: 'welcome-setup-profile',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeSetupProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(private welcomeService: WelcomeService) { }
 
   ngOnInit() {
+  }
+
+  onContinue() {
+    this.welcomeService.onNav.next({comp: 'profile', action: 'next'});
   }
 
 }
