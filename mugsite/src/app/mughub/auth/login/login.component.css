@@ -33,14 +33,6 @@
   cursor: pointer !important;
 }
 
-.auth-btn {
-  border-radius: 33.5px;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  width: 320px;
-  font-size: 16px;
-}
-
 .auth-switch-prompt {
   color: grey;
   font-size: 13px;
@@ -50,9 +42,6 @@
 
 @media only screen and (max-width: 320px) {
   .auth-input {
-    width: 250px;
-  }
-  .auth-btn {
     width: 250px;
   }
   .auth-input-field-forgot{

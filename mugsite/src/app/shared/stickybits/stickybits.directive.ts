@@ -8,7 +8,6 @@ import stickybits from "stickybits";
 export class StickyBitsDirective implements AfterContentInit, OnChanges, OnDestroy {
 
     private instance: any = null;
-    private verticalPosition: string; // 'top' (default) | 'bottom'
 
     // options
     private stuckClass: string = 'is-stuck';

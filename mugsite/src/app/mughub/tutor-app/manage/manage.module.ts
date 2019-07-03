@@ -4,7 +4,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
 import { ManageRoutingModule } from './manage-routing.module';
 import { ManageComponent } from './manage.component';
 import { MaterialComponentsModule } from 'src/app/shared/angular-material/material-components.module';
-import { FormsMaterialComponentsModule } from 'src/app/shared/angular-material/forms-material-components.model';
+import { FormsMaterialComponentsModule } from 'src/app/shared/angular-material/forms-material-components.module';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';

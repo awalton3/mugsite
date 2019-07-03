@@ -3,7 +3,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthService } from '../auth.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'mughub-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -12,8 +12,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(
-    private authService: AuthService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.initForm();
@@ -28,13 +27,13 @@ export class LoginComponent implements OnInit {
 
   onResetPassword() {
     if (!this.loginForm.value.email)
-      alert("Please enter an email address and try again.")
+      alert("Please enter an email address and try again."); 
     else
       this.authService.resetPassword(this.loginForm.value.email);
   }
 
   onSubmit() {
-    this.authService.login(this.loginForm.value)
+    this.authService.login(this.loginForm.value);
   }
 
 }
