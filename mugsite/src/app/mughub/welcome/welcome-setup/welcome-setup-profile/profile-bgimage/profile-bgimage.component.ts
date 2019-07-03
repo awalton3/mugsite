@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { WelcomeService } from '../../../welcome.service';
 
 @Component({
   selector: 'profile-bgimage',
@@ -11,7 +12,9 @@ export class ProfileBgimageComponent implements OnInit, AfterViewInit {
   imagesLoaded = false;
   imageClicked: string;
 
-  constructor() { }
+  constructor(
+    private welcomeService: WelcomeService
+  ) { }
 
   ngOnInit() {
     this.urls = [
@@ -24,16 +27,33 @@ export class ProfileBgimageComponent implements OnInit, AfterViewInit {
       'https://i.ibb.co/0VZMXZd/cobblestone-granite-pebbles-1029604.jpg',
       'https://i.ibb.co/tQFP2K5/environment-flora-foliage-2537632.jpg',
     ]
-    this.imageClicked = 'https://i.ibb.co/pjG5Rkf/4k-wallpaper-astronomy-evening-2085998.jpg';
+    this.welcomeService.selectedProfileImage = 'https://i.ibb.co/pjG5Rkf/4k-wallpaper-astronomy-evening-2085998.jpg';
   }
 
   ngAfterViewInit() {
-    // setInterval(() => {this.imagesLoaded = true;}, 3000)
     this.imagesLoaded = true;
   }
 
   onImageClick(index) {
-    this.imageClicked = this.urls[index];
+    this.welcomeService.selectedProfileImage = this.urls[index];
   }
 
+  onUpload(event) {
+
+    let preview = document.getElementById('profile-image');
+    let file = event.target.files[0];
+    let reader = new FileReader();
+
+    reader.onload = e => {
+      this.welcomeService.selectedProfileImage = e.target.result;
+      this.urls.unshift(this.welcomeService.selectedProfileImage);
+    }
+
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      this.welcomeService.selectedProfileImage = "https://i.ibb.co/pjG5Rkf/4k-wallpaper-astronomy-evening-2085998.jpg";
+    }
+
+  }
 }

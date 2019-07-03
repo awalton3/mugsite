@@ -5,7 +5,7 @@
   height: 146px;
   margin: 8px;
   cursor: pointer;
-  background-color: #b1b2b3; 
+  background-color: #b1b2b3;
 }
 
 .background-images {
@@ -43,4 +43,15 @@
   text-align: center;
   cursor: pointer;
   margin-left: 10px;
+}
+
+.upload-text {
+  font-size: 15px;
+  font-weight: 500;
+  color: #2b5670;
+}
+
+.upload-icon {
+  color: #2b5670;
+  font-size: 18px;
 }

@@ -8,12 +8,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./welcome-setup-profile.component.css']
 })
 export class WelcomeSetupProfileComponent implements OnInit {
+
+  @ViewChild('profileImageEditor', {static: false}) profileImageEditor;
+  chosenProfileImage: string;
+
   constructor(
     private welcomeService: WelcomeService,
     private router: Router
   ) { }
 
   ngOnInit() {
+    this.chosenProfileImage = 'https://i.ibb.co/pjG5Rkf/4k-wallpaper-astronomy-evening-2085998.jpg';
   }
 
   onContinue() {
@@ -21,7 +26,12 @@ export class WelcomeSetupProfileComponent implements OnInit {
   }
 
   loadImages() {
-    //allow drawer to open all the way before loading the background images
+    //allow drawer to open before loading the background images
     this.router.navigate(['mughub/welcome/account-setup/profile/image']);
+  }
+
+  onFinish() {
+    this.chosenProfileImage = this.welcomeService.selectedProfileImage;
+    this.profileImageEditor.close(); 
   }
 }

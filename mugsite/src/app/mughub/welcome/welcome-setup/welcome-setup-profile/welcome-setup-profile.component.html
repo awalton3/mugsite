@@ -1,6 +1,6 @@
 <mat-drawer-container class="example-container" [hasBackdrop]="false">
   <mat-drawer #profileImageEditor mode="over" position="end" (openedStart)="loadImages()" class="profileImageEditor">
-    <mughub-headnav title="PROFILE IMAGE" iconLeft="close" iconRight="done" (leftIconToggled)="profileImageEditor.close()" (rightIconToggled)="profileImageEditor.close()"></mughub-headnav>
+    <mughub-headnav title="PROFILE IMAGE" iconLeft="close" iconRight="done" (leftIconToggled)="profileImageEditor.close()" (rightIconToggled)="onFinish()"></mughub-headnav>
     <router-outlet></router-outlet>
   </mat-drawer>
   <mat-drawer-content style="background: #eee">
@@ -8,7 +8,7 @@
       <p class="title">CUSTOMIZE YOUR PROFILE</p>
       <br><br>
       <div fxLayout="column" fxLayoutAlign="center center" style="background: #eee; width: 100%">
-        <div (click)="profileImageEditor.open()" class="profile-image">
+        <div (click)="profileImageEditor.open()" class="profile-image" [ngStyle]="{'background-image': 'url(' + chosenProfileImage + ')'}">
           <div class="profile-image-add">
             <i fxLayoutAlign="center center" class="material-icons profile-image-add-icon">add</i>
           </div>

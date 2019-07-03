@@ -62,6 +62,10 @@ export class UserService {
       })
   }
 
+  uploadeProfilePhoto(photo) {
+    
+  }
+
   // getUserIdToken() {
   //   firebase.auth().onAuthStateChanged(user => {
   //     if (user) {

@@ -1,6 +1,5 @@
-
 <div fxLayout="column" fxLayoutAlign="center center" style="background: #eee; width: 100%; height: 40%">
-  <div class="profile-image" [ngStyle]="{'background-image': 'url(' + imageClicked + ')'}"></div>
+  <div id="profile-image" class="profile-image" [ngStyle]="{'background-image': 'url(' + welcomeService.selectedProfileImage + ')'}"></div>
   <p class="profile-name" fxLayoutAlign="center center">
     ANA WALTON
   </p>
@@ -10,22 +9,15 @@
   <p class="background-images-title">PICK A PHOTO</p>
   <!--images-->
   <div *ngIf="imagesLoaded" fxLayout="row wrap" fxLayoutAlign="center start" layout-wrap>
-    <div class="image" fxLayoutAlign="center center" style="background: transparent">
-      <p style="font-size: 15px; font-weight: 500; color: #2b5670">UPLOAD</p>
-      <i class="material-icons" style="color: #2b5670; font-size: 18px;">add</i>
-    </div>
+    <input (change)="onUpload($event)" type="file" id="image" accept="image/*" class="fileUploader">
+    <label for="image">
+      <div class="image" fxLayoutAlign="center center" style="background: transparent">
+        <p class="upload-text">UPLOAD</p>
+        <i class="material-icons upload-icon">add</i>
+      </div>
+    </label>
     <div (click)="onImageClick(i)" *ngFor="let url of urls, let i = index" class="image" [ngStyle]="{'background-image': 'url(' + url + ')'}" matRipple></div>
   </div>
   <!--spinner-->
   <div *ngIf="!imagesLoaded" class="loader">loading...</div>
-
-
-  <!-- <div fxLayout="row wrap" fxLayoutAlign="center start" layout-wrap>
-    <div class="image" style="background-image: url('https://i.ibb.co/6mfPz9G/7.jpg')"></div>
-    <div class="image" style="background-image: url('https://i.ibb.co/T0fbXbH/6.jpg')"></div>
-    <div class="image" style="background-image: url('https://i.ibb.co/9VYq6wc/5.jpg')"></div>
-    <div class="image" style="background-image: url('https://i.ibb.co/HDBt1m4/4.jpg')"></div>
-    <div class="image" style="background-image: url('https://i.ibb.co/0C9znsS/3.jpg')"></div>
-    <div class="image" style="background-image: url('https://i.ibb.co/tx4fJ4y/2.jpg')"></div>
-  </div> -->
 </div>
