@@ -6,6 +6,7 @@ import { WelcomeService } from '../../../welcome.service';
   templateUrl: './profile-bgimage.component.html',
   styleUrls: ['./profile-bgimage.component.css']
 })
+
 export class ProfileBgimageComponent implements OnInit, AfterViewInit {
 
   urls: string[];
@@ -14,9 +15,10 @@ export class ProfileBgimageComponent implements OnInit, AfterViewInit {
 
   constructor(
     private welcomeService: WelcomeService
-  ) { }
+  ) {}
 
   ngOnInit() {
+
     this.urls = [
       'https://i.ibb.co/pjG5Rkf/4k-wallpaper-astronomy-evening-2085998.jpg',
       'https://i.ibb.co/PQyS52p/adventure-automobile-classic-2533092.jpg',
@@ -40,11 +42,20 @@ export class ProfileBgimageComponent implements OnInit, AfterViewInit {
 
   onUpload(event) {
 
+    interface FileReaderEventTarget extends EventTarget {
+      result: string
+    }
+
+    interface FileReaderEvent extends Event {
+      target: FileReaderEventTarget;
+      getMessage(): string;
+    }
+
     let preview = document.getElementById('profile-image');
     let file = event.target.files[0];
-    let reader = new FileReader();
+    let reader: any = new FileReader();
 
-    reader.onload = e => {
+    reader.onload = (e: FileReaderEvent) => {
       this.welcomeService.selectedProfileImage = e.target.result;
       this.urls.unshift(this.welcomeService.selectedProfileImage);
     }
