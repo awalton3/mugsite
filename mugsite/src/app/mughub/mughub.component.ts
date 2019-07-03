@@ -1,6 +1,6 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from './auth/auth.service';
-import { Router } from '@angular/router';
 import { UserService } from './auth/user.service';
 
 @Component({
@@ -15,26 +15,26 @@ export class MughubComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private userService: UserService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.authService.autoLogin();
     this.userService.user.subscribe(user => {
 
-      //old users
+      //recurring user
       if (user && !user.isNewUser) {
         this.router.navigate(['mughub', user.type]);
       }
 
-      //new users
+      //new user
       if (user && user.isNewUser)
-        this.router.navigate(['mughub/welcome'])
-        
+        this.router.navigate(['mughub/welcome']);
+
     })
   }
 
   ngOnDestroy() {
-    this.userService.user.unsubscribe()
+    this.userService.user.unsubscribe(); 
   }
 
 }

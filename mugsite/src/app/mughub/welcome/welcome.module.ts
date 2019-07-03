@@ -9,6 +9,8 @@ import { WelcomeSetupProfileComponent } from './welcome-setup/welcome-setup-prof
 import { HeadnavModule } from '../headnav/headnav.module';
 import { ProfileBgimageModule } from './welcome-setup/welcome-setup-profile/profile-bgimage/profile-bgimage.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { FormsMaterialComponentsModule } from 'src/app/shared/angular-material/forms-material-components.model';
 
 @NgModule({
   declarations: [WelcomeComponent, WelcomeSetupComponent, WelcomeInitComponent, WelcomeSetupProfileComponent],
@@ -16,6 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     WelcomeRoutingModule,
     MaterialComponentsModule,
+    FormsMaterialComponentsModule,
+    MatSidenavModule,
     HeadnavModule,
     ProfileBgimageModule,
     ReactiveFormsModule

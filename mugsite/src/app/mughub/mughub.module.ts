@@ -10,15 +10,21 @@ import { StudentAppModule } from './student-app/student-app.module';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { WelcomeModule } from './welcome/welcome.module';
+import { MatSidenavModule } from '@angular/material/sidenav'
+import { MatListModule } from '@angular/material/list';
+import { FormsMaterialComponentsModule } from '../shared/angular-material/forms-material-components.model';
+
 
 @NgModule({
   declarations: [MughubComponent, LoginComponent, RegisterComponent],
   imports: [
     CommonModule,
     MaterialComponentsModule,
+    FormsMaterialComponentsModule,
     MughubRoutingModule,
     ReactiveFormsModule,
-    MaterialComponentsModule,
+    MatSidenavModule,
+    MatListModule,
     TutorAppModule,
     StudentAppModule,
     WelcomeModule

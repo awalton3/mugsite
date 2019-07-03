@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
 import { ManageRoutingModule } from './manage-routing.module';
 import { ManageComponent } from './manage.component';
 import { MaterialComponentsModule } from 'src/app/shared/angular-material/material-components.module';
+import { FormsMaterialComponentsModule } from 'src/app/shared/angular-material/forms-material-components.model';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -21,6 +23,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StickyBitsDirective } from 'src/app/shared/stickybits/stickybits.directive';
 import { ManageSiteEditorComponent } from './manage-site-editor/manage-site-editor.component';
 import { EditorBottomSheetEventsComponent } from './manage-site-editor/editor-bottom-sheet-events/editor-bottom-sheet-events.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatListModule } from '@angular/material/list';
 
 
 @NgModule({
@@ -36,11 +41,19 @@ import { EditorBottomSheetEventsComponent } from './manage-site-editor/editor-bo
   imports: [
     CommonModule,
     MaterialComponentsModule,
+    FormsMaterialComponentsModule,
+    MatBottomSheetModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     ManageRoutingModule,
     FontAwesomeModule,
     HeadnavModule,
     EventListItemModule,
     ReactiveFormsModule,
+    MatListModule
+  ],
+  providers: [
+    MatDatepickerModule
   ],
   exports: [
     ManageSiteEditorComponent
