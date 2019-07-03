@@ -1,9 +1,9 @@
 .image {
   background-position: center center;
   background-size: cover;
-  width: 146px;
-  height: 146px;
-  margin: 8px;
+  width: 145px;
+  height: 145px;
+  margin: 5px;
   cursor: pointer;
   background-color: #b1b2b3;
 }
@@ -12,9 +12,9 @@
   position: absolute;
   bottom: 0;
   height: 50%;
-  width: 100%;
   background-color: #d7d8da;
   padding: 5px;
+  width: 97.5%;
   overflow-y: scroll;
   overflow-x: hidden;
 }

@@ -8,7 +8,7 @@
     <mat-drawer-container [hasBackdrop]="false" style="height: 100vh;">
 
       <!--editor-->
-      <mat-drawer #editor class="editor" mode="over" position="end" opened="false">
+      <mat-drawer #editor mode="over" position="end" opened="false" class="editor">
         <mughub-manage-site-editor *ngIf="pageToManage" [pageToManage]="pageToManage"></mughub-manage-site-editor>
       </mat-drawer>
 

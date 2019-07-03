@@ -47,26 +47,6 @@
   vertical-align: middle;
 }
 
-.button {
-  border-radius: 33.5px;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  width: 320px;
-  font-size: 16px;
-}
-/*
-.button-icon {
-  font-size: 17px;
-  padding: 0px 5px;
-} */
-
-.profileImageEditor {
-  width: 500px;
-  height: 100%;
-  background-color: #eee;
-  color: grey;
-}
-
 .nameFormField {
   font-family: 'Montserrat', sans-serif;
   text-transform: uppercase;
@@ -78,16 +58,4 @@
 
 ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
   height: 0 !important;
-}
-
-@media only screen and (max-width: 500px) {
-  .profileImageEditor {
-    width: 100vw;
-  }
-}
-
-@media only screen and (max-width: 350px) {
-  .button {
-    width: 250px;
-  }
 }

@@ -56,15 +56,6 @@
   font-weight: 600;
 }
 
-.fileUploader {
-  width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
-}
-
 .add-attachment-btn {
   color: #2b5570;
   cursor: pointer;

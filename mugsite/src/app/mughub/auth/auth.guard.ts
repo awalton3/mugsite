@@ -22,7 +22,6 @@ export class AuthGuard implements CanActivate, CanLoad {
   }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    console.log('ran');
     if (!this.userService.isUserAuthenticated(route.parent.routeConfig.path)) {
       this.authService.logout();
       this.router.navigate(['mughub/login']);

@@ -7,7 +7,6 @@ import { WelcomeSetupComponent } from './welcome-setup/welcome-setup.component';
 import { WelcomeInitComponent } from './welcome-init/welcome-init.component';
 import { WelcomeSetupProfileComponent } from './welcome-setup/welcome-setup-profile/welcome-setup-profile.component';
 import { HeadnavModule } from '../headnav/headnav.module';
-import { ProfileBgimageModule } from './welcome-setup/welcome-setup-profile/profile-bgimage/profile-bgimage.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { FormsMaterialComponentsModule } from 'src/app/shared/angular-material/forms-material-components.module';
@@ -30,7 +29,6 @@ import { WelcomeSetupStudentsComponent } from './welcome-setup/welcome-setup-stu
     FormsMaterialComponentsModule,
     MatSidenavModule,
     HeadnavModule,
-    ProfileBgimageModule,
     ReactiveFormsModule
   ]
 })

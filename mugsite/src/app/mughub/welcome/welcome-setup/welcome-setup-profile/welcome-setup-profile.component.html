@@ -1,13 +1,13 @@
 <mat-drawer-container class="example-container" [hasBackdrop]="false">
-  <mat-drawer #profileImageEditor mode="over" position="end" (openedStart)="loadImages()" class="profileImageEditor">
+  <mat-drawer #profileImageEditor mode="over" position="end" (openedStart)="loadImages()" class="side-content-drawer">
     <mughub-headnav title="PROFILE IMAGE" iconLeft="close" iconRight="done" (leftIconToggled)="profileImageEditor.close()" (rightIconToggled)="onFinish()"></mughub-headnav>
     <router-outlet></router-outlet>
   </mat-drawer>
-  <mat-drawer-content style="background: #eee" class="fade-in">
+  <mat-drawer-content class="fade-in background-eee">
     <div fxLayout="column" fxLayoutAlign="center center" style="height: 92vh">
       <p class="title">CUSTOMIZE YOUR PROFILE</p>
       <br>
-      <div fxLayout="column" fxLayoutAlign="center center" style="background: #eee; width: 100%">
+      <div fxLayout="column" fxLayoutAlign="center center" class="background-eee widthFullPer">
         <div (click)="profileImageEditor.open()" class="profile-image" [ngStyle]="{'background-image': 'url(' + chosenProfileImage + ')'}">
           <div class="profile-image-add">
             <i fxLayoutAlign="center center" class="material-icons profile-image-add-icon">add</i>
@@ -22,7 +22,7 @@
         </form>
       </div>
       <br>
-      <button (click)="onProfileSubmit()" type="submit" mat-raised-button color="accent" class="button" fxLayoutAlign="center center">
+      <button (click)="onProfileSubmit()" type="submit" mat-raised-button color="accent" class="action-button" fxLayoutAlign="center center">
         CONTINUE
       </button>
     </div>
