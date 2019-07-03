@@ -1,18 +1,20 @@
 <!--stepper-->
 <div fxLayout="row" fxLayoutAlign="center center" class="stepper">
-  <div (click)="onProfile()" class="step" fxLayout="row" fxLayoutAlign="center center" matRipple>
-    <div class="step-header-active" fxLayoutAlign="center center">1</div>
-    <div class="step-label-active">PROFILE</div>
+  <div [routerLink]="['/mughub/welcome/account-setup/profile']" (click)="currStep = 'profile'" class="step" fxLayout="row" fxLayoutAlign="center center" matRipple>
+    <div [ngClass]="{'step-header-active': currStep === 'profile', 'step-header-inactive': currStep !== 'profile'}" fxLayoutAlign="center center">
+      1
+    </div>
+    <div [ngClass]="{'step-label-active': currStep === 'profile', 'step-label-inactive': currStep !== 'profile'}">PROFILE</div>
   </div>
   <mat-divider class="stepper-divider"></mat-divider>
-  <div class="step" fxLayout="row" fxLayoutAlign="center center" matRipple>
-    <div class="step-header-inactive" fxLayoutAlign="center center">2</div>
-    <div class="step-label-inactive">SETTINGS</div>
+  <div [routerLink]="['/mughub/welcome/account-setup/settings']" (click)="currStep = 'settings'" class="step" fxLayout="row" fxLayoutAlign="center center" matRipple>
+    <div [ngClass]="{'step-header-active': currStep === 'settings', 'step-header-inactive': currStep !== 'settings'}" fxLayoutAlign="center center">2</div>
+    <div [ngClass]="{'step-label-active': currStep === 'settings', 'step-label-inactive': currStep !== 'settings'}">SETTINGS</div>
   </div>
   <mat-divider class="stepper-divider"></mat-divider>
-  <div class="step" fxLayout="row" fxLayoutAlign="center center" matRipple>
-    <div class="step-header-inactive" fxLayoutAlign="center center">3</div>
-    <div class="step-label-inactive">STUDENTS</div>
+  <div [routerLink]="['/mughub/welcome/account-setup/students']" (click)="currStep = 'students'" class="step" fxLayout="row" fxLayoutAlign="center center" matRipple>
+    <div [ngClass]="{'step-header-active': currStep === 'students', 'step-header-inactive': currStep !== 'students'}" fxLayoutAlign="center center">3</div>
+    <div [ngClass]="{'step-label-active': currStep === 'students', 'step-label-inactive': currStep !== 'students'}">STUDENTS</div>
   </div>
   <mat-divider class="stepper-divider"></mat-divider>
   <div class="step" fxLayout="row" fxLayoutAlign="center center" matRipple>

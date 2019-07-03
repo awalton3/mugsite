@@ -9,6 +9,8 @@ import { WelcomeService } from '../welcome.service';
 })
 export class WelcomeSetupComponent implements OnInit {
 
+  currStep: string = 'profile'; 
+
   constructor(
     private router: Router,
     private welcomeService: WelcomeService

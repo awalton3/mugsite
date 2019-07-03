@@ -8,6 +8,7 @@
   cursor: pointer;
   height: 100%;
   width: 100%;
+  outline: 0;
 }
 
 .step-label-active {

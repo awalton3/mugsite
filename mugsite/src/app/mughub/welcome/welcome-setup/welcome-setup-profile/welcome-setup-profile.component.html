@@ -3,10 +3,10 @@
     <mughub-headnav title="PROFILE IMAGE" iconLeft="close" iconRight="done" (leftIconToggled)="profileImageEditor.close()" (rightIconToggled)="onFinish()"></mughub-headnav>
     <router-outlet></router-outlet>
   </mat-drawer>
-  <mat-drawer-content style="background: #eee">
+  <mat-drawer-content style="background: #eee" class="fade-in">
     <div fxLayout="column" fxLayoutAlign="center center" style="height: 92vh">
       <p class="title">CUSTOMIZE YOUR PROFILE</p>
-      <br><br>
+      <br>
       <div fxLayout="column" fxLayoutAlign="center center" style="background: #eee; width: 100%">
         <div (click)="profileImageEditor.open()" class="profile-image" [ngStyle]="{'background-image': 'url(' + chosenProfileImage + ')'}">
           <div class="profile-image-add">
@@ -21,9 +21,9 @@
           </mat-form-field>
         </form>
       </div>
-      <br><br>
+      <br>
       <button (click)="onProfileSubmit()" type="submit" mat-raised-button color="accent" class="button" fxLayoutAlign="center center">
-        CONTINUE <i class="material-icons button-icon">arrow_forward</i>
+        CONTINUE
       </button>
     </div>
   </mat-drawer-content>

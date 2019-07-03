@@ -1,6 +1,6 @@
 .title {
   color: #2b5670;
-  font-size: 30px;
+  font-size: 28px;
   font-weight: 600;
   text-align: center;
   padding: 0px 10px;
@@ -54,11 +54,11 @@
   width: 320px;
   font-size: 16px;
 }
-
+/*
 .button-icon {
   font-size: 17px;
   padding: 0px 5px;
-}
+} */
 
 .profileImageEditor {
   width: 500px;
