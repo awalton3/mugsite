@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { WelcomeService } from '../../welcome.service';
 import { Router } from '@angular/router';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'welcome-setup-profile',
@@ -11,6 +12,7 @@ export class WelcomeSetupProfileComponent implements OnInit {
 
   @ViewChild('profileImageEditor', {static: false}) profileImageEditor;
   chosenProfileImage: string;
+  nameForm: FormGroup;
 
   constructor(
     private welcomeService: WelcomeService,
@@ -19,9 +21,13 @@ export class WelcomeSetupProfileComponent implements OnInit {
 
   ngOnInit() {
     this.chosenProfileImage = 'https://i.ibb.co/pjG5Rkf/4k-wallpaper-astronomy-evening-2085998.jpg';
+    this.nameForm = new FormGroup({
+      'username': new FormControl(JSON.parse(sessionStorage.getItem('user')).name)
+    })
   }
 
-  onContinue() {
+  onProfileSubmit() {
+    this.welcomeService.newUserInfo.name = this.nameForm.value.username; 
     this.welcomeService.onNav.next({ comp: 'profile', action: 'next' });
   }
 
@@ -31,7 +37,7 @@ export class WelcomeSetupProfileComponent implements OnInit {
   }
 
   onFinish() {
-    this.chosenProfileImage = this.welcomeService.selectedProfileImage;
-    this.profileImageEditor.close(); 
+    this.chosenProfileImage = this.welcomeService.newUserInfo.photoUrl;
+    this.profileImageEditor.close();
   }
 }

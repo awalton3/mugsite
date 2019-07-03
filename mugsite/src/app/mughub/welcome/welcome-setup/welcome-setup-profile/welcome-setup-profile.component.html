@@ -13,12 +13,16 @@
             <i fxLayoutAlign="center center" class="material-icons profile-image-add-icon">add</i>
           </div>
         </div>
-        <p class="profile-name" fxLayoutAlign="center center">
-          ANA WALTON <i class="material-icons profile-name-icon-edit">edit</i>
-        </p>
+        <br>
+        <form [formGroup]="nameForm" fxLayoutAlign="center center">
+          <mat-form-field floatLabel="never">
+            <input matInput type="text" formControlName="username" class="nameFormField">
+            <span matSuffix style="color: grey; cursor: pointer"><i class="material-icons" fxLayoutAlign="center center">edit</i></span>
+          </mat-form-field>
+        </form>
       </div>
       <br><br>
-      <button (click)="onContinue()" mat-raised-button color="accent" class="button" fxLayoutAlign="center center">
+      <button (click)="onProfileSubmit()" type="submit" mat-raised-button color="accent" class="button" fxLayoutAlign="center center">
         CONTINUE <i class="material-icons button-icon">arrow_forward</i>
       </button>
     </div>

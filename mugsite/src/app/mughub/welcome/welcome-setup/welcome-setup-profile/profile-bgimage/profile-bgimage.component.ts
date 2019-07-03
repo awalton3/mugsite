@@ -29,7 +29,7 @@ export class ProfileBgimageComponent implements OnInit, AfterViewInit {
       'https://i.ibb.co/0VZMXZd/cobblestone-granite-pebbles-1029604.jpg',
       'https://i.ibb.co/tQFP2K5/environment-flora-foliage-2537632.jpg',
     ]
-    this.welcomeService.selectedProfileImage = 'https://i.ibb.co/pjG5Rkf/4k-wallpaper-astronomy-evening-2085998.jpg';
+    this.welcomeService.newUserInfo.photoUrl = 'https://i.ibb.co/pjG5Rkf/4k-wallpaper-astronomy-evening-2085998.jpg';
   }
 
   ngAfterViewInit() {
@@ -37,7 +37,7 @@ export class ProfileBgimageComponent implements OnInit, AfterViewInit {
   }
 
   onImageClick(index) {
-    this.welcomeService.selectedProfileImage = this.urls[index];
+    this.welcomeService.newUserInfo.photoUrl = this.urls[index];
   }
 
   onUpload(event) {
@@ -51,19 +51,18 @@ export class ProfileBgimageComponent implements OnInit, AfterViewInit {
       getMessage(): string;
     }
 
-    let preview = document.getElementById('profile-image');
     let file = event.target.files[0];
     let reader: any = new FileReader();
 
     reader.onload = (e: FileReaderEvent) => {
-      this.welcomeService.selectedProfileImage = e.target.result;
-      this.urls.unshift(this.welcomeService.selectedProfileImage);
+      this.welcomeService.newUserInfo.photoUrl = e.target.result;
+      this.urls.unshift(this.welcomeService.newUserInfo.photoUrl);
     }
 
     if (file) {
       reader.readAsDataURL(file);
     } else {
-      this.welcomeService.selectedProfileImage = "https://i.ibb.co/pjG5Rkf/4k-wallpaper-astronomy-evening-2085998.jpg";
+      this.welcomeService.newUserInfo.photoUrl = "https://i.ibb.co/pjG5Rkf/4k-wallpaper-astronomy-evening-2085998.jpg";
     }
 
   }

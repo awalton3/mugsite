@@ -8,6 +8,7 @@ import { WelcomeInitComponent } from './welcome-init/welcome-init.component';
 import { WelcomeSetupProfileComponent } from './welcome-setup/welcome-setup-profile/welcome-setup-profile.component';
 import { HeadnavModule } from '../headnav/headnav.module';
 import { ProfileBgimageModule } from './welcome-setup/welcome-setup-profile/profile-bgimage/profile-bgimage.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [WelcomeComponent, WelcomeSetupComponent, WelcomeInitComponent, WelcomeSetupProfileComponent],
@@ -16,7 +17,8 @@ import { ProfileBgimageModule } from './welcome-setup/welcome-setup-profile/prof
     WelcomeRoutingModule,
     MaterialComponentsModule,
     HeadnavModule,
-    ProfileBgimageModule
+    ProfileBgimageModule,
+    ReactiveFormsModule
   ]
 })
 export class WelcomeModule { }
