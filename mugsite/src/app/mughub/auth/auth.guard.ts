@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanLoad, Route, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate, Router } from '@angular/router';
+import { CanLoad, Route, ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { UserService } from './user.service';
 
@@ -14,7 +14,6 @@ export class AuthGuard implements CanActivate, CanLoad {
   ) { }
 
   canLoad(route: Route): boolean {
-    console.log('authenticated')
     if (!this.userService.isUserAuthenticated(route.path)) {
       this.authService.logout();
       this.router.navigate(['mughub/login']);
@@ -22,7 +21,8 @@ export class AuthGuard implements CanActivate, CanLoad {
     return this.userService.isUserAuthenticated(route.path);
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+  canActivate(route: ActivatedRouteSnapshot): boolean {
+    console.log('ran');
     if (!this.userService.isUserAuthenticated(route.parent.routeConfig.path)) {
       this.authService.logout();
       this.router.navigate(['mughub/login']);

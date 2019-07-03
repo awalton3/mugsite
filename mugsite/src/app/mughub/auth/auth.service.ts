@@ -1,4 +1,4 @@
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
 import { Router } from '@angular/router';
@@ -45,10 +45,6 @@ export class AuthService {
       .then(() => alert("A password reset email was sent to " + email))
       .catch(error => this.handleError(error.code));
   }
-
-  // ifNewUser(metadata: firebase.auth.UserMetadata) {
-  //   return metadata.creationTime === metadata.lastSignInTime;
-  // }
 
   autoLogin() {
     let user = JSON.parse(sessionStorage.getItem('user'));

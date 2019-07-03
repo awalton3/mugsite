@@ -1,6 +1,6 @@
-<div fxLayout="column" fxLayoutAlign="center center" style="height: 100vh" class="fade-in">
-  <img class="logo--width" src="https://firebasestorage.googleapis.com/v0/b/mugsite-95f7c.appspot.com/o/mughub_logo_onlight.png?alt=media&token=7862ca74-e8e9-41c5-a95b-b9cfd7f4bae6">
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutAlign="center center" autocomplete="off" class="fade-in">
+<div fxLayout="column" fxLayoutAlign="center center" class="fade-in heightFull">
+  <img class="logo--width" src="assets/img/mughub_logo_onlight.png">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutAlign="center center">
 
     <mat-form-field floatLabel="never" class="auth-input" fxLayoutAlign="start start">
       <input matInput formControlName="name" type="text" placeholder="Name" class="auth-input-field" fxLayoutAlign="center center">
@@ -24,8 +24,8 @@
       <mat-radio-button value="tutor" class="auth-radio-buttons">Tutor</mat-radio-button>
     </mat-radio-group>
 
-    <button mat-raised-button color="accent" type="submit" class="auth-btn" [disabled]="registerForm.invalid">REGISTER AS A {{ registerForm.value.type | uppercase }}</button>
+    <button mat-raised-button color="accent" type="submit" class="action-button" [disabled]="registerForm.invalid">REGISTER AS A {{ registerForm.value.type | uppercase }}</button>
     <p class="auth-switch-prompt" routerLink="/mughub/login">Already have an account, login here.</p>
-    
+
   </form>
 </div>
