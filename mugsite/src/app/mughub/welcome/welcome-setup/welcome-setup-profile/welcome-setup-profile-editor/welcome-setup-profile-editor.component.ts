@@ -1,21 +1,18 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { WelcomeService } from '../../../welcome.service';
 
 @Component({
-  selector: 'profile-bgimage',
-  templateUrl: './profile-bgimage.component.html',
-  styleUrls: ['./profile-bgimage.component.css']
+  selector: 'welcome-setup-profile-editor',
+  templateUrl: './welcome-setup-profile-editor.component.html',
+  styleUrls: ['./welcome-setup-profile-editor.component.css']
 })
-
-export class ProfileBgimageComponent implements OnInit, AfterViewInit {
+export class WelcomeSetupProfileEditorComponent implements OnInit {
 
   urls: string[];
   imagesLoaded = false;
   imageClicked: string;
 
-  constructor(
-    private welcomeService: WelcomeService
-  ) {}
+  constructor(private welcomeService: WelcomeService) { }
 
   ngOnInit() {
 
@@ -36,7 +33,7 @@ export class ProfileBgimageComponent implements OnInit, AfterViewInit {
     this.imagesLoaded = true;
   }
 
-  onImageClick(index) {
+  onImageClick(index: string | number) {
     this.welcomeService.newUserInfo.photoUrl = this.urls[index];
   }
 
@@ -66,4 +63,5 @@ export class ProfileBgimageComponent implements OnInit, AfterViewInit {
     }
 
   }
+
 }

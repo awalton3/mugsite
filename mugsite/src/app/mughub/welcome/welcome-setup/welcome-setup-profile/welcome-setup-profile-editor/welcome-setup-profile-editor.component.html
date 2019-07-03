@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutAlign="center center" style="background: #eee; width: 100%; height: 40%">
+<div fxLayout="column" fxLayoutAlign="center center" class="background-eee widthFullPer" style="height: 40%">
   <div id="profile-image" class="profile-image" [ngStyle]="{'background-image': 'url(' + welcomeService.newUserInfo.photoUrl + ')'}"></div>
   <p class="profile-name" fxLayoutAlign="center center">
     ANA WALTON
@@ -7,6 +7,7 @@
 
 <div class="background-images">
   <p class="background-images-title">CHOOSE A PHOTO</p>
+
   <!--images-->
   <div *ngIf="imagesLoaded" fxLayout="row wrap" fxLayoutAlign="center start" layout-wrap>
     <input (change)="onUpload($event)" type="file" id="image" accept="image/*" class="fileUploader">
@@ -18,6 +19,7 @@
     </label>
     <div (click)="onImageClick(i)" *ngFor="let url of urls, let i = index" class="image" [ngStyle]="{'background-image': 'url(' + url + ')'}" matRipple></div>
   </div>
+  
   <!--spinner-->
   <div *ngIf="!imagesLoaded" class="loader">loading...</div>
 </div>

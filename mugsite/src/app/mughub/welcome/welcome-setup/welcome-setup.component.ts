@@ -3,13 +3,13 @@ import { Router } from '@angular/router';
 import { WelcomeService } from '../welcome.service';
 
 @Component({
-  selector: 'app-welcome-setup',
+  selector: 'mughub-welcome-setup',
   templateUrl: './welcome-setup.component.html',
   styleUrls: ['./welcome-setup.component.css']
 })
 export class WelcomeSetupComponent implements OnInit {
 
-  currStep: string = 'profile'; 
+  currStep: string = 'profile';
 
   constructor(
     private router: Router,
@@ -26,9 +26,4 @@ export class WelcomeSetupComponent implements OnInit {
       }
     })
   }
-
-  onProfile() {
-    this.router.navigate(['/mughub/welcome/account-setup/profile'])
-  }
-
 }

@@ -1,0 +1,51 @@
+.welcome-container {
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/mugsite-95f7c.appspot.com/o/welcome-background.jpg?alt=media&token=553fdd96-7cc8-456a-9f0f-9630456a02fc');
+  background-position: center;
+  background-size: cover;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  height: 100vh;
+  width: 100%;
+  padding: 30px;
+}
+
+.welcome-title {
+  font-size: 30px;
+  font-weight: 600;
+  text-align: center
+}
+
+.welcome-text {
+  font-size: 17px;
+  font-weight: 400;
+  text-align: center;
+  line-height: 30px;
+  width: 450px;
+}
+
+.welcome-action-btn-subtext {
+  font-weight: 200;
+  font-size: 16px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.welcome-hashtag {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+@media only screen and (max-width: 500px) {
+  .welcome-text {
+    width: 330px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .welcome-container {
+    background-size: cover;
+  }
+  .welcome-text {
+    width: 250px;
+  }
+}
