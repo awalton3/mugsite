@@ -1,13 +1,15 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Input } from '@angular/core';
 
 @Component({
-  selector: 'mughub-welcome-setup',
-  templateUrl: './welcome-setup.component.html',
-  styleUrls: ['./welcome-setup.component.css']
+  selector: 'app-stepper',
+  templateUrl: './stepper.component.html',
+  styleUrls: ['./stepper.component.css']
 })
-export class WelcomeSetupComponent implements OnInit {
+export class StepperComponent implements OnInit {
 
-  currStep = { name: 'profile', num: 1 };
+  @Input() steps: string[];
+
+  currStep = { name: 'profile', num: 0 };
   showMobileStepper: boolean = false;
   screenWidth: any;
 
@@ -25,10 +27,11 @@ export class WelcomeSetupComponent implements OnInit {
 
   adjustStepper() {
     this.screenWidth = window.innerWidth;
-    if (this.screenWidth < 430) {
+    if (this.screenWidth < 440) {
       this.showMobileStepper = true;
     } else {
       this.showMobileStepper = false;
     }
   }
+
 }

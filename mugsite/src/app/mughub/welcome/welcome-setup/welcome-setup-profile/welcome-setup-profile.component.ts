@@ -3,6 +3,7 @@ import { WelcomeService } from '../../welcome.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { UserService } from 'src/app/mughub/auth/user.service';
+import { MatDrawer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'welcome-setup-profile',
@@ -11,7 +12,7 @@ import { UserService } from 'src/app/mughub/auth/user.service';
 })
 export class WelcomeSetupProfileComponent implements OnInit {
 
-  @ViewChild('profileImageEditor', {static: false}) profileImageEditor;
+  @ViewChild('profileImageEditor', {static: false}) profileImageEditor: MatDrawer;
   chosenProfileImage: string;
   nameForm: FormGroup;
 
@@ -30,15 +31,14 @@ export class WelcomeSetupProfileComponent implements OnInit {
 
   onProfileSubmit() {
     this.welcomeService.newUserInfo.name = this.nameForm.value.username;
-    this.welcomeService.onNav.next({ comp: 'profile', action: 'next' });
+    this.router.navigate(["mughub/welcome/account-setup/settings"])
   }
 
   loadImages() {
-    //allow drawer to open before loading the background images
     this.router.navigate(['mughub/welcome/account-setup/profile/image']);
   }
 
-  onFinish() {
+  onFinishProfileImage() {
     this.chosenProfileImage = this.welcomeService.newUserInfo.photoUrl;
     this.profileImageEditor.close();
   }

@@ -11,12 +11,12 @@
 .stepper-mobile-header {
   background-color: #2B5670 !important;
   font-family: 'Montserrat', sans-serif !important;
-  padding: 10px 30px; 
+  padding: 10px 30px;
 }
 
 .step {
   cursor: pointer;
-  height: 100%;
+  height: 70px;
   width: 100%;
   outline: 0 !important;
 }
@@ -72,11 +72,13 @@
 .stepper-divider {
   background-color: #4487b2;
   width: 50%;
+  height: 1px;
 }
 
 .stepper-mobile-divider {
   background-color: #4487b2;
   height: 30px;
+  width: 1px;
   margin-left: 12px;
 }
 

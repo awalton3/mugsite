@@ -12,7 +12,7 @@ import { FormsMaterialComponentsModule } from 'src/app/shared/angular-material/f
 import { WelcomeSetupSettingsComponent } from './welcome-setup/welcome-setup-settings/welcome-setup-settings.component';
 import { WelcomeSetupStudentsComponent } from './welcome-setup/welcome-setup-students/welcome-setup-students.component';
 import { WelcomeSetupProfileEditorComponent } from './welcome-setup/welcome-setup-profile/welcome-setup-profile-editor/welcome-setup-profile-editor.component';
-import { MatExpansionModule } from '@angular/material/expansion';
+import { StepperModule } from 'src/app/shared/stepper/stepper.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatSidenavModule,
     HeadnavModule,
     ReactiveFormsModule,
-    MatExpansionModule
+    StepperModule
   ]
 })
 export class WelcomeModule { }
