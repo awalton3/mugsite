@@ -4,14 +4,31 @@
   height: 70px;
 }
 
+.stepper-mobile {
+  background-color: #2B5670;
+}
+
+.stepper-mobile-header {
+  background-color: #2B5670 !important;
+  font-family: 'Montserrat', sans-serif !important;
+}
+
 .step {
   cursor: pointer;
   height: 100%;
   width: 100%;
-  outline: 0;
+  outline: 0 !important;
+}
+
+.step-mobile {
+  cursor: pointer;
+  margin: 10px 0px;
+  outline: 0 !important;
+  height: 100%;
 }
 
 .step-label-active {
+  font-family: 'Montserrat', sans-serif !important;
   color: white;
   text-transform: uppercase;
   font-weight: 400;
@@ -19,6 +36,7 @@
 }
 
 .step-label-inactive {
+  font-family: 'Montserrat', sans-serif !important;
   color: #4487b2;
   text-transform: uppercase;
   font-weight: 400;
@@ -26,6 +44,7 @@
 }
 
 .step-header-active {
+  font-family: 'Montserrat', sans-serif !important;
   border-radius: 50%;
   border: 1.2px solid white;
   height: 25px;
@@ -38,6 +57,7 @@
 }
 
 .step-header-inactive {
+  font-family: 'Montserrat', sans-serif !important;
   border-radius: 50%;
   border: 1.2px solid #4487b2;
   height: 25px;
@@ -51,4 +71,21 @@
 .stepper-divider {
   background-color: #4487b2;
   width: 50%;
+}
+
+.stepper-mobile-divider {
+  background-color: #4487b2;
+  height: 30px;
+  margin-left: 12px;
+}
+
+@media only screen and (max-width: 500px) {
+  .stepper-divider {
+    width: 30%;
+  }
+}
+
+::ng-deep .mat-expansion-indicator::after {
+  color: white !important;
+  margin-top: -5px !important;
 }

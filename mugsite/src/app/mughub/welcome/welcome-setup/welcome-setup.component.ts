@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 import { WelcomeService } from '../welcome.service';
 
@@ -9,7 +9,14 @@ import { WelcomeService } from '../welcome.service';
 })
 export class WelcomeSetupComponent implements OnInit {
 
-  currStep: string = 'profile';
+  currStep = { name: 'profile', num: 1 }; 
+  showMobileStepper: boolean = false;
+  screenWidth: any;
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.adjustStepper();
+  }
 
   constructor(
     private router: Router,
@@ -17,6 +24,8 @@ export class WelcomeSetupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.screenWidth = window.innerWidth;
+    this.adjustStepper();
     this.welcomeService.onNav.subscribe(res => {
       switch (res.comp) {
         case 'profile':
@@ -25,5 +34,14 @@ export class WelcomeSetupComponent implements OnInit {
           break;
       }
     })
+  }
+
+  adjustStepper() {
+    this.screenWidth = window.innerWidth;
+    if (this.screenWidth < 430) {
+      this.showMobileStepper = true;
+    } else {
+      this.showMobileStepper = false;
+    }
   }
 }

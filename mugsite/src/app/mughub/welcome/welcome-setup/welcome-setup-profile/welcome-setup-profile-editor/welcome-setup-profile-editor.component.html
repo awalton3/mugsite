@@ -1,8 +1,8 @@
 <div fxLayout="column" fxLayoutAlign="center center" class="background-eee widthFullPer" style="height: 40%">
   <div id="profile-image" class="profile-image" [ngStyle]="{'background-image': 'url(' + welcomeService.newUserInfo.photoUrl + ')'}"></div>
-  <p class="profile-name" fxLayoutAlign="center center">
-    ANA WALTON
-  </p>
+  <!-- <p class="profile-name" fxLayoutAlign="center center">
+    {{ welcomeService.newUserInfo.name }}
+  </p> -->
 </div>
 
 <div class="background-images">
@@ -19,7 +19,7 @@
     </label>
     <div (click)="onImageClick(i)" *ngFor="let url of urls, let i = index" class="image" [ngStyle]="{'background-image': 'url(' + url + ')'}" matRipple></div>
   </div>
-  
+
   <!--spinner-->
   <div *ngIf="!imagesLoaded" class="loader">loading...</div>
 </div>

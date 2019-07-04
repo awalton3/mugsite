@@ -1,25 +1,52 @@
 <!--stepper-->
-<div fxLayout="row" fxLayoutAlign="center center" class="stepper">
-  <div [routerLink]="['/mughub/welcome/account-setup/profile']" (click)="currStep = 'profile'" class="step" fxLayout="row" fxLayoutAlign="center center" matRipple>
-    <div [ngClass]="{'step-header-active': currStep === 'profile', 'step-header-inactive': currStep !== 'profile'}" fxLayoutAlign="center center">
-      1
-    </div>
-    <div [ngClass]="{'step-label-active': currStep === 'profile', 'step-label-inactive': currStep !== 'profile'}">PROFILE</div>
+<div *ngIf="!showMobileStepper" fxLayout="row" fxLayoutAlign="center center" class="stepper">
+  <div [routerLink]="['/mughub/welcome/account-setup/profile']" (click)="currStep = { name: 'profile', num: '1'}" class="step" fxLayout="row" fxLayoutAlign="center center" matRipple>
+    <div [ngClass]="{'step-header-active': currStep.name === 'profile', 'step-header-inactive': currStep.name !== 'profile'}" fxLayoutAlign="center center">1</div>
+    <div [ngClass]="{'step-label-active': currStep.name === 'profile', 'step-label-inactive': currStep.name !== 'profile'}">PROFILE</div>
   </div>
   <mat-divider class="stepper-divider"></mat-divider>
-  <div [routerLink]="['/mughub/welcome/account-setup/settings']" (click)="currStep = 'settings'" class="step" fxLayout="row" fxLayoutAlign="center center" matRipple>
-    <div [ngClass]="{'step-header-active': currStep === 'settings', 'step-header-inactive': currStep !== 'settings'}" fxLayoutAlign="center center">2</div>
-    <div [ngClass]="{'step-label-active': currStep === 'settings', 'step-label-inactive': currStep !== 'settings'}">SETTINGS</div>
+  <div [routerLink]="['/mughub/welcome/account-setup/settings']" (click)="currStep = { name: 'settings', num: '2'}" class="step" fxLayout="row" fxLayoutAlign="center center" matRipple>
+    <div [ngClass]="{'step-header-active': currStep.name === 'settings', 'step-header-inactive': currStep.name !== 'settings'}" fxLayoutAlign="center center">2</div>
+    <div [ngClass]="{'step-label-active': currStep.name === 'settings', 'step-label-inactive': currStep.name !== 'settings'}">SETTINGS</div>
   </div>
   <mat-divider class="stepper-divider"></mat-divider>
-  <div [routerLink]="['/mughub/welcome/account-setup/students']" (click)="currStep = 'students'" class="step" fxLayout="row" fxLayoutAlign="center center" matRipple>
-    <div [ngClass]="{'step-header-active': currStep === 'students', 'step-header-inactive': currStep !== 'students'}" fxLayoutAlign="center center">3</div>
-    <div [ngClass]="{'step-label-active': currStep === 'students', 'step-label-inactive': currStep !== 'students'}">STUDENTS</div>
+  <div [routerLink]="['/mughub/welcome/account-setup/students']" (click)="currStep = { name: 'students', num: '3'}" class="step" fxLayout="row" fxLayoutAlign="center center" matRipple>
+    <div [ngClass]="{'step-header-active': currStep.name === 'students', 'step-header-inactive': currStep.name !== 'students'}" fxLayoutAlign="center center">3</div>
+    <div [ngClass]="{'step-label-active': currStep.name === 'students', 'step-label-inactive': currStep.name !== 'students'}">STUDENTS</div>
   </div>
-  <!-- <mat-divider class="stepper-divider"></mat-divider>
-  <div class="step" fxLayout="row" fxLayoutAlign="center center" matRipple>
-    <div class="step-header-inactive" fxLayoutAlign="center center">4</div>
-    <div class="step-label-inactive">FINISHED</div>
-  </div> -->
 </div>
+
+<div *ngIf="showMobileStepper">
+  <mat-expansion-panel class="stepper-mobile" #panel>
+
+    <mat-expansion-panel-header *ngIf="!panel.expanded" class="stepper-mobile-header">
+      <div class="step-mobile" fxLayout="row" fxLayoutAlign="start center" matRipple>
+        <div class="step-header-active" fxLayoutAlign="center center">{{ currStep.num }}</div>
+        <div class="step-label-active">{{ currStep.name }}</div>
+      </div>
+    </mat-expansion-panel-header>
+
+    <mat-expansion-panel-header *ngIf="panel.expanded" class="stepper-mobile-header">
+      <div [routerLink]="['/mughub/welcome/account-setup/profile']" (click)="currStep = { name: 'profile', num: '1'}; panel.close()" class="step-mobile" fxLayout="row" fxLayoutAlign="center center" matRipple>
+        <div [ngClass]="{'step-header-active': currStep.name === 'profile', 'step-header-inactive': currStep.name !== 'profile'}" fxLayoutAlign="center center">1</div>
+        <div [ngClass]="{'step-label-active': currStep.name === 'profile', 'step-label-inactive': currStep.name !== 'profile'}" fxLayoutAlign="center center">PROFILE</div>
+      </div>
+    </mat-expansion-panel-header>
+
+    <div fxLayout="column" fxLayoutAlign="start start" style="margin-top: -8px">
+      <mat-divider class="stepper-mobile-divider" [vertical]="true"></mat-divider>
+      <div [routerLink]="['/mughub/welcome/account-setup/settings']" (click)="currStep = { name: 'settings', num: '2'}; panel.close()" class="step-mobile" fxLayout="row" fxLayoutAlign="center center" matRipple>
+        <div [ngClass]="{'step-header-active': currStep.name === 'settings', 'step-header-inactive': currStep.name !== 'settings'}" fxLayoutAlign="center center">2</div>
+        <div [ngClass]="{'step-label-active': currStep.name === 'settings', 'step-label-inactive': currStep.name !== 'settings'}" fxLayoutAlign="center center">SETTINGS</div>
+      </div>
+      <mat-divider class="stepper-mobile-divider" [vertical]="true"></mat-divider>
+      <div [routerLink]="['/mughub/welcome/account-setup/students']" (click)="currStep = { name: 'students', num: '3'}; panel.close()" class="step-mobile" fxLayout="row" fxLayoutAlign="center center" matRipple>
+        <div [ngClass]="{'step-header-active': currStep.name === 'students', 'step-header-inactive': currStep.name !== 'students'}" fxLayoutAlign="center center">3</div>
+        <div [ngClass]="{'step-label-active': currStep.name === 'students', 'step-label-inactive': currStep.name !== 'students'}" fxLayoutAlign="center center">STUDENTS</div>
+      </div>
+    </div>
+
+  </mat-expansion-panel>
+</div>
+
 <router-outlet></router-outlet>
