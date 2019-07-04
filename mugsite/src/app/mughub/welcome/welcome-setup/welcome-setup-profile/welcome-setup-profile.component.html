@@ -1,6 +1,6 @@
 <mat-drawer-container class="example-container" [hasBackdrop]="false">
   <mat-drawer #profileImageEditor mode="over" position="end" (openedStart)="loadImages()" class="side-content-drawer">
-    <mughub-headnav title="PROFILE IMAGE" iconLeft="close" iconRight="done" (leftIconToggled)="profileImageEditor.close()" (rightIconToggled)="onFinishProfileImage"></mughub-headnav>
+    <mughub-headnav title="PROFILE IMAGE" iconLeft="close" iconRight="done" (leftIconToggled)="profileImageEditor.close()" (rightIconToggled)="onFinishProfileImage()"></mughub-headnav>
     <welcome-setup-profile-editor></welcome-setup-profile-editor>
   </mat-drawer>
   <mat-drawer-content class="fade-in background-eee">

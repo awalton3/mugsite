@@ -8,12 +8,7 @@ import { FormsMaterialComponentsModule } from 'src/app/shared/angular-material/f
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
-import { faLightbulb } from '@fortawesome/free-solid-svg-icons';
-import { faUserMd } from '@fortawesome/free-solid-svg-icons';
-import { faBookOpen } from '@fortawesome/free-solid-svg-icons';
-import { faCalendar } from '@fortawesome/free-solid-svg-icons';
-import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faLightbulb, faUserMd, faBookOpen, faCalendar, faBriefcase } from '@fortawesome/free-solid-svg-icons';
 
 import { ManageSiteComponent } from './manage-site/manage-site.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';

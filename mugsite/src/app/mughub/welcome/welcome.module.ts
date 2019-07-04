@@ -15,6 +15,11 @@ import { WelcomeSetupProfileEditorComponent } from './welcome-setup/welcome-setu
 import { StepperModule } from 'src/app/shared/stepper/stepper.module';
 import { StepperService } from 'src/app/shared/stepper/stepper.service';
 
+//font awesome
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faUser, faCheckCircle, faTimesCircle, faCalendar, faBell } from '@fortawesome/free-solid-svg-icons';
+
 @NgModule({
   declarations: [
     WelcomeComponent,
@@ -32,8 +37,17 @@ import { StepperService } from 'src/app/shared/stepper/stepper.service';
     MatSidenavModule,
     HeadnavModule,
     ReactiveFormsModule,
-    StepperModule
+    StepperModule,
+    FontAwesomeModule
   ],
-  providers: [ StepperService ] //creates a new instance for all components in this module 
+  providers: [ StepperService ] //creates a new instance for all components in this module
 })
-export class WelcomeModule { }
+export class WelcomeModule {
+  constructor() {
+    library.add(faUser)
+    library.add(faCheckCircle)
+    library.add(faTimesCircle)
+    library.add(faCalendar)
+    library.add(faBell)
+  }
+}
