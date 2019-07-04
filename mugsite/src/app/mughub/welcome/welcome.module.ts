@@ -13,6 +13,7 @@ import { WelcomeSetupSettingsComponent } from './welcome-setup/welcome-setup-set
 import { WelcomeSetupStudentsComponent } from './welcome-setup/welcome-setup-students/welcome-setup-students.component';
 import { WelcomeSetupProfileEditorComponent } from './welcome-setup/welcome-setup-profile/welcome-setup-profile-editor/welcome-setup-profile-editor.component';
 import { StepperModule } from 'src/app/shared/stepper/stepper.module';
+import { StepperService } from 'src/app/shared/stepper/stepper.service';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { StepperModule } from 'src/app/shared/stepper/stepper.module';
     HeadnavModule,
     ReactiveFormsModule,
     StepperModule
-  ]
+  ],
+  providers: [ StepperService ] //creates a new instance for all components in this module 
 })
 export class WelcomeModule { }

@@ -1,37 +1,42 @@
-import { Component, OnInit, HostListener, Input } from '@angular/core';
+import { Component, OnInit, HostListener, Input, OnDestroy } from '@angular/core';
+import { StepperService } from './stepper.service';
 
 @Component({
   selector: 'app-stepper',
   templateUrl: './stepper.component.html',
   styleUrls: ['./stepper.component.css']
 })
-export class StepperComponent implements OnInit {
+export class StepperComponent implements OnInit, OnDestroy {
 
   @Input() steps: string[];
 
   currStep = { name: 'profile', num: 0 };
   showMobileStepper: boolean = false;
-  screenWidth: any;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
-    this.adjustStepper();
+    this.adjustStepper(window.innerWidth);
   }
 
-  constructor() { }
+  constructor(private stepperService: StepperService) { }
 
   ngOnInit() {
-    this.screenWidth = window.innerWidth;
-    this.adjustStepper();
+    this.adjustStepper(window.innerWidth);
+    this.stepperService.onChangeStep.subscribe(newCurrStep => {
+      this.currStep = newCurrStep;
+    }); 
   }
 
-  adjustStepper() {
-    this.screenWidth = window.innerWidth;
-    if (this.screenWidth < 440) {
+  adjustStepper(width) {
+    if (width < 440) {
       this.showMobileStepper = true;
     } else {
       this.showMobileStepper = false;
     }
+  }
+
+  ngOnDestroy() {
+    this.stepperService.onChangeStep.unsubscribe();
   }
 
 }

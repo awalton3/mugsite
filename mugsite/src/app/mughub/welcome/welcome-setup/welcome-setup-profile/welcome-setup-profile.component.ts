@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { UserService } from 'src/app/mughub/auth/user.service';
 import { MatDrawer } from '@angular/material/sidenav';
+import { StepperService } from 'src/app/shared/stepper/stepper.service';
 
 @Component({
   selector: 'welcome-setup-profile',
@@ -19,6 +20,7 @@ export class WelcomeSetupProfileComponent implements OnInit {
   constructor(
     private welcomeService: WelcomeService,
     private userService: UserService,
+    private stepperService: StepperService,
     private router: Router
   ) { }
 
@@ -31,6 +33,7 @@ export class WelcomeSetupProfileComponent implements OnInit {
 
   onProfileSubmit() {
     this.welcomeService.newUserInfo.name = this.nameForm.value.username;
+    this.stepperService.onChangeStep.next({ name: 'settings', num: 1 });
     this.router.navigate(["mughub/welcome/account-setup/settings"])
   }
 
