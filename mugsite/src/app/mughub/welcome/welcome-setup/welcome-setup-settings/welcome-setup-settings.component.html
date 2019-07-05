@@ -1,52 +1,53 @@
 <div fxLayout="column" fxLayoutAlign="center center" class="container">
-
   <p class="title">USER PREFERENCES</p>
+  <br>
 
-
-  <div fxLayout="column" fxLayoutAlign="center center" class="category">
-
-    <div fxLayout="row" fxLayoutAlign="start center" class="category-title-container" fxFill>
-      <fa-icon [icon]="['fas', 'bell']" class="icons" fxLayoutAlign="center center" style="padding-left: 0px; margin-left: -32px"></fa-icon>
-      <p class="category-title">NOTIFICATIONS</p>
+  <div *ngIf="user.type === 'student'" fxLayout="column" fxLayoutAlign="center center" class="category">
+    <div fxLayout="row" fxLayoutAlign="start center" class="widthFullPer">
+      <fa-icon [icon]="['fas', 'user']" class="icons" fxLayoutAlign="center center"></fa-icon>
+      <p class="category-title">ACCOUNT</p>
     </div>
-
-    <div class="category-info">
-
+    <br>
+    <mat-divider fxLayoutAlign="start start" class="divider"></mat-divider>
+    <br>
+    <div class="category-info" fxLayout="column" Align="center center">
       <div fxLayout="row" fxLayoutAlign="space-between center" class="category-info-title-container">
         <div fxLayout="row">
-          <p class="category-info-title">INBOX ALERTS</p>
-          <fa-icon [icon]="['fas', 'check-circle']" class="icons icon-on" fxLayoutAlign="center center"></fa-icon>
+          <p class="category-info-title">MULTIPLE EMAILS</p>
+          <fa-icon [icon]="['fas', 'times-circle']" class="icons icon-off" fxLayoutAlign="center center"></fa-icon>
         </div>
-        <button class="category-toggle" mat-button color="accent">TURN OFF</button>
+        <button class="category-toggle" mat-button color="accent">TURN ON</button>
       </div>
       <p class="category-info-text">
-        Get inbox notifications when you receive a message from a student or parent.
+        Allow notifications to be sent to multiple emails. For example, a student and a parent both can receive notifications of assignment uploads.
       </p>
+      <div class="">
+
+      </div>
       <br>
-      <div fxLayout="row" fxLayoutAlign="space-between center" class="category-info-title-container">
-        <div fxLayout="row">
-          <p class="category-info-title">HOUR LOG ALERTS</p>
-          <fa-icon [icon]="['fas', 'check-circle']" class="icons icon-on" fxLayoutAlign="center center"></fa-icon>
-        </div>
-        <button class="category-toggle" mat-button color="accent">TURN OFF</button>
-      </div>
-      <p class="category-info-text">
-        Receive a weekly email when your hours have been automatically logged.
-      </p>
-
+      <form (ngSubmit)="onSubmitEmail()" [formGroup]="emailForm">
+        <mat-form-field>
+          <input matInput type="email" formControlName="email" placeholder="Email" class="form-input">
+          <span matSuffix style="color: grey; cursor: pointer"><i class="material-icons" fxLayoutAlign="center center">add</i></span>
+        </mat-form-field>
+      </form>
     </div>
   </div>
 
-  <div fxLayout="column" fxLayoutAlign="center center" class="category">
+  <br>
+
+  <div *ngIf="user.type === 'tutor'" fxLayout="column" fxLayoutAlign="center center" class="category">
     <div fxLayout="row" fxLayoutAlign="start center" class="category-title-container" fxFill>
-      <fa-icon [icon]="['fas', 'calendar']" class="icons" fxLayoutAlign="center center" style="padding-left: 0px; margin-left: -32px"></fa-icon>
+      <fa-icon [icon]="['fas', 'calendar']" class="icons" fxLayoutAlign="center center"></fa-icon>
       <p class="category-title">HOUR LOG</p>
     </div>
+    <br>
+    <mat-divider fxLayoutAlign="start start" class="divider"></mat-divider>
+    <br>
     <div class="category-info">
-
       <div fxLayout="row" fxLayoutAlign="space-between center" class="category-info-title-container">
         <div fxLayout="row">
-          <p class="category-info-title">AUTOMATIC LOGGING</p>
+          <p class="category-info-title">AUTO LOG</p>
           <fa-icon [icon]="['fas', 'check-circle']" class="icons icon-on" fxLayoutAlign="center center"></fa-icon>
         </div>
         <button class="category-toggle" mat-button color="accent">TURN OFF</button>
@@ -54,8 +55,49 @@
       <p class="category-info-text">
         Leave it to us. Set your hours beforehand and have them automatically logged for you every week.
       </p>
-
     </div>
   </div>
+
+  <br>
+
+  <div fxLayout="column" fxLayoutAlign="center center" class="category">
+    <div fxLayout="row" fxLayoutAlign="start center" class="widthFullPer">
+      <fa-icon [icon]="['fas', 'bell']" class="icons" fxLayoutAlign="center center"></fa-icon>
+      <p class="category-title">NOTIFICATIONS</p>
+    </div>
+    <br>
+    <mat-divider fxLayoutAlign="start start" class="divider"></mat-divider>
+    <br>
+    <div class="category-info" fxLayout="column" Align="center center">
+      <div fxLayout="row" fxLayoutAlign="space-between center" class="category-info-title-container">
+        <div fxLayout="row">
+          <p class="category-info-title">INBOX ALERTS</p>
+          <fa-icon [icon]="['fas', 'check-circle']" class="icons icon-on" fxLayoutAlign="center center"></fa-icon>
+        </div>
+        <button class="category-toggle" mat-button color="accent">TURN OFF</button>
+      </div>
+      <p *ngIf="user.type === 'tutor'" class="category-info-text">
+        Get inbox notifications when you receive a message from a student or parent.
+      </p>
+      <p *ngIf="user.type === 'student'" class="category-info-text">
+        Get inbox notifications when you receive a message or upload from your tutor.
+      </p>
+      <br>
+      <div *ngIf="user.type === 'tutor'">
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="category-info-title-container">
+          <div fxLayout="row">
+            <p class="category-info-title">HOUR LOG ALERTS</p>
+            <fa-icon [icon]="['fas', 'check-circle']" class="icons icon-on" fxLayoutAlign="center center"></fa-icon>
+          </div>
+          <button class="category-toggle" mat-button color="accent">TURN OFF</button>
+        </div>
+        <p class="category-info-text">
+          Receive a weekly email when your hours have been automatically logged.
+        </p>
+      </div>
+    </div>
+  </div>
+  <br>
+  <button (click)="onContinue()" mat-raised-button class="action-button" color="accent">CONTINUE</button>
 
 </div>

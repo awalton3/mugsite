@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UserService } from 'src/app/mughub/auth/user.service';
+import { User } from 'src/app/mughub/auth/user.model';
+import { StepperService } from 'src/app/shared/stepper/stepper.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-welcome-setup-settings',
@@ -7,9 +12,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeSetupSettingsComponent implements OnInit {
 
-  constructor() { }
+  emailForm: FormGroup;
+  user: User;
+
+  constructor(
+    private userService: UserService,
+    private stepperService: StepperService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
+    this.emailForm = new FormGroup({
+      email: new FormControl(null, Validators.email)
+    })
+    this.user = this.userService.getUserSession();
+  }
+
+  onContinue() {
+    this.stepperService.onChangeStep.next({ name: 'students', num: 2 });
+    this.router.navigate(['mughub/welcome/account-setup/students'])
   }
 
 }

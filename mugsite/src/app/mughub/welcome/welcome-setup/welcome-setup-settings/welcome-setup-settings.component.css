@@ -8,26 +8,27 @@
 
 .container {
   margin: 10px;
+  /* width: 95%; */
 }
 
 .category {
   color: grey;
-  width: 500px;
+  width: 60%;
   margin-bottom: 15px;
 }
 
 .category-title-container {
+  width: 100%;
 }
 
 .category-title {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   font-family: 'Montserrat', sans-serif;
 }
 
 .category-info {
-  margin: 0px 45px;
-  width: 100%;
+  width: 90%;
 }
 
 .category-info-title-container {
@@ -65,4 +66,41 @@
 
 .icon-off {
   color: #de0005;
+}
+
+.divider {
+  width: 96%;
+}
+
+.form-input {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+    height: 1px !important;
+}
+
+@media (max-width: 600px) {
+  .category {
+    width: 80%;
+  }
+  .category-info-title {
+    font-size: 14px;
+  }
+  .category-toggle {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 400px) {
+  .category {
+    width: 100%;
+  }
+  .category-info-title {
+    font-size: 13px;
+  }
+  .category-toggle {
+    font-size: 12px;
+  }
 }
