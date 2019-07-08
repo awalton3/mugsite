@@ -15,7 +15,13 @@ export class AuthService {
   register(formData: { email: string; password: string; name: any; type: string; }) {
     firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password)
       .then(userObj => {
-        this.userService.addUserToFbCollect(formData.name, null, userObj.user.email, formData.type, userObj.user.uid, true);
+        this.userService.addUserToFbCollect(
+          formData.name.toLowerCase(),
+          'https://i.ibb.co/pjG5Rkf/4k-wallpaper-astronomy-evening-2085998.jpg', //default profile image
+          userObj.user.email,
+          formData.type,
+          userObj.user.uid,
+          true);
         this.router.navigate(['/mughub/login']);
         this.verifyEmail();
       })

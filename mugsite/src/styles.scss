@@ -38,6 +38,22 @@
 	}
 }
 
+.profile-image-container {
+	background-position: center center !important;
+  background-size: cover !important;
+  border-radius: 50% !important;
+  width: 150px !important;
+  height: 150px !important;
+}
+
+.profile-image-border {
+	border: 3px solid #eee !important;
+}
+
+.profile-image-click {
+	cursor: pointer !important;
+}
+
 .fileUploader {
 	width: 0.1px !important;
 	height: 0.1px !important;

@@ -52,7 +52,8 @@ export class UserService {
         email: email,
         type: type,
         uid: uid,
-        isNewUser: isNewUser
+        isNewUser: isNewUser,
+        prefs: null
       });
   }
 
@@ -66,11 +67,27 @@ export class UserService {
           userObj.data().email,
           userObj.data().type,
           userObj.data().uid,
-          userObj.data().isNewUser)
+          userObj.data().isNewUser,
+          userObj.data().prefs)
         this.user.next(this.currentUser);
         if (!this.isUserAuthenticated(null))
           this.createUserSession(this.currentUser);
       })
+  }
+
+  updateLocalUser(propsToUpdate: { propName: string, value: any }[]) {
+    if (propsToUpdate.length > 1)
+      propsToUpdate.map(prop => {
+        this.currentUser[prop.propName] = prop.value;
+      })
+    else
+      this.currentUser[propsToUpdate[0].propName] = propsToUpdate[0].value;
+  }
+
+  updateFbCollect() {
+    this.db.collection('/users')
+      .doc(this.currentUser.uid)
+      .update(this.currentUser)
   }
 
   uploadeProfilePhoto(photo) {

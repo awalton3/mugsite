@@ -6,16 +6,6 @@
   padding: 0px 10px;
 }
 
-.profile-image{
-  background-position: center center;
-  background-size: cover;
-  border-radius: 50%;
-  width: 150px;
-  height: 150px;
-  cursor: pointer;
-  /* border: 3px solid #de6600; */
-}
-
 .profile-image-add {
   position: relative;
   top: 110px;

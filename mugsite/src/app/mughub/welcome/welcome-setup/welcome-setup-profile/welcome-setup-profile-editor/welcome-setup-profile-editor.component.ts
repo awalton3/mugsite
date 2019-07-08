@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { WelcomeService } from '../../../welcome.service';
+import { UserService } from 'src/app/mughub/auth/user.service';
+import { User } from 'src/app/mughub/auth/user.model';
 
 @Component({
   selector: 'welcome-setup-profile-editor',
@@ -11,11 +12,12 @@ export class WelcomeSetupProfileEditorComponent implements OnInit {
   urls: string[];
   imagesLoaded = false;
   imageClicked: string;
+  user: User;
 
-  constructor(private welcomeService: WelcomeService) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
-
+    this.user = this.userService.getCurrentUser();
     this.urls = [
       'https://i.ibb.co/pjG5Rkf/4k-wallpaper-astronomy-evening-2085998.jpg',
       'https://i.ibb.co/PQyS52p/adventure-automobile-classic-2533092.jpg',
@@ -26,7 +28,6 @@ export class WelcomeSetupProfileEditorComponent implements OnInit {
       'https://i.ibb.co/0VZMXZd/cobblestone-granite-pebbles-1029604.jpg',
       'https://i.ibb.co/tQFP2K5/environment-flora-foliage-2537632.jpg',
     ]
-    this.welcomeService.newUserInfo.photoUrl = 'https://i.ibb.co/pjG5Rkf/4k-wallpaper-astronomy-evening-2085998.jpg';
   }
 
   ngAfterViewInit() {
@@ -34,7 +35,7 @@ export class WelcomeSetupProfileEditorComponent implements OnInit {
   }
 
   onImageClick(index: string | number) {
-    this.welcomeService.newUserInfo.photoUrl = this.urls[index];
+    this.userService.updateLocalUser([{ propName: 'photoUrl', value: this.urls[index] }]);
   }
 
   onUpload(event) {
@@ -52,14 +53,12 @@ export class WelcomeSetupProfileEditorComponent implements OnInit {
     let reader: any = new FileReader();
 
     reader.onload = (e: FileReaderEvent) => {
-      this.welcomeService.newUserInfo.photoUrl = e.target.result;
-      this.urls.unshift(this.welcomeService.newUserInfo.photoUrl);
+      this.userService.updateLocalUser([{ propName: 'photoUrl', value: e.target.result }]);
+      this.urls.unshift(this.user.photoUrl);
     }
 
     if (file) {
       reader.readAsDataURL(file);
-    } else {
-      this.welcomeService.newUserInfo.photoUrl = "https://i.ibb.co/pjG5Rkf/4k-wallpaper-astronomy-evening-2085998.jpg";
     }
 
   }

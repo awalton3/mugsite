@@ -14,7 +14,7 @@ const routes: Routes = [
       { path: 'profile', component: WelcomeSetupProfileComponent},
       { path: 'settings', component: WelcomeSetupSettingsComponent},
       { path: 'students', component: WelcomeSetupStudentsComponent},
-      { path: '**', redirectTo: 'profile', pathMatch: 'full'}
+      { path: '**', redirectTo: 'profile', pathMatch: 'full'} //TODO redirect to current route, instead of profile
     ]},
     { path: '**', redirectTo: 'account-setup', pathMatch: 'full'}
   ]}
