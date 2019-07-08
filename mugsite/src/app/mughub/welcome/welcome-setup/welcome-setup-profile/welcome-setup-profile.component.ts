@@ -13,7 +13,7 @@ import { User } from 'src/app/mughub/auth/user.model';
 })
 export class WelcomeSetupProfileComponent implements OnInit {
 
-  @ViewChild('profileImageEditor', {static: false}) profileImageEditor: MatDrawer;
+  @ViewChild('profileImageEditor', { static: false }) profileImageEditor: MatDrawer;
   chosenProfileImage: string;
   nameForm: FormGroup;
   user: User;
@@ -33,7 +33,7 @@ export class WelcomeSetupProfileComponent implements OnInit {
   }
 
   onProfileSubmit() {
-    this.userService.updateLocalUser([{propName: 'name', value: this.nameForm.value.username.toLowerCase()}]);
+    this.userService.updateLocalUser([{ name: 'name', value: this.nameForm.value.username.toLowerCase() }]);
     this.stepperService.onChangeStep.next({ name: 'settings', num: 1 });
     this.router.navigate(["mughub/welcome/account-setup/settings"])
   }

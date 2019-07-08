@@ -24,11 +24,11 @@ export class StepperComponent implements OnInit, OnDestroy {
     this.adjustStepper(window.innerWidth);
     this.stepperService.onChangeStep.subscribe(newCurrStep => {
       this.currStep = newCurrStep;
-    }); 
+    });
   }
 
   adjustStepper(width) {
-    if (width < 440) {
+    if (width < 500) {
       this.showMobileStepper = true;
     } else {
       this.showMobileStepper = false;

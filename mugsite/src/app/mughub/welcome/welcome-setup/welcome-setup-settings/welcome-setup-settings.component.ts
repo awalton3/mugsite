@@ -33,4 +33,9 @@ export class WelcomeSetupSettingsComponent implements OnInit {
     this.router.navigate(['mughub/welcome/account-setup/students'])
   }
 
+  togglePref(pref: string) {
+    let newPref = {};
+    newPref[pref] = !this.user.prefs[pref];
+    this.userService.updateLocalUser([{ name: 'prefs', value: newPref }])
+  }
 }

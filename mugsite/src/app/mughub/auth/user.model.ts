@@ -7,9 +7,9 @@ export class User {
     public uid: string,
     public isNewUser: boolean,
     public prefs: {
-      AutoHourLog: boolean,
+      AutoLog: boolean,
       InboxNotif: boolean,
-      HourLogNotif: boolean
+      LogNotif: boolean
     }
   ) { }
 }

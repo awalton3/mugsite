@@ -35,7 +35,7 @@ export class WelcomeSetupProfileEditorComponent implements OnInit {
   }
 
   onImageClick(index: string | number) {
-    this.userService.updateLocalUser([{ propName: 'photoUrl', value: this.urls[index] }]);
+    this.userService.updateLocalUser([{ name: 'photoUrl', value: this.urls[index] }]);
   }
 
   onUpload(event) {
@@ -53,7 +53,7 @@ export class WelcomeSetupProfileEditorComponent implements OnInit {
     let reader: any = new FileReader();
 
     reader.onload = (e: FileReaderEvent) => {
-      this.userService.updateLocalUser([{ propName: 'photoUrl', value: e.target.result }]);
+      this.userService.updateLocalUser([{ name: 'photoUrl', value: e.target.result }]);
       this.urls.unshift(this.user.photoUrl);
     }
 

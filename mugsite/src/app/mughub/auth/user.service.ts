@@ -53,7 +53,11 @@ export class UserService {
         type: type,
         uid: uid,
         isNewUser: isNewUser,
-        prefs: null
+        prefs: {
+          AutoLog: true,
+          InboxNotif: true,
+          LogNotif: true
+        }
       });
   }
 
@@ -75,13 +79,17 @@ export class UserService {
       })
   }
 
-  updateLocalUser(propsToUpdate: { propName: string, value: any }[]) {
-    if (propsToUpdate.length > 1)
-      propsToUpdate.map(prop => {
-        this.currentUser[prop.propName] = prop.value;
-      })
-    else
-      this.currentUser[propsToUpdate[0].propName] = propsToUpdate[0].value;
+  //... { propName: 'prefs',  value: { AutoLog: true }}
+  updateLocalUser(properties: { name: string, value: any }[]) {
+    properties.map(property => {
+      if (property.name === 'prefs') {
+        Object.keys(property.value).map(pref => {
+          this.currentUser['prefs'][pref] = property.value[pref];
+        })
+      } else {
+        this.currentUser[property.name] = property.value;
+      }
+    })
   }
 
   updateFbCollect() {
