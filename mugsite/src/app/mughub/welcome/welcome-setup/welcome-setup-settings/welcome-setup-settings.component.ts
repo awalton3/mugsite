@@ -30,7 +30,7 @@ export class WelcomeSetupSettingsComponent implements OnInit {
 
   onContinue() {
     this.stepperService.onChangeStep.next({ name: 'students', num: 2 });
-    this.router.navigate(['mughub/welcome/account-setup/students'])
+    this.router.navigate(['mughub/welcome/account-setup/students']); 
   }
 
   togglePref(pref: string) {

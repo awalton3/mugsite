@@ -1,0 +1,11 @@
+.title {
+  color: #2b5670;
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  padding: 0px 10px;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  height: 1px !important;
+}

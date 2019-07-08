@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutAlign="center center" class="container">
+<div fxLayout="column" fxLayoutAlign="center center" class="container fade-in" style="height: 80vh">
 
   <p class="title">USER PREFERENCES</p>
 
@@ -80,5 +80,11 @@
       Receive a weekly email when your hours have been logged automatically by our system.
     </p>
   </div>
+
+  <br><br><br>
+
+  <button (click)="onContinue()" type="submit" mat-raised-button color="accent" class="action-button" fxLayoutAlign="center center">
+    CONTINUE
+  </button>
 
 </div>

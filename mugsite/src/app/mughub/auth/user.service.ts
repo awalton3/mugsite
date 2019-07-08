@@ -95,7 +95,9 @@ export class UserService {
   updateFbCollect() {
     this.db.collection('/users')
       .doc(this.currentUser.uid)
-      .update(this.currentUser)
+      .update(Object.assign({}, this.currentUser))
+      .then(() => console.log('success'))
+      .catch(error => console.log(error))
   }
 
   uploadeProfilePhoto(photo) {

@@ -1,3 +1,17 @@
-<p>
-  welcome-setup-students works!
-</p>
+<div fxLayout="column" fxLayoutAlign="center center" style="height: 80vh">
+  <p class="title">CONNECT WITH YOUR STUDENTS</p>
+  <form fxLayoutAlign="center center"  [formGroup]="studentForm" class="widthFullPer">
+    <mat-form-field style="width: 280px">
+      <input matInput [matAutocomplete]="auto" formControlName="student" placeholder="Student Name">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of options" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+  <br>
+  <button (click)="onFinish()" type="submit" mat-raised-button color="accent" class="action-button" fxLayoutAlign="center center">
+    FINISH
+  </button>
+</div>

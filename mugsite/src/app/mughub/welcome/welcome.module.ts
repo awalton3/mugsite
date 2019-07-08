@@ -14,6 +14,8 @@ import { WelcomeSetupStudentsComponent } from './welcome-setup/welcome-setup-stu
 import { WelcomeSetupProfileEditorComponent } from './welcome-setup/welcome-setup-profile/welcome-setup-profile-editor/welcome-setup-profile-editor.component';
 import { StepperModule } from 'src/app/shared/stepper/stepper.module';
 import { StepperService } from 'src/app/shared/stepper/stepper.service';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
 
 //font awesome
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -38,7 +40,8 @@ import { faUser, faCheckCircle, faTimesCircle, faCalendar, faBell } from '@forta
     HeadnavModule,
     ReactiveFormsModule,
     StepperModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatAutocompleteModule
   ],
   providers: [ StepperService ] //creates a new instance for all components in this module
 })
