@@ -8,7 +8,9 @@ const routes: Routes = [
   {
     path: '', component: TutorAppComponent, canActivate: [AuthGuard], children: [
       { path: '', redirectTo: 'manage', pathMatch: 'full' },
-      { path: 'manage', loadChildren: './manage/manage.module#ManageModule' }
+      { path: 'manage', loadChildren: './manage/manage.module#ManageModule' },
+      { path: 'uploads', loadChildren: './uploads/uploads.module#UploadsModule' },
+      { path: '**', redirectTo: 'manage', pathMatch: 'full' }
     ]
   }
 ]

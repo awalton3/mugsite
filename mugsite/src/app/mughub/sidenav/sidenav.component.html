@@ -4,23 +4,23 @@
 </div>
 <div fxLayout="column" fxLayoutAlign="space-between center" class="sideDrawer-content">
   <div fxLayout="column" fxLayoutAlign="center center">
-    <div class="profile-image-container profile-image-border"></div>
-    <p class="profile-name">ANA WALTON</p>
+    <div class="profile-image-container profile-image-border" [ngStyle]="{'background-image': 'url(' + user.photoUrl + ')'}"></div>
+    <p class="profile-name">{{ user.name | uppercase }}</p>
   </div>
   <mat-nav-list fxLayout="column" style="width: 100%">
-    <a mat-list-item [routerLink]="['manage']" (click)="onNav('INBOX')" class="sideDrawer-links" fxLayoutAlign="center center">
+    <a mat-list-item (click)="onNav('inbox')" class="sideDrawer-links" fxLayoutAlign="center center">
       <span class="sideDrawer-links-text" fxLayoutAlign="center center">INBOX</span>
     </a>
-    <a mat-list-item [routerLink]="['manage']" (click)="onNav('UPLOADS')" class="sideDrawer-links" fxLayoutAlign="center center">
+    <a mat-list-item (click)="onNav('uploads')" class="sideDrawer-links" fxLayoutAlign="center center">
       <span class="sideDrawer-links-text" fxLayoutAlign="center center">UPLOADS</span>
     </a>
-    <a mat-list-item [routerLink]="['manage']" (click)="onNav('MANAGE')" class="sideDrawer-links" fxLayoutAlign="center center">
+    <a mat-list-item (click)="onNav('manage')" class="sideDrawer-links" fxLayoutAlign="center center">
       <span class="sideDrawer-links-text" fxLayoutAlign="center center">MANAGE</span>
     </a>
-    <a mat-list-item [routerLink]="['manage']" (click)="onNav('HOUR LOG')" class="sideDrawer-links" fxLayoutAlign="center center">
+    <a mat-list-item (click)="onNav('hour log')" class="sideDrawer-links" fxLayoutAlign="center center">
       <span class="sideDrawer-links-text" fxLayoutAlign="center center">HOUR LOG</span>
     </a>
-    <a mat-list-item [routerLink]="['manage']" (click)="onNav('SETTINGS')" class="sideDrawer-links" fxLayoutAlign="center center">
+    <a mat-list-item (click)="onNav('settings')" class="sideDrawer-links" fxLayoutAlign="center center">
       <span class="sideDrawer-links-text" fxLayoutAlign="center center">SETTINGS</span>
     </a>
   </mat-nav-list>
