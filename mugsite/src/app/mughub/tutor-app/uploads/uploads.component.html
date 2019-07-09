@@ -1,11 +1,11 @@
 <mat-drawer-container [hasBackdrop]="false" class="heightFull">
 
   <mat-drawer #editor mode="over" position="end" opened="false" class="side-content-drawer">
-    <mughub-upload-editor></mughub-upload-editor>
+    <mughub-upload-editor (onClose)="editor.close()"></mughub-upload-editor>
   </mat-drawer>
 
   <mat-drawer-content class="background-eee heightFull paddingNone">
-    <mughub-headnav title="uploads" iconLeft="menu"></mughub-headnav>
+    <mughub-headnav title="uploads" iconLeft="menu" (leftIconToggled)="closeSidenav()"></mughub-headnav>
     <div fxLayout="column" fxLayoutAlign="start center">
       <mughub-upload></mughub-upload>
       <mughub-upload></mughub-upload>

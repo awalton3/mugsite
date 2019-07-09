@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, HostListener, AfterViewInit } from '@angular/core';
+import { SidenavService } from '../sidenav/sidenav.service';
 
 @Component({
   selector: 'app-tutor-app',
@@ -15,9 +16,10 @@ export class TutorAppComponent implements OnInit, AfterViewInit {
     this.adjustSidenav();
   }
 
-  constructor() { }
+  constructor(private sidenavService: SidenavService) { }
 
   ngOnInit() {
+    this.sidenavService.onToggle.subscribe(() => this.navDrawer.toggle());
   }
 
   ngAfterViewInit() {

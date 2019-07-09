@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SidenavService } from '../../sidenav/sidenav.service';
 
 @Component({
   selector: 'app-uploads',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UploadsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sidenavService: SidenavService) { }
 
   ngOnInit() {
+  }
+
+  closeSidenav() {
+    this.sidenavService.onToggle.next()
   }
 
 }
