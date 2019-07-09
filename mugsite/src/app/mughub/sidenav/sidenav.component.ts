@@ -25,6 +25,7 @@ export class SidenavComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.screenWidth = window.innerWidth; 
     this.user = this.userService.getUserSession();
   }
 

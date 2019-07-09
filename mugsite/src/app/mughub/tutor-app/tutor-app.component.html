@@ -1,5 +1,5 @@
 <mat-drawer-container class="heightFull">
-  <mat-drawer #navDrawer class="sidenav" mode="side" opened="true">
+  <mat-drawer #navDrawer class="sidenav" mode="{{navDrawerMode}}" opened="navDrawerOpen">
     <mughub-sidenav (closeNav)="navDrawer.close()"></mughub-sidenav>
   </mat-drawer>
   <mat-drawer-content class="background-eee paddingNone">

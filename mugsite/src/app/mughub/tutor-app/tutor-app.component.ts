@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, AfterViewInit } from '@angular/core';
 
 @Component({
   selector: 'app-tutor-app',
@@ -6,12 +6,25 @@ import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
   styleUrls: ['./tutor-app.component.css']
 })
 
-export class TutorAppComponent implements OnInit {
+export class TutorAppComponent implements OnInit, AfterViewInit {
 
   @ViewChild('navDrawer', { static: false }) navDrawer: any;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
+    this.adjustSidenav();
+  }
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+  ngAfterViewInit() {
+    this.adjustSidenav();
+  }
+
+  adjustSidenav() {
     if (window.innerWidth < 960) {
       this.navDrawer.opened = false;
       this.navDrawer.mode = 'over';
@@ -19,11 +32,6 @@ export class TutorAppComponent implements OnInit {
       this.navDrawer.opened = true;
       this.navDrawer.mode = 'side';
     }
-  }
-
-  constructor() { }
-
-  ngOnInit() {
   }
 
 }
