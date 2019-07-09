@@ -33,7 +33,8 @@ export class AuthService {
       .then(userObj => {
         if (userObj.user.emailVerified) {
           this.userService.createLocalUser(userObj.user.uid);
-          this.router.navigate(['mughub']);
+          let user = this.userService.getUserSession();
+          this.router.navigate(['mughub', user.type]);
         } else
           alert("Please verify your email before logging in.");
       })

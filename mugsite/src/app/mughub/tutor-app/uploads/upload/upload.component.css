@@ -1,0 +1,61 @@
+.upload {
+  width: 85%;
+  margin: 30px 10px 0px 10px;
+}
+
+.date {
+  color: grey;
+  margin: 12px 30px;
+  padding-left: 10px;
+}
+
+.day {
+  font-weight: 600;
+  font-size: 25px;
+  margin: 0;
+}
+
+.month {
+  font-weight: 400;
+  font-size: 14px;
+  margin: 0;
+}
+
+.divider {
+  height: auto;
+}
+
+.info {
+  font-family: 'Montserrat', sans-serif;
+  padding: 0px 30px;
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 600;
+  color: grey;
+}
+
+.category {
+  font-size: 13px;
+  font-weight: 500;
+  color: grey;
+}
+
+.category-text {
+  font-size: 14px;
+  font-weight: 400;
+  color: grey;
+  margin-left: 20px;
+  margin-top: 0;
+  line-height: 24px;
+}
+
+.download-icon {
+  vertical-align: middle;
+  padding: 0px 10px;
+  margin-top: -5px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #de6600
+}

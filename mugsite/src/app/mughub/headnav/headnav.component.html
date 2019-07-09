@@ -1,6 +1,6 @@
 <mat-toolbar fxLayout="row" fxLayoutAlign="space-between center" class="headnav">
   <i class="material-icons sidenav-toggle-btn" (click)="onLeftIconToggle()">{{iconLeft}}</i>
-  <p>{{ title }}</p>
+  <p>{{ title | uppercase }}</p>
   <i class="material-icons" (click)="onRightIconToggle()"
   [ngClass]="{'btn-active' : enableIconRight, 'btn-disabled' : !enableIconRight}">{{iconRight}}</i>
 </mat-toolbar>
