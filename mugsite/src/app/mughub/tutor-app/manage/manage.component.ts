@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HeadnavService } from '../../headnav/headnav.service';
 
 @Component({
   selector: 'app-manage',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private headnavService: HeadnavService) { }
 
   ngOnInit() {
+    this.headnavService.title.next('manage');
   }
 
 }

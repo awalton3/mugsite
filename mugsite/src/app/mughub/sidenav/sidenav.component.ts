@@ -2,7 +2,6 @@ import { Component, OnInit, Output, HostListener } from '@angular/core';
 import { Subject } from 'rxjs';
 import { UserService } from '../auth/user.service';
 import { User } from '../auth/user.model';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'mughub-sidenav',
@@ -12,8 +11,8 @@ import { Router } from '@angular/router';
 
 export class SidenavComponent implements OnInit {
 
-  @Output() navDest = new Subject<string>();
   @Output() closeNav = new Subject();
+  defaultNavLinks = ['inbox', 'uploads', 'manage', 'hour log', 'settings']
   user: User;
 
   screenWidth: any;
@@ -23,18 +22,10 @@ export class SidenavComponent implements OnInit {
     this.screenWidth = window.innerWidth;
   }
 
-  constructor(
-    private userService: UserService,
-    private router: Router
-  ) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.user = this.userService.getUserSession();
-  }
-
-  onNav(destination: string) {
-    this.navDest.next(destination);
-    this.router.navigate(['mughub/tutor', destination])
   }
 
   onClose() {

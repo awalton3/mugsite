@@ -1,24 +1,28 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
+import { HeadnavService } from './headnav.service';
 
 @Component({
   selector: 'mughub-headnav',
   templateUrl: './headnav.component.html',
   styleUrls: ['./headnav.component.css']
 })
-export class HeadnavComponent implements OnInit {
+export class HeadnavComponent implements OnInit, OnDestroy {
 
-  @Input() title: string;
+  @Input() title?: string;
   @Input() iconLeft?: string;
   @Input() iconRight?: string;
   @Input() enableIconRight?: boolean = true;
-  
+
   @Output() leftIconToggled = new Subject();
   @Output() rightIconToggled = new Subject();
 
-  constructor() { }
+  constructor(private headnavService: HeadnavService) { }
 
   ngOnInit() {
+    this.headnavService.title.subscribe(titleStr => {
+      this.title = titleStr;
+    });
   }
 
   onLeftIconToggle() {
@@ -28,6 +32,10 @@ export class HeadnavComponent implements OnInit {
   onRightIconToggle() {
     if (this.enableIconRight)
       this.rightIconToggled.next();
+  }
+
+  ngOnDestroy() {
+    this.headnavService.title.unsubscribe();
   }
 
 }

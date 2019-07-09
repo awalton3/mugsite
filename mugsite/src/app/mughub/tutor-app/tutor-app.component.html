@@ -1,19 +1,18 @@
-
-<mat-drawer-container style="height: 100vh">
+<mat-drawer-container class="heightFull">
   <mat-drawer #navDrawer class="sidenav" mode="side" opened="true">
-    <mughub-sidenav (navDest)="navDest = $event" (closeNav)="navDrawer.close()"></mughub-sidenav>
+    <mughub-sidenav (closeNav)="navDrawer.close()"></mughub-sidenav>
   </mat-drawer>
-  <mat-drawer-content style="padding: 0; background-color: #eee;">
+  <mat-drawer-content class="background-eee paddingNone">
 
-    <mat-drawer-container [hasBackdrop]="false" style="height: 100vh;">
+    <mat-drawer-container [hasBackdrop]="false" class="heightFull">
 
-      <!--editor-->
+      <!--editor for manage component-->
       <mat-drawer #editor mode="over" position="end" opened="false" class="editor">
         <mughub-manage-site-editor *ngIf="pageToManage" [pageToManage]="pageToManage"></mughub-manage-site-editor>
       </mat-drawer>
 
-      <mat-drawer-content style="padding: 0; background-color: #eee; height: 100vh">
-        <mughub-headnav title="{{ navDest }}"  iconLeft="menu" (leftIconToggled)="navDrawer.toggle()"></mughub-headnav>
+      <mat-drawer-content class="background-eee heightFull paddingNone">
+        <mughub-headnav iconLeft="menu" (leftIconToggled)="navDrawer.toggle()"></mughub-headnav>
         <router-outlet></router-outlet>
       </mat-drawer-content>
 

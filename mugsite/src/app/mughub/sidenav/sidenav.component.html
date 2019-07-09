@@ -7,21 +7,9 @@
     <div class="profile-image-container profile-image-border" [ngStyle]="{'background-image': 'url(' + user.photoUrl + ')'}"></div>
     <p class="profile-name">{{ user.name | uppercase }}</p>
   </div>
-  <mat-nav-list fxLayout="column" style="width: 100%">
-    <a mat-list-item (click)="onNav('inbox')" class="sideDrawer-links" fxLayoutAlign="center center">
-      <span class="sideDrawer-links-text" fxLayoutAlign="center center">INBOX</span>
-    </a>
-    <a mat-list-item (click)="onNav('uploads')" class="sideDrawer-links" fxLayoutAlign="center center">
-      <span class="sideDrawer-links-text" fxLayoutAlign="center center">UPLOADS</span>
-    </a>
-    <a mat-list-item (click)="onNav('manage')" class="sideDrawer-links" fxLayoutAlign="center center">
-      <span class="sideDrawer-links-text" fxLayoutAlign="center center">MANAGE</span>
-    </a>
-    <a mat-list-item (click)="onNav('hour log')" class="sideDrawer-links" fxLayoutAlign="center center">
-      <span class="sideDrawer-links-text" fxLayoutAlign="center center">HOUR LOG</span>
-    </a>
-    <a mat-list-item (click)="onNav('settings')" class="sideDrawer-links" fxLayoutAlign="center center">
-      <span class="sideDrawer-links-text" fxLayoutAlign="center center">SETTINGS</span>
+  <mat-nav-list fxLayout="column" class="widthFullPer">
+    <a mat-list-item *ngFor="let link of defaultNavLinks" [routerLink]="['/mughub/tutor', link]" class="sideDrawer-links" fxLayoutAlign="center center">
+      <span class="sideDrawer-links-text" fxLayoutAlign="center center">{{ link | uppercase }}</span>
     </a>
   </mat-nav-list>
   <img class="logo" src="https://firebasestorage.googleapis.com/v0/b/mugsite-95f7c.appspot.com/o/mughub_logo_ondark.png?alt=media&token=cc211c92-0870-4618-8f23-fecdc2b46ffc">
