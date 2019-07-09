@@ -5,11 +5,6 @@ import { ManageRoutingModule } from './manage-routing.module';
 import { ManageComponent } from './manage.component';
 import { MaterialComponentsModule } from 'src/app/shared/angular-material/material-components.module';
 import { FormsMaterialComponentsModule } from 'src/app/shared/angular-material/forms-material-components.module';
-
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faHome, faLightbulb, faUserMd, faBookOpen, faCalendar, faBriefcase } from '@fortawesome/free-solid-svg-icons';
-
 import { ManageSiteComponent } from './manage-site/manage-site.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { HeadnavModule } from '../../headnav/headnav.module';
@@ -21,7 +16,11 @@ import { EditorBottomSheetEventsComponent } from './manage-site-editor/editor-bo
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatListModule } from '@angular/material/list';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faHome, faLightbulb, faUserMd, faBookOpen, faCalendar, faBriefcase } from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   declarations: [
@@ -36,22 +35,20 @@ import { MatListModule } from '@angular/material/list';
   imports: [
     CommonModule,
     MaterialComponentsModule,
+    ManageRoutingModule,
     FormsMaterialComponentsModule,
     MatBottomSheetModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    ManageRoutingModule,
     FontAwesomeModule,
     HeadnavModule,
     EventListItemModule,
     ReactiveFormsModule,
-    MatListModule
+    MatListModule,
+    MatSidenavModule
   ],
   providers: [
     MatDatepickerModule
-  ],
-  exports: [
-    ManageSiteEditorComponent
   ]
 })
 export class ManageModule {

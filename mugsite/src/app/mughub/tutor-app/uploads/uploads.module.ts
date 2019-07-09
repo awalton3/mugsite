@@ -4,13 +4,18 @@ import { MaterialComponentsModule } from 'src/app/shared/angular-material/materi
 import { UploadsComponent } from './uploads.component';
 import { UploadsRoutingModule } from './uploads-routing.module';
 import { UploadComponent } from './upload/upload.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { UploadEditorComponent } from './upload-editor/upload-editor.component';
+import { HeadnavModule } from '../../headnav/headnav.module';
 
 @NgModule({
-  declarations: [UploadsComponent, UploadComponent],
+  declarations: [UploadsComponent, UploadComponent, UploadEditorComponent],
   imports: [
     CommonModule,
     MaterialComponentsModule,
-    UploadsRoutingModule
+    UploadsRoutingModule,
+    MatSidenavModule,
+    HeadnavModule
   ]
 })
 

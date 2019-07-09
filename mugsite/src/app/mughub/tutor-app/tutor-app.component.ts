@@ -1,5 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, HostListener } from '@angular/core';
-import { ManageService } from './manage/manage.service';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-tutor-app',
@@ -7,14 +6,9 @@ import { ManageService } from './manage/manage.service';
   styleUrls: ['./tutor-app.component.css']
 })
 
-export class TutorAppComponent implements OnInit, OnDestroy {
-
-  navDest: string = "MANAGE"
-  pageToManage: string;
-  isNewUser: boolean;
+export class TutorAppComponent implements OnInit {
 
   @ViewChild('navDrawer', { static: false }) navDrawer: any;
-  @ViewChild('editor', { static: false }) editor: any;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -27,26 +21,9 @@ export class TutorAppComponent implements OnInit, OnDestroy {
     }
   }
 
-  constructor(private manageService: ManageService) { }
+  constructor() { }
 
   ngOnInit() {
-
-    this.manageService.onManage.subscribe(pageToManage => {
-      this.pageToManage = pageToManage;
-      this.editor.toggle();
-    })
-    this.manageService.onManageCancel.subscribe(() => {
-      this.editor.close();
-    })
-  }
-
-  ngOnDestroy() {
-    this.manageService.onManage.unsubscribe();
-    this.manageService.onManageCancel.unsubscribe();
-  }
-
-  getNavDest(navDest: string) {
-    this.navDest = navDest;
   }
 
 }

@@ -1,3 +1,21 @@
-<div fxLayout="column" fxLayoutAlign="start center" style="height: 80vh; width: 70vw">
-  <mughub-upload></mughub-upload>
-</div>
+<mat-drawer-container [hasBackdrop]="false" class="heightFull">
+
+  <mat-drawer #editor mode="over" position="end" opened="false" class="side-content-drawer">
+    <mughub-upload-editor></mughub-upload-editor>
+  </mat-drawer>
+
+  <mat-drawer-content class="background-eee heightFull paddingNone">
+    <mughub-headnav title="uploads" iconLeft="menu"></mughub-headnav>
+    <div fxLayout="column" fxLayoutAlign="start center" style="height: 80vh; width: 70vw">
+      <mughub-upload></mughub-upload>
+      <mughub-upload></mughub-upload>
+      <mughub-upload></mughub-upload>
+      <div class="bottom-right-fab">
+        <button (click)="editor.open()" mat-fab color="accent">
+          <i class="material-icons" fxLayoutAlign="center center">add</i>
+        </button>
+      </div>
+    </div>
+  </mat-drawer-content>
+
+</mat-drawer-container>

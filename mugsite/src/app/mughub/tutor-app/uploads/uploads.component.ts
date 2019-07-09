@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HeadnavService } from '../../headnav/headnav.service';
 
 @Component({
   selector: 'app-uploads',
@@ -8,12 +7,9 @@ import { HeadnavService } from '../../headnav/headnav.service';
 })
 export class UploadsComponent implements OnInit {
 
-  constructor(
-    private headnavService: HeadnavService
-  ) { }
+  constructor() { }
 
   ngOnInit() {
-    this.headnavService.title.next('uploads'); 
   }
 
 }

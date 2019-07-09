@@ -1,6 +1,17 @@
-<div fxLayout="column" fxLayoutAlign="center center">
-  <div fxLayout="column" fxLayoutAlign="start start" style="padding-top: 20px;">
-    <mughub-manage-site class="manage-container"></mughub-manage-site>
-    <mughub-manage-users class="manage-container"></mughub-manage-users>
-  </div>
-</div>
+<mat-drawer-container [hasBackdrop]="false" class="heightFull">
+
+  <mat-drawer #editor mode="over" position="end" opened="false" class="side-content-drawer">
+    <mughub-manage-site-editor *ngIf="pageToManage" [pageToManage]="pageToManage"></mughub-manage-site-editor>
+  </mat-drawer>
+
+  <mat-drawer-content class="background-eee heightFull paddingNone">
+    <mughub-headnav title="manage" iconLeft="menu"></mughub-headnav>
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <div fxLayout="column" fxLayoutAlign="start start" style="padding-top: 20px;">
+        <mughub-manage-site class="manage-container"></mughub-manage-site>
+        <mughub-manage-users class="manage-container"></mughub-manage-users>
+      </div>
+    </div>
+  </mat-drawer-content>
+
+</mat-drawer-container>
