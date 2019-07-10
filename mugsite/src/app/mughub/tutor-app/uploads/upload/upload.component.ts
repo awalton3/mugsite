@@ -7,11 +7,18 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class UploadComponent implements OnInit {
 
-  @Input() upload = {};
+  @Input() upload = null;
+  creationMonth: string;
 
   constructor() { }
 
   ngOnInit() {
+    this.creationMonth = this.getMonthStr(this.upload.creationDate.month);
+  }
+
+  getMonthStr(monthNum: number) {
+    let months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+    return months[monthNum - 1];
   }
 
 }

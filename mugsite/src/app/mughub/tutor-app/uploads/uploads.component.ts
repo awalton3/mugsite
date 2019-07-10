@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class UploadsComponent implements OnInit, OnDestroy {
 
-  uploads: QueryDocumentSnapshot<any>[];
+  uploads: QueryDocumentSnapshot<any>[] = [];
   uploadsSub: Subscription
 
   constructor(
@@ -31,7 +31,7 @@ export class UploadsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.uploadsSub.unsubscribe(); 
+    this.uploadsSub.unsubscribe();
   }
 
 }

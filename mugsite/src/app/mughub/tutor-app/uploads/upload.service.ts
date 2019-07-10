@@ -21,7 +21,10 @@ export class UploadService {
         assignment: formData.assignment,
         comments: formData.comments,
         attachments: attachmentNameRefs,
-        creationDate: new Date() 
+        creationDate: {
+          day: new Date().getDate(),
+          month: new Date().getMonth() + 1
+        }
       });
   }
 

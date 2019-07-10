@@ -36,7 +36,10 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.uploadService.addUpload(this.uploadForm.value, this.attachments)
-      .then(() => this.attachmentService.uploadAttachmentsToFb())
+      .then(() => {
+        this.attachmentService.uploadAttachmentsToFb()
+        this.onClose.emit();
+      })
       .catch(error => console.log(error))
   }
 
