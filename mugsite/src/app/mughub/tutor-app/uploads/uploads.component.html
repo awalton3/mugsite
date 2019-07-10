@@ -7,7 +7,15 @@
   <mat-drawer-content class="background-eee heightFull paddingNone">
     <mughub-headnav title="uploads" iconLeft="menu" (leftIconToggled)="closeSidenav()"></mughub-headnav>
     <div fxLayout="column" fxLayoutAlign="start center">
-      <mughub-upload></mughub-upload>
+
+      <div *ngIf="uploads.length !== 0">
+        <mughub-upload *ngFor="let uploadEl of uploads" [upload]="uploadEl.data()"></mughub-upload>
+      </div>
+
+      <div *ngIf="uploads.length === 0">
+        on e
+      </div>
+
       <div class="bottom-right-fab">
         <button (click)="editor.open()" mat-fab color="accent">
           <i class="material-icons" fxLayoutAlign="center center" style="color: white">add</i>

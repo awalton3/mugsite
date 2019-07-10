@@ -20,8 +20,15 @@ export class UploadService {
         subject: formData.subject,
         assignment: formData.assignment,
         comments: formData.comments,
-        attachments: attachmentNameRefs
+        attachments: attachmentNameRefs,
+        creationDate: new Date() 
       });
+  }
+
+  fetchUploads() {
+    return this.db.collection('/uploads', ref =>
+      ref.where('userFrom', '==', this.userService.getUserSession().uid)
+    ).get()
   }
 
 }
