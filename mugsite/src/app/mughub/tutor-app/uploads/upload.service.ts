@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { UserService } from '../../auth/user.service';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({ providedIn: 'root' })
 
@@ -30,9 +33,9 @@ export class UploadService {
   }
 
   fetchUploads() {
-    return this.db.collection('/uploads', ref =>
-      ref.where('userFrom', '==', this.userService.getUserSession().uid).orderBy('timestamp', 'desc')
-    ).get()
+    return firebase.firestore().collection('/uploads')
+      .where('userFrom', '==', this.userService.getUserSession().uid)
+      .orderBy('timestamp', 'desc')
   }
 
 }

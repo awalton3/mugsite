@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class UploadsComponent implements OnInit, OnDestroy {
 
-  uploads: QueryDocumentSnapshot<any>[] = [];
+  uploads: any[] = [];
   uploadsSub: Subscription
 
   constructor(
@@ -20,19 +20,25 @@ export class UploadsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.uploadsSub = this.uploadService.fetchUploads()
-      .subscribe(uploads => {
-        console.log(uploads)
-        this.uploads = uploads.docs;
-      })
+    this.getUploads(); 
   }
 
   closeSidenav() {
     this.sidenavService.onToggle.next();
   }
 
+  getUploads() {
+    this.uploadService.fetchUploads()
+      .onSnapshot(querySnapshot => {
+        this.uploads = [];
+        querySnapshot.forEach(doc => {
+          this.uploads.push(doc.data());
+        });
+      }, error => { console.log(error) })
+  }
+
   ngOnDestroy() {
-    this.uploadsSub.unsubscribe();
+
   }
 
 }
