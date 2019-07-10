@@ -14,7 +14,7 @@ export class UploadsComponent implements OnInit {
   }
 
   closeSidenav() {
-    this.sidenavService.onToggle.next()
+    this.sidenavService.onToggle.next(); 
   }
 
 }

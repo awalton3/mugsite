@@ -33,26 +33,6 @@
     </mat-form-field>
   </div>
 
-  <p class="editForm-label">LOCATION</p>
-  <mat-form-field floatLabel="never">
-    <input matInput formControlName="location" type="text" class="editForm-input" placeholder="{{ placeholder.location }}">
-  </mat-form-field>
-
-  <p class="editForm-label">TIME</p>
-  <mat-form-field floatLabel="never">
-    <input matInput formControlName="time" type="text" class="editForm-input" rows="3" placeholder="{{ placeholder.time }}">
-  </mat-form-field>
-
-  <p class="editForm-label">POINT OF CONTACT</p>
-  <mat-form-field floatLabel="never">
-    <input matInput formControlName="contact" type="text" class="editForm-input" placeholder="{{ placeholder.contact }}">
-  </mat-form-field>
-
-  <p class="editForm-label">SPECIAL INSTRUCTIONS</p>
-  <mat-form-field floatLabel="never">
-    <input matInput formControlName="instructions" type="text" class="editForm-input" placeholder="{{ placeholder.instructions }}">
-  </mat-form-field>
-
   <div fxLayout="row" fxLayoutAlign="space-between center">
     <p class="editForm-label">ATTACHMENTS</p>
     <input (change)="onFileSubmit($event)" type="file" id="file" class="editForm-input" class="fileUploader">
@@ -74,6 +54,27 @@
     <p class="add-attachment-prompt">To add an attachment, click the button above.</p>
   </div>
 
+  <br>
+
+  <p class="editForm-label">LOCATION</p>
+  <mat-form-field floatLabel="never">
+    <input matInput formControlName="location" type="text" class="editForm-input" placeholder="{{ placeholder.location }}">
+  </mat-form-field>
+
+  <p class="editForm-label">TIME</p>
+  <mat-form-field floatLabel="never">
+    <input matInput formControlName="time" type="text" class="editForm-input" rows="3" placeholder="{{ placeholder.time }}">
+  </mat-form-field>
+
+  <p class="editForm-label">POINT OF CONTACT</p>
+  <mat-form-field floatLabel="never">
+    <input matInput formControlName="contact" type="text" class="editForm-input" placeholder="{{ placeholder.contact }}">
+  </mat-form-field>
+
+  <p class="editForm-label">SPECIAL INSTRUCTIONS</p>
+  <mat-form-field floatLabel="never">
+    <input matInput formControlName="instructions" type="text" class="editForm-input" placeholder="{{ placeholder.instructions }}">
+  </mat-form-field>
 
 </form>
 

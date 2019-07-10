@@ -1,4 +1,48 @@
-<mughub-headnav title="upload" iconLeft="close" iconRight="done" (leftIconToggled)="onClose.emit()"></mughub-headnav>
-<form>
-  
+<mughub-headnav title="upload" iconLeft="close" iconRight="done" (leftIconToggled)="onClose.emit()" (rightIconToggled)="onSubmit()" [enableIconRight]="uploadForm.valid"></mughub-headnav>
+<form [formGroup]="uploadForm" class="uploadForm">
+
+  <p class="uploadForm-label">STUDENT NAME</p>
+  <mat-form-field floatLabel="never" fxFill>
+    <input type="text" matInput formControlName="name" placeholder="Ex. John Doe" class="uploadForm-input">
+  </mat-form-field>
+
+  <p class="uploadForm-label">SUBJECT</p>
+  <mat-form-field floatLabel="never" fxFill>
+    <input type="text" matInput formControlName="subject" placeholder="Ex. Algebra II" class="uploadForm-input">
+  </mat-form-field>
+
+  <p class="uploadForm-label">ASSIGNMENT</p>
+  <mat-form-field floatLabel="never" fxFill>
+    <textarea type="text" rows="6" matInput formControlName="assignment" placeholder="Ex. Complete attached worksheets by next week." class="uploadForm-input"></textarea>
+  </mat-form-field>
+
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <p class="uploadForm-label">ATTACHMENTS</p>
+    <input (change)="onFileUpload($event)" type="file" id="file" class="editForm-input" class="fileUploader">
+    <label for="file"><i class="material-icons add-attachment-btn" mat-ripple>add_circle</i></label>
+  </div>
+
+  <div *ngIf="attachments.length !== 0">
+    <mat-selection-list class="attachment-list" #attachmentsList>
+      <mat-list-option id="option" *ngFor="let attachment of attachments; let i = index" value="{{ i }}" class="attachment-list-item">
+        {{ attachment }}
+      </mat-list-option>
+    </mat-selection-list>
+    <br>
+    <div *ngIf="attachmentsList.selectedOptions.selected.length !== 0" fxLayout="row" fxLayoutAlign="space-between center">
+      <span></span>
+      <button (click)="onFilesDelete()" mat-button class="delete-active">DELETE</button>
+    </div>
+  </div>
+  <div *ngIf="attachments.length === 0">
+    <p class="add-attachment-prompt">To add an attachment, click the button above.</p>
+  </div>
+
+  <br>
+
+  <p class="uploadForm-label">ADDITIONAL COMMENTS</p>
+  <mat-form-field floatLabel="never" fxFill>
+    <textarea type="text" rows="6" matInput formControlName="comments" placeholder="Ex. Student is doing well, needs to improve on solving systems of equations." class="uploadForm-input"></textarea>
+  </mat-form-field>
+
 </form>

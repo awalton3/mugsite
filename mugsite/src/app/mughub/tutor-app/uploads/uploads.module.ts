@@ -7,6 +7,10 @@ import { UploadComponent } from './upload/upload.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { UploadEditorComponent } from './upload-editor/upload-editor.component';
 import { HeadnavModule } from '../../headnav/headnav.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsMaterialComponentsModule } from 'src/app/shared/angular-material/forms-material-components.module';
+import { AttachmentService } from 'src/app/shared/attachments/attachments.service';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [UploadsComponent, UploadComponent, UploadEditorComponent],
@@ -15,7 +19,13 @@ import { HeadnavModule } from '../../headnav/headnav.module';
     MaterialComponentsModule,
     UploadsRoutingModule,
     MatSidenavModule,
-    HeadnavModule
+    HeadnavModule,
+    ReactiveFormsModule,
+    FormsMaterialComponentsModule,
+    MatListModule,
+  ],
+  providers: [
+    AttachmentService
   ]
 })
 
