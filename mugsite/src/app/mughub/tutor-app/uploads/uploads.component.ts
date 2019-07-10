@@ -22,6 +22,7 @@ export class UploadsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.uploadsSub = this.uploadService.fetchUploads()
       .subscribe(uploads => {
+        console.log(uploads)
         this.uploads = uploads.docs;
       })
   }

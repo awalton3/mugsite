@@ -24,13 +24,14 @@ export class UploadService {
         creationDate: {
           day: new Date().getDate(),
           month: new Date().getMonth() + 1
-        }
+        },
+        timestamp: new Date()
       });
   }
 
   fetchUploads() {
     return this.db.collection('/uploads', ref =>
-      ref.where('userFrom', '==', this.userService.getUserSession().uid)
+      ref.where('userFrom', '==', this.userService.getUserSession().uid).orderBy('timestamp', 'desc')
     ).get()
   }
 
