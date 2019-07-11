@@ -87,6 +87,39 @@
   }
 }
 
+.drawer-sticky-btn-accent {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 17px !important;
+  background-color: #de6600 !important;
+  color: white !important;
+  width: 100% !important;
+  height: 60px !important;
+  cursor: pointer !important;
+  font-weight: 600 !important;
+}
+
+.drawer-sticky-btn-red {
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 17px !important;
+	position: fixed !important;
+  bottom: 0 !important;
+  background-color: #de0005 !important;
+  color: white !important;
+  width: 500px !important;
+  height: 60px !important;
+  cursor: pointer !important;
+  font-weight: 600 !important;
+}
+
+@media only screen and (max-width: 500px) {
+  .drawer-sticky-btn-red {
+    width: 100vw !important;
+  }
+	.drawer-sticky-btn-content {
+		margin-bottom: 80px !important;
+	}
+}
+
 /* animations */
 .fade-in {
 	opacity: 1;

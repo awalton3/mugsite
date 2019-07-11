@@ -110,6 +110,10 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
     this.isEditMode = false;
   }
 
+  onDeleteUpload() {
+    
+  }
+
   onFileUpload(onFileUpload /* event */) {
     let file = onFileUpload.target.files[0];
     if (!this.attachments.includes(file.name))
