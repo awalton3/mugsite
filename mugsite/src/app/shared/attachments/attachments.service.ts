@@ -19,6 +19,15 @@ export class AttachmentService {
     return this.attachmentsListView.slice();
   }
 
+  ifAttachmentsChanged() {
+    return this.attachmentsToAdd.size === 0 && this.attachmentsToDelete.size === 0;
+  }
+
+  initAttachmentsListView(initialAttachments: string[]) {
+    this.attachmentsListView = initialAttachments;
+    this.attachmentsChanged.next(this.attachmentsListView);
+  }
+
   addAttachment(file: File) {
     this.attachmentsListView.push(file.name);
     this.attachmentsToAdd.add(file);

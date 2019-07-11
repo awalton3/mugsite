@@ -9,7 +9,7 @@
     <div fxLayout="column" fxLayoutAlign="start center">
 
       <div *ngIf="uploads.length !== 0">
-        <mughub-upload *ngFor="let uploadEl of uploads" [upload]="uploadEl"></mughub-upload>
+        <mughub-upload (click)="onUploadClick(uploadEl)" *ngFor="let uploadEl of uploads" [upload]="uploadEl"></mughub-upload>
       </div>
 
       <div *ngIf="uploads.length === 0">

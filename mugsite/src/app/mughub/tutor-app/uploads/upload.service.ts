@@ -4,10 +4,14 @@ import * as firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Subject } from 'rxjs';
+import { Upload } from './upload.model';
 
 @Injectable({ providedIn: 'root' })
 
 export class UploadService {
+
+  uploadClicked = new Subject<Upload>();
 
   constructor(
     private db: AngularFirestore,
@@ -29,6 +33,14 @@ export class UploadService {
           month: new Date().getMonth() + 1
         },
         timestamp: new Date()
+      });
+  }
+
+  editUpload(id: string, changedFields: string[], changedAttachments) {
+    return this.db.collection('/uploads')
+      .doc(id)
+      .update({
+        changedFields
       });
   }
 

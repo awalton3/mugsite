@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Upload } from '../upload.model';
 
 @Component({
   selector: 'mughub-upload',
@@ -7,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class UploadComponent implements OnInit {
 
-  @Input() upload = null;
+  @Input() upload: Upload = null;
   creationMonth: string;
 
   constructor() { }

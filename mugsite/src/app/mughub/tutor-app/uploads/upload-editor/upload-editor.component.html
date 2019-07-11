@@ -1,4 +1,4 @@
-<mughub-headnav title="upload" iconLeft="close" iconRight="done" (leftIconToggled)="onClose.emit()" (rightIconToggled)="onSubmit()" [enableIconRight]="uploadForm.valid"></mughub-headnav>
+<mughub-headnav title="upload" iconLeft="close" iconRight="done" (leftIconToggled)="onCancel()" (rightIconToggled)="onSubmit()" [enableIconRight]="uploadForm.valid"></mughub-headnav>
 <form [formGroup]="uploadForm" class="uploadForm">
 
   <p class="uploadForm-label">STUDENT NAME</p>

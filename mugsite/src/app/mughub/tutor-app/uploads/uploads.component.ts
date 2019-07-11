@@ -1,8 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { SidenavService } from '../../sidenav/sidenav.service';
 import { UploadService } from './upload.service';
-import { QueryDocumentSnapshot } from '@angular/fire/firestore';
-import { Subscription } from 'rxjs';
+import { Upload } from './upload.model';
 
 @Component({
   selector: 'app-uploads',
@@ -11,8 +10,10 @@ import { Subscription } from 'rxjs';
 })
 export class UploadsComponent implements OnInit, OnDestroy {
 
-  uploads: any[] = [];
-  uploadsSub: Subscription
+  uploads: Upload[] = [];
+  uploadsListener: any;
+
+  @ViewChild('editor', { static: false }) editor;
 
   constructor(
     private sidenavService: SidenavService,
@@ -20,7 +21,7 @@ export class UploadsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.getUploads(); 
+    this.getUploads();
   }
 
   closeSidenav() {
@@ -28,17 +29,23 @@ export class UploadsComponent implements OnInit, OnDestroy {
   }
 
   getUploads() {
-    this.uploadService.fetchUploads()
+    this.uploadsListener = this.uploadService.fetchUploads()
       .onSnapshot(querySnapshot => {
-        this.uploads = [];
+        let uploads = [];
         querySnapshot.forEach(doc => {
-          this.uploads.push(doc.data());
+          uploads.push(doc.data());
         });
+        this.uploads = uploads;
       }, error => { console.log(error) })
   }
 
-  ngOnDestroy() {
+  onUploadClick(upload: Upload) {
+    this.uploadService.uploadClicked.next(upload);
+    this.editor.toggle();
+  }
 
+  ngOnDestroy() {
+    this.uploadsListener.unsubscribe();
   }
 
 }
