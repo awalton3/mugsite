@@ -12,6 +12,7 @@ export class Upload {
       day: number,
       month: number
     },
-    public timestamp: Timestamp<string>
+    public timestamp: Timestamp<string>,
+    public id: string
   ) { }
 }

@@ -33,10 +33,17 @@ export class UploadsComponent implements OnInit, OnDestroy {
       .onSnapshot(querySnapshot => {
         let uploads = [];
         querySnapshot.forEach(doc => {
-          uploads.push(doc.data());
+          uploads.push(this.createUpload(doc));
         });
         this.uploads = uploads;
       }, error => { console.log(error) })
+  }
+
+  createUpload(uploadData) {
+    let uploadObj = {};
+    uploadObj['id'] = uploadData.id;
+    Object.assign(uploadObj, uploadData.data());
+    return uploadObj;
   }
 
   onUploadClick(upload: Upload) {

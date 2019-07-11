@@ -23,7 +23,7 @@ export class UploadService {
       .doc(this.db.createId()) //random id
       .set({
         userFrom: this.userService.getCurrentUser().uid,
-        userTo: formData.name,
+        userTo: formData.userTo,
         subject: formData.subject,
         assignment: formData.assignment,
         comments: formData.comments,
@@ -36,12 +36,10 @@ export class UploadService {
       });
   }
 
-  editUpload(id: string, changedFields: string[], changedAttachments) {
+  editUpload(id: string, updateObj: any) {
     return this.db.collection('/uploads')
       .doc(id)
-      .update({
-        changedFields
-      });
+      .update(updateObj)
   }
 
   fetchUploads() {

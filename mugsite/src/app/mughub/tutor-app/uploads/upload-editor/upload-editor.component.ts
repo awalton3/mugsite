@@ -42,7 +42,7 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
 
   initForm() {
     this.uploadForm = new FormGroup({
-      'name': new FormControl(null, Validators.required),
+      'userTo': new FormControl(null, Validators.required),
       'subject': new FormControl(null, Validators.required),
       'assignment': new FormControl(null),
       'comments': new FormControl(null)
@@ -51,7 +51,7 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
 
   initFormForEdit() {
     this.uploadForm = new FormGroup({
-      'name': new FormControl(this.uploadToEdit.userTo, Validators.required),
+      'userTo': new FormControl(this.uploadToEdit.userTo, Validators.required),
       'subject': new FormControl(this.uploadToEdit.subject, Validators.required),
       'assignment': new FormControl(this.uploadToEdit.assignment),
       'comments': new FormControl(this.uploadToEdit.comments)
@@ -59,28 +59,49 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    if (!this.isEditMode) {
-      this.uploadService.addUpload(this.uploadForm.value, this.attachments)
-        .then(() => {
-          this.attachmentService.uploadAttachmentsToFb()
-          this.onClose.emit();
-        })
-        .catch(error => console.log(error))
-    } else {
-      //this.uploadService('', this.getChangedFields(), )
-    }
+    this.isEditMode ? this.updateUpload() : this.addUpload();
+  }
+
+  addUpload() {
+    this.uploadService.addUpload(this.uploadForm.value, this.attachments)
+      .then(() => this.onSuccess())
+      .catch(error => console.log(error))
+  }
+
+  updateUpload() {
+    let updateObj = Object.assign(this.getChangedFields(), this.getChangedAttachments());
+    this.uploadService.editUpload(this.uploadToEdit.id, updateObj)
+      .then(() => this.onSuccess())
+      .catch(error => console.log(error))
+  }
+
+  onSuccess() {
+    this.attachmentService.uploadAttachmentsToFb();
+    this.attachmentService.deleteAttachmentsInFb();
+    this.onClose.emit();
+    this.uploadForm.reset();
+    this.attachmentService.reset();
+  }
+
+  onError() {
+
   }
 
   getChangedFields() {
-    let changedFields = [];
+    let changedFields = {};
     Object.keys(this.uploadForm.controls).map(field => {
       if (!this.uploadForm.controls[field].pristine) {
-        let fieldObj = {};
-        fieldObj[field] = this.uploadForm.value[field];
-        changedFields.push(fieldObj);
+        changedFields[field] = this.uploadForm.value[field];
       }
     });
     return changedFields;
+  }
+
+  getChangedAttachments() {
+    let changedAttachments = {};
+    if (this.attachmentService.ifAttachmentsChanged())
+      changedAttachments['attachments'] = this.attachmentService.getAttachments();
+    return changedAttachments;
   }
 
   onCancel() {
@@ -91,7 +112,11 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
 
   onFileUpload(onFileUpload /* event */) {
     let file = onFileUpload.target.files[0];
-    this.attachmentService.addAttachment(file);
+    if (!this.attachments.includes(file.name))
+      this.attachmentService.addAttachment(file);
+    else {
+      console.log('attachment has already been added');
+    }
   }
 
   onFilesDelete() {
