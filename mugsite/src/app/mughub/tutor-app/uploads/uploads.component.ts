@@ -52,7 +52,7 @@ export class UploadsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.uploadsListener.unsubscribe();
+    this.uploadsListener();
   }
 
 }
