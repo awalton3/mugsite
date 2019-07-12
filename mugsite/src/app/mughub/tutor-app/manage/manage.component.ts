@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ManageService } from './manage.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-manage',
@@ -7,6 +8,7 @@ import { ManageService } from './manage.service';
   styleUrls: ['./manage.component.css']
 })
 export class ManageComponent implements OnInit, OnDestroy {
+  private sub = new Subscription()
 
   pageToManage: string;
   @ViewChild('editor', { static: false }) editor: any;
@@ -16,18 +18,17 @@ export class ManageComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.manageService.onManage.subscribe(pageToManage => {
+    this.sub.add(this.manageService.onManage.subscribe(pageToManage => {
       this.pageToManage = pageToManage;
       this.editor.toggle();
-    })
-    this.manageService.onManageCancel.subscribe(() => {
+    }))
+    this.sub.add(this.manageService.onManageCancel.subscribe(() => {
       this.editor.close();
-    })
+    }))
   }
 
   ngOnDestroy() {
-    this.manageService.onManage.unsubscribe();
-    this.manageService.onManageCancel.unsubscribe();
+    this.sub.unsubscribe(); 
   }
 
 }

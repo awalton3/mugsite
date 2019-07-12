@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild, HostListener, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, AfterViewInit, OnDestroy } from '@angular/core';
 import { SidenavService } from '../sidenav/sidenav.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tutor-app',
@@ -7,7 +8,9 @@ import { SidenavService } from '../sidenav/sidenav.service';
   styleUrls: ['./tutor-app.component.css']
 })
 
-export class TutorAppComponent implements OnInit, AfterViewInit {
+export class TutorAppComponent implements OnInit, AfterViewInit, OnDestroy {
+
+  private subs = new Subscription();
 
   @ViewChild('navDrawer', { static: false }) navDrawer: any;
 
@@ -19,8 +22,7 @@ export class TutorAppComponent implements OnInit, AfterViewInit {
   constructor(private sidenavService: SidenavService) { }
 
   ngOnInit() {
-    console.log('tutor-app init');
-    this.sidenavService.onToggle.subscribe(() => this.navDrawer.toggle());
+    this.subs.add(this.sidenavService.onToggle.subscribe(() => this.navDrawer.toggle()));
   }
 
   ngAfterViewInit() {
@@ -35,6 +37,10 @@ export class TutorAppComponent implements OnInit, AfterViewInit {
       this.navDrawer.opened = true;
       this.navDrawer.mode = 'side';
     }
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { SidenavService } from '../../sidenav/sidenav.service';
 import { UploadService } from './upload.service';
 import { Upload } from './upload.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-uploads',
@@ -10,6 +11,7 @@ import { Upload } from './upload.model';
 })
 export class UploadsComponent implements OnInit, OnDestroy {
 
+  private subs = new Subscription();
   uploads: Upload[] = [];
   uploadsListener: any;
 
@@ -29,14 +31,14 @@ export class UploadsComponent implements OnInit, OnDestroy {
   }
 
   getUploads() {
-    this.uploadsListener = this.uploadService.fetchUploads()
+    this.subs.add(this.uploadService.fetchUploads()
       .onSnapshot(querySnapshot => {
         let uploads = [];
         querySnapshot.forEach(doc => {
           uploads.push(this.createUpload(doc));
         });
         this.uploads = uploads;
-      }, error => { console.log(error) })
+      }, error => { console.log(error) }));
   }
 
   createUpload(uploadData) {
@@ -52,7 +54,7 @@ export class UploadsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.uploadsListener();
+    this.subs.unsubscribe();
   }
 
 }

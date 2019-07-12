@@ -4,6 +4,7 @@ import { AttachmentService } from 'src/app/shared/attachments/attachments.servic
 import { MatSelectionList } from '@angular/material/list';
 import { UploadService } from '../upload.service';
 import { Upload } from '../upload.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'mughub-upload-editor',
@@ -11,6 +12,8 @@ import { Upload } from '../upload.model';
   styleUrls: ['./upload-editor.component.css']
 })
 export class UploadEditorComponent implements OnInit, OnDestroy {
+
+  private subs = new Subscription();
 
   uploadForm: FormGroup;
   attachments: string[] = [];
@@ -27,15 +30,18 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.uploadService.uploadClicked.subscribe(upload => {
+    this.initForm();
+
+    this.subs.add(this.uploadService.uploadClicked.subscribe(upload => {
       this.uploadToEdit = upload;
       this.isEditMode = true;
       this.initFormForEdit();
       this.attachmentService.initAttachmentsListView(this.uploadToEdit.attachments);
-    });
-    this.attachmentService.attachmentsChanged.subscribe(attachments => {
+    }));
+
+    this.subs.add(this.attachmentService.attachmentsChanged.subscribe(attachments => {
       this.attachments = attachments;
-    })
+    }));
 
     if (!this.isEditMode) this.initForm();
   }
@@ -111,7 +117,7 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
   }
 
   onDeleteUpload() {
-    
+
   }
 
   onFileUpload(onFileUpload /* event */) {
@@ -128,8 +134,7 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.uploadService.uploadClicked.unsubscribe();
-    this.attachmentService.attachmentsChanged.unsubscribe();
+    this.subs.unsubscribe();
   }
 
 }
