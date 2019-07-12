@@ -15,7 +15,7 @@ export class UploadsComponent implements OnInit, OnDestroy {
   uploads: Upload[] = [];
   uploadsListener: any;
 
-  @ViewChild('editor', { static: false }) editor;
+  @ViewChild('editor', { static: false }) editor: any;
 
   constructor(
     private sidenavService: SidenavService,

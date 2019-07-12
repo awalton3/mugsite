@@ -11,6 +11,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsMaterialComponentsModule } from 'src/app/shared/angular-material/forms-material-components.module';
 import { AttachmentService } from 'src/app/shared/attachments/attachments.service';
 import { MatListModule } from '@angular/material/list';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   declarations: [UploadsComponent, UploadComponent, UploadEditorComponent],
@@ -23,10 +26,17 @@ import { MatListModule } from '@angular/material/list';
     ReactiveFormsModule,
     FormsMaterialComponentsModule,
     MatListModule,
+    FontAwesomeModule,
+
   ],
   providers: [
     AttachmentService
   ]
 })
 
-export class UploadsModule { }
+export class UploadsModule {
+  constructor() {
+    //font-awesome icons
+    library.add(faGlobe)
+  }
+}

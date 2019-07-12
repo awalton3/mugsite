@@ -6,22 +6,27 @@
 
   <mat-drawer-content class="background-eee heightFull paddingNone">
     <mughub-headnav title="uploads" iconLeft="menu" (leftIconToggled)="closeSidenav()"></mughub-headnav>
-    <div fxLayout="column" fxLayoutAlign="start center">
 
-      <div *ngIf="uploads.length !== 0">
+    <div *ngIf="uploads.length !== 0" fxLayout="column" fxLayoutAlign="start center">
+      <div>
         <mughub-upload (click)="onUploadClick(uploadEl)" *ngFor="let uploadEl of uploads" [upload]="uploadEl"></mughub-upload>
       </div>
+    </div>
 
-      <div *ngIf="uploads.length === 0">
-        No uploads
-      </div>
-
-      <div class="bottom-right-fab">
-        <button (click)="editor.open()" mat-fab color="accent">
-          <i class="material-icons" fxLayoutAlign="center center" style="color: white">add</i>
-        </button>
+    <div *ngIf="uploads.length === 0" fxLayout="column" fxLayoutAlign="center center" class="uploads-empty">
+      <div class="uploads-empty-text">
+        <fa-icon [icon]="['fas', 'globe']" class="uploads-empty-icon" fxLayoutAlign="center center"></fa-icon>
+        <p class="uploads-empty-title">BUILD A BETTER CONNECTION WITH YOUR STUDENT</p>
+        <p class="uploads-empty-subtext">Upload an assignment using the create button on the bottom right or select a student to view.</p>
       </div>
     </div>
+
+    <div class="bottom-right-fab">
+      <button (click)="editor.open()" mat-fab color="accent">
+        <i class="material-icons" fxLayoutAlign="center center" style="color: white">add</i>
+      </button>
+    </div>
+
   </mat-drawer-content>
 
 </mat-drawer-container>

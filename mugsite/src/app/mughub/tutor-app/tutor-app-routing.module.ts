@@ -4,7 +4,6 @@ import { TutorAppComponent } from './tutor-app.component';
 import { AuthGuard } from '../auth/auth.guard';
 
 const routes: Routes = [
-  //lazy loaded module
   {
     path: '', component: TutorAppComponent, canActivate: [AuthGuard], children: [
       { path: '', redirectTo: 'uploads', pathMatch: 'full' },

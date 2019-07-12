@@ -1,0 +1,34 @@
+.uploads-empty {
+  height: 80vh;
+  padding: 10px 30px;
+}
+.uploads-empty-text {
+  width: 50%;
+}
+.uploads-empty-title {
+  color: #2b5570;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 35px;
+  text-align: center;
+}
+.uploads-empty-subtext {
+  color: #2b5570;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 30px;
+  text-align: center;
+  margin: 0;
+  width: 100%;
+}
+
+.uploads-empty-icon {
+  color: #2b5570;
+  font-size: 40px;
+}
+
+@media (max-width: 530px) {
+  .uploads-empty-text {
+    width: 100%;
+  }
+}
