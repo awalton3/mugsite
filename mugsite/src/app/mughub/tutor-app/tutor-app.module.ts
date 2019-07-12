@@ -9,10 +9,10 @@ import { SidenavModule } from '../sidenav/sidenav.module';
 @NgModule({
   declarations: [TutorAppComponent],
   imports: [
+    TutorAppRoutingModule,
     CommonModule,
     MaterialComponentsModule,
     MatSidenavModule,
-    TutorAppRoutingModule,
     SidenavModule
   ]
 })

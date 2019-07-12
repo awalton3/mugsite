@@ -120,6 +120,20 @@
 	}
 }
 
+.sidenav {
+  width: 260px !important;
+  height: 100vh !important;
+  background-color: #2b5570 !important;
+  color: #eee !important;
+}
+
+@media only screen and (max-width: 400px) {
+  .sidenav {
+    width: 100vw !important;
+  }
+}
+
+
 /* animations */
 .fade-in {
 	opacity: 1;

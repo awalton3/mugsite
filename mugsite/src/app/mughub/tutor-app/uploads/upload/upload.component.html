@@ -17,7 +17,7 @@
       </p>
     </div>
 
-    <div *ngIf="upload.attachments">
+    <div *ngIf="upload.attachments.length !== 0">
       <p class="category">ATTACHMENTS</p>
       <p class="category-text">
         <span *ngFor="let attachment of upload.attachments">

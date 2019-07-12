@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -6,7 +6,7 @@ import { Subject } from 'rxjs';
   templateUrl: './headnav.component.html',
   styleUrls: ['./headnav.component.css']
 })
-export class HeadnavComponent implements OnInit {
+export class HeadnavComponent {
 
   @Input() title?: string;
   @Input() iconLeft?: string;
@@ -17,9 +17,6 @@ export class HeadnavComponent implements OnInit {
   @Output() rightIconToggled = new Subject();
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
   onLeftIconToggle() {
     this.leftIconToggled.next();

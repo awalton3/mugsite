@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeModule } from './home/home.module';
+import { MaterialComponentsModule } from './shared/angular-material/material-components.module';
 
 //Firebase
 import { AngularFireModule } from '@angular/fire';
@@ -24,7 +25,8 @@ import { environment } from '../environments/environment';
     HttpClientModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    HomeModule
+    HomeModule,
+    MaterialComponentsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,6 +2,7 @@ import * as firebase from 'firebase/app';
 import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
 import { Router } from '@angular/router';
+import { first } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 
@@ -31,10 +32,12 @@ export class AuthService {
   login(formData: { email: string; password: string; }) {
     firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
       .then(userObj => {
+        console.log(userObj);
         if (userObj.user.emailVerified) {
-          this.userService.createLocalUser(userObj.user.uid);
-          let user = this.userService.getUserSession();
-          this.router.navigate(['mughub', user.type]);
+          this.userService.createLocalUser(userObj.user.uid)
+          this.userService.user
+            .pipe(first())
+            .subscribe(user => this.router.navigate(['mughub', user.type]));
         } else
           alert("Please verify your email before logging in.");
       })

@@ -76,6 +76,7 @@ export class UserService {
         this.user.next(this.currentUser);
         if (!this.isUserAuthenticated(null))
           this.createUserSession(this.currentUser);
+        return Promise.resolve(this.currentUser);
       })
   }
 

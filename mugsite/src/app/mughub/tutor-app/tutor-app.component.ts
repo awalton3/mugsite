@@ -19,6 +19,7 @@ export class TutorAppComponent implements OnInit, AfterViewInit {
   constructor(private sidenavService: SidenavService) { }
 
   ngOnInit() {
+    console.log('tutor-app init');
     this.sidenavService.onToggle.subscribe(() => this.navDrawer.toggle());
   }
 
