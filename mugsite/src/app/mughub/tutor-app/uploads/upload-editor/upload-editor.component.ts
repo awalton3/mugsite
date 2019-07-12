@@ -70,23 +70,29 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
 
   addUpload() {
     this.uploadService.addUpload(this.uploadForm.value, this.attachments)
-      .then(() => this.onSuccess())
+      .then(() => this.onSuccess('add'))
       .catch(error => console.log(error))
   }
 
   updateUpload() {
     let updateObj = Object.assign(this.getChangedFields(), this.getChangedAttachments());
     this.uploadService.editUpload(this.uploadToEdit.id, updateObj)
-      .then(() => this.onSuccess())
+      .then(() => this.onSuccess('update'))
       .catch(error => console.log(error))
   }
 
-  onSuccess() {
-    this.attachmentService.uploadAttachmentsToFb();
-    this.attachmentService.deleteAttachmentsInFb();
+  onSuccess(action: string) {
+    if (action === 'add' || action === 'update') {
+      this.attachmentService.uploadAttachmentsToFb();
+      this.attachmentService.deleteAttachmentsInFb(this.attachmentService.getAttachmentsToDelete());
+    }
+    if (action === 'delete') {
+      this.attachmentService.deleteAttachmentsInFb(this.uploadToEdit.attachments);
+    }
     this.onClose.emit();
     this.uploadForm.reset();
     this.attachmentService.reset();
+    this.isEditMode = false;
   }
 
   onError() {
@@ -113,11 +119,14 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
   onCancel() {
     this.onClose.emit();
     this.uploadForm.reset();
+    this.attachmentService.reset();
     this.isEditMode = false;
   }
 
-  onDeleteUpload() {
-
+  deleteUpload() {
+    this.uploadService.deleteUpload(this.uploadToEdit.id)
+      .then(() => this.onSuccess('delete'))
+      .catch(error => console.log(error))
   }
 
   onFileUpload(onFileUpload /* event */) {

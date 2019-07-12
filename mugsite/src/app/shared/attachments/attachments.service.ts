@@ -24,6 +24,10 @@ export class AttachmentService {
     return this.attachmentsListView.slice();
   }
 
+  getAttachmentsToDelete() {
+    return this.attachmentsToDelete;
+  }
+
   ifAttachmentsChanged() {
     return this.attachmentsToAdd.size !== 0 || this.attachmentsToDelete.size !== 0;
   }
@@ -55,8 +59,9 @@ export class AttachmentService {
     })
   }
 
-  deleteAttachmentsInFb() {
-    Array.from(this.attachmentsToDelete).map(nameRef => {
+  deleteAttachmentsInFb(attachmentsToDelete) {
+    Array.from(attachmentsToDelete).map(nameRef => {
+      console.log(nameRef);
       firebase.storage().ref().child(nameRef + this.userService.getUserSession().uid).delete()
         .then(() => console.log('success'))
         .catch(error => console.log(error))

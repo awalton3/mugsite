@@ -42,6 +42,12 @@ export class UploadService {
       .update(updateObj)
   }
 
+  deleteUpload(id) {
+    return this.db.collection('/uploads')
+      .doc(id)
+      .delete()
+  }
+
   fetchUploads() {
     return firebase.firestore().collection('/uploads')
       .where('userFrom', '==', this.userService.getUserSession().uid)

@@ -111,13 +111,14 @@
   font-weight: 600 !important;
 }
 
+.drawer-sticky-btn-content {
+	margin-bottom: 70px !important;
+}
+
 @media only screen and (max-width: 500px) {
   .drawer-sticky-btn-red {
     width: 100vw !important;
   }
-	.drawer-sticky-btn-content {
-		margin-bottom: 80px !important;
-	}
 }
 
 .sidenav {

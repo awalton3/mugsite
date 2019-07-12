@@ -1,5 +1,5 @@
 <mughub-headnav title="upload" iconLeft="close" iconRight="done" (leftIconToggled)="onCancel()" (rightIconToggled)="onSubmit()" [enableIconRight]="uploadForm && uploadForm.valid"></mughub-headnav>
-<form [formGroup]="uploadForm" class="uploadForm" [ngClass]="{'uploadForm drawer-sticky-btn-content': isEditMode, 'uploadForm': !isEditMode}">
+<form [formGroup]="uploadForm" class="uploadForm" [ngStyle]="{'margin-bottom': isEditMode ? '70px' : '10px'}">
 
   <p class="uploadForm-label">STUDENT NAME</p>
   <mat-form-field floatLabel="never" fxFill>
@@ -47,6 +47,6 @@
 
 </form>
 
-<div *ngIf="isEditMode" class="drawer-sticky-btn-red" fxLayoutAlign="center center" mat-ripple>
+<div (click)="deleteUpload()" *ngIf="isEditMode" class="drawer-sticky-btn-red" fxLayoutAlign="center center" mat-ripple>
   DELETE
 </div>
