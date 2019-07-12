@@ -32,7 +32,6 @@ export class AuthService {
   login(formData: { email: string; password: string; }) {
     firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
       .then(userObj => {
-        console.log(userObj);
         if (userObj.user.emailVerified) {
           this.userService.createLocalUser(userObj.user.uid)
           this.userService.user

@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
   onResetPassword() {
     if (!this.loginForm.value.email)
-      alert("Please enter an email address and try again."); 
+      alert("Please enter an email address and try again.");
     else
       this.authService.resetPassword(this.loginForm.value.email);
   }

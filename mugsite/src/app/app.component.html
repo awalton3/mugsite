@@ -1,4 +1,4 @@
 <router-outlet></router-outlet>
-<div class="heightFull" fxLayoutAlign="center center" #spinnerElement style="opacity: 0">
+<div *ngIf="loading" class="heightFull" fxLayoutAlign="center center">
   <div class="loader">loading...</div>
 </div>
