@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { UserService } from 'src/app/mughub/auth/user.service';
 import { Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { Subscription, Observable } from 'rxjs';
 import { MughubService } from 'src/app/mughub/mughub.service';
 import { User } from 'src/app/mughub/auth/user.model';
 import { startWith, map } from 'rxjs/operators';
+import { MatAutocomplete } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-welcome-setup-students',
@@ -15,9 +16,13 @@ import { startWith, map } from 'rxjs/operators';
 export class WelcomeSetupStudentsComponent implements OnInit, OnDestroy {
 
   private subs = new Subscription();
-  studentForm: FormGroup;
+  connectForm: FormGroup;
   users: User[] = [];
   filteredOptions: Observable<User[]>;
+  connections: User[] = [];
+  selectedOption: User;
+
+  @ViewChild('auto', {static: false}) connectionAuto: MatAutocomplete
 
   constructor(
     private userService: UserService,
@@ -34,7 +39,7 @@ export class WelcomeSetupStudentsComponent implements OnInit, OnDestroy {
     else
       this.getTutors();
 
-    this.filteredOptions = this.studentForm.controls.name.valueChanges
+    this.filteredOptions = this.connectForm.controls.name.valueChanges
       .pipe(
         startWith(''),
         map(value => this.filterAutoComp(value))
@@ -42,7 +47,7 @@ export class WelcomeSetupStudentsComponent implements OnInit, OnDestroy {
   }
 
   initForm() {
-    this.studentForm = new FormGroup({
+    this.connectForm = new FormGroup({
       'name': new FormControl(null)
     });
   }
@@ -84,6 +89,12 @@ export class WelcomeSetupStudentsComponent implements OnInit, OnDestroy {
   filterAutoComp(value: string): User[] {
     const filterValue = value.toLowerCase();
     return this.users.filter(user => user.name.toLowerCase().includes(filterValue));
+  }
+
+  addStudent() {
+    if (this.selectedOption)
+      this.connections.push(this.selectedOption); 
+    console.log(this.connections);
   }
 
   onFinish() {
