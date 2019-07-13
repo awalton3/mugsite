@@ -2,9 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { UserService } from 'src/app/mughub/auth/user.service';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { MughubService } from 'src/app/mughub/mughub.service';
 import { User } from 'src/app/mughub/auth/user.model';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-welcome-setup-students',
@@ -15,8 +16,8 @@ export class WelcomeSetupStudentsComponent implements OnInit, OnDestroy {
 
   private subs = new Subscription();
   studentForm: FormGroup;
-  students: User[] = [];
-  tutors: User[] = [];
+  users: User[] = [];
+  filteredOptions: Observable<User[]>;
 
   constructor(
     private userService: UserService,
@@ -25,16 +26,24 @@ export class WelcomeSetupStudentsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+
     this.initForm();
+
     if (this.userService.getUserSession().type === 'tutor')
       this.getStudents();
     else
       this.getTutors();
+
+    this.filteredOptions = this.studentForm.controls.name.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this.filterAutoComp(value))
+      );
   }
 
   initForm() {
     this.studentForm = new FormGroup({
-      'student': new FormControl(null)
+      'name': new FormControl(null)
     });
   }
 
@@ -50,7 +59,7 @@ export class WelcomeSetupStudentsComponent implements OnInit, OnDestroy {
             doc.data().uid,
             doc.data().isNewUser,
             doc.data().prefs);
-          this.students.push(student);
+          this.users.push(student);
         });
       }, error => { console.log(error) }));
   }
@@ -67,9 +76,14 @@ export class WelcomeSetupStudentsComponent implements OnInit, OnDestroy {
             doc.data().uid,
             doc.data().isNewUser,
             doc.data().prefs);
-          this.tutors.push(tutor);
+          this.users.push(tutor);
         });
       }, error => { console.log(error) }));
+  }
+
+  filterAutoComp(value: string): User[] {
+    const filterValue = value.toLowerCase();
+    return this.users.filter(user => user.name.toLowerCase().includes(filterValue));
   }
 
   onFinish() {

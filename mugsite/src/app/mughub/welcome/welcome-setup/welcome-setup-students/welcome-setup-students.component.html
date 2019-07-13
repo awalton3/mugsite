@@ -2,12 +2,12 @@
   <p class="title">CONNECT WITH YOUR STUDENTS</p>
   <form fxLayoutAlign="center center" [formGroup]="studentForm" class="widthFullPer">
     <mat-form-field style="width: 280px">
-      <input matInput [matAutocomplete]="auto" formControlName="student" placeholder="Student Name">
+      <input matInput [matAutocomplete]="auto" formControlName="name" placeholder="Student Name">
       <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let student of students" [value]="option">
+        <mat-option *ngFor="let user of users" [value]="option" class="background-eee">
           <div fxLayout="row" fxLayoutAlign="start center">
-            <div class="profile-image-container-mini" style="background-image: url('./assets/img/headshot.jpeg'); margin-right: 15px"></div>
-            <span class="autocomp-text">{{student}}</span>
+            <div class="profile-image-container-mini" [ngStyle]="{'background-image': 'url(' + user.photoUrl + ')'}" style="margin-right: 15px"></div>
+            <span class="autocomp-text">{{ user.name }}</span>
           </div>
         </mat-option>
       </mat-autocomplete>
