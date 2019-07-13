@@ -3,7 +3,15 @@
 
   <p class="uploadForm-label">STUDENT NAME</p>
   <mat-form-field floatLabel="never" fxFill>
-    <input type="text" matInput formControlName="userTo" placeholder="Ex. John Doe" class="uploadForm-input">
+    <input type="text" matInput formControlName="userTo" placeholder="Ex. John Doe" class="uploadForm-input" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option" class="background-eee">
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div class="profile-image-container-mini" style="background-image: url('./assets/img/headshot.jpeg'); margin-right: 15px"></div>
+          <span class="autocomp-text">{{option}}</span>
+        </div>
+      </mat-option>
+    </mat-autocomplete>
   </mat-form-field>
 
   <p class="uploadForm-label">SUBJECT</p>
@@ -18,7 +26,7 @@
 
   <div fxLayout="row" fxLayoutAlign="space-between center">
     <p class="uploadForm-label">ATTACHMENTS</p>
-    <input (change)="onFileUpload($event)" type="file" id="file" class="editForm-input" class="fileUploader">
+    <input (change)="onAttachmentUpload($event)" type="file" id="file" class="editForm-input" class="fileUploader">
     <label for="file"><i class="material-icons add-attachment-btn" mat-ripple>add_circle</i></label>
   </div>
 
@@ -31,7 +39,7 @@
     <br>
     <div *ngIf="attachmentsList.selectedOptions.selected.length !== 0" fxLayout="row" fxLayoutAlign="space-between center">
       <span></span>
-      <button (click)="onFilesDelete()" mat-button class="delete-active">DELETE</button>
+      <button (click)="onAttachmentsDelete()" mat-button class="delete-active">DELETE</button>
     </div>
   </div>
   <div *ngIf="attachments.length === 0">
@@ -47,6 +55,6 @@
 
 </form>
 
-<div (click)="deleteUpload()" *ngIf="isEditMode" class="drawer-sticky-btn-red" fxLayoutAlign="center center" mat-ripple>
+<div (click)="onDeleteUpload()" *ngIf="isEditMode" class="drawer-sticky-btn-red" fxLayoutAlign="center center" mat-ripple>
   DELETE
 </div>

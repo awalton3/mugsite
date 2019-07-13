@@ -14,6 +14,8 @@ import { MatListModule } from '@angular/material/list';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+
 
 @NgModule({
   declarations: [UploadsComponent, UploadComponent, UploadEditorComponent],
@@ -27,7 +29,7 @@ import { faGlobe } from '@fortawesome/free-solid-svg-icons';
     FormsMaterialComponentsModule,
     MatListModule,
     FontAwesomeModule,
-
+    MatAutocompleteModule
   ],
   providers: [
     AttachmentService

@@ -53,8 +53,8 @@
 	background-position: center center !important;
   background-size: cover !important;
   border-radius: 50% !important;
-  width: 100px !important;
-  height: 100px !important;
+  width: 90px !important;
+  height: 90px !important;
 }
 
 .profile-image-border {
@@ -63,6 +63,14 @@
 
 .profile-image-click {
 	cursor: pointer !important;
+}
+
+.profile-image-container-mini {
+	background-position: center center !important;
+  background-size: cover !important;
+  border-radius: 50% !important;
+  width: 35px !important;
+  height: 35px !important;
 }
 
 .fileUploader {
@@ -132,6 +140,11 @@
   .sidenav {
     width: 100vw !important;
   }
+}
+
+.autocomp-text {
+  color: grey !important;
+	font-family: 'Montserrat', sans-serif !important;
 }
 
 

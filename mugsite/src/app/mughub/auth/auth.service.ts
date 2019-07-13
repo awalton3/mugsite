@@ -32,13 +32,19 @@ export class AuthService {
   login(formData: { email: string; password: string; }) {
     firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
       .then(userObj => {
-        if (userObj.user.emailVerified) {
-          this.userService.createLocalUser(userObj.user.uid)
-          this.userService.user
-            .pipe(first())
-            .subscribe(user => this.router.navigate(['mughub', user.type]));
-        } else
-          alert("Please verify your email before logging in.");
+        // if (userObj.user.emailVerified) {
+        //   this.userService.createLocalUser(userObj.user.uid)
+        //   this.userService.user
+        //     .pipe(first())
+        //     .subscribe(user => this.router.navigate(['mughub', user.type]));
+        // } else
+        //   alert("Please verify your email before logging in.");
+        this.userService.createLocalUser(userObj.user.uid)
+        this.userService.user
+          .pipe(first())
+          .subscribe(user => {
+            user.isNewUser ? this.router.navigate(['mughub/welcome']) : this.router.navigate(['mughub', user.type]);
+          });
       })
       .catch(error => this.handleError(error.code))
   }
@@ -57,8 +63,16 @@ export class AuthService {
 
   autoLogin() {
     let user = JSON.parse(sessionStorage.getItem('user'));
-    if (!user) return;
-    this.userService.createLocalUser(user.uid);
+    if (user) {
+      this.userService.createLocalUser(user.uid);
+      this.userService.user
+        .pipe(first())
+        .subscribe(user => {
+          user.isNewUser ? this.router.navigate(['mughub/welcome']) : this.router.navigate(['mughub', user.type]);
+        });
+    } else {
+      this.router.navigate(['mughub/login']);
+    }
   }
 
   logout() {

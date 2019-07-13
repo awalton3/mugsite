@@ -4,7 +4,8 @@ import { AttachmentService } from 'src/app/shared/attachments/attachments.servic
 import { MatSelectionList } from '@angular/material/list';
 import { UploadService } from '../upload.service';
 import { Upload } from '../upload.model';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'mughub-upload-editor',
@@ -19,6 +20,8 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
   attachments: string[] = [];
   uploadToEdit: Upload;
   isEditMode: boolean = false;
+  options: string[] = ['One', 'Two', 'Three'];
+  filteredOptions: Observable<string[]>;
 
 
   @Output() onClose = new EventEmitter();
@@ -31,19 +34,9 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initForm();
-
-    this.subs.add(this.uploadService.uploadClicked.subscribe(upload => {
-      this.uploadToEdit = upload;
-      this.isEditMode = true;
-      this.initFormForEdit();
-      this.attachmentService.initAttachmentsListView(this.uploadToEdit.attachments);
-    }));
-
-    this.subs.add(this.attachmentService.attachmentsChanged.subscribe(attachments => {
-      this.attachments = attachments;
-    }));
-
-    if (!this.isEditMode) this.initForm();
+    this.getUploadToEdit();
+    this.listenForAttachmentChanges();
+    this.initAutoComp();
   }
 
   initForm() {
@@ -62,6 +55,35 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
       'assignment': new FormControl(this.uploadToEdit.assignment),
       'comments': new FormControl(this.uploadToEdit.comments)
     });
+  }
+
+  getUploadToEdit() {
+    this.subs.add(this.uploadService.uploadClicked.subscribe(upload => {
+      this.uploadToEdit = upload;
+      this.isEditMode = true;
+      this.initFormForEdit();
+      this.attachmentService.initAttachmentsListView(this.uploadToEdit.attachments);
+    }));
+  }
+
+  listenForAttachmentChanges() {
+    this.subs.add(this.attachmentService.attachmentsChanged.subscribe(attachments => {
+      this.attachments = attachments;
+    }));
+  }
+
+  initAutoComp() {
+    // this.options = [];
+    this.filteredOptions = this.uploadForm.controls.userTo.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => this.filterAutoComp(value))
+      );
+  }
+
+  filterAutoComp(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   onSubmit() {
@@ -95,10 +117,6 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
     this.isEditMode = false;
   }
 
-  onError() {
-
-  }
-
   getChangedFields() {
     let changedFields = {};
     Object.keys(this.uploadForm.controls).map(field => {
@@ -123,13 +141,13 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
     this.isEditMode = false;
   }
 
-  deleteUpload() {
+  onDeleteUpload() {
     this.uploadService.deleteUpload(this.uploadToEdit.id)
       .then(() => this.onSuccess('delete'))
       .catch(error => console.log(error))
   }
 
-  onFileUpload(onFileUpload /* event */) {
+  onAttachmentUpload(onFileUpload /* event */) {
     let file = onFileUpload.target.files[0];
     if (!this.attachments.includes(file.name))
       this.attachmentService.addAttachment(file);
@@ -138,7 +156,7 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
     }
   }
 
-  onFilesDelete() {
+  onAttachmentsDelete() {
     this.attachmentService.deleteAttachments(this.attachmentsList.selectedOptions.selected);
   }
 

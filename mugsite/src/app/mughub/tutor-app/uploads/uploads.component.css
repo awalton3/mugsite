@@ -1,25 +1,24 @@
 .uploads-empty {
-  height: 80vh;
   padding: 10px 30px;
+  height: 75vh;
 }
 .uploads-empty-text {
-  width: 50%;
+  width: 500px;
 }
 .uploads-empty-title {
   color: #2b5570;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 25px;
   line-height: 35px;
   text-align: center;
 }
 .uploads-empty-subtext {
   color: #2b5570;
   font-weight: 400;
-  font-size: 17px;
+  font-size: 18px;
   line-height: 30px;
   text-align: center;
   margin: 0;
-  width: 100%;
 }
 
 .uploads-empty-icon {
@@ -27,8 +26,14 @@
   font-size: 40px;
 }
 
-@media (max-width: 530px) {
+@media (max-width: 700px) {
   .uploads-empty-text {
-    width: 100%;
+    width: 400px;
+  }
+}
+
+@media (max-width: 400px) {
+  .uploads-empty-text {
+    width: 260px;
   }
 }

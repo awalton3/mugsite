@@ -50,7 +50,7 @@
 }
 
 ::ng-deep .mat-form-field-underline,  ::ng-deep .mat-form-field-ripple{
-  display: none !important;
+  height: 0px !important;
 }
 
 ::ng-deep .mat-form-field-label{

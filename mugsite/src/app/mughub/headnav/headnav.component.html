@@ -3,5 +3,5 @@
   <p>{{ title | uppercase }}</p>
   <i *ngIf="iconRight" class="material-icons" (click)="onRightIconToggle()"
   [ngClass]="{'btn-active' : enableIconRight, 'btn-disabled' : !enableIconRight}">{{iconRight}}</i>
-  <span *ngIf="!iconRight" style="width: 24px; height: 24px"></span>
+  <span *ngIf="!iconRight" style="width: 24px; height: 24px;"></span>
 </mat-toolbar>
