@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { UserService } from '../../auth/user.service';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
-import 'firebase/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Subject } from 'rxjs';
 import { Upload } from './upload.model';

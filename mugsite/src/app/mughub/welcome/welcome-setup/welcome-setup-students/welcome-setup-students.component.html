@@ -1,11 +1,14 @@
 <div fxLayout="column" fxLayoutAlign="center center" style="height: 80vh">
   <p class="title">CONNECT WITH YOUR STUDENTS</p>
-  <form fxLayoutAlign="center center"  [formGroup]="studentForm" class="widthFullPer">
+  <form fxLayoutAlign="center center" [formGroup]="studentForm" class="widthFullPer">
     <mat-form-field style="width: 280px">
       <input matInput [matAutocomplete]="auto" formControlName="student" placeholder="Student Name">
       <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let option of options" [value]="option">
-          {{option}}
+        <mat-option *ngFor="let student of students" [value]="option">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <div class="profile-image-container-mini" style="background-image: url('./assets/img/headshot.jpeg'); margin-right: 15px"></div>
+            <span class="autocomp-text">{{student}}</span>
+          </div>
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
