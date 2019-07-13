@@ -20,7 +20,9 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-      <span (click)="addStudent()" style="color: #2b5570; cursor: pointer; margin-top: 10px;"><i class="material-icons" fxLayoutAlign="center center">add</i></span>
+      <span (click)="addStudent()" style="margin-top: 10px;" [ngClass]="{'btn-active' : connectForm.valid, 'btn-disabled' : connectForm.invalid}">
+        <i class="material-icons" fxLayoutAlign="center center">add</i>
+      </span>
     </div>
   </form>
 

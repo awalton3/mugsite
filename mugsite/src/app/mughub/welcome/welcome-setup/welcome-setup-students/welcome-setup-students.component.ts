@@ -1,12 +1,11 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, AbstractControl, Validators } from '@angular/forms';
 import { UserService } from 'src/app/mughub/auth/user.service';
 import { Router } from '@angular/router';
 import { Subscription, Observable } from 'rxjs';
 import { MughubService } from 'src/app/mughub/mughub.service';
 import { User } from 'src/app/mughub/auth/user.model';
 import { startWith, map } from 'rxjs/operators';
-import { MatAutocomplete } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-welcome-setup-students',
@@ -17,12 +16,11 @@ export class WelcomeSetupStudentsComponent implements OnInit, OnDestroy {
 
   private subs = new Subscription();
   connectForm: FormGroup;
-  users: User[] = [];
+  possibleConnections: User[] = [];
+  possibleConnectionNames: string[] = [];
   filteredOptions: Observable<User[]>;
   connections: User[] = [];
   selectedOption: User;
-
-  @ViewChild('auto', {static: false}) connectionAuto: MatAutocomplete
 
   constructor(
     private userService: UserService,
@@ -34,10 +32,11 @@ export class WelcomeSetupStudentsComponent implements OnInit, OnDestroy {
 
     this.initForm();
 
-    if (this.userService.getUserSession().type === 'tutor')
+    if (this.userService.getUserSession().type === 'tutor') {
       this.getStudents();
-    else
+    } else {
       this.getTutors();
+    }
 
     this.filteredOptions = this.connectForm.controls.name.valueChanges
       .pipe(
@@ -48,8 +47,12 @@ export class WelcomeSetupStudentsComponent implements OnInit, OnDestroy {
 
   initForm() {
     this.connectForm = new FormGroup({
-      'name': new FormControl(null)
+      'name': new FormControl(null, [Validators.required, this.ValidateConnection.bind(this)])
     });
+  }
+
+  ValidateConnection(control: AbstractControl) {
+    return this.possibleConnectionNames.includes(control.value) ? null : { validConnection: false };
   }
 
   getStudents() {
@@ -64,7 +67,8 @@ export class WelcomeSetupStudentsComponent implements OnInit, OnDestroy {
             doc.data().uid,
             doc.data().isNewUser,
             doc.data().prefs);
-          this.users.push(student);
+          this.possibleConnections.push(student);
+          this.possibleConnectionNames.push(doc.data().name)
         });
       }, error => { console.log(error) }));
   }
@@ -81,19 +85,22 @@ export class WelcomeSetupStudentsComponent implements OnInit, OnDestroy {
             doc.data().uid,
             doc.data().isNewUser,
             doc.data().prefs);
-          this.users.push(tutor);
+          this.possibleConnections.push(tutor);
+          this.possibleConnectionNames.push(doc.data().name)
         });
       }, error => { console.log(error) }));
   }
 
   filterAutoComp(value: string): User[] {
     const filterValue = value.toLowerCase();
-    return this.users.filter(user => user.name.toLowerCase().includes(filterValue));
+    return this.possibleConnections.filter(user => user.name.toLowerCase().includes(filterValue));
   }
 
   addStudent() {
-    if (this.selectedOption)
-      this.connections.push(this.selectedOption); 
+    if (this.selectedOption) {
+      this.connections.push(this.selectedOption);
+      this.selectedOption = null;
+    }
     console.log(this.connections);
   }
 

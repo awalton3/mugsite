@@ -6,6 +6,15 @@
   padding: 0px 10px;
 }
 
+.btn-active {
+  color: #de6600 !important;
+  cursor: pointer !important;
+}
+
+.btn-disabled {
+  color: #D1CFCF !important;
+}
+
 ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
   height: 1px !important;
 }
