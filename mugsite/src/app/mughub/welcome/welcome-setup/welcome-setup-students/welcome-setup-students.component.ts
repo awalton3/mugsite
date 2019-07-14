@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl, Validators } from '@angular/forms';
 import { UserService } from 'src/app/mughub/auth/user.service';
 import { Router } from '@angular/router';
@@ -47,7 +47,7 @@ export class WelcomeSetupStudentsComponent implements OnInit, OnDestroy {
 
   initForm() {
     this.connectForm = new FormGroup({
-      'name': new FormControl(null, [Validators.required, this.ValidateConnection.bind(this)])
+      'name': new FormControl(null, this.ValidateConnection.bind(this))
     });
   }
 
