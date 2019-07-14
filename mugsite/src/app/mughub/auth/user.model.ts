@@ -10,6 +10,7 @@ export class User {
       AutoLog: boolean,
       InboxNotif: boolean,
       LogNotif: boolean
-    }
+    },
+    public connections: User[]
   ) { }
 }

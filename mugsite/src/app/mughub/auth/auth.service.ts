@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
 import { Router } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { User } from './user.model';
 
 @Injectable({ providedIn: 'root' })
 
@@ -16,17 +17,24 @@ export class AuthService {
   register(formData: { email: string; password: string; name: any; type: string; }) {
     firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password)
       .then(userObj => {
-        this.userService.addUserToFbCollect(
-          formData.name.toLowerCase(),
-          'https://i.ibb.co/pjG5Rkf/4k-wallpaper-astronomy-evening-2085998.jpg', //default profile image
-          userObj.user.email,
-          formData.type,
-          userObj.user.uid,
-          true);
+        this.userService.addUserToFbCollect(this.createNewUserObj(userObj, formData))
         this.router.navigate(['/mughub/login']);
         this.verifyEmail();
       })
       .catch(error => this.handleError(error.code))
+  }
+
+  createNewUserObj(userObj, formData) {
+    let user = new User(
+      formData.name.toLowerCase(),
+      'https://i.ibb.co/pjG5Rkf/4k-wallpaper-astronomy-evening-2085998.jpg',
+      userObj.user.email,
+      formData.type,
+      userObj.user.uid,
+      true,
+      { AutoLog: true, InboxNotif: true, LogNotif: true },
+      []);
+    return user
   }
 
   login(formData: { email: string; password: string; }) {
@@ -80,7 +88,7 @@ export class AuthService {
     sessionStorage.clear();
   }
 
-  handleError(errorCode) {
+  handleError(errorCode: any) {
 
     switch (errorCode) {
 

@@ -66,7 +66,8 @@ export class WelcomeSetupStudentsComponent implements OnInit, OnDestroy {
             doc.data().type,
             doc.data().uid,
             doc.data().isNewUser,
-            doc.data().prefs);
+            doc.data().prefs,
+            doc.data().connections);
           this.possibleConnections.push(student);
           this.possibleConnectionNames.push(doc.data().name);
         });
@@ -84,7 +85,8 @@ export class WelcomeSetupStudentsComponent implements OnInit, OnDestroy {
             doc.data().type,
             doc.data().uid,
             doc.data().isNewUser,
-            doc.data().prefs);
+            doc.data().prefs,
+            doc.data().connections);
           this.possibleConnections.push(tutor);
           this.possibleConnectionNames.push(doc.data().name);
         });
@@ -108,7 +110,9 @@ export class WelcomeSetupStudentsComponent implements OnInit, OnDestroy {
   }
 
   onFinish() {
-    this.userService.updateLocalUser([{ name: 'isNewUser', value: false }]);
+    this.userService.updateLocalUser([
+      { name: 'isNewUser', value: false },
+      { name: 'connections', value: this.connections }]);
     this.userService.updateFbCollect();
     this.router.navigate(['mughub', this.userService.getUserSession().type]);
   }

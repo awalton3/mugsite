@@ -28,9 +28,9 @@ export class WelcomeSetupSettingsComponent implements OnInit {
     this.user = this.userService.getCurrentUser();
   }
 
-  onContinue() {
+  onSettingsSubmit() {
     this.stepperService.onChangeStep.next({ name: 'students', num: 2 });
-    this.router.navigate(['mughub/welcome/account-setup/students']); 
+    this.router.navigate(['mughub/welcome/account-setup/students']);
   }
 
   togglePref(pref: string) {

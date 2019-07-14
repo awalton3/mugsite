@@ -43,22 +43,12 @@ export class UserService {
     return this.db.collection('/users').doc(uid).get();
   }
 
-  addUserToFbCollect(name: string, photoUrl: string, email: string, type: string, uid: string, isNewUser: boolean) {
+  addUserToFbCollect(user: User) {
     this.db.collection('/users')
-      .doc(uid)
-      .set({
-        name: name,
-        photoUrl: photoUrl,
-        email: email,
-        type: type,
-        uid: uid,
-        isNewUser: isNewUser,
-        prefs: {
-          AutoLog: true,
-          InboxNotif: true,
-          LogNotif: true
-        }
-      });
+      .doc(user.uid)
+      .set(Object.assign({}, user))
+      .then(() => console.log('success'))
+      .catch(error => console.log(error))
   }
 
   createLocalUser(uid: string) {
@@ -72,7 +62,8 @@ export class UserService {
           userObj.data().type,
           userObj.data().uid,
           userObj.data().isNewUser,
-          userObj.data().prefs)
+          userObj.data().prefs,
+          userObj.data().connections)
         this.user.next(this.currentUser);
         if (!this.isUserAuthenticated(null))
           this.createUserSession(this.currentUser);
@@ -80,29 +71,30 @@ export class UserService {
       })
   }
 
-  //... { propName: 'prefs',  value: { AutoLog: true }}
   updateLocalUser(properties: { name: string, value: any }[]) {
     properties.map(property => {
       if (property.name === 'prefs') {
         Object.keys(property.value).map(pref => {
           this.currentUser['prefs'][pref] = property.value[pref];
         })
-      } else {
+      } else if (Object.keys(this.currentUser).includes(property.name)) {
         this.currentUser[property.name] = property.value;
+      } else {
+        console.log('an error occurred')
       }
     })
+    this.createUserSession(this.currentUser);
   }
 
   updateFbCollect() {
+    let user = Object.assign({}, this.currentUser);
+    let connections = this.currentUser.connections.map((obj)=> {return Object.assign({}, obj)});
+    user.connections = connections;
     this.db.collection('/users')
       .doc(this.currentUser.uid)
-      .update(Object.assign({}, this.currentUser))
+      .update(user)
       .then(() => console.log('success'))
       .catch(error => console.log(error))
-  }
-
-  uploadeProfilePhoto(photo) {
-
   }
 
 }
