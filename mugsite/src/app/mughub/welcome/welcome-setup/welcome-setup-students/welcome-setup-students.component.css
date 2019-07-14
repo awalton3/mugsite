@@ -6,13 +6,44 @@
   padding: 0px 10px;
 }
 
-.btn-active {
-  color: #de6600 !important;
-  cursor: pointer !important;
+.form-field {
+  width: 280px;
 }
 
-.btn-disabled {
-  color: #D1CFCF !important;
+.placeholder-height {
+  height: 188px;
+}
+
+.connections {
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  background-color: #d7d8da;
+  padding: 0px 30px;
+  /* margin-top: -182px; */
+}
+
+.connection {
+  margin: 32px 15px 20px 15px;
+}
+
+.profile-name {
+  font-size: 14px;
+  color: grey;
+  font-weight: 400;
+  text-transform: capitalize;
+}
+
+@media (max-width: 400px) {
+  .title {
+    font-size: 22px;
+  }
+  .placeholder-height {
+    height: 120px;
+  }
+  .form-field {
+    width: 250px;
+  }
 }
 
 ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
