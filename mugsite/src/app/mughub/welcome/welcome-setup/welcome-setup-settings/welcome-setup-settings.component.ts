@@ -6,7 +6,7 @@ import { StepperService } from 'src/app/shared/stepper/stepper.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-welcome-setup-settings',
+  selector: 'mughub-welcome-setup-settings',
   templateUrl: './welcome-setup-settings.component.html',
   styleUrls: ['./welcome-setup-settings.component.css']
 })
@@ -29,8 +29,8 @@ export class WelcomeSetupSettingsComponent implements OnInit {
   }
 
   onSettingsSubmit() {
-    this.stepperService.onChangeStep.next({ name: 'students', num: 2 });
-    this.router.navigate(['mughub/welcome/account-setup/students']);
+    this.stepperService.onChangeStep.next({ name: 'connections', num: 2 });
+    this.router.navigate(['mughub/welcome/account-setup/connections']);
   }
 
   togglePref(pref: string) {

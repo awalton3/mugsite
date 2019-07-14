@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, AbstractControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import { UserService } from 'src/app/mughub/auth/user.service';
 import { Router } from '@angular/router';
 import { Subscription, Observable } from 'rxjs';
@@ -8,11 +8,11 @@ import { User } from 'src/app/mughub/auth/user.model';
 import { startWith, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-welcome-setup-students',
-  templateUrl: './welcome-setup-students.component.html',
-  styleUrls: ['./welcome-setup-students.component.css']
+  selector: 'mughub-welcome-setup-students',
+  templateUrl: './welcome-setup-connections.component.html',
+  styleUrls: ['./welcome-setup-connections.component.css']
 })
-export class WelcomeSetupStudentsComponent implements OnInit, OnDestroy {
+export class WelcomeSetupConnectionsComponent implements OnInit, OnDestroy {
 
   private subs = new Subscription();
   connectForm: FormGroup;

@@ -10,17 +10,17 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { FormsMaterialComponentsModule } from 'src/app/shared/angular-material/forms-material-components.module';
 import { WelcomeSetupSettingsComponent } from './welcome-setup/welcome-setup-settings/welcome-setup-settings.component';
-import { WelcomeSetupStudentsComponent } from './welcome-setup/welcome-setup-students/welcome-setup-students.component';
 import { WelcomeSetupProfileEditorComponent } from './welcome-setup/welcome-setup-profile/welcome-setup-profile-editor/welcome-setup-profile-editor.component';
 import { StepperModule } from 'src/app/shared/stepper/stepper.module';
 import { StepperService } from 'src/app/shared/stepper/stepper.service';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 //font awesome
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faUser, faCheckCircle, faTimesCircle, faCalendar, faBell } from '@fortawesome/free-solid-svg-icons';
+import { WelcomeSetupConnectionsComponent } from './welcome-setup/welcome-setup-connections/welcome-setup-connections.component';
 
 @NgModule({
   declarations: [
@@ -28,8 +28,8 @@ import { faUser, faCheckCircle, faTimesCircle, faCalendar, faBell } from '@forta
     WelcomeSetupComponent,
     WelcomeSetupProfileComponent,
     WelcomeSetupSettingsComponent,
-    WelcomeSetupStudentsComponent,
-    WelcomeSetupProfileEditorComponent
+    WelcomeSetupProfileEditorComponent,
+    WelcomeSetupConnectionsComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +43,7 @@ import { faUser, faCheckCircle, faTimesCircle, faCalendar, faBell } from '@forta
     FontAwesomeModule,
     MatAutocompleteModule
   ],
-  providers: [ StepperService ] //creates a new instance for all components in this module
+  providers: [StepperService] //creates a new instance for all components in this module
 })
 export class WelcomeModule {
   constructor() {

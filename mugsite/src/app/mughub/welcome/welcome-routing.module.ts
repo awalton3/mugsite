@@ -5,7 +5,7 @@ import { AuthGuard } from '../auth/auth.guard';
 import { WelcomeSetupComponent } from './welcome-setup/welcome-setup.component';
 import { WelcomeSetupProfileComponent } from './welcome-setup/welcome-setup-profile/welcome-setup-profile.component';
 import { WelcomeSetupSettingsComponent } from './welcome-setup/welcome-setup-settings/welcome-setup-settings.component';
-import { WelcomeSetupStudentsComponent } from './welcome-setup/welcome-setup-students/welcome-setup-students.component';
+import { WelcomeSetupConnectionsComponent } from './welcome-setup/welcome-setup-connections/welcome-setup-connections.component';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent, canActivate: [AuthGuard], children: [
@@ -13,7 +13,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'profile', pathMatch: 'full'},
       { path: 'profile', component: WelcomeSetupProfileComponent},
       { path: 'settings', component: WelcomeSetupSettingsComponent},
-      { path: 'students', component: WelcomeSetupStudentsComponent},
+      { path: 'connections', component: WelcomeSetupConnectionsComponent},
       { path: '**', redirectTo: 'profile', pathMatch: 'full'} //TODO redirect to current route, instead of profile
     ]},
     { path: '**', redirectTo: 'account-setup', pathMatch: 'full'}

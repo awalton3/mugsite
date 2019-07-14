@@ -7,7 +7,7 @@ import { StepperService } from 'src/app/shared/stepper/stepper.service';
 import { User } from 'src/app/mughub/auth/user.model';
 
 @Component({
-  selector: 'welcome-setup-profile',
+  selector: 'mughub-welcome-setup-profile',
   templateUrl: './welcome-setup-profile.component.html',
   styleUrls: ['./welcome-setup-profile.component.css']
 })
