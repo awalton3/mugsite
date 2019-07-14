@@ -68,7 +68,7 @@ export class WelcomeSetupStudentsComponent implements OnInit, OnDestroy {
             doc.data().isNewUser,
             doc.data().prefs);
           this.possibleConnections.push(student);
-          this.possibleConnectionNames.push(doc.data().name); 
+          this.possibleConnectionNames.push(doc.data().name);
         });
       }, error => { console.log(error) }));
   }
@@ -97,7 +97,7 @@ export class WelcomeSetupStudentsComponent implements OnInit, OnDestroy {
   }
 
   addStudent() {
-    if (this.selectedOption) {
+    if (this.selectedOption && !this.connections.includes(this.selectedOption)) {
       this.connections.push(this.selectedOption);
       this.selectedOption = null;
     }

@@ -6,10 +6,6 @@
   padding: 0px 10px;
 }
 
-.form-field {
-  width: 280px;
-}
-
 .placeholder-height {
   height: 188px;
 }
@@ -34,6 +30,15 @@
   text-transform: capitalize;
 }
 
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  height: 1px !important;
+}
+
+::ng-deep .mat-form-field-wrapper {
+  width: 290px !important;
+}
+
+
 @media (max-width: 400px) {
   .title {
     font-size: 22px;
@@ -41,11 +46,9 @@
   .placeholder-height {
     height: 120px;
   }
-  .form-field {
-    width: 250px;
-  }
-}
 
-::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
-  height: 1px !important;
+  ::ng-deep .mat-form-field-wrapper {
+    width: 220px !important;
+  }
+
 }
