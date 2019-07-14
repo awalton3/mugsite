@@ -1,7 +1,8 @@
 <div fxLayout="column" fxLayoutAlign="start center" style="height: 80vh; width: 100vw">
 
   <div *ngIf="connections.length !== 0" class="fade-in connections" fxLayoutAlign="start center">
-    <div *ngFor="let connection of connections" class="connection" fxLayout="column" fxLayoutAlign="center center">
+    <div *ngFor="let connection of connections; let i = index" class="connection" fxLayout="column" fxLayoutAlign="center center">
+      <i (click)="onRemoveConnection(i)" class="material-icons delete-connection-icon">close</i>
       <div class="profile-image-container" [ngStyle]="{'background-image': 'url(' + connection.photoUrl + ')'}"></div>
       <p class="profile-name">{{ connection.name }}</p>
     </div>

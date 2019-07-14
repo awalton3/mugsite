@@ -16,11 +16,17 @@
   overflow-y: hidden;
   background-color: #d7d8da;
   padding: 0px 30px;
-  /* margin-top: -182px; */
 }
 
 .connection {
   margin: 32px 15px 20px 15px;
+}
+
+.delete-connection-icon {
+  color: grey;
+  cursor: pointer;
+  margin-left: 100px;
+  font-size: 18px;
 }
 
 .profile-name {
@@ -30,11 +36,11 @@
   text-transform: capitalize;
 }
 
-::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+:host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
   height: 1px !important;
 }
 
-::ng-deep .mat-form-field-wrapper {
+:host ::ng-deep .mat-form-field-wrapper {
   width: 290px !important;
 }
 
@@ -47,7 +53,7 @@
     height: 120px;
   }
 
-  ::ng-deep .mat-form-field-wrapper {
+  :host ::ng-deep .mat-form-field-wrapper {
     width: 220px !important;
   }
 

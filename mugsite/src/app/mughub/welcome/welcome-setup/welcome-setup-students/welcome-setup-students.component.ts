@@ -103,6 +103,10 @@ export class WelcomeSetupStudentsComponent implements OnInit, OnDestroy {
     }
   }
 
+  onRemoveConnection(connectionIndex: number) {
+    this.connections.splice(connectionIndex, 1);
+  }
+
   onFinish() {
     this.userService.updateLocalUser([{ name: 'isNewUser', value: false }]);
     this.userService.updateFbCollect();
