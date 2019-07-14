@@ -1,8 +1,6 @@
-<div fxLayout="column" fxLayoutAlign="center center" class="container fade-in" style="height: 80vh">
+<div fxLayout="column" fxLayoutAlign="center center" class="container fade-in">
 
   <p class="title">USER PREFERENCES</p>
-
-  <br>
 
   <div *ngIf="user.type === 'student'" class="category">
     <div fxLayout="row" fxLayoutAlign="space-between center" class="category-title-container">
@@ -81,10 +79,12 @@
     </p>
   </div>
 
-  <br><br><br>
+  <br><br>
 
   <button (click)="onContinue()" type="submit" mat-raised-button color="accent" class="action-button" fxLayoutAlign="center center">
     CONTINUE
   </button>
+
+  <br>
 
 </div>
