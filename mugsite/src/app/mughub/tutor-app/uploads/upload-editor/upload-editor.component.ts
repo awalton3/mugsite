@@ -91,38 +91,19 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
   }
 
   filterAutoComp(value: string) {
-    if (this.connections) {
+    if (this.connections && value) {
       const filterValue = value.toLowerCase();
       return this.connections.filter(connection => connection.name.toLowerCase().includes(filterValue));
     }
   }
 
   ValidateConnection(control: AbstractControl) {
-    console.log(this.uploadForm)
     return this.connectionNames.includes(control.value) ? null : { validConnection: false };
   }
 
-  ValidateAssignment(control: AbstractControl) {
-    if (this.uploadForm.controls.comments)
-      return (this.uploadForm.controls.comments.value || control.value) ? null : { validAssignment: false };
-    else
-      return { validAssignment: false }
-  }
-
-  ValidateComments(control: AbstractControl) {
-    if (this.uploadForm.controls.assignment) {
-      console.log(!!(this.uploadForm.controls.assignment.value || control.value));
-      return (this.uploadForm.controls.assignment.value || control.value) ? null : { validAssignment: false };
-    }
-    else {
-      console.log('gee')
-      return { validAssignment: false }
-    }
-  }
-
   ValidateUpload() {
+    console.log(this.uploadForm.controls.userTo)
     let upload = this.uploadForm.controls;
-    console.log(this.uploadForm)
     if (upload.assignment && upload.comments)
       return (!!(upload.assignment.value || upload.comments.value)) ? null : { validUpload: false };
   }

@@ -14,7 +14,7 @@
     </mat-autocomplete>
   </mat-form-field>
 
-  <p *ngIf="uploadForm.controls.userTo.errors && uploadForm.controls.userTo.dirty && !uploadForm.errors.validConnection" style="font-size: 13px;">
+  <p *ngIf="uploadForm.controls.userTo.errors && uploadForm.controls.userTo.dirty && !uploadForm.controls.userTo.errors.validConnection" class="form-error-message">
     *We couldn't find a user with that name. You can manage your connections in settings.
   </p>
 
@@ -59,7 +59,7 @@
     <textarea type="text" rows="6" matInput formControlName="comments" placeholder="Ex. Student is doing well, needs to improve on solving systems of equations." class="uploadForm-input"></textarea>
   </mat-form-field>
 
-  <p *ngIf="uploadForm.errors && !uploadForm.errors.validUpload" style="font-size: 13px;">
+  <p *ngIf="uploadForm.errors && !uploadForm.errors.validUpload" class="form-error-message">
     *Both the assignment field and questions/comments field cannot be empty. Please fill out at least one.
   </p>
 
