@@ -1,11 +1,13 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, OnDestroy } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { AttachmentService } from 'src/app/shared/attachments/attachments.service';
 import { MatSelectionList } from '@angular/material/list';
 import { UploadService } from '../upload.service';
 import { Upload } from '../upload.model';
 import { Subscription, Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
+import { UserService } from 'src/app/mughub/auth/user.service';
+import { User } from 'src/app/mughub/auth/user.model';
 
 @Component({
   selector: 'mughub-upload-editor',
@@ -20,8 +22,9 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
   attachments: string[] = [];
   uploadToEdit: Upload;
   isEditMode: boolean = false;
-  options: string[] = ['One', 'Two', 'Three'];
-  filteredOptions: Observable<string[]>;
+  connections: User[] = [];
+  connectionNames: string[] = [];
+  filteredOptions: Observable<User[]>;
 
 
   @Output() onClose = new EventEmitter();
@@ -29,7 +32,8 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
 
   constructor(
     private attachmentService: AttachmentService,
-    private uploadService: UploadService
+    private uploadService: UploadService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -37,11 +41,13 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
     this.getUploadToEdit();
     this.listenForAttachmentChanges();
     this.initAutoComp();
+    this.connections = this.userService.getUserSession().connections;
+    this.getConnectionNames();
   }
 
   initForm() {
     this.uploadForm = new FormGroup({
-      'userTo': new FormControl(null, Validators.required),
+      'userTo': new FormControl(null, [Validators.required, this.ValidateConnection.bind(this)]),
       'subject': new FormControl(null, Validators.required),
       'assignment': new FormControl(null),
       'comments': new FormControl(null)
@@ -50,7 +56,7 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
 
   initFormForEdit() {
     this.uploadForm = new FormGroup({
-      'userTo': new FormControl(this.uploadToEdit.userTo, Validators.required),
+      'userTo': new FormControl(this.uploadToEdit.userTo, [Validators.required, this.ValidateConnection.bind(this)]),
       'subject': new FormControl(this.uploadToEdit.subject, Validators.required),
       'assignment': new FormControl(this.uploadToEdit.assignment),
       'comments': new FormControl(this.uploadToEdit.comments)
@@ -66,6 +72,10 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
     }));
   }
 
+  getConnectionNames() {
+    this.connections.map(connection => this.connectionNames.push(connection.name))
+  }
+
   listenForAttachmentChanges() {
     this.subs.add(this.attachmentService.attachmentsChanged.subscribe(attachments => {
       this.attachments = attachments;
@@ -73,7 +83,6 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
   }
 
   initAutoComp() {
-    // this.options = [];
     this.filteredOptions = this.uploadForm.controls.userTo.valueChanges
       .pipe(
         startWith(''),
@@ -81,9 +90,15 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
       );
   }
 
-  filterAutoComp(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  filterAutoComp(value: string) {
+    if (this.connections) {
+      const filterValue = value.toLowerCase();
+      return this.connections.filter(connection => connection.name.toLowerCase().includes(filterValue));
+    }
+  }
+
+  ValidateConnection(control: AbstractControl) {
+    return this.connectionNames.includes(control.value) ? null : { validConnection: false };
   }
 
   onSubmit() {
