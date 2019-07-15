@@ -18,7 +18,7 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
 
   private subs = new Subscription();
 
-  uploadForm: FormGroup;
+  uploadForm: FormGroup = new FormGroup({})
   attachments: string[] = [];
   uploadToEdit: Upload;
   isEditMode: boolean = false;
@@ -47,20 +47,20 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
 
   initForm() {
     this.uploadForm = new FormGroup({
-      'userTo': new FormControl(null, [Validators.required, this.ValidateConnection.bind(this)]),
+      'userTo': new FormControl(null, this.ValidateConnection.bind(this)),
       'subject': new FormControl(null, Validators.required),
       'assignment': new FormControl(null),
       'comments': new FormControl(null)
-    });
+    }, { validators: this.ValidateUpload.bind(this) });
   }
 
   initFormForEdit() {
     this.uploadForm = new FormGroup({
-      'userTo': new FormControl(this.uploadToEdit.userTo, [Validators.required, this.ValidateConnection.bind(this)]),
+      'userTo': new FormControl(this.uploadToEdit.userTo, this.ValidateConnection.bind(this)),
       'subject': new FormControl(this.uploadToEdit.subject, Validators.required),
       'assignment': new FormControl(this.uploadToEdit.assignment),
       'comments': new FormControl(this.uploadToEdit.comments)
-    });
+    }, { validators: this.ValidateUpload.bind(this) });
   }
 
   getUploadToEdit() {
@@ -98,7 +98,33 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
   }
 
   ValidateConnection(control: AbstractControl) {
+    console.log(this.uploadForm)
     return this.connectionNames.includes(control.value) ? null : { validConnection: false };
+  }
+
+  ValidateAssignment(control: AbstractControl) {
+    if (this.uploadForm.controls.comments)
+      return (this.uploadForm.controls.comments.value || control.value) ? null : { validAssignment: false };
+    else
+      return { validAssignment: false }
+  }
+
+  ValidateComments(control: AbstractControl) {
+    if (this.uploadForm.controls.assignment) {
+      console.log(!!(this.uploadForm.controls.assignment.value || control.value));
+      return (this.uploadForm.controls.assignment.value || control.value) ? null : { validAssignment: false };
+    }
+    else {
+      console.log('gee')
+      return { validAssignment: false }
+    }
+  }
+
+  ValidateUpload() {
+    let upload = this.uploadForm.controls;
+    console.log(this.uploadForm)
+    if (upload.assignment && upload.comments)
+      return (!!(upload.assignment.value || upload.comments.value)) ? null : { validUpload: false };
   }
 
   onSubmit() {

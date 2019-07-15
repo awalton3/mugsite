@@ -7,21 +7,20 @@
     <mat-autocomplete #auto="matAutocomplete">
       <mat-option *ngFor="let connection of filteredOptions | async" [value]="connection.name" class="background-eee">
         <div fxLayout="row" fxLayoutAlign="start center">
-          <div class="profile-image-container-mini" ></div>
+          <div class="profile-image-container-mini" [ngStyle]="{'background-image': 'url(' + connection.photoUrl + ')'}" style="margin-right: 15px"></div>
           <span class="autocomp-text">{{ connection.name }}</span>
         </div>
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
 
+  <p *ngIf="uploadForm.controls.userTo.errors && uploadForm.controls.userTo.dirty && !uploadForm.errors.validConnection" style="font-size: 13px;">
+    *We couldn't find a user with that name. You can manage your connections in settings.
+  </p>
+
   <p class="uploadForm-label">SUBJECT</p>
   <mat-form-field floatLabel="never" fxFill>
     <input type="text" matInput formControlName="subject" placeholder="Ex. Algebra II" class="uploadForm-input">
-  </mat-form-field>
-
-  <p class="uploadForm-label">ASSIGNMENT</p>
-  <mat-form-field floatLabel="never" fxFill>
-    <textarea type="text" rows="6" matInput formControlName="assignment" placeholder="Ex. Complete attached worksheets by next week." class="uploadForm-input"></textarea>
   </mat-form-field>
 
   <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -48,10 +47,21 @@
 
   <br>
 
-  <p class="uploadForm-label">ADDITIONAL COMMENTS</p>
+  <p class="uploadForm-label">ASSIGNMENT</p>
+  <mat-form-field floatLabel="never" fxFill>
+    <textarea type="text" rows="6" matInput formControlName="assignment" placeholder="Ex. Complete attached worksheets by next week." class="uploadForm-input"></textarea>
+  </mat-form-field>
+
+  <br>
+
+  <p class="uploadForm-label">QUESTIONS/COMMENTS</p>
   <mat-form-field floatLabel="never" fxFill>
     <textarea type="text" rows="6" matInput formControlName="comments" placeholder="Ex. Student is doing well, needs to improve on solving systems of equations." class="uploadForm-input"></textarea>
   </mat-form-field>
+
+  <p *ngIf="uploadForm.errors && !uploadForm.errors.validUpload" style="font-size: 13px;">
+    *Both the assignment field and questions/comments field cannot be empty. Please fill out at least one.
+  </p>
 
 </form>
 
