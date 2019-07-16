@@ -39,11 +39,28 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initForm();
-    this.getUploadToEdit();
-    this.listenForAttachmentChanges();
     this.initAutoComp();
+
+    this.listenForUploadToEdit();
+    this.listenForAttachmentChanges();
+
     this.connections = this.userService.getUserSession().connections;
     this.getConnectionNames();
+  }
+
+  listenForUploadToEdit() {
+    this.subs.add(this.uploadService.uploadClicked.subscribe(upload => {
+      this.uploadToEdit = upload;
+      this.isEditMode = true;
+      this.initFormForEdit();
+      this.attachmentService.initAttachmentsListView(this.uploadToEdit.attachments);
+    }));
+  }
+
+  listenForAttachmentChanges() {
+    this.subs.add(this.attachmentService.attachmentsChanged.subscribe(attachments => {
+      this.attachments = attachments;
+    }));
   }
 
   initForm() {
@@ -53,34 +70,6 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
       'assignment': new FormControl(null),
       'comments': new FormControl(null)
     }, { validators: this.ValidateUpload.bind(this) });
-  }
-
-  initFormForEdit() {
-    this.uploadForm = new FormGroup({
-      'recipient': new FormControl(this.uploadToEdit.recipient.name, this.ValidateConnection.bind(this)),
-      'subject': new FormControl(this.uploadToEdit.subject, Validators.required),
-      'assignment': new FormControl(this.uploadToEdit.assignment),
-      'comments': new FormControl(this.uploadToEdit.comments)
-    }, { validators: this.ValidateUpload.bind(this) });
-  }
-
-  getUploadToEdit() {
-    this.subs.add(this.uploadService.uploadClicked.subscribe(upload => {
-      this.uploadToEdit = upload;
-      this.isEditMode = true;
-      this.initFormForEdit();
-      this.attachmentService.initAttachmentsListView(this.uploadToEdit.attachments);
-    }));
-  }
-
-  getConnectionNames() {
-    this.connections.map(connection => this.connectionNames.push(connection.name))
-  }
-
-  listenForAttachmentChanges() {
-    this.subs.add(this.attachmentService.attachmentsChanged.subscribe(attachments => {
-      this.attachments = attachments;
-    }));
   }
 
   initAutoComp() {
@@ -108,11 +97,23 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
       return (!!(upload.assignment.value || upload.comments.value)) ? null : { validUpload: false };
   }
 
+  initFormForEdit() {
+    this.uploadForm.controls.recipient.setValue(this.uploadToEdit.recipient.name);
+    this.uploadForm.controls.subject.setValue(this.uploadToEdit.subject);
+    this.uploadForm.controls.assignment.setValue(this.uploadToEdit.assignment);
+    this.uploadForm.controls.comments.setValue(this.uploadToEdit.comments);
+  }
+
+  getConnectionNames() {
+    this.connections.map(connection => this.connectionNames.push(connection.name))
+  }
+
   onSubmit() {
     this.isEditMode ? this.updateUpload() : this.addUpload();
   }
 
   addUpload() {
+    //need to address if selectedConnection is never chosen and user just types it in
     this.uploadForm.value.recipient = this.selectedConnection;
     this.uploadService.addUpload(this.uploadForm.value, this.attachments)
       .then(() => this.onSuccess('add'))
@@ -120,6 +121,8 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
   }
 
   updateUpload() {
+    //need to address if selectedConnection is never chosen and user just types it in
+    this.uploadForm.value.recipient = this.selectedConnection;
     let updateObj = Object.assign(this.getChangedFields(), this.getChangedAttachments());
     this.uploadService.editUpload(this.uploadToEdit.id, updateObj)
       .then(() => this.onSuccess('update'))

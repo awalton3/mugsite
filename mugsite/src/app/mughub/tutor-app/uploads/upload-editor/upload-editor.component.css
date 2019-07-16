@@ -33,6 +33,16 @@
   margin: 0;
 }
 
+/* .attachment {
+  color: grey;
+  font-size: 14px;
+  padding: 0px 40px;
+}
+
+.attachment-name {
+  margin: 8px 0px;
+} */
+
 .attachment-list {
   font-family: 'Montserrat', sans-serif;
   color: grey;
