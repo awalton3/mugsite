@@ -1,11 +1,11 @@
-<mughub-headnav title="upload" iconLeft="close" iconRight="done" (leftIconToggled)="onCancel()" (rightIconToggled)="onSubmit()" [enableIconRight]="uploadForm && uploadForm.valid"></mughub-headnav>
+<mughub-headnav title="upload" iconLeft="close" iconRight="done" (leftIconToggled)="onCloseEditor()" (rightIconToggled)="onSubmit()" [enableIconRight]="uploadForm && uploadForm.valid"></mughub-headnav>
 <form [formGroup]="uploadForm" class="uploadForm" [ngStyle]="{'margin-bottom': isEditMode ? '70px' : '10px'}">
 
   <p class="uploadForm-label">STUDENT NAME</p>
   <mat-form-field floatLabel="never" fxFill>
-    <input type="text" matInput formControlName="userTo" placeholder="Ex. John Doe" class="uploadForm-input" [matAutocomplete]="auto">
+    <input type="text" matInput formControlName="recipient" placeholder="Ex. John Doe" class="uploadForm-input" [matAutocomplete]="auto">
     <mat-autocomplete #auto="matAutocomplete">
-      <mat-option *ngFor="let connection of filteredOptions | async" [value]="connection.name" class="background-eee">
+      <mat-option (click)="selectedConnection = connection" *ngFor="let connection of filteredOptions | async" [value]="connection.name" class="background-eee">
         <div fxLayout="row" fxLayoutAlign="start center">
           <div class="profile-image-container-mini" [ngStyle]="{'background-image': 'url(' + connection.photoUrl + ')'}" style="margin-right: 15px"></div>
           <span class="autocomp-text">{{ connection.name }}</span>
@@ -14,9 +14,9 @@
     </mat-autocomplete>
   </mat-form-field>
 
-  <p *ngIf="uploadForm.controls.userTo.errors && uploadForm.controls.userTo.dirty && !uploadForm.controls.userTo.errors.validConnection" class="form-error-message">
-    *We couldn't find a user with that name. You can manage your connections in settings.
-  </p>
+  <!-- <p *ngIf="uploadForm.controls.recipient.errors && uploadForm.controls.userTo.dirty && !uploadForm.controls.userTo.errors.validConnection" class="form-error-message">
+    *We couldn't find a user with that name. To manage your connections go to settings.
+  </p> -->
 
   <p class="uploadForm-label">SUBJECT</p>
   <mat-form-field floatLabel="never" fxFill>
@@ -59,9 +59,9 @@
     <textarea type="text" rows="6" matInput formControlName="comments" placeholder="Ex. Student is doing well, needs to improve on solving systems of equations." class="uploadForm-input"></textarea>
   </mat-form-field>
 
-  <p *ngIf="uploadForm.errors && !uploadForm.errors.validUpload" class="form-error-message">
+  <!-- <p *ngIf="uploadForm.errors && !uploadForm.errors.validUpload" class="form-error-message">
     *Both the assignment field and questions/comments field cannot be empty. Please fill out at least one.
-  </p>
+  </p> -->
 
 </form>
 

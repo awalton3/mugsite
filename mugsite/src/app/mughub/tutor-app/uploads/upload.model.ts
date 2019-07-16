@@ -1,9 +1,10 @@
 import { Timestamp } from 'rxjs/internal/types';
+import { User } from '../../auth/user.model';
 
 export class Upload {
   constructor(
-    public userFrom: string,
-    public userTo: string,
+    public sender: User,
+    public recipient: User,
     public subject: string,
     public assignment: string,
     public comments: string,

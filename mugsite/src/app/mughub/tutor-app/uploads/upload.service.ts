@@ -21,8 +21,8 @@ export class UploadService {
     return this.db.collection('/uploads')
       .doc(this.db.createId()) //random id
       .set({
-        userFrom: this.userService.getCurrentUser().uid,
-        userTo: formData.userTo,
+        sender: this.userService.getCurrentUser(),
+        recipient: formData.recipient,
         subject: formData.subject,
         assignment: formData.assignment,
         comments: formData.comments,

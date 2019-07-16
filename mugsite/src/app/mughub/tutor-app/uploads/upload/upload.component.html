@@ -8,7 +8,7 @@
   <mat-divider class="divider" [vertical]="true"></mat-divider>
 
   <div class="info">
-    <p class="name">{{ upload.userTo }}<br>{{ upload.subject }}</p>
+    <p class="name">{{ upload.recipient.name }}<br>{{ upload.subject }}</p>
 
     <div *ngIf="upload.assignment">
       <p class="category">ASSIGNMENT</p>

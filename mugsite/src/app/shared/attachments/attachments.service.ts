@@ -1,6 +1,5 @@
 import { Subject } from 'rxjs';
 import { MatListOption } from '@angular/material/list';
-import { AngularFireStorage } from '@angular/fire/storage';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { UserService } from 'src/app/mughub/auth/user.service';
@@ -9,10 +8,7 @@ import { UserService } from 'src/app/mughub/auth/user.service';
 
 export class AttachmentService {
 
-  constructor(
-    private fbStorage: AngularFireStorage,
-    private userService: UserService
-  ) { }
+  constructor(private userService: UserService) { }
 
   private attachmentsListView: string[] = [];
   private attachmentsToDelete: Set<string> = new Set();
@@ -53,7 +49,7 @@ export class AttachmentService {
 
   uploadAttachmentsToFb() {
     Array.from(this.attachmentsToAdd).map(attachment => {
-      this.fbStorage.ref(attachment.name + this.userService.getUserSession().uid).put(attachment)
+      firebase.storage().ref(attachment.name + this.userService.getUserSession().uid).put(attachment)
         .then(() => { console.log('success') })
         .catch(error => console.log(error))
     })
@@ -61,7 +57,6 @@ export class AttachmentService {
 
   deleteAttachmentsInFb(attachmentsToDelete) {
     Array.from(attachmentsToDelete).map(nameRef => {
-      console.log(nameRef);
       firebase.storage().ref().child(nameRef + this.userService.getUserSession().uid).delete()
         .then(() => console.log('success'))
         .catch(error => console.log(error))

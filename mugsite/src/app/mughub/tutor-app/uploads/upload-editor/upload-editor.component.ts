@@ -25,6 +25,7 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
   connections: User[] = [];
   connectionNames: string[] = [];
   filteredOptions: Observable<User[]>;
+  selectedConnection: User;
 
 
   @Output() onClose = new EventEmitter();
@@ -47,7 +48,7 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
 
   initForm() {
     this.uploadForm = new FormGroup({
-      'userTo': new FormControl(null, this.ValidateConnection.bind(this)),
+      'recipient': new FormControl(null, this.ValidateConnection.bind(this)),
       'subject': new FormControl(null, Validators.required),
       'assignment': new FormControl(null),
       'comments': new FormControl(null)
@@ -56,7 +57,7 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
 
   initFormForEdit() {
     this.uploadForm = new FormGroup({
-      'userTo': new FormControl(this.uploadToEdit.userTo, this.ValidateConnection.bind(this)),
+      'recipient': new FormControl(this.uploadToEdit.recipient.name, this.ValidateConnection.bind(this)),
       'subject': new FormControl(this.uploadToEdit.subject, Validators.required),
       'assignment': new FormControl(this.uploadToEdit.assignment),
       'comments': new FormControl(this.uploadToEdit.comments)
@@ -76,6 +77,11 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
     this.connections.map(connection => this.connectionNames.push(connection.name))
   }
 
+  getRecipientObj() {
+    let i = this.connectionNames.indexOf(this.uploadForm.value.recipient)
+    return this.connections[i]
+  }
+
   listenForAttachmentChanges() {
     this.subs.add(this.attachmentService.attachmentsChanged.subscribe(attachments => {
       this.attachments = attachments;
@@ -83,7 +89,7 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
   }
 
   initAutoComp() {
-    this.filteredOptions = this.uploadForm.controls.userTo.valueChanges
+    this.filteredOptions = this.uploadForm.controls.recipient.valueChanges
       .pipe(
         startWith(''),
         map(value => this.filterAutoComp(value))
@@ -102,7 +108,6 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
   }
 
   ValidateUpload() {
-    console.log(this.uploadForm.controls.userTo)
     let upload = this.uploadForm.controls;
     if (upload.assignment && upload.comments)
       return (!!(upload.assignment.value || upload.comments.value)) ? null : { validUpload: false };
@@ -113,6 +118,7 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
   }
 
   addUpload() {
+    this.uploadForm.value.recipient = this.selectedConnection;
     this.uploadService.addUpload(this.uploadForm.value, this.attachments)
       .then(() => this.onSuccess('add'))
       .catch(error => console.log(error))
@@ -133,10 +139,7 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
     if (action === 'delete') {
       this.attachmentService.deleteAttachmentsInFb(this.uploadToEdit.attachments);
     }
-    this.onClose.emit();
-    this.uploadForm.reset();
-    this.attachmentService.reset();
-    this.isEditMode = false;
+    this.onCloseEditor();
   }
 
   getChangedFields() {
@@ -156,7 +159,7 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
     return changedAttachments;
   }
 
-  onCancel() {
+  onCloseEditor() {
     this.onClose.emit();
     this.uploadForm.reset();
     this.attachmentService.reset();
@@ -173,9 +176,6 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
     let file = onFileUpload.target.files[0];
     if (!this.attachments.includes(file.name))
       this.attachmentService.addAttachment(file);
-    else {
-      console.log('attachment has already been added');
-    }
   }
 
   onAttachmentsDelete() {
