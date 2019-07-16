@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { UploadsComponent } from './uploads.component';
+import { UploadsResolve } from './uploads.resolve';
 
 const routes: Routes = [
   //lazy loaded module
-  { path: '', component: UploadsComponent }
+  { path: '', component: UploadsComponent, resolve: { uploads: UploadsResolve } }
 ]
 
 @NgModule({

@@ -7,13 +7,17 @@
   <mat-drawer-content class="background-eee heightFull paddingNone">
     <mughub-headnav title="uploads" iconLeft="menu" (leftIconToggled)="closeSidenav()"></mughub-headnav>
 
-    <div *ngIf="uploads.length !== 0" fxLayout="column" fxLayoutAlign="start center">
+    <div *ngIf="loading">
+      <div class="loader">loading...</div>
+    </div>
+
+    <div *ngIf="!uploadsEmpty" fxLayout="column" fxLayoutAlign="start center">
       <div>
         <mughub-upload (click)="onUploadClick(uploadEl)" *ngFor="let uploadEl of uploads" [upload]="uploadEl"></mughub-upload>
       </div>
     </div>
 
-    <div *ngIf="uploads.length === 0" fxLayout="column" fxLayoutAlign="center center" class="uploads-empty">
+    <div *ngIf="uploadsEmpty" fxLayout="column" fxLayoutAlign="center center" class="uploads-empty">
       <div class="uploads-empty-text">
         <fa-icon [icon]="['fas', 'globe']" class="uploads-empty-icon" fxLayoutAlign="center center"></fa-icon>
         <p class="uploads-empty-title">BUILD A BETTER CONNECTION WITH YOUR STUDENT</p>

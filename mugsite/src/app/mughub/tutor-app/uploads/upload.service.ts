@@ -21,7 +21,7 @@ export class UploadService {
     return this.db.collection('/uploads')
       .doc(this.db.createId()) //random id
       .set({
-        sender: this.userService.getCurrentUser(),
+        sender: Object.assign({}, this.userService.getCurrentUser()),
         recipient: formData.recipient,
         subject: formData.subject,
         assignment: formData.assignment,
@@ -49,7 +49,7 @@ export class UploadService {
 
   fetchUploads() {
     return firebase.firestore().collection('/uploads')
-      .where('userFrom', '==', this.userService.getUserSession().uid)
+      .where('sender', '==', this.userService.getUserSession())
       .orderBy('timestamp', 'desc')
   }
 

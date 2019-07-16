@@ -77,11 +77,6 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
     this.connections.map(connection => this.connectionNames.push(connection.name))
   }
 
-  getRecipientObj() {
-    let i = this.connectionNames.indexOf(this.uploadForm.value.recipient)
-    return this.connections[i]
-  }
-
   listenForAttachmentChanges() {
     this.subs.add(this.attachmentService.attachmentsChanged.subscribe(attachments => {
       this.attachments = attachments;

@@ -15,6 +15,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { UploadsResolve } from './uploads.resolve';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatAutocompleteModule
   ],
   providers: [
-    AttachmentService
+    AttachmentService,
+    UploadsResolve
   ]
 })
 
