@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { Upload } from '../upload.model';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'mughub-upload',
@@ -9,11 +10,16 @@ import { Upload } from '../upload.model';
 export class UploadComponent implements OnInit {
 
   @Input() upload: Upload = null;
+  @Input() currIndex: number = null;
+  @Input() numOfUploads: number = null;
+  @Output() finished = new Subject();
   creationMonth: string;
 
   constructor() { }
 
   ngOnInit() {
+    if (this.currIndex === this.numOfUploads - 1)
+     this.finished.next();
     this.creationMonth = this.getMonthStr(this.upload.creationDate.month);
   }
 

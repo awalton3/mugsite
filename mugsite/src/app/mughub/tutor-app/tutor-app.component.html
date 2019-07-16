@@ -2,7 +2,8 @@
   <mat-drawer #navDrawer class="sidenav">
     <mughub-sidenav (closeNav)="navDrawer.close()"></mughub-sidenav>
   </mat-drawer>
-  <mat-drawer-content class="background-eee paddingNone">
+  <mat-drawer-content *ngIf="!loading" class="background-eee paddingNone">
     <router-outlet></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>
+<div *ngIf="loading" class=loader>loading...</div>

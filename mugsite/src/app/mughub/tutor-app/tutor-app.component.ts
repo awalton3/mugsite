@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, HostListener, AfterViewInit, OnDestroy } from '@angular/core';
 import { SidenavService } from '../sidenav/sidenav.service';
 import { Subscription } from 'rxjs';
+import { Router, NavigationStart, NavigationEnd, NavigationError, NavigationCancel } from '@angular/router';
 
 @Component({
   selector: 'app-tutor-app',
@@ -19,7 +20,21 @@ export class TutorAppComponent implements OnInit, AfterViewInit, OnDestroy {
     this.adjustSidenav();
   }
 
-  constructor(private sidenavService: SidenavService) { }
+  loading: boolean = true; 
+
+  constructor(private sidenavService: SidenavService, private router: Router) {
+    router.events.subscribe(event => {
+      if (event instanceof NavigationStart) {
+        this.loading = true;
+      } else if (event instanceof NavigationEnd) {
+        this.loading = false;
+      } else if (event instanceof NavigationError) {
+        this.loading = false;
+      } else if (event instanceof NavigationCancel) {
+        this.loading = false;
+      }
+    });
+  }
 
   ngOnInit() {
     this.subs.add(this.sidenavService.onToggle.subscribe(() => this.navDrawer.toggle()));

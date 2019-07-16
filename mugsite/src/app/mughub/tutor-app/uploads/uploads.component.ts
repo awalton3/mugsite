@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { SidenavService } from '../../sidenav/sidenav.service';
 import { UploadService } from './upload.service';
 import { Upload } from './upload.model';
-import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Query } from '@angular/fire/firestore';
 
 @Component({
@@ -11,12 +11,13 @@ import { Query } from '@angular/fire/firestore';
   templateUrl: './uploads.component.html',
   styleUrls: ['./uploads.component.css']
 })
-export class UploadsComponent implements OnInit, OnDestroy {
+export class UploadsComponent implements OnInit, OnDestroy{
 
   private subs = new Subscription();
   uploads: Upload[] = [];
   uploadsListener: any;
   uploadsEmpty: boolean;
+  loading: boolean = true;
 
   @ViewChild('editor', { static: false }) editor: any;
 
@@ -27,7 +28,7 @@ export class UploadsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.getUploads(this.route.snapshot.data.uploads)
+    this.getUploads(this.route.snapshot.data.uploads);
   }
 
   closeSidenav() {
@@ -43,6 +44,7 @@ export class UploadsComponent implements OnInit, OnDestroy {
         });
         this.uploads = uploads;
         this.uploadsEmpty = !!(this.uploads.length === 0)
+        if(this.uploadsEmpty) this.loading = false;
       }, error => { console.log(error) }));
   }
 

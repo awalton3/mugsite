@@ -5,6 +5,7 @@ import { MaterialComponentsModule } from 'src/app/shared/angular-material/materi
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { TutorAppRoutingModule } from './tutor-app-routing.module';
 import { SidenavModule } from '../sidenav/sidenav.module';
+import { UploadsResolve } from './uploads/uploads.resolve';
 
 @NgModule({
   declarations: [TutorAppComponent],
@@ -14,6 +15,9 @@ import { SidenavModule } from '../sidenav/sidenav.module';
     MaterialComponentsModule,
     MatSidenavModule,
     SidenavModule
+  ],
+  providers: [
+    UploadsResolve
   ]
 })
 

@@ -1,10 +1,10 @@
-import { Component, OnInit, Output, EventEmitter, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, ViewChild, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { AttachmentService } from 'src/app/shared/attachments/attachments.service';
 import { MatSelectionList } from '@angular/material/list';
 import { UploadService } from '../upload.service';
 import { Upload } from '../upload.model';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription, Observable, Subject } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
 import { UserService } from 'src/app/mughub/auth/user.service';
 import { User } from 'src/app/mughub/auth/user.model';
@@ -28,7 +28,7 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
   selectedConnection: User;
 
 
-  @Output() onClose = new EventEmitter();
+  @Output() onClose = new Subject();
   @ViewChild('attachmentsList', { static: false }) attachmentsList: MatSelectionList;
 
   constructor(
@@ -155,7 +155,7 @@ export class UploadEditorComponent implements OnInit, OnDestroy {
   }
 
   onCloseEditor() {
-    this.onClose.emit();
+    this.onClose.next();
     this.uploadForm.reset();
     this.attachmentService.reset();
     this.isEditMode = false;
