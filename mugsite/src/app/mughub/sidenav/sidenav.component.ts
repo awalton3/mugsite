@@ -12,7 +12,7 @@ import { User } from '../auth/user.model';
 export class SidenavComponent implements OnInit {
 
   @Output() closeNav = new Subject();
-  defaultNavLinks = ['inbox', 'uploads', 'manage', 'hour log', 'settings']
+  defaultNavLinks = ['inbox', 'uploads', 'manage', 'hour-log', 'settings']
   user: User;
 
   screenWidth: any;
@@ -25,7 +25,7 @@ export class SidenavComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.screenWidth = window.innerWidth; 
+    this.screenWidth = window.innerWidth;
     this.user = this.userService.getUserSession();
   }
 

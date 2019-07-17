@@ -10,6 +10,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'uploads', pathMatch: 'full' },
       { path: 'manage', loadChildren: './manage/manage.module#ManageModule' },
       { path: 'uploads', loadChildren: './uploads/uploads.module#UploadsModule', resolve: { uploads: UploadsResolve } },
+      { path: 'hour-log', loadChildren: './hour-log/hour-log.module#HourLogModule' }, 
       { path: '**', redirectTo: 'uploads', pathMatch: 'full' }
     ]
   }
