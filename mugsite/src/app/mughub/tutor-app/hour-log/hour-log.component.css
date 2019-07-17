@@ -1,0 +1,22 @@
+.calendar {
+  width: 500px;
+  height: 500px;
+}
+
+.calendar-month-name {
+  color: #2b5570;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.calendar-icons {
+  color: #2b5570;
+  font-weight: 500;
+  font-size: 25px;
+}
+
+.calendar-dayofweek {
+  color: grey;
+  font-weight: 500;
+  font-size: 15px;
+}

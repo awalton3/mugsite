@@ -11,13 +11,16 @@ export class HourLogComponent implements OnInit {
   constructor(private sidenavService: SidenavService) { }
   displayedMonth: { num: number; name: string };
   displayedYear: number;
-  days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  numDaysInMonth: number;
+
+  days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   ngOnInit() {
     let currMonth = new Date().getMonth() + 1
     this.displayedMonth = { num: currMonth, name: this.months[currMonth - 1] };
     this.displayedYear = new Date().getFullYear();
+    this.numDaysInMonth = new Date(this.displayedYear, this.displayedMonth.num, 0).getDate()
   }
 
   closeSidenav() {
@@ -32,6 +35,27 @@ export class HourLogComponent implements OnInit {
     }
     return range;
   }
+
+  getMonthWeeksRange() {
+    let range = [];
+    for (let i = 1; i <= this.numDaysInMonth; i++)
+      range.push(i);
+    return range;
+  }
+
+  getMonthRowRange(currIndex: number) {
+    if (currIndex === 1) {
+      
+    }
+    let range = [];
+    for (let i = currIndex; i < currIndex + 7; i++) {
+      range.push(i);
+    }
+    return range;
+  }
+  //sun, mon, tues, weds, thurs, fri, sat
+  //1, 2, 3, 4, 5, 6, 7
+  //8, 9, 10, 11, 12, 13, 14
 
   getStartDayInMonth(month: number, year: number) {
     return new Date(year, month - 1, 0).getDay() + 1;
