@@ -1,7 +1,7 @@
 <mughub-headnav title="Hour Log" iconLeft="menu" (leftIconToggled)="closeSidenav()"></mughub-headnav>
 
 <div>
-  <p>{{ displayedMonth.name }}</p>
+  <p>{{ displayedMonth.name }} {{ displayedYear }}</p>
   <span *ngFor="let date of numDaysInMonthRange(displayedMonth.num, 2019)">{{ date }}, </span>
   <button (click)="onNextMonth()">NEXT</button>
   <button (click)="onPrevMonth()">PREV</button>
