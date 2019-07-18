@@ -12,7 +12,6 @@ export class HourLogComponent implements OnInit {
   displayedMonth: { num: number; name: string };
   displayedYear: number;
   numDaysInMonth: number;
-
   days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -23,39 +22,44 @@ export class HourLogComponent implements OnInit {
     this.numDaysInMonth = new Date(this.displayedYear, this.displayedMonth.num, 0).getDate()
   }
 
-  closeSidenav() {
-    this.sidenavService.onToggle.next();
-  }
-
-  numDaysInMonthRange(month, year) {
-    let rangeMax = new Date(year, month, 0).getDate();
+  getMonthRangeInWeeks() {
     let range = [];
-    for (let i = 1; i <= rangeMax; i++) {
+    let numWeeksInMonth = Math.ceil(this.numDaysInMonth / 7);
+    for (let i = 1; i <= numWeeksInMonth; i++) {
       range.push(i);
     }
     return range;
   }
 
-  getMonthWeeksRange() {
+  getMonthRangeInDaysPerWeek(startDate: number, endDate: number) {
     let range = [];
-    for (let i = 1; i <= this.numDaysInMonth; i++)
-      range.push(i);
-    return range;
-  }
+    let offset = this.getStartDayInMonth(this.displayedMonth.num, this.displayedYear);
 
-  getMonthRowRange(currIndex: number) {
-    if (currIndex === 1) {
-      
+    //update endDate and startDate
+    endDate = endDate - offset;
+    if (startDate !== 1) startDate = startDate - offset;
+    else if(startDate === 1 && offset !== 0){
+      let lastDayOfPrevMonth = new Date(this.displayedYear, this.displayedMonth.num, -1).getDate()
+      for (let i = 0; i < offset; i++)
+        range.push(lastDayOfPrevMonth - i);
     }
-    let range = [];
-    for (let i = currIndex; i < currIndex + 7; i++) {
+
+    //check if endDate overflows
+    if (endDate > this.numDaysInMonth)
+      endDate = this.numDaysInMonth;
+
+    //get daysPerWeekRange
+    for (let i = startDate; i <= endDate; i++)
       range.push(i);
-    }
+
+    //handle underflow at end of month
+    let currRangeLength = range.length;
+
+    for (let i = 1; i <= (7 - currRangeLength); i++)
+      range.push(i);
+
     return range;
   }
-  //sun, mon, tues, weds, thurs, fri, sat
-  //1, 2, 3, 4, 5, 6, 7
-  //8, 9, 10, 11, 12, 13, 14
 
   getStartDayInMonth(month: number, year: number) {
     return new Date(year, month - 1, 0).getDay() + 1;
@@ -87,6 +91,10 @@ export class HourLogComponent implements OnInit {
       return currMonth + 1 > 12
     else
       return currMonth - 1 < 1;
+  }
+
+  closeSidenav() {
+    this.sidenavService.onToggle.next();
   }
 
 }

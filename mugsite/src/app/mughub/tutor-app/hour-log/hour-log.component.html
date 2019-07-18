@@ -26,11 +26,9 @@
       <span *ngFor="let day of days" class="calendar-dayofweek">{{ day }}</span>
     </div>
 
-    <div fxLayout="column">
-      <div fxLayout="row" fxLayoutAlign="space-around center">
-        <div *ngFor="let date of numDaysInMonthRange(displayedMonth.num, displayedYear); let i = index">
-          <span>{{ date }} </span>
-        </div>
+    <div *ngFor="let week of getMonthRangeInWeeks()" fxLayout="row" fxLayoutAlign="space-around center" class="widthFullPer">
+      <div *ngFor="let date of getMonthRangeInDaysPerWeek((week*7) - 6, week * 7)">
+        <span>{{ date }}</span>
       </div>
     </div>
 
