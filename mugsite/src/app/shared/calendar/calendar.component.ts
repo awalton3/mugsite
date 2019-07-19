@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-calendar',
@@ -11,15 +12,16 @@ export class CalendarComponent implements OnInit {
 
   displayedMonth: { num: number; name: string };
   displayedYear: number;
-  monthRange: { date: any, inMonth: boolean }[] = [];
+  monthRange: { date: any, enabled: boolean }[] = [];
   days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+  @Output() onDateClick = new Subject<Date>();
 
   ngOnInit() {
     const currDate = new Date();
     this.updateDisplayData(currDate.getFullYear(), currDate.getMonth() + 1)
     this.getMonthRange(this.displayedYear, this.displayedMonth.num);
-    // this.getMonthRange(2019, 9);
   }
 
   updateDisplayData(year, month) {
@@ -35,25 +37,32 @@ export class CalendarComponent implements OnInit {
     const endOffset = this.getLastDayInMonth(year, month);
 
     this.getBeginMonthRange(beginOffset, year, month);
-    this.getMainMonthRange(numDaysInMonth);
+    this.getMainMonthRange(numDaysInMonth, year, month);
     this.getEndMonthRange(endOffset);
   }
 
   getBeginMonthRange(beginOffset: number, year: number, month: number) {
     const lastDayOfPrevMonth = this.getLastDayOfPrevMonth(year, month);
     for (let i = beginOffset; i >= 1; i--) {
-      this.monthRange.push({ date: lastDayOfPrevMonth - i + 1, inMonth: false });
+      this.monthRange.push({ date: lastDayOfPrevMonth - i + 1, enabled: false });
     }
   }
 
-  getMainMonthRange(numDaysInMonth: number) {
-    for (let i = 1; i <= numDaysInMonth; i++)
-      this.monthRange.push({ date: i, inMonth: true });
+  getMainMonthRange(numDaysInMonth: number, year: number, month: number) {
+    for (let i = 1; i <= numDaysInMonth; i++) {
+      this.monthRange.push({ date: i, enabled: this.ifDateValidToClick(i, year, month) });
+    }
+  }
+
+  ifDateValidToClick(date: number, year: number, month: number) {
+    const dateToCheck = new Date(year, month - 1, date);
+    const currDate = new Date();
+    return dateToCheck >= currDate; 
   }
 
   getEndMonthRange(endOffset: number) {
     for (let i = 1; i <= 6 - endOffset; i++)
-      this.monthRange.push({ date: i, inMonth: false });
+      this.monthRange.push({ date: i, enabled: false });
   }
 
   getStartDayInMonth(year: number, month: number) {
@@ -76,6 +85,11 @@ export class CalendarComponent implements OnInit {
   onPrevMonth() {
     const prevMonth = new Date(this.displayedYear, this.displayedMonth.num - 1, 0);
     this.updateDisplayData(prevMonth.getFullYear(), prevMonth.getMonth() + 1);
+  }
+
+  onDateClicked(date: number) {
+    const dateClicked = new Date(this.displayedYear, this.displayedMonth.num - 1, date);
+    this.onDateClick.next(dateClicked);
   }
 
 }

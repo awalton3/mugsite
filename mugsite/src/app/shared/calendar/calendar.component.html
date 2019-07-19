@@ -17,8 +17,10 @@
   <div fxLayout="row wrap" fxLayoutAlign="center center" class="widthFullPer">
     <span
     *ngFor="let dateEl of monthRange"
+    (click)="onDateClicked(dateEl.date)"
     fxLayoutAlign="center center" fxFlex="14.2857%"
-    [ngClass]="{'calendar-date-inactive': !dateEl.inMonth, 'calendar-date': dateEl.inMonth}">
+    [ngClass]="{'calendar-date-inactive': !dateEl.enabled, 'calendar-date': dateEl.enabled}"
+    matRipple [matRippleCentered]="centered" [matRippleDisabled]="!dateEl.inMonth">
     {{ dateEl.date }}</span>
   </div>
 

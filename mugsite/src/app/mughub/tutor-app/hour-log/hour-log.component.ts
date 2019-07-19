@@ -13,6 +13,10 @@ export class HourLogComponent implements OnInit {
   ngOnInit() {
   }
 
+  onLog(dateToLog: Date) {
+    console.log(dateToLog);
+  }
+
   closeSidenav() {
     this.sidenavService.onToggle.next();
   }
