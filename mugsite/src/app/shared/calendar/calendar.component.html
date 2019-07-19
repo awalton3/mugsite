@@ -20,7 +20,7 @@
     (click)="onDateClicked(dateEl.date)"
     fxLayoutAlign="center center" fxFlex="14.2857%"
     [ngClass]="{'calendar-date-inactive': !dateEl.enabled, 'calendar-date': dateEl.enabled}"
-    matRipple [matRippleCentered]="centered" [matRippleDisabled]="!dateEl.inMonth">
+    matRipple [matRippleCentered]="centered" [matRippleDisabled]="!dateEl.enabled">
     {{ dateEl.date }}</span>
   </div>
 
