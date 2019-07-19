@@ -10,6 +10,8 @@ import { FormsMaterialComponentsModule } from 'src/app/shared/angular-material/f
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { HourLogUploaderComponent } from './hour-log-uploader/hour-log-uploader.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 ``
 @NgModule({
   declarations: [HourLogComponent, CalendarComponent, HourLogUploaderComponent],
@@ -21,6 +23,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     ReactiveFormsModule,
     FormsMaterialComponentsModule,
     MatAutocompleteModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatSidenavModule
   ]
 })

@@ -19,6 +19,7 @@ export class HourLogUploaderComponent implements OnInit {
   connectionNames: string[] = [];
   filteredOptions: Observable<User[]>;
   selectedConnection: User;
+  currDate: Date;
 
   constructor(private userService: UserService) { }
 
@@ -27,14 +28,15 @@ export class HourLogUploaderComponent implements OnInit {
     this.initAutoComp();
     this.connections = this.userService.getUserSession().connections;
     this.getConnectionNames();
+    this.currDate = new Date();
   }
 
   initForm() {
     this.hourLogForm = new FormGroup({
       connection: new FormControl(null, this.ValidateConnection.bind(this)),
-      date: new FormControl(null),
-      startTime: new FormControl(null),
-      endTime: new FormControl(null),
+      date: new FormControl(this.dateClicked),
+      startTime: new FormControl("00:00"),
+      endTime: new FormControl("01:00"),
     })
   }
 
@@ -62,6 +64,7 @@ export class HourLogUploaderComponent implements OnInit {
   }
 
   onClose() {
+    console.log(this.hourLogForm); 
     this.onCloseUploder.next();
   }
 

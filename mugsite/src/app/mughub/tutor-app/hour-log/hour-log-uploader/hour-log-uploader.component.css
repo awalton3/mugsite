@@ -25,3 +25,7 @@
   font-size: 15px !important;
   color: grey !important;
 }
+
+:host ::ng-deep .mat-datepicker-content .mat-calendar {
+	background: #eee !important;
+}
