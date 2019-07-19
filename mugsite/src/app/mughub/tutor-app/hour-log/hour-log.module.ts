@@ -4,14 +4,15 @@ import { MaterialComponentsModule } from 'src/app/shared/angular-material/materi
 import { HourLogRoutingModule } from './hour-log-routing.module';
 import { HourLogComponent } from './hour-log.component';
 import { HeadnavModule } from '../../headnav/headnav.module';
+import { CalendarComponent } from 'src/app/shared/calendar/calendar.component';
 ``
 @NgModule({
-  declarations: [HourLogComponent],
+  declarations: [HourLogComponent, CalendarComponent],
   imports: [
     CommonModule,
     MaterialComponentsModule,
     HourLogRoutingModule,
-    HeadnavModule
+    HeadnavModule,
   ]
 })
 export class HourLogModule { }

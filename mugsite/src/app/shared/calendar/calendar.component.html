@@ -1,0 +1,21 @@
+<div fxLayout="column" fxLayoutAlign="center center" class="calendar">
+
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="widthFullPer">
+    <button mat-icon-button (click)="onPrevMonth()">
+      <i class="material-icons calendar-icons">chevron_left</i>
+    </button>
+    <p class="calendar-month-name">{{ displayedMonth.name | uppercase }} {{ displayedYear }}</p>
+    <button mat-icon-button (click)="onNextMonth()">
+      <i class="material-icons calendar-icons">chevron_right</i>
+    </button>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="center center" class="widthFullPer" style="margin: 20px 0px">
+    <span *ngFor="let day of days" class="calendar-dayofweek" fxLayoutAlign="center center" fxFlex>{{ day }}</span>
+  </div>
+
+  <div fxLayout="row wrap" fxLayoutAlign="center center" class="widthFullPer">
+    <span *ngFor="let date of monthRange" class="calendar-date" fxLayoutAlign="center center" fxFlex="14.2857%">{{ date }}</span>
+  </div>
+
+</div>
