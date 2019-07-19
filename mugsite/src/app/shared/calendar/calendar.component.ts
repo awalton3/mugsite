@@ -11,121 +11,71 @@ export class CalendarComponent implements OnInit {
 
   displayedMonth: { num: number; name: string };
   displayedYear: number;
-  monthRange: any[] = [];
+  monthRange: { date: any, inMonth: boolean }[] = [];
   days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   ngOnInit() {
-    const currMonth = new Date().getMonth() + 1;
-    this.displayedMonth = { num: currMonth, name: this.months[currMonth - 1] };
-    this.displayedYear = new Date().getFullYear();
+    const currDate = new Date();
+    this.updateDisplayData(currDate.getFullYear(), currDate.getMonth() + 1)
+    this.getMonthRange(this.displayedYear, this.displayedMonth.num);
+    // this.getMonthRange(2019, 9);
+  }
+
+  updateDisplayData(year, month) {
+    this.displayedYear = year;
+    this.displayedMonth = { num: month, name: this.months[month - 1] };
     this.getMonthRange(this.displayedYear, this.displayedMonth.num);
   }
 
   getMonthRange(year: number, month: number) {
     this.monthRange = [];
     const numDaysInMonth = new Date(year, month, 0).getDate();
-    const beginOffset = this.getStartDayInMonth(month, year);
-    const endOffset = this.getLastDayInMonth(month, year);
+    const beginOffset = this.getStartDayInMonth(year, month);
+    const endOffset = this.getLastDayInMonth(year, month);
 
-    this.getBeginMonthRange(beginOffset);
+    this.getBeginMonthRange(beginOffset, year, month);
     this.getMainMonthRange(numDaysInMonth);
     this.getEndMonthRange(endOffset);
   }
 
-  getBeginMonthRange(beginOffset: number) {
-    for (let i = 0; i < beginOffset; i++)
-      this.monthRange.push(0);
+  getBeginMonthRange(beginOffset: number, year: number, month: number) {
+    const lastDayOfPrevMonth = this.getLastDayOfPrevMonth(year, month);
+    for (let i = beginOffset; i >= 1; i--) {
+      this.monthRange.push({ date: lastDayOfPrevMonth - i + 1, inMonth: false });
+    }
   }
 
   getMainMonthRange(numDaysInMonth: number) {
     for (let i = 1; i <= numDaysInMonth; i++)
-      this.monthRange.push(i);
+      this.monthRange.push({ date: i, inMonth: true });
   }
 
   getEndMonthRange(endOffset: number) {
-    for (let i = 0; i < 6 - endOffset; i++)
-      this.monthRange.push(0);
+    for (let i = 1; i <= 6 - endOffset; i++)
+      this.monthRange.push({ date: i, inMonth: false });
   }
 
-  getStartDayInMonth(month: number, year: number) {
+  getStartDayInMonth(year: number, month: number) {
     return new Date(year, month - 1, 1).getDay();
   }
 
-  getLastDayInMonth(month: number, year: number) {
+  getLastDayInMonth(year: number, month: number) {
     return new Date(year, month, 0).getDay();
   }
 
-  // getMonthRangeInWeeks() {
-  //   let range = [];
-  //   let numWeeksInMonth = Math.ceil(this.numDaysInMonth / 7);
-  //   for (let i = 1; i <= numWeeksInMonth; i++)
-  //     range.push(i);
-  //   return range;
-  // }
-  //
-  // getMonthRangeInDaysPerWeek(startDate: number, endDate: number) {
-  //   let range = [];
-  //   let offset = this.getStartDayInMonth(this.displayedMonth.num, this.displayedYear);
-  //
-  //   //update endDate and startDate
-  //   endDate = endDate - offset;
-  //   if (startDate !== 1) startDate = startDate - offset;
-  //   else if (startDate === 1 && offset !== 0) {
-  //     let lastDateOfPrevMonth = this.getLastDayOfPrevMonth(this.displayedYear, this.displayedMonth.num);
-  //     for (let i = offset; i >= 1; i--) {
-  //       range.push(lastDateOfPrevMonth - i + 1);
-  //     }
-  //   }
-  //
-  //   //check if endDate overflows
-  //   if (endDate > this.numDaysInMonth)
-  //     endDate = this.numDaysInMonth;
-  //
-  //   //get daysPerWeekRange
-  //   for (let i = startDate; i <= endDate; i++)
-  //     range.push(i);
-  //
-  //   //handle underflow at end of month
-  //   let currRangeLength = range.length;
-  //   for (let i = 1; i <= (7 - currRangeLength); i++)
-  //     range.push(i);
-  //
-  //   return range;
-  // }
-  //
-  // getLastDayOfPrevMonth(year: number, month: number) {
-  //   return new Date(year, month - 1, 0).getDate();
-  // }
-  //
-  // onNextMonth() {
-  //   if (this.checkOverflow('next')) {
-  //     this.displayedYear++;
-  //     this.displayedMonth = { num: 1, name: this.months[0] };
-  //   } else {
-  //     this.displayedMonth.num++;
-  //     this.displayedMonth.name = this.months[this.displayedMonth.num - 1];
-  //   }
-  //   this.numDaysInMonth = new Date(this.displayedYear, this.displayedMonth.num, 0).getDate()
-  // }
-  //
-  // onPrevMonth() {
-  //   if (this.checkOverflow('prev')) {
-  //     this.displayedYear--;
-  //     this.displayedMonth = { num: 12, name: this.months[11] };
-  //   } else {
-  //     this.displayedMonth.num--;
-  //     this.displayedMonth.name = this.months[this.displayedMonth.num - 1];
-  //   }
-  //   this.numDaysInMonth = new Date(this.displayedYear, this.displayedMonth.num, 0).getDate()
-  // }
-  //
-  // checkOverflow(action: string) {
-  //   let currMonth = this.displayedMonth.num;
-  //   if (action === 'next')
-  //     return currMonth + 1 > 12
-  //   else
-  //     return currMonth - 1 < 1;
-  // }
+  getLastDayOfPrevMonth(year: number, month: number) {
+    return new Date(year, month - 1, 0).getDate();
+  }
+
+  onNextMonth() {
+    const nextMonth = new Date(this.displayedYear, this.displayedMonth.num, 1);
+    this.updateDisplayData(nextMonth.getFullYear(), nextMonth.getMonth() + 1);
+  }
+
+  onPrevMonth() {
+    const prevMonth = new Date(this.displayedYear, this.displayedMonth.num - 1, 0);
+    this.updateDisplayData(prevMonth.getFullYear(), prevMonth.getMonth() + 1);
+  }
 
 }

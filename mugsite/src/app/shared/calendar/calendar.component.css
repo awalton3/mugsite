@@ -28,3 +28,11 @@
   cursor: pointer;
   padding: 10px 0px;
 }
+
+.calendar-date-inactive {
+  color: #D1CFCF;
+  font-weight: 400;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 10px 0px;
+}

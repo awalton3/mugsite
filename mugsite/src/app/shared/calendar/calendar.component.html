@@ -15,7 +15,11 @@
   </div>
 
   <div fxLayout="row wrap" fxLayoutAlign="center center" class="widthFullPer">
-    <span *ngFor="let date of monthRange" class="calendar-date" fxLayoutAlign="center center" fxFlex="14.2857%">{{ date }}</span>
+    <span
+    *ngFor="let dateEl of monthRange"
+    fxLayoutAlign="center center" fxFlex="14.2857%"
+    [ngClass]="{'calendar-date-inactive': !dateEl.inMonth, 'calendar-date': dateEl.inMonth}">
+    {{ dateEl.date }}</span>
   </div>
 
 </div>
