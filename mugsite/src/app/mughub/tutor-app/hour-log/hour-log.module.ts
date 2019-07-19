@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsMaterialComponentsModule } from 'src/app/shared/angular-material/forms-material-components.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { HourLogUploaderComponent } from './hour-log-uploader/hour-log-uploader.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 ``
 @NgModule({
   declarations: [HourLogComponent, CalendarComponent, HourLogUploaderComponent],
@@ -19,6 +20,7 @@ import { HourLogUploaderComponent } from './hour-log-uploader/hour-log-uploader.
     HeadnavModule,
     ReactiveFormsModule,
     FormsMaterialComponentsModule,
+    MatAutocompleteModule,
     MatSidenavModule
   ]
 })
