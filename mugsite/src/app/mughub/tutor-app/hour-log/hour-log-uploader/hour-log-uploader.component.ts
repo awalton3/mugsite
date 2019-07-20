@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, OnDestroy } from '@angular/core';
 import { Subject, Observable, Subscription } from 'rxjs';
-import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, AbstractControl, Validators } from '@angular/forms';
 import { User } from 'src/app/mughub/auth/user.model';
 import { UserService } from 'src/app/mughub/auth/user.service';
 import { startWith, map } from 'rxjs/operators';
@@ -43,13 +43,20 @@ export class HourLogUploaderComponent implements OnInit, OnDestroy {
     this.hourLogForm = new FormGroup({
       connection: new FormControl(null, this.ValidateConnection.bind(this)),
       date: new FormControl(null),
-      startTime: new FormControl("15:00"),
-      endTime: new FormControl("16:00"),
+      startTime: new FormControl("15:00", Validators.required),
+      endTime: new FormControl("16:00", [Validators.required, this.ValidateEndTime.bind(this)]),
     })
   }
 
   ValidateConnection(control: AbstractControl) {
     return this.connectionNames.includes(control.value) ? null : { validConnection: false };
+  }
+
+  ValidateEndTime(control: AbstractControl) {
+    if (this.hourLogForm.value.startTime)
+      return control.value > this.hourLogForm.value.startTime ? null : { validEndTime: false };
+    else
+      return null;
   }
 
   initAutoComp() {
@@ -72,6 +79,8 @@ export class HourLogUploaderComponent implements OnInit, OnDestroy {
   }
 
   onClose() {
+    this.initForm();
+    this.initAutoComp(); 
     this.onCloseUploder.next();
   }
 
