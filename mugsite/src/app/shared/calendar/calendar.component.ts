@@ -56,8 +56,9 @@ export class CalendarComponent implements OnInit {
 
   ifDateValidToClick(date: number, year: number, month: number) {
     const dateToCheck = new Date(year, month - 1, date);
-    const currDate = new Date();
-    return dateToCheck >= currDate; 
+    const currDate = new Date(); 
+    currDate.setHours(0, 0, 0, 0);
+    return dateToCheck >= currDate;
   }
 
   getEndMonthRange(endOffset: number) {
@@ -87,9 +88,10 @@ export class CalendarComponent implements OnInit {
     this.updateDisplayData(prevMonth.getFullYear(), prevMonth.getMonth() + 1);
   }
 
-  onDateClicked(date: number) {
-    const dateClicked = new Date(this.displayedYear, this.displayedMonth.num - 1, date);
-    this.onDateClick.next(dateClicked);
+  onDateClicked(dateEl: { date: number, enabled: boolean }) {
+    if (dateEl.enabled) {
+      const dateClicked = new Date(this.displayedYear, this.displayedMonth.num - 1, dateEl.date);
+      this.onDateClick.next(dateClicked);
+    }
   }
-
 }
