@@ -12,6 +12,7 @@ import { HourLogUploaderComponent } from './hour-log-uploader/hour-log-uploader.
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { CalendarService } from 'src/app/shared/calendar/calendar.service';
 ``
 @NgModule({
   declarations: [HourLogComponent, CalendarComponent, HourLogUploaderComponent],
@@ -26,6 +27,9 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSidenavModule
+  ],
+  providers: [
+    CalendarService
   ]
 })
 export class HourLogModule { }

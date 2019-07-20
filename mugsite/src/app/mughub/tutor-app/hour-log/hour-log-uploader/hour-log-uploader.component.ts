@@ -1,18 +1,20 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Component, OnInit, Output, OnDestroy } from '@angular/core';
+import { Subject, Observable, Subscription } from 'rxjs';
 import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import { User } from 'src/app/mughub/auth/user.model';
 import { UserService } from 'src/app/mughub/auth/user.service';
 import { startWith, map } from 'rxjs/operators';
+import { CalendarService } from 'src/app/shared/calendar/calendar.service';
 
 @Component({
   selector: 'mughub-hour-log-uploader',
   templateUrl: './hour-log-uploader.component.html',
   styleUrls: ['./hour-log-uploader.component.css']
 })
-export class HourLogUploaderComponent implements OnInit {
 
-  @Input() dateClicked: Date;
+export class HourLogUploaderComponent implements OnInit, OnDestroy {
+
+  private subs = new Subscription();
   @Output() onCloseUploder = new Subject;
   hourLogForm: FormGroup = new FormGroup({});
   connections: User[] = [];
@@ -21,7 +23,10 @@ export class HourLogUploaderComponent implements OnInit {
   selectedConnection: User;
   currDate: Date;
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private calendarService: CalendarService
+  ) { }
 
   ngOnInit() {
     this.initForm();
@@ -29,14 +34,17 @@ export class HourLogUploaderComponent implements OnInit {
     this.connections = this.userService.getUserSession().connections;
     this.getConnectionNames();
     this.currDate = new Date();
+    this.subs.add(this.calendarService.onDateClick.subscribe(date => {
+      this.hourLogForm.controls.date.setValue(date);
+    }));
   }
 
   initForm() {
     this.hourLogForm = new FormGroup({
       connection: new FormControl(null, this.ValidateConnection.bind(this)),
-      date: new FormControl(this.dateClicked),
-      startTime: new FormControl("00:00"),
-      endTime: new FormControl("01:00"),
+      date: new FormControl(null),
+      startTime: new FormControl("15:00"),
+      endTime: new FormControl("16:00"),
     })
   }
 
@@ -64,8 +72,11 @@ export class HourLogUploaderComponent implements OnInit {
   }
 
   onClose() {
-    console.log(this.hourLogForm); 
     this.onCloseUploder.next();
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 
 }

@@ -1,5 +1,5 @@
-import { Component, OnInit, Output } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { CalendarService } from './calendar.service';
 
 @Component({
   selector: 'app-calendar',
@@ -8,7 +8,7 @@ import { Subject } from 'rxjs';
 })
 export class CalendarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private calendarService: CalendarService) { }
 
   displayedMonth: { num: number; name: string };
   displayedYear: number;
@@ -16,15 +16,13 @@ export class CalendarComponent implements OnInit {
   days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-  @Output() onDateClick = new Subject<Date>();
-
   ngOnInit() {
     const currDate = new Date();
     this.updateDisplayData(currDate.getFullYear(), currDate.getMonth() + 1)
     this.getMonthRange(this.displayedYear, this.displayedMonth.num);
   }
 
-  updateDisplayData(year, month) {
+  updateDisplayData(year: number, month: number) {
     this.displayedYear = year;
     this.displayedMonth = { num: month, name: this.months[month - 1] };
     this.getMonthRange(this.displayedYear, this.displayedMonth.num);
@@ -56,7 +54,7 @@ export class CalendarComponent implements OnInit {
 
   ifDateValidToClick(date: number, year: number, month: number) {
     const dateToCheck = new Date(year, month - 1, date);
-    const currDate = new Date(); 
+    const currDate = new Date();
     currDate.setHours(0, 0, 0, 0);
     return dateToCheck >= currDate;
   }
@@ -91,7 +89,7 @@ export class CalendarComponent implements OnInit {
   onDateClicked(dateEl: { date: number, enabled: boolean }) {
     if (dateEl.enabled) {
       const dateClicked = new Date(this.displayedYear, this.displayedMonth.num - 1, dateEl.date);
-      this.onDateClick.next(dateClicked);
+      this.calendarService.onDateClick.next(dateClicked);
     }
   }
 }

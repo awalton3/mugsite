@@ -1,14 +1,14 @@
 <mat-drawer-container [hasBackdrop]="false" class="heightFull">
 
   <mat-drawer #editor mode="over" position="end" opened="false" class="side-content-drawer">
-    <mughub-hour-log-uploader [dateClicked]="dateToLog" (onCloseUploder)="editor.close()"></mughub-hour-log-uploader>
+    <mughub-hour-log-uploader (onCloseUploder)="editor.close()"></mughub-hour-log-uploader>
   </mat-drawer>
 
   <mat-drawer-content class="background-eee heightFull paddingNone">
     <mughub-headnav title="Hour Log" iconLeft="menu" (leftIconToggled)="closeSidenav()"></mughub-headnav>
     <div fxLayout="column" fxLayoutAlign="start center">
       <br>
-      <app-calendar (onDateClick)="onLog($event)"></app-calendar>
+      <app-calendar></app-calendar>
     </div>
   </mat-drawer-content>
 
