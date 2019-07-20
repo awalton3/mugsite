@@ -5,6 +5,8 @@ import { User } from 'src/app/mughub/auth/user.model';
 import { UserService } from 'src/app/mughub/auth/user.service';
 import { startWith, map } from 'rxjs/operators';
 import { CalendarService } from 'src/app/shared/calendar/calendar.service';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { HourLogAutomateBottomSheetComponent } from './hour-log-automate-bottom-sheet/hour-log-automate-bottom-sheet.component';
 
 @Component({
   selector: 'mughub-hour-log-uploader',
@@ -25,7 +27,8 @@ export class HourLogUploaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private userService: UserService,
-    private calendarService: CalendarService
+    private calendarService: CalendarService,
+    private bottomSheet: MatBottomSheet
   ) { }
 
   ngOnInit() {
@@ -78,9 +81,15 @@ export class HourLogUploaderComponent implements OnInit, OnDestroy {
     this.connections.map(connection => this.connectionNames.push(connection.name));
   }
 
+  onAutomate() {
+    this.bottomSheet.open(HourLogAutomateBottomSheetComponent, {
+      hasBackdrop: false
+    });
+  }
+
   onClose() {
     this.initForm();
-    this.initAutoComp(); 
+    this.initAutoComp();
     this.onCloseUploder.next();
   }
 

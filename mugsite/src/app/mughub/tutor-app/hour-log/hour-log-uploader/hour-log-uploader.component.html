@@ -1,4 +1,4 @@
-<mughub-headnav title="Manage Hours" iconLeft="close" iconRight="done" (leftIconToggled)="onClose()" (enableIconRight)="hourLogForm.invalid"></mughub-headnav>
+<mughub-headnav title="Hour Log" iconLeft="close" iconRight="done" (leftIconToggled)="onClose()" (enableIconRight)="hourLogForm.invalid"></mughub-headnav>
 <form [formGroup]="hourLogForm" class="drawer-form">
 
   <p class="drawer-form-label">STUDENT NAME</p>
@@ -31,5 +31,17 @@
       <input matInput type="time" formControlName="endTime" class="drawer-form-input">
     </mat-form-field>
   </div>
+
+  <p class="drawer-form-label">REPEAT?</p>
+  <p class="drawer-form-text">
+    Tired of logging this event manually? Have this event automatically logged for you every week, month, or a time frame of your choice. Click the button below to get started.
+  </p>
+  <br>
+  <button
+  (click)="onAutomate()"
+  mat-stroked-button
+  color="accent"
+  class="widthFullPer"
+  fxLayoutAlign="center center">AUTOMATE</button>
 
 </form>

@@ -13,9 +13,11 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { CalendarService } from 'src/app/shared/calendar/calendar.service';
-``
+import { HourLogAutomateBottomSheetComponent } from './hour-log-uploader/hour-log-automate-bottom-sheet/hour-log-automate-bottom-sheet.component';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+
 @NgModule({
-  declarations: [HourLogComponent, CalendarComponent, HourLogUploaderComponent],
+  declarations: [HourLogComponent, CalendarComponent, HourLogUploaderComponent, HourLogAutomateBottomSheetComponent],
   imports: [
     CommonModule,
     MaterialComponentsModule,
@@ -26,10 +28,12 @@ import { CalendarService } from 'src/app/shared/calendar/calendar.service';
     MatAutocompleteModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatBottomSheetModule
   ],
   providers: [
     CalendarService
-  ]
+  ],
+  entryComponents: [HourLogAutomateBottomSheetComponent],
 })
 export class HourLogModule { }

@@ -1,20 +1,20 @@
 ::ng-deep .mat-bottom-sheet-container {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  max-height: 100vh;
-  max-width: 500px;
-  min-width: 275px;
-  height: 100vh;
-  width: 500px;
-  background-color: #eee;
-  padding: 0;
-  margin: 0;
+  position: absolute !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  max-height: 100vh !important;
+  max-width: 500px !important;
+  min-width: 275px !important;
+  height: 100vh !important;
+  width: 500px !important;
+  background-color: #eee !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 @media only screen and (max-width: 500px) {
   ::ng-deep .mat-bottom-sheet-container {
-    width: 100vw;
+    width: 100vw !important;
   }
 }
 
@@ -99,11 +99,11 @@
   font-weight: 600;
 }
 
-::ng-deep .mat-list-item-content {
+:host ::ng-deep .mat-list-item-content {
   padding: 18px !important;
 }
 
-::ng-deep .mat-form-field-label{
+:host ::ng-deep .mat-form-field-label{
   font-family: 'Montserrat', sans-serif !important;
   font-weight: 200 !important;
   color: grey !important;

@@ -1,0 +1,19 @@
+::ng-deep .mat-bottom-sheet-container {
+  position: absolute !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  max-height: 100vh !important;
+  max-width: 500px !important;
+  min-width: 275px !important;
+  height: 40vh !important;
+  width: 500px !important;
+  background-color: #eee !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+@media only screen and (max-width: 500px) {
+  ::ng-deep .mat-bottom-sheet-container {
+    width: 100vw !important;
+  }
+}

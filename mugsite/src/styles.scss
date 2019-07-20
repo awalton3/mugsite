@@ -49,6 +49,11 @@
 	}
 }
 
+.action-button-stroked {
+	font-family: 'Montserrat', sans-serif !important;
+	line-height: 30px !important;
+}
+
 .btn-active {
   color: #de6600 !important;
   cursor: pointer !important;
@@ -190,6 +195,11 @@
   font-size: 14px !important;
   font-weight: 400 !important;
   line-height: 20px !important;
+}
+
+.drawer-form-text {
+	font-size: 14px !important;
+	line-height: 22px !important;
 }
 
 /* animations */
