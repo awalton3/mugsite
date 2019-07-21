@@ -1,1 +1,19 @@
 <mughub-headnav title="Automate hours" iconLeft="expand_more" (leftIconToggled)="bottomSheetRef.dismiss()" iconRight="done"></mughub-headnav>
+<form [formGroup]="timeframeForm" class="drawer-form">
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <p class="drawer-form-text" style="padding-right: 10px">Repeat every </p>
+    <mat-form-field floatLabel="never" style="width: 50px;">
+      <input type="number" matInput formControlName="timeframe" class="drawer-form-input" placeholder="0" style="text-align: center">
+    </mat-form-field>
+    <p class="drawer-form-text" style="padding-left: 10px"> weeks.</p>
+  </div>
+</form>
+<div fxLayout="row" fxLayoutAlign="space-around center" class="timeframe-selector-container">
+  <div *ngFor="let day of days, let i = index" fxLayout="row" fxLayoutAlign="space-around center" class="widthFullPer">
+    <div (click)="onDaySelect(day)" [ngClass]="{'timeframe-selected': daysSelected.includes(day)}" fxLayoutAlign="center center">
+      <div class="timeframe-selector timeframe-selector-pointer" fxLayoutAlign="center center" [ngStyle]="{'color': daysSelected.includes(day) ? 'white' : 'grey'}">{{ day }}</div>
+    </div>
+    <div *ngIf="i !== days.length - 1" class="timeframe-selector">|</div>
+    <div *ngIf="i === days.length - 1" class="timeframe-selector"></div>
+  </div>
+</div>
