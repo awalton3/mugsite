@@ -37,3 +37,11 @@
   font-size: 15px;
   padding: 10px 0px;
 }
+
+.event-circle {
+  background-color: #2b5570;
+  width: 6px;
+  height: 6px;
+  border-radius: 200px;
+  margin-bottom: 2px;
+}

@@ -8,7 +8,7 @@
     <mughub-headnav title="Manage Hours" iconLeft="menu" (leftIconToggled)="closeSidenav()"></mughub-headnav>
     <div fxLayout="column" fxLayoutAlign="start center">
       <br>
-      <app-calendar></app-calendar>
+      <app-calendar [loggedHoursSub]="loggedHoursSub"></app-calendar>
     </div>
   </mat-drawer-content>
 
