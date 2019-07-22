@@ -1,4 +1,4 @@
-<mughub-headnav title="Hour Log" iconLeft="close" iconRight="done" (leftIconToggled)="onClose()" (enableIconRight)="hourLogForm.invalid"></mughub-headnav>
+<mughub-headnav title="Hour Log" iconLeft="close" iconRight="done" (leftIconToggled)="onClose()" [enableIconRight]="hourLogForm.valid"></mughub-headnav>
 <form [formGroup]="hourLogForm" class="drawer-form">
 
   <p class="drawer-form-label">STUDENT NAME</p>
@@ -23,18 +23,18 @@
 
   <p class="drawer-form-label">HOURS</p>
   <div fxLayout="row" fxLayoutAlign="center center" fxFill>
-    <mat-form-field  floatLabel="never" style="width: 50%">
+    <mat-form-field  floatLabel="never" class="widthHalfPer">
       <input matInput type="time" formControlName="startTime" class="drawer-form-input">
     </mat-form-field>
     <p style="padding: 0px 15px;">to</p>
-    <mat-form-field  floatLabel="never" style="width: 50%">
+    <mat-form-field  floatLabel="never" class="widthHalfPer">
       <input matInput type="time" formControlName="endTime" class="drawer-form-input">
     </mat-form-field>
   </div>
 
   <p class="drawer-form-label">REPEAT?</p>
   <p class="drawer-form-text">
-    Tired of logging this event manually? Have this event automatically logged for you. Click the button below to get started.
+    Tired of logging events manually? Let us automatically logged this event for you. Click the button below to get started.
   </p>
   <br>
   <button

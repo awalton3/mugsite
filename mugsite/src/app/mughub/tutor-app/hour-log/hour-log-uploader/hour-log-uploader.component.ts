@@ -49,6 +49,7 @@ export class HourLogUploaderComponent implements OnInit, OnDestroy {
       startTime: new FormControl("15:00", Validators.required),
       endTime: new FormControl("16:00", [Validators.required, this.ValidateEndTime.bind(this)]),
     })
+    console.log(this.hourLogForm); 
   }
 
   ValidateConnection(control: AbstractControl) {
