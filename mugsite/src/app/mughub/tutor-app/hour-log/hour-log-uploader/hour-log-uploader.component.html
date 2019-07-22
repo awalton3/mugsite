@@ -1,4 +1,4 @@
-<mughub-headnav title="Hour Log" iconLeft="close" iconRight="done" (leftIconToggled)="onClose()" [enableIconRight]="hourLogForm.valid"></mughub-headnav>
+<mughub-headnav title="Hour Log" iconLeft="close" iconRight="done" (leftIconToggled)="onClose()" (rightIconToggled)="onSubmit()" [enableIconRight]="hourLogForm.valid"></mughub-headnav>
 <form [formGroup]="hourLogForm" class="drawer-form">
 
   <p class="drawer-form-label">STUDENT NAME</p>

@@ -7,6 +7,7 @@ import { startWith, map } from 'rxjs/operators';
 import { CalendarService } from 'src/app/shared/calendar/calendar.service';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { HourLogAutomateBottomSheetComponent } from './hour-log-automate-bottom-sheet/hour-log-automate-bottom-sheet.component';
+import { HourLogService } from '../hour-log.service';
 
 @Component({
   selector: 'mughub-hour-log-uploader',
@@ -28,7 +29,8 @@ export class HourLogUploaderComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UserService,
     private calendarService: CalendarService,
-    private bottomSheet: MatBottomSheet
+    private bottomSheet: MatBottomSheet,
+    private hourLogService: HourLogService
   ) { }
 
   ngOnInit() {
@@ -49,7 +51,7 @@ export class HourLogUploaderComponent implements OnInit, OnDestroy {
       startTime: new FormControl("15:00", Validators.required),
       endTime: new FormControl("16:00", [Validators.required, this.ValidateEndTime.bind(this)]),
     })
-    console.log(this.hourLogForm); 
+    console.log(this.hourLogForm);
   }
 
   ValidateConnection(control: AbstractControl) {
@@ -92,6 +94,25 @@ export class HourLogUploaderComponent implements OnInit, OnDestroy {
     this.initForm();
     this.initAutoComp();
     this.onCloseUploder.next();
+  }
+
+  onSubmit() {
+    let form = this.hourLogForm.value;
+    if (!this.selectedConnection)
+      this.selectedConnection = this.getConnectionUserObj(this.hourLogForm.value.connection);
+    this.hourLogService.uploadHoursToFb(this.selectedConnection, form.date, form.startTime, form.endTime)
+      .then(() => console.log('success'))
+      .catch(error => console.log(error))
+  }
+
+  getConnectionUserObj(connectionName: string) {
+    let connectionUserObj = null;
+    this.connections.map(connection => {
+      if (connection.name === connectionName) {
+        connectionUserObj = connection;
+      }
+    })
+    return connectionUserObj; //this should never happen
   }
 
   ngOnDestroy() {
