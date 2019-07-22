@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CalendarService } from './calendar.service';
+import { User } from 'firebase';
 
 @Component({
   selector: 'app-calendar',
@@ -10,6 +11,8 @@ export class CalendarComponent implements OnInit {
 
   constructor(private calendarService: CalendarService) { }
 
+  @Input() loggedHours?: { connection: User, date: Date, startTime: string, endTime: string }[] = [];
+  
   displayedMonth: { num: number; name: string };
   displayedYear: number;
   monthRange: { date: any, enabled: boolean }[] = [];

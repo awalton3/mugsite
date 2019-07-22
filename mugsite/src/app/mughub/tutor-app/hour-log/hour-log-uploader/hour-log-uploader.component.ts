@@ -101,7 +101,7 @@ export class HourLogUploaderComponent implements OnInit, OnDestroy {
     if (!this.selectedConnection)
       this.selectedConnection = this.getConnectionUserObj(this.hourLogForm.value.connection);
     this.hourLogService.uploadHoursToFb(this.selectedConnection, form.date, form.startTime, form.endTime)
-      .then(() => console.log('success'))
+      .then(() => this.onClose())
       .catch(error => console.log(error))
   }
 

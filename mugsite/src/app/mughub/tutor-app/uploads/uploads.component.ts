@@ -39,9 +39,7 @@ export class UploadsComponent implements OnInit, OnDestroy{
     this.subs.add(uploadsQuery
       .onSnapshot(querySnapshot => {
         let uploads = [];
-        querySnapshot.forEach(doc => {
-          uploads.push(this.createUpload(doc));
-        });
+        querySnapshot.forEach(doc => uploads.push(this.createUpload(doc)));
         this.uploads = uploads;
         this.uploadsEmpty = !!(this.uploads.length === 0)
         if(this.uploadsEmpty) this.loading = false;
