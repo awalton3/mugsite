@@ -12,7 +12,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   constructor(private calendarService: CalendarService) { }
 
-  @Input() loggedHoursSub? = new Subject<{ [key: number]: HourLogElement[] }>();
+  @Input() loggedHoursSub?= new Subject<{ [key: number]: HourLogElement[] }>();
 
   private subs = new Subscription();
   displayedMonth: { num: number; name: string };
@@ -67,13 +67,6 @@ export class CalendarComponent implements OnInit, OnDestroy {
       this.monthRange.push({ date: i, enabled: false, hasEvent: this.ifDateHasEvent(i, year, month) });
   }
 
-  // ifDateValidToClick(date: number, year: number, month: number) {
-  //   const dateToCheck = new Date(year, month - 1, date);
-  //   const currDate = new Date();
-  //   currDate.setHours(0, 0, 0, 0);
-  //   return dateToCheck >= currDate;
-  // }
-
   ifDateHasEvent(date: number, year: number, month: number) {
     const dateToCheck = new Date(year, month - 1, date);
     return !!(this.loggedHours[dateToCheck.getTime()]);
@@ -107,8 +100,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
       this.calendarService.onDateClick.next({
         dateObj: dateClicked,
         month: this.months[this.displayedMonth.num - 1],
-        date: dateEl.date,
-        hoursLogged: this.loggedHours[dateClicked.getTime()]
+        date: dateEl.date
       });
     }
   }

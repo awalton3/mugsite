@@ -1,5 +1,5 @@
 <mughub-headnav title="{{ dateClicked.month }}  {{ dateClicked.date }}" iconLeft="close" (leftIconToggled)="onClose()"></mughub-headnav>
-<div *ngFor="let hourLogEl of this.dateClicked.hoursLogged" fxLayout="row" fxLayoutAlign="start center" class="widthFullPer hourLogEl" matRipple>
+<div (click)="onEditHourLogEl(hourLogEl)" *ngFor="let hourLogEl of dateClicked.hoursLogged" fxLayout="row" fxLayoutAlign="start center" class="widthFullPer hourLogEl" matRipple>
   <div class="profile-image-container-small" [ngStyle]="{'background-image': 'url(' + hourLogEl.connection.photoUrl + ')'}" fxLayoutAlign="center center" style="margin-right: 20px;"></div>
   <div fxLayout="column" fxLayoutAlign="center start">
     <p style="margin:0">{{ hourLogEl.connection.name }}</p>

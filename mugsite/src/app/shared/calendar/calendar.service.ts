@@ -5,5 +5,5 @@ import { HourLogElement } from 'src/app/mughub/tutor-app/hour-log/hour-log-eleme
 @Injectable()
 
 export class CalendarService {
-  onDateClick = new Subject<{ dateObj: Date, month: string, date: number, hoursLogged: HourLogElement[] }>();
+  onDateClick = new Subject<{ dateObj: Date, month: string, date: number }>();
 }

@@ -15,11 +15,7 @@ export class HeadnavComponent {
 
   @Output() leftIconToggled = new Subject();
   @Output() rightIconToggled = new Subject();
-
-  ngOnInit() {
-    console.log(this.enableIconRight);
-  }
-
+  
   constructor() { }
 
   onLeftIconToggle() {

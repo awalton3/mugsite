@@ -26,7 +26,7 @@
     <mat-form-field  floatLabel="never" class="widthHalfPer">
       <input matInput type="time" formControlName="startTime" class="drawer-form-input">
     </mat-form-field>
-    <p style="padding: 0px 15px;">to</p>
+    <p style="padding: 0px 15px; color: grey">to</p>
     <mat-form-field  floatLabel="never" class="widthHalfPer">
       <input matInput type="time" formControlName="endTime" class="drawer-form-input">
     </mat-form-field>
@@ -45,3 +45,7 @@
   fxLayoutAlign="center center">AUTOMATE</button>
 
 </form>
+
+<div *ngIf="data.isEditMode" (click)="onDelete()" class="drawer-sticky-btn-red" fxLayoutAlign="center center" matRipple>
+  DELETE
+</div>

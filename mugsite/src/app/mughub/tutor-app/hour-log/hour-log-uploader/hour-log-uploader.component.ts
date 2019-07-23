@@ -4,6 +4,8 @@ import { HourLogElement } from '../hour-log-element.model';
 import { CalendarService } from 'src/app/shared/calendar/calendar.service';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { HourLogUploaderBottomsheetComponent } from './hour-log-uploader-bottomsheet/hour-log-uploader-bottomsheet.component';
+import { User } from 'src/app/mughub/auth/user.model';
+import { HourLogService } from '../hour-log.service';
 
 @Component({
   selector: 'mughub-hour-log-uploader',
@@ -14,7 +16,6 @@ import { HourLogUploaderBottomsheetComponent } from './hour-log-uploader-bottoms
 export class HourLogUploaderComponent implements OnInit, OnDestroy {
 
   private subs = new Subscription();
-  @Output() onCloseUploder = new Subject();
   addBtnEnabled: boolean = false;
   dateClicked: { month: string, date: number, hoursLogged: HourLogElement[], dateObj: Date } = {
     month: null,
@@ -22,35 +23,46 @@ export class HourLogUploaderComponent implements OnInit, OnDestroy {
     hoursLogged: null,
     dateObj: null
   };
+  @Output() onCloseUploder = new Subject();
 
   constructor(
     private calendarService: CalendarService,
-    private bottomSheet: MatBottomSheet
+    private bottomSheet: MatBottomSheet,
+    private hourLogService: HourLogService
   ) { }
 
   ngOnInit() {
     this.subs.add(this.calendarService.onDateClick.subscribe(date => {
       this.dateClicked.month = date.month;
       this.dateClicked.date = date.date;
-      this.dateClicked.hoursLogged = date.hoursLogged;
       this.dateClicked.dateObj = date.dateObj;
-      this.addBtnEnabled = this.isDateWithinTimeframe(this.dateClicked.dateObj);
+      this.dateClicked.hoursLogged = this.hourLogService.loggedHours[this.dateClicked.dateObj.getTime()];
+      this.addBtnEnabled = this.hourLogService.isDateWithinTimeframe(this.dateClicked.dateObj);
     }));
-  }
-
-  isDateWithinTimeframe(dateToCheck: Date) {
-    const pastDate = new Date();
-    pastDate.setDate(pastDate.getDate() - 14);
-    pastDate.setHours(0, 0, 0, 0);
-    return dateToCheck >= pastDate;
+    this.subs.add(this.hourLogService.loggedHoursChanged.subscribe(loggedHours => {
+      if (this.dateClicked.dateObj)
+        this.dateClicked.hoursLogged = loggedHours[this.dateClicked.dateObj.getTime()];
+    }))
   }
 
   onAddHours() {
+    const nullConnection = new User(null, null, null, null, null, null, null, null)
+    const newHourLogEl = new HourLogElement(null, nullConnection, this.dateClicked.dateObj, "15:00", "16:00")
     this.bottomSheet.open(HourLogUploaderBottomsheetComponent, {
       hasBackdrop: false,
       data: {
         isEditMode: false,
-        date: this.dateClicked.dateObj
+        hourLogEl: newHourLogEl
+      }
+    });
+  }
+
+  onEditHourLogEl(hourLogEl: HourLogElement) {
+    this.bottomSheet.open(HourLogUploaderBottomsheetComponent, {
+      hasBackdrop: false,
+      data: {
+        isEditMode: true,
+        hourLogEl: hourLogEl
       }
     });
   }

@@ -1,5 +1,5 @@
-import { Component, OnInit, Output, Inject } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Component, OnInit, Inject } from '@angular/core';
+import { Observable } from 'rxjs';
 import { FormGroup, FormControl, AbstractControl, Validators } from '@angular/forms';
 import { User } from 'src/app/mughub/auth/user.model';
 import { UserService } from 'src/app/mughub/auth/user.service';
@@ -7,6 +7,7 @@ import { HourLogService } from '../../hour-log.service';
 import { MatBottomSheet, MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { startWith, map } from 'rxjs/operators';
 import { HourLogAutomateBottomSheetComponent } from '../hour-log-automate-bottom-sheet/hour-log-automate-bottom-sheet.component';
+import { HourLogElement } from '../../hour-log-element.model';
 
 @Component({
   selector: 'app-hour-log-uploader-bottomsheet',
@@ -27,7 +28,7 @@ export class HourLogUploaderBottomsheetComponent implements OnInit {
     private bottomSheet: MatBottomSheet,
     private hourLogService: HourLogService,
     private bottomSheetRef: MatBottomSheetRef<HourLogUploaderBottomsheetComponent>,
-    @Inject(MAT_BOTTOM_SHEET_DATA) public data: { isEditMode: boolean, date: Date },
+    @Inject(MAT_BOTTOM_SHEET_DATA) public data: { isEditMode: boolean, hourLogEl: HourLogElement },
   ) { }
 
   ngOnInit() {
@@ -40,10 +41,10 @@ export class HourLogUploaderBottomsheetComponent implements OnInit {
 
   initForm() {
     this.hourLogForm = new FormGroup({
-      connection: new FormControl(null, this.ValidateConnection.bind(this)),
-      date: new FormControl(this.data.date),
-      startTime: new FormControl("15:00", Validators.required),
-      endTime: new FormControl("16:00", [Validators.required, this.ValidateEndTime.bind(this)]),
+      connection: new FormControl(this.data.hourLogEl.connection.name, this.ValidateConnection.bind(this)),
+      date: new FormControl(this.data.hourLogEl.date),
+      startTime: new FormControl(this.data.hourLogEl.startTime, Validators.required),
+      endTime: new FormControl(this.data.hourLogEl.endTime, [Validators.required, this.ValidateEndTime.bind(this)]),
     })
   }
 
@@ -83,18 +84,51 @@ export class HourLogUploaderBottomsheetComponent implements OnInit {
     });
   }
 
+  onSubmit() {
+    if (!this.selectedConnection)
+      this.selectedConnection = this.getConnectionUserObj(this.hourLogForm.value.connection);
+    this.data.isEditMode ? this.submitOnEdit() : this.submitOnAdd();
+  }
+
+  submitOnAdd() {
+    let form = this.hourLogForm.value;
+    this.hourLogService.uploadHoursToFb(this.selectedConnection, form.date, form.startTime, form.endTime)
+      .then(() => this.onSuccess())
+      .catch(error => console.log(error))
+  }
+
+  submitOnEdit() {
+    if (this.ifFormChanged()) {
+      let form = this.hourLogForm.value;
+      this.hourLogService.updateHoursInFb(this.selectedConnection, form.date, form.startTime, form.endTime, this.data.hourLogEl.id)
+        .then(() => this.onSuccess())
+        .catch(error => console.log(error))
+    } else this.onClose();
+  }
+
+  onSuccess() {
+    this.hourLogService.onLoggedHoursChanged();
+    this.onClose();
+  }
+
   onClose() {
     this.initForm();
     this.initAutoComp();
     this.bottomSheetRef.dismiss();
   }
 
-  onSubmit() {
-    let form = this.hourLogForm.value;
-    if (!this.selectedConnection)
-      this.selectedConnection = this.getConnectionUserObj(this.hourLogForm.value.connection);
-    this.hourLogService.uploadHoursToFb(this.selectedConnection, form.date, form.startTime, form.endTime)
-      .then(() => this.onClose())
+  ifFormChanged() {
+    for (let i = 0; i < Object.keys(this.hourLogForm.controls).length; i++) {
+      const field = Object.keys(this.hourLogForm.controls)[i];
+      if (!this.hourLogForm.controls[field].pristine)
+        return true;
+    }
+    return false;
+  }
+
+  onDelete() {
+    this.hourLogService.deleteHoursInFb(this.data.hourLogEl.id)
+      .then(() => this.onSuccess())
       .catch(error => console.log(error))
   }
 
