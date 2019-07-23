@@ -26,7 +26,6 @@ export class HourLogUploaderBottomsheetComponent implements OnInit {
   //autocomplete
   filteredConnections: Observable<User[]>;
   connections: User[] = [];
-  connectionNames: string[] = [];
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
 
   //chips
@@ -52,7 +51,6 @@ export class HourLogUploaderBottomsheetComponent implements OnInit {
     this.initForm();
     this.initAutoComp();
     this.connections = this.userService.getUserSession().connections;
-    this.getConnectionNames();
     this.currDate = new Date();
   }
 
@@ -66,7 +64,7 @@ export class HourLogUploaderBottomsheetComponent implements OnInit {
   }
 
   ValidateConnection(control: AbstractControl) {
-    if (control.value && (!this.selectedConnections.includes(control.value) || this.connectionNames.includes(control.value)))
+    if (control.value && (!this.selectedConnections.includes(control.value) || this.connections.some(connection => connection.name === control.value)))
       return { validConnection: false };
     if (this.selectedConnections.length === 0 && control.value === null)
       return { validConnection: false };
@@ -101,14 +99,14 @@ export class HourLogUploaderBottomsheetComponent implements OnInit {
       const value = event.value;
 
       this.connectionExist = this.selectedConnections.some(connection => connection.name === value.trim());
-      this.connectionInvalid = !this.connectionNames.includes(value.trim())
+      this.connectionInvalid = !this.connections.some(connection => connection.name === value.trim())
 
       if ((value || '').trim() && !this.connectionInvalid && !this.connectionExist)
         this.selectedConnections.push(this.getConnectionUserObj(value.trim()));
 
       if (input)
         input.value = '';
-        
+
       this.hourLogForm.controls.connection.setValue(null);
     }
   }
@@ -127,10 +125,6 @@ export class HourLogUploaderBottomsheetComponent implements OnInit {
     }
     this.connectionInput.nativeElement.value = '';
     this.hourLogForm.controls.connection.setValue(null);
-  }
-
-  getConnectionNames() {
-    this.connections.map(connection => this.connectionNames.push(connection.name));
   }
 
   onAutomate() {
