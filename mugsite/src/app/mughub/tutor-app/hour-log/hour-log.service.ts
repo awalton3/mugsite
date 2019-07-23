@@ -77,10 +77,15 @@ export class HourLogService {
   }
 
   isDateWithinTimeframe(dateToCheck: Date) {
-    const pastDate = new Date();
-    pastDate.setDate(pastDate.getDate() - 14);
-    pastDate.setHours(0, 0, 0, 0);
-    return dateToCheck >= pastDate;
+    const minDate = this.getMinDate();
+    return dateToCheck >= minDate;
+  }
+
+  getMinDate() {
+    const minDate = new Date();
+    minDate.setDate(minDate.getDate() - 14);
+    minDate.setHours(0, 0, 0, 0);
+    return minDate;
   }
 
 }

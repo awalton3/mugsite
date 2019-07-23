@@ -20,8 +20,4 @@ export class MughubService {
       .orderBy('name')
   }
 
-  createPureJsObj() {
-    
-  }
-
 }

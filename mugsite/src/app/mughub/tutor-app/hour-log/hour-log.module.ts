@@ -17,6 +17,8 @@ import { HourLogAutomateBottomSheetComponent } from './hour-log-uploader/hour-lo
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { HourLogUploaderBottomsheetComponent } from './hour-log-uploader/hour-log-uploader-bottomsheet/hour-log-uploader-bottomsheet.component';
 import { StandardTimePipe } from './standard-time.pipe';
+import { MatChipsModule } from '@angular/material/chips';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { StandardTimePipe } from './standard-time.pipe';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSidenavModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    MatChipsModule
   ],
   providers: [
     CalendarService
