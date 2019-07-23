@@ -58,7 +58,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   getMainMonthRange(numDaysInMonth: number, year: number, month: number) {
     for (let i = 1; i <= numDaysInMonth; i++) {
-      this.monthRange.push({ date: i, enabled: this.ifDateValidToClick(i, year, month), hasEvent: this.ifDateHasEvent(i, year, month) });
+      this.monthRange.push({ date: i, enabled: true, hasEvent: this.ifDateHasEvent(i, year, month) });
     }
   }
 
@@ -67,12 +67,12 @@ export class CalendarComponent implements OnInit, OnDestroy {
       this.monthRange.push({ date: i, enabled: false, hasEvent: this.ifDateHasEvent(i, year, month) });
   }
 
-  ifDateValidToClick(date: number, year: number, month: number) {
-    const dateToCheck = new Date(year, month - 1, date);
-    const currDate = new Date();
-    currDate.setHours(0, 0, 0, 0);
-    return dateToCheck >= currDate;
-  }
+  // ifDateValidToClick(date: number, year: number, month: number) {
+  //   const dateToCheck = new Date(year, month - 1, date);
+  //   const currDate = new Date();
+  //   currDate.setHours(0, 0, 0, 0);
+  //   return dateToCheck >= currDate;
+  // }
 
   ifDateHasEvent(date: number, year: number, month: number) {
     const dateToCheck = new Date(year, month - 1, date);

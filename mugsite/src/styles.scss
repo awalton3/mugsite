@@ -129,6 +129,20 @@
   }
 }
 
+.drawer-sticky-btn-disabled {
+	font-family: 'Montserrat', sans-serif !important;
+  font-size: 17px !important;
+	position: fixed !important;
+  background-color: #de6600 !important;
+	opacity: 0.6;
+	bottom: 0 !important;
+  color: white !important;
+	width: 500px !important;
+  height: 60px !important;
+  font-weight: 600 !important;
+}
+
+
 .drawer-sticky-btn-accent {
   font-family: 'Montserrat', sans-serif !important;
   font-size: 17px !important;

@@ -14,7 +14,8 @@ import { HourLogUploaderBottomsheetComponent } from './hour-log-uploader-bottoms
 export class HourLogUploaderComponent implements OnInit, OnDestroy {
 
   private subs = new Subscription();
-  @Output() onCloseUploder = new Subject;
+  @Output() onCloseUploder = new Subject();
+  addBtnEnabled: boolean = false;
   dateClicked: { month: string, date: number, hoursLogged: HourLogElement[], dateObj: Date } = {
     month: null,
     date: null,
@@ -24,7 +25,7 @@ export class HourLogUploaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private calendarService: CalendarService,
-    private bottomSheet: MatBottomSheet,
+    private bottomSheet: MatBottomSheet
   ) { }
 
   ngOnInit() {
@@ -33,7 +34,15 @@ export class HourLogUploaderComponent implements OnInit, OnDestroy {
       this.dateClicked.date = date.date;
       this.dateClicked.hoursLogged = date.hoursLogged;
       this.dateClicked.dateObj = date.dateObj;
+      this.addBtnEnabled = this.isDateWithinTimeframe(this.dateClicked.dateObj);
     }));
+  }
+
+  isDateWithinTimeframe(dateToCheck: Date) {
+    const pastDate = new Date();
+    pastDate.setDate(pastDate.getDate() - 14);
+    pastDate.setHours(0, 0, 0, 0);
+    return dateToCheck >= pastDate;
   }
 
   onAddHours() {

@@ -16,6 +16,7 @@ import { CalendarService } from 'src/app/shared/calendar/calendar.service';
 import { HourLogAutomateBottomSheetComponent } from './hour-log-uploader/hour-log-automate-bottom-sheet/hour-log-automate-bottom-sheet.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { HourLogUploaderBottomsheetComponent } from './hour-log-uploader/hour-log-uploader-bottomsheet/hour-log-uploader-bottomsheet.component';
+import { StandardTimePipe } from './standard-time.pipe';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HourLogUploaderBottomsheetComponent } from './hour-log-uploader/hour-lo
     CalendarComponent,
     HourLogUploaderComponent,
     HourLogAutomateBottomSheetComponent,
-    HourLogUploaderBottomsheetComponent
+    HourLogUploaderBottomsheetComponent,
+    StandardTimePipe
   ],
   imports: [
     CommonModule,

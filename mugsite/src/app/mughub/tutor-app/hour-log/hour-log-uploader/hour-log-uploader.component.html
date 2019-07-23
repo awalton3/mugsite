@@ -1,11 +1,17 @@
 <mughub-headnav title="{{ dateClicked.month }}  {{ dateClicked.date }}" iconLeft="close" (leftIconToggled)="onClose()"></mughub-headnav>
 <div *ngFor="let hourLogEl of this.dateClicked.hoursLogged" fxLayout="row" fxLayoutAlign="start center" class="widthFullPer hourLogEl" matRipple>
   <div class="profile-image-container-small" [ngStyle]="{'background-image': 'url(' + hourLogEl.connection.photoUrl + ')'}" fxLayoutAlign="center center" style="margin-right: 20px;"></div>
-  <div fxLayout="column" fxLayoutAlign="center start" >
+  <div fxLayout="column" fxLayoutAlign="center start">
     <p style="margin:0">{{ hourLogEl.connection.name }}</p>
-    <p style="margin:0">{{ hourLogEl.startTime }} - {{ hourLogEl.endTime }}</p>
+    <p style="margin:0">{{ hourLogEl.startTime | standardTime }} - {{ hourLogEl.endTime | standardTime }}</p>
   </div>
 </div>
-<div (click)="onAddHours()" class="drawer-sticky-btn-accent" fxLayoutAlign="center center" matRipple>
+<div *ngIf="!addBtnEnabled">
+  <p style="margin: 0px 20px">*You are not permitted to add hours on this date as it is not within 2 weeks of today's date. Please contact ------- for more assistance.</p>
+</div>
+<div *ngIf="addBtnEnabled" (click)="onAddHours()" class="drawer-sticky-btn-accent" fxLayoutAlign="center center" matRipple>
+  ADD HOURS
+</div>
+<div *ngIf="!addBtnEnabled" class="drawer-sticky-btn-disabled" fxLayoutAlign="center center">
   ADD HOURS
 </div>

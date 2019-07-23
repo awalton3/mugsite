@@ -27,4 +27,34 @@ export class HourLogService {
       .where('userId', '==', this.userService.getUserSession().uid)
   }
 
+  convertTime(militaryTime: string) {
+
+    const militaryTimeArray = militaryTime.split(':');
+    const hours = Number(militaryTimeArray[0]);
+    const minutes = Number(militaryTimeArray[1]);
+    const seconds = Number(militaryTimeArray[2]);
+
+    let convertedTime = '';
+
+    convertedTime = this.convertHours(hours);
+
+    convertedTime += (minutes < 10) ? ":0" + minutes : ":" + minutes;
+    convertedTime += (seconds < 10) ? ":0" + seconds : ":" + seconds;
+    convertedTime += (hours >= 12) ? " P.M." : " A.M.";
+
+    console.log(convertedTime);
+  }
+
+  convertHours(militaryHours: number) {
+    let convertedHours = '';
+    if (militaryHours > 0 && militaryHours <= 12) {
+      convertedHours = "" + militaryHours;
+    } else if (militaryHours > 12) {
+      convertedHours = "" + (militaryHours - 12);
+    } else if (militaryHours == 0) {
+      convertedHours = "12";
+    }
+    return convertedHours;
+  }
+
 }
