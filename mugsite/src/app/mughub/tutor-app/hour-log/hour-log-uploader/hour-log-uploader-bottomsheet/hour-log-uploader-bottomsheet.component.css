@@ -1,0 +1,38 @@
+::ng-deep .mat-bottom-sheet-container {
+  position: absolute !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  max-height: 100vh !important;
+  max-width: 500px !important;
+  min-width: 275px !important;
+  height: 100vh !important;
+  width: 500px !important;
+  background-color: #eee !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+@media only screen and (max-width: 500px) {
+  ::ng-deep .mat-bottom-sheet-container {
+    width: 100vw !important;
+  }
+}
+
+:host ::ng-deep .mat-form-field-label{
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 200 !important;
+  font-size: 15px !important;
+  color: grey !important;
+}
+
+:host ::ng-deep .mat-datepicker-content .mat-calendar {
+	background: #eee !important;
+}
+
+:host ::ng-deep .mat-stroked-button:not([disabled]) {
+  border-color: #de6600 !important;
+}
+
+:host ::ng-deep .mat-button, .mat-raised-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button, .mat-fab, .mat-mini-fab {
+  font-size: 13px !important;
+}

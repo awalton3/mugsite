@@ -15,9 +15,16 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { CalendarService } from 'src/app/shared/calendar/calendar.service';
 import { HourLogAutomateBottomSheetComponent } from './hour-log-uploader/hour-log-automate-bottom-sheet/hour-log-automate-bottom-sheet.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { HourLogUploaderBottomsheetComponent } from './hour-log-uploader/hour-log-uploader-bottomsheet/hour-log-uploader-bottomsheet.component';
 
 @NgModule({
-  declarations: [HourLogComponent, CalendarComponent, HourLogUploaderComponent, HourLogAutomateBottomSheetComponent],
+  declarations: [
+    HourLogComponent,
+    CalendarComponent,
+    HourLogUploaderComponent,
+    HourLogAutomateBottomSheetComponent,
+    HourLogUploaderBottomsheetComponent
+  ],
   imports: [
     CommonModule,
     MaterialComponentsModule,
@@ -34,6 +41,6 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
   providers: [
     CalendarService
   ],
-  entryComponents: [HourLogAutomateBottomSheetComponent],
+  entryComponents: [HourLogAutomateBottomSheetComponent, HourLogUploaderBottomsheetComponent],
 })
 export class HourLogModule { }
