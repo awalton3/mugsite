@@ -11,21 +11,21 @@
   </div>
 
   <div fxLayout="row" fxLayoutAlign="center center" class="widthFullPer" style="margin: 20px 0px">
-    <span *ngFor="let day of days" class="calendar-dayofweek" fxLayoutAlign="center center" fxFlex>
+    <span *ngFor="let day of days" class="calendar-dayofweek" fxLayoutAlign="center center" fxFlex="14.2857%">
       {{ day }}
     </span>
   </div>
 
   <div fxLayout="row wrap" fxLayoutAlign="center center" class="widthFullPer">
-    <div fxLayout="column" fxLayoutAlign="center center"
-    *ngFor="let dateEl of monthRange"
-    (click)="onDateClicked(dateEl)"
-    fxLayoutAlign="center center" fxFlex="14.2857%"
-    [ngClass]="{'calendar-date-inactive': !dateEl.enabled, 'calendar-date': dateEl.enabled}"
-    matRipple [matRippleCentered]="centered" [matRippleDisabled]="!dateEl.enabled">
-    <div *ngIf="dateEl.hasEvent" class="event-circle" fxLayoutAlign="center center"></div>
-    {{ dateEl.date }}
+    <div fxLayout="column" fxLayoutAlign="center center" *ngFor="let dateEl of monthRange" (click)="onDateClicked(dateEl)" fxLayoutAlign="center center" fxFlex="14.2857%" [ngClass]="{'calendar-date-inactive': !dateEl.enabled, 'calendar-date': dateEl.enabled}"
+      matRipple [matRippleCentered]="centered" [matRippleDisabled]="!dateEl.enabled">
+      <div *ngIf="dateEl.hasEvent" class="event-circle" fxLayoutAlign="center center"></div>
+      <div *ngIf="!dateEl.hasEvent" class="event-circle-placeholder" fxLayoutAlign="center center"></div>
+      {{ dateEl.date }}
+    </div>
   </div>
-  </div>
+
+  <div style="height: 45%"></div>
+
 
 </div>

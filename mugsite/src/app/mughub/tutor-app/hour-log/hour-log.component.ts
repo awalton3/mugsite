@@ -14,9 +14,9 @@ import { HourLogElement } from './hour-log-element.model';
 export class HourLogComponent implements OnInit, OnDestroy {
 
   private subs = new Subscription();
-  loggedHoursSub = new Subject<{ [key: number]: HourLogElement[] }>();
+  loggedHoursChanged = new Subject<{ [key: number]: HourLogElement[] }>();
   loggedHours: { [key: number]: HourLogElement[] } = {};
-  @ViewChild('editor', { static: false }) editor: MatSidenav
+  @ViewChild('editor', { static: false }) editor: MatSidenav; 
 
   constructor(
     private sidenavService: SidenavService,
@@ -29,12 +29,12 @@ export class HourLogComponent implements OnInit, OnDestroy {
     this.subs.add(this.hourLogService.fetchHoursFromFb()
       .onSnapshot(querySnapshot => {
         this.loggedHours = {};
-        querySnapshot.forEach(doc => this.updateLoggedHoursObj(doc.data()));
-        this.loggedHoursSub.next(this.loggedHours);
+        querySnapshot.forEach(doc => this.addToLoggedHoursObj(doc.data()));
+        this.loggedHoursChanged.next(this.loggedHours);
       }))
   }
 
-  updateLoggedHoursObj(logElData) {
+  addToLoggedHoursObj(logElData) {
     const hourLogElement = this.getLogEl(logElData);
     const dateInMiliSecs = hourLogElement.date.getTime();
     if (this.loggedHours[dateInMiliSecs]) {

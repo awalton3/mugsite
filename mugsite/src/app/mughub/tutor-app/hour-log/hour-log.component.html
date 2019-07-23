@@ -6,9 +6,8 @@
 
   <mat-drawer-content class="background-eee heightFull paddingNone">
     <mughub-headnav title="Manage Hours" iconLeft="menu" (leftIconToggled)="closeSidenav()"></mughub-headnav>
-    <div fxLayout="column" fxLayoutAlign="start center">
-      <br>
-      <app-calendar [loggedHoursSub]="loggedHoursSub"></app-calendar>
+    <div fxLayout="column" fxLayoutAlign="center center">
+      <app-calendar [loggedHoursSub]="loggedHoursChanged"></app-calendar>
     </div>
   </mat-drawer-content>
 

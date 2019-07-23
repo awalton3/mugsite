@@ -1,4 +1,4 @@
-<mughub-headnav title="Hour Log" iconLeft="close" iconRight="done" (leftIconToggled)="onClose()" (rightIconToggled)="onSubmit()" [enableIconRight]="hourLogForm.valid"></mughub-headnav>
+<!-- <mughub-headnav title="Hour Log" iconLeft="close" iconRight="done" (leftIconToggled)="onClose()" (rightIconToggled)="onSubmit()" [enableIconRight]="hourLogForm.valid"></mughub-headnav>
 <form [formGroup]="hourLogForm" class="drawer-form">
 
   <p class="drawer-form-label">STUDENT NAME</p>
@@ -44,4 +44,17 @@
   class="widthFullPer"
   fxLayoutAlign="center center">AUTOMATE</button>
 
-</form>
+</form> -->
+
+
+<mughub-headnav title="{{ dateClicked.month }}  {{ dateClicked.date }}" iconLeft="close" (leftIconToggled)="onClose()"></mughub-headnav>
+<div *ngFor="let hourLogEl of this.dateClicked.hoursLogged" fxLayout="row" fxLayoutAlign="start center" class="widthFullPer hourLogEl" matRipple>
+  <div class="profile-image-container-small" [ngStyle]="{'background-image': 'url(' + hourLogEl.connection.photoUrl + ')'}" fxLayoutAlign="center center" style="margin-right: 20px;"></div>
+  <div fxLayout="column" fxLayoutAlign="center start" >
+    <p style="margin:0">{{ hourLogEl.connection.name }}</p>
+    <p style="margin:0">{{ hourLogEl.startTime }} - {{ hourLogEl.endTime }}</p>
+  </div>
+</div>
+<div class="drawer-sticky-btn-accent" fxLayoutAlign="center center" matRipple>
+  ADD
+</div>

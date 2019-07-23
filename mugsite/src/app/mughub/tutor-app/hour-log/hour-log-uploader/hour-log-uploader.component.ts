@@ -8,6 +8,7 @@ import { CalendarService } from 'src/app/shared/calendar/calendar.service';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { HourLogAutomateBottomSheetComponent } from './hour-log-automate-bottom-sheet/hour-log-automate-bottom-sheet.component';
 import { HourLogService } from '../hour-log.service';
+import { HourLogElement } from '../hour-log-element.model';
 
 @Component({
   selector: 'mughub-hour-log-uploader',
@@ -25,6 +26,11 @@ export class HourLogUploaderComponent implements OnInit, OnDestroy {
   filteredOptions: Observable<User[]>;
   selectedConnection: User;
   currDate: Date;
+  dateClicked: { month: string, date: number, hoursLogged: HourLogElement[] } = {
+    month: null,
+    date: null,
+    hoursLogged: null
+  };
 
   constructor(
     private userService: UserService,
@@ -40,7 +46,10 @@ export class HourLogUploaderComponent implements OnInit, OnDestroy {
     this.getConnectionNames();
     this.currDate = new Date();
     this.subs.add(this.calendarService.onDateClick.subscribe(date => {
-      this.hourLogForm.controls.date.setValue(date);
+      this.dateClicked.month = date.month;
+      this.dateClicked.date = date.date;
+      this.dateClicked.hoursLogged = date.hoursLogged;
+      this.hourLogForm.controls.date.setValue(date.dateObj);
     }));
   }
 
@@ -51,7 +60,6 @@ export class HourLogUploaderComponent implements OnInit, OnDestroy {
       startTime: new FormControl("15:00", Validators.required),
       endTime: new FormControl("16:00", [Validators.required, this.ValidateEndTime.bind(this)]),
     })
-    console.log(this.hourLogForm);
   }
 
   ValidateConnection(control: AbstractControl) {

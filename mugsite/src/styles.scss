@@ -21,7 +21,7 @@
 }
 
 .widthHalfPer {
-	width: 50% !important; 
+	width: 50% !important;
 }
 
 .background-eee {
@@ -91,6 +91,14 @@
   height: 35px !important;
 }
 
+.profile-image-container-small {
+	background-position: center center !important;
+	background-size: cover !important;
+	border-radius: 50% !important;
+	width: 50px !important;
+	height: 50px !important;
+}
+
 .profile-image-container-large {
 	background-position: center center !important;
   background-size: cover !important;
@@ -124,9 +132,11 @@
 .drawer-sticky-btn-accent {
   font-family: 'Montserrat', sans-serif !important;
   font-size: 17px !important;
+	position: fixed !important;
   background-color: #de6600 !important;
+	bottom: 0 !important;
   color: white !important;
-  width: 100% !important;
+	width: 500px !important;
   height: 60px !important;
   cursor: pointer !important;
   font-weight: 600 !important;
@@ -153,6 +163,9 @@
   .drawer-sticky-btn-red {
     width: 100vw !important;
   }
+	.drawer-sticky-btn-accent {
+	    width: 100vw !important;
+	}
 }
 
 .form-error-message {

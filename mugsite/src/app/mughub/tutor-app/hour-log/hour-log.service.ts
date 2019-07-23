@@ -25,7 +25,6 @@ export class HourLogService {
   fetchHoursFromFb() {
     return firebase.firestore().collection('/hours')
       .where('userId', '==', this.userService.getUserSession().uid)
-      // .orderBy('date')
   }
 
 }

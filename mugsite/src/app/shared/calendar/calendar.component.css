@@ -1,6 +1,6 @@
 .calendar {
-  width: 500px;
-  height: 500px;
+  width: 700px;
+  height: 900px;
 }
 
 .calendar-month-name {
@@ -12,19 +12,19 @@
 .calendar-icons {
   color: #2b5570;
   font-weight: 500;
-  font-size: 25px;
+  font-size: 26px;
 }
 
 .calendar-dayofweek {
   color: grey;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .calendar-date {
   color: grey;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 16px;
   cursor: pointer;
   border-radius: 100px;
   padding: 10px 0px;
@@ -34,14 +34,49 @@
 .calendar-date-inactive {
   color: #D1CFCF;
   font-weight: 400;
-  font-size: 15px;
+  font-size: 16px;
   padding: 10px 0px;
 }
 
 .event-circle {
-  background-color: #2b5570;
-  width: 6px;
-  height: 6px;
+  background-color: #de6600;
+  width: 8px;
+  height: 8px;
   border-radius: 200px;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
+}
+
+.event-circle-placeholder {
+  background-color: transparent;
+  width: 8px;
+  height: 8px;
+  border-radius: 200px;
+  margin-bottom: 4px;
+}
+
+@media (max-width: 750px) {
+  .calendar {
+    width: 500px;
+    height: 500px;
+  }
+}
+
+@media (max-width: 500px) {
+  .calendar {
+    width: 370px;
+    height: 470px;
+  }
+  .calendar-dayofweek {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 400px) {
+  .calendar {
+    width: 300px;
+    height: 400px;
+  }
+  .calendar-dayofweek {
+    font-size: 13px;
+  }
 }

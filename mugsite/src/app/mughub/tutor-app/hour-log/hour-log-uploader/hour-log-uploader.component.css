@@ -16,3 +16,8 @@
 :host ::ng-deep .mat-button, .mat-raised-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button, .mat-fab, .mat-mini-fab {
   font-size: 13px !important;
 }
+
+.hourLogEl {
+  padding: 25px 30px;
+  cursor: pointer;
+}

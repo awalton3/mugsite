@@ -1,19 +1,20 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { CalendarService } from './calendar.service';
 import { HourLogElement } from 'src/app/mughub/tutor-app/hour-log/hour-log-element.model';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
-export class CalendarComponent implements OnInit {
+export class CalendarComponent implements OnInit, OnDestroy {
 
   constructor(private calendarService: CalendarService) { }
 
   @Input() loggedHoursSub? = new Subject<{ [key: number]: HourLogElement[] }>();
 
+  private subs = new Subscription();
   displayedMonth: { num: number; name: string };
   displayedYear: number;
   monthRange: { date: any, enabled: boolean, hasEvent: boolean }[] = [];
@@ -25,10 +26,10 @@ export class CalendarComponent implements OnInit {
     const currDate = new Date();
     this.updateDisplayData(currDate.getFullYear(), currDate.getMonth() + 1)
     this.getMonthRange(this.displayedYear, this.displayedMonth.num);
-    this.loggedHoursSub.subscribe(loggedHours => {
+    this.subs.add(this.loggedHoursSub.subscribe(loggedHours => {
       this.loggedHours = loggedHours;
       this.updateDisplayData(this.displayedYear, this.displayedMonth.num);
-    })
+    }))
   }
 
   updateDisplayData(year: number, month: number) {
@@ -74,7 +75,7 @@ export class CalendarComponent implements OnInit {
   }
 
   ifDateHasEvent(date: number, year: number, month: number) {
-    const dateToCheck = new Date(year, month - 1, date, 0, 0, 0, 0);
+    const dateToCheck = new Date(year, month - 1, date);
     return !!(this.loggedHours[dateToCheck.getTime()]);
   }
 
@@ -103,7 +104,16 @@ export class CalendarComponent implements OnInit {
   onDateClicked(dateEl: { date: number, enabled: boolean }) {
     if (dateEl.enabled) {
       const dateClicked = new Date(this.displayedYear, this.displayedMonth.num - 1, dateEl.date);
-      this.calendarService.onDateClick.next(dateClicked);
+      this.calendarService.onDateClick.next({
+        dateObj: dateClicked,
+        month: this.months[this.displayedMonth.num - 1],
+        date: dateEl.date,
+        hoursLogged: this.loggedHours[dateClicked.getTime()]
+      });
     }
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 }
