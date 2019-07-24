@@ -31,7 +31,9 @@ export class HourLogService {
   }
 
   updateHoursInFb(connections: User[], date: Date, startTime: string, endTime: string, hourLogElId: string) {
-    const connectionsPureJs = connections.map(connection => Object.assign({}, connection));
+    const connectionsPureJs = connections.map(connection => {
+      return Object.assign({}, connection);
+    });
     return firebase.firestore().collection('/hours')
       .doc(hourLogElId)
       .update({

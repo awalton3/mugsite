@@ -33,6 +33,7 @@ export class HourLogUploaderBottomsheetComponent implements OnInit {
   addOnBlur = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   selectedConnections: User[] = [];
+  selectedConnectionsBeforeChanges: User[] = [];
   connectionInvalid: boolean = false;
   connectionExist: boolean = false;
   @ViewChild('connectionInput', { static: false }) connectionInput: ElementRef<HTMLInputElement>
@@ -52,8 +53,10 @@ export class HourLogUploaderBottomsheetComponent implements OnInit {
   }
 
   initForm() {
-    if (this.data.hourLogEl.connections.length !== 0)
+    if (this.data.hourLogEl.connections.length !== 0) {
       this.selectedConnections.push(...this.data.hourLogEl.connections);
+      this.selectedConnectionsBeforeChanges.push(...this.data.hourLogEl.connections);
+    }
     this.hourLogForm = new FormGroup({
       connections: new FormControl(null, [this.ValidateConnection.bind(this)]),
       date: new FormControl(this.data.hourLogEl.date),
@@ -158,6 +161,8 @@ export class HourLogUploaderBottomsheetComponent implements OnInit {
   }
 
   ifFormChanged() {
+    if (this.selectedConnections !== this.selectedConnectionsBeforeChanges)
+      return true;
     for (let i = 0; i < Object.keys(this.hourLogForm.controls).length; i++) {
       const field = Object.keys(this.hourLogForm.controls)[i];
       if (!this.hourLogForm.controls[field].pristine)
