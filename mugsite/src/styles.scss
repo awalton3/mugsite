@@ -32,6 +32,11 @@
 	padding: 0 !important;
 }
 
+.marginNone {
+	margin: 0 !important; 
+}
+
+
 .bottom-right-fab {
 	position: fixed;
 	bottom: 0 !important;
@@ -94,6 +99,7 @@
 }
 
 .profile-image-container-mini {
+	background-color: #d7d8da !important;
 	background-position: center center !important;
   background-size: cover !important;
   border-radius: 50% !important;
@@ -102,6 +108,7 @@
 }
 
 .profile-image-container-small {
+	background-color: #d7d8da !important;
 	background-position: center center !important;
 	background-size: cover !important;
 	border-radius: 50% !important;
@@ -110,11 +117,18 @@
 }
 
 .profile-image-container-large {
+	background-color: #d7d8da !important;
+
 	background-position: center center !important;
   background-size: cover !important;
   border-radius: 50% !important;
   width: 150px !important;
   height: 150px !important;
+}
+
+.profile-image-container-icon {
+	font-size: 27px !important;
+	color: #2b5570 !important;
 }
 
 .fileUploader {

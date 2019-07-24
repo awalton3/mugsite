@@ -16,12 +16,14 @@ export class HourLogService {
   constructor(private userService: UserService) { }
 
   uploadHoursToFb(connections: User[], date: Date, startTime: string, endTime: string) {
-    const connectionsPureJs = connections.map(connection => Object.assign({}, connection));
+    const connectionsPureJs = connections.map(connection => {
+      return Object.assign({}, connection);
+    });
     return firebase.firestore().collection('/hours')
       .doc()
       .set({
         userId: this.userService.getUserSession().uid,
-        connection: connectionsPureJs,
+        connections: connectionsPureJs,
         date: date,
         startTime: startTime,
         endTime: endTime
@@ -33,7 +35,7 @@ export class HourLogService {
     return firebase.firestore().collection('/hours')
       .doc(hourLogElId)
       .update({
-        connection: connectionsPureJs,
+        connections: connectionsPureJs,
         date: date,
         startTime: startTime,
         endTime: endTime
