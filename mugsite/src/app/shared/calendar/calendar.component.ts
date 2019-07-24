@@ -12,7 +12,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
 
   constructor(private calendarService: CalendarService) { }
 
-  @Input() loggedHoursSub?= new Subject<{ [key: number]: HourLogElement[] }>();
+  @Input() loggedHoursSub? = new Subject<{ [key: number]: HourLogElement[] }>();
 
   private subs = new Subscription();
   displayedMonth: { num: number; name: string };
@@ -25,7 +25,6 @@ export class CalendarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const currDate = new Date();
     this.updateDisplayData(currDate.getFullYear(), currDate.getMonth() + 1)
-    this.getMonthRange(this.displayedYear, this.displayedMonth.num);
     this.subs.add(this.loggedHoursSub.subscribe(loggedHours => {
       this.loggedHours = loggedHours;
       this.updateDisplayData(this.displayedYear, this.displayedMonth.num);
@@ -35,53 +34,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   updateDisplayData(year: number, month: number) {
     this.displayedYear = year;
     this.displayedMonth = { num: month, name: this.months[month - 1] };
-    this.getMonthRange(this.displayedYear, this.displayedMonth.num);
-  }
-
-  getMonthRange(year: number, month: number) {
-    this.monthRange = [];
-    const numDaysInMonth = new Date(year, month, 0).getDate();
-    const beginOffset = this.getStartDayInMonth(year, month);
-    const endOffset = this.getLastDayInMonth(year, month);
-
-    this.getBeginMonthRange(beginOffset, year, month);
-    this.getMainMonthRange(numDaysInMonth, year, month);
-    this.getEndMonthRange(endOffset, year, month);
-  }
-
-  getBeginMonthRange(beginOffset: number, year: number, month: number) {
-    const lastDayOfPrevMonth = this.getLastDayOfPrevMonth(year, month);
-    for (let i = beginOffset; i >= 1; i--) {
-      this.monthRange.push({ date: lastDayOfPrevMonth - i + 1, enabled: false, hasEvent: this.ifDateHasEvent(i, year, month) });
-    }
-  }
-
-  getMainMonthRange(numDaysInMonth: number, year: number, month: number) {
-    for (let i = 1; i <= numDaysInMonth; i++) {
-      this.monthRange.push({ date: i, enabled: true, hasEvent: this.ifDateHasEvent(i, year, month) });
-    }
-  }
-
-  getEndMonthRange(endOffset: number, year: number, month: number) {
-    for (let i = 1; i <= 6 - endOffset; i++)
-      this.monthRange.push({ date: i, enabled: false, hasEvent: this.ifDateHasEvent(i, year, month) });
-  }
-
-  ifDateHasEvent(date: number, year: number, month: number) {
-    const dateToCheck = new Date(year, month - 1, date);
-    return !!(this.loggedHours[dateToCheck.getTime()]);
-  }
-
-  getStartDayInMonth(year: number, month: number) {
-    return new Date(year, month - 1, 1).getDay();
-  }
-
-  getLastDayInMonth(year: number, month: number) {
-    return new Date(year, month, 0).getDay();
-  }
-
-  getLastDayOfPrevMonth(year: number, month: number) {
-    return new Date(year, month - 1, 0).getDate();
+    this.monthRange = this.calendarService.getMonthRange(this.displayedYear, this.displayedMonth.num);
   }
 
   onNextMonth() {

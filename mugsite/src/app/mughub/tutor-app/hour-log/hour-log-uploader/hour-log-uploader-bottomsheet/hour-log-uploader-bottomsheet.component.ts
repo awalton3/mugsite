@@ -21,7 +21,6 @@ import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material
 export class HourLogUploaderBottomsheetComponent implements OnInit {
 
   hourLogForm = new FormGroup({});
-  currDate: Date;
 
   //autocomplete
   filteredConnections: Observable<User[]>;
@@ -33,7 +32,6 @@ export class HourLogUploaderBottomsheetComponent implements OnInit {
   removable = true;
   addOnBlur = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  selectedConnection: string;
   selectedConnections: User[] = [];
   connectionInvalid: boolean = false;
   connectionExist: boolean = false;
@@ -51,7 +49,6 @@ export class HourLogUploaderBottomsheetComponent implements OnInit {
     this.initForm();
     this.initAutoComp();
     this.connections = this.userService.getUserSession().connections;
-    this.currDate = new Date();
   }
 
   initForm() {
@@ -134,26 +131,24 @@ export class HourLogUploaderBottomsheetComponent implements OnInit {
   }
 
   onSubmit() {
-    // if (!this.selectedConnection)
-    //   this.selectedConnection = this.getConnectionUserObj(this.hourLogForm.value.connection);
-    // this.data.isEditMode ? this.submitOnEdit() : this.submitOnAdd();
+    this.data.isEditMode ? this.submitOnEdit() : this.submitOnAdd();
   }
 
-  // submitOnAdd() {
-  //   let form = this.hourLogForm.value;
-  //   this.hourLogService.uploadHoursToFb(this.selectedConnection, form.date, form.startTime, form.endTime)
-  //     .then(() => this.onSuccess())
-  //     .catch(error => console.log(error))
-  // }
-  //
-  // submitOnEdit() {
-  //   if (this.ifFormChanged()) {
-  //     let form = this.hourLogForm.value;
-  //     this.hourLogService.updateHoursInFb(this.selectedConnection, form.date, form.startTime, form.endTime, this.data.hourLogEl.id)
-  //       .then(() => this.onSuccess())
-  //       .catch(error => console.log(error))
-  //   } else this.onClose();
-  // }
+  submitOnAdd() {
+    let form = this.hourLogForm.value;
+    this.hourLogService.uploadHoursToFb(this.selectedConnections, form.date, form.startTime, form.endTime)
+      .then(() => this.onSuccess())
+      .catch(error => console.log(error))
+  }
+
+  submitOnEdit() {
+    if (this.ifFormChanged()) {
+      let form = this.hourLogForm.value;
+      this.hourLogService.updateHoursInFb(this.selectedConnections, form.date, form.startTime, form.endTime, this.data.hourLogEl.id)
+        .then(() => this.onSuccess())
+        .catch(error => console.log(error))
+    } else this.onClose();
+  }
 
   onSuccess() {
     this.hourLogService.onLoggedHoursChanged();
