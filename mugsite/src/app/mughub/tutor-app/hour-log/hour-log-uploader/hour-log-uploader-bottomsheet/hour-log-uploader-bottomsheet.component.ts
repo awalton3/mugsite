@@ -151,6 +151,12 @@ export class HourLogUploaderBottomsheetComponent implements OnInit {
     } else this.onClose();
   }
 
+  onDelete() {
+    this.hourLogService.deleteHoursInFb(this.data.hourLogEl.id)
+      .then(() => this.onSuccess())
+      .catch(error => console.log(error))
+  }
+
   ifFormChanged() {
     for (let i = 0; i < Object.keys(this.hourLogForm.controls).length; i++) {
       const field = Object.keys(this.hourLogForm.controls)[i];
