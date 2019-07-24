@@ -1,6 +1,8 @@
 <mughub-headnav title="Hour Log" iconLeft="close" iconRight="done" (leftIconToggled)="onClose()" (rightIconToggled)="onSubmit()" [enableIconRight]="hourLogForm.valid"></mughub-headnav>
 <form [formGroup]="hourLogForm" class="drawer-form">
 
+  <app-connection-form [existingConnections]="this.data.hourLogEl.connections"></app-connection-form>
+
   <p class="drawer-form-label">STUDENT NAME(S)</p>
   <mat-form-field floatLabel="never" fxFill>
     <mat-chip-list #chipList aria-label="Student Selection">
@@ -49,6 +51,7 @@
       <input matInput type="time" formControlName="endTime" class="drawer-form-input">
     </mat-form-field>
   </div>
+
 
   <p class="drawer-form-label">REPEAT?</p>
   <p class="drawer-form-text">

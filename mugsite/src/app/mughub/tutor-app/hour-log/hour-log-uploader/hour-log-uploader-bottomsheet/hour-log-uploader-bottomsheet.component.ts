@@ -62,6 +62,7 @@ export class HourLogUploaderBottomsheetComponent implements OnInit {
       date: new FormControl(this.data.hourLogEl.date),
       startTime: new FormControl(this.data.hourLogEl.startTime, Validators.required),
       endTime: new FormControl(this.data.hourLogEl.endTime, [Validators.required, this.ValidateEndTime.bind(this)]),
+      test: new FormControl(null)
     })
   }
 
