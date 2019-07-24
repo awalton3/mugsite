@@ -2,9 +2,9 @@
 
 <div fxLayout="column" fxLayoutAlign="space-between center">
   <div (click)="onEditHourLogEl(hourLogEl)" *ngFor="let hourLogEl of dateClicked.hoursLogged" fxLayout="row" fxLayoutAlign="start center" class="widthFullPer hourLogEl" matRipple>
-    <div class="profile-image-container-small" [ngStyle]="{'background-image': 'url(' + hourLogEl.connection.photoUrl + ')'}" fxLayoutAlign="center center" style="margin-right: 20px;"></div>
+    <!-- <div class="profile-image-container-small" [ngStyle]="{'background-image': 'url(' + hourLogEl.connections + ')'}" fxLayoutAlign="center center" style="margin-right: 20px;"></div> -->
     <div fxLayout="column" fxLayoutAlign="center start">
-      <p style="margin:0">{{ hourLogEl.connection.name }}</p>
+      <p *ngFor="let connection of hourLogEl.connections" style="margin:0">{{ connection.name }}</p>
       <p style="margin:0">{{ hourLogEl.startTime | standardTime }} - {{ hourLogEl.endTime | standardTime }}</p>
     </div>
   </div>

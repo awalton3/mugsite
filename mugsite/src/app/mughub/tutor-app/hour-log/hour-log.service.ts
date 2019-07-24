@@ -71,7 +71,7 @@ export class HourLogService {
     date.setHours(0, 0, 0, 0);
     return {
       id: hourLogElid,
-      connection: hourLogEldata.connection,
+      connections: hourLogEldata.connections,
       date: date,
       startTime: hourLogEldata.startTime,
       endTime: hourLogEldata.endTime,

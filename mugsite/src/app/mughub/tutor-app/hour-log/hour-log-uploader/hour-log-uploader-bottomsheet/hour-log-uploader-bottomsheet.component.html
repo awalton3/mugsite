@@ -4,14 +4,15 @@
   <p class="drawer-form-label">STUDENT NAME(S)</p>
   <mat-form-field floatLabel="never" fxFill>
     <mat-chip-list #chipList aria-label="Student Selection">
-      <mat-chip *ngFor="let connection of selectedConnections" [selectable]="selectable" [removable]="removable" (removed)="removeConnectionChip(connection)">
+      <mat-chip *ngFor="let connection of selectedConnections" [selectable]="selectable" [removable]="removable" (removed)="removeConnectionChip(connection)" class="chip">
+        <div class="profile-image-container-chip" [ngStyle]="{'background-image': 'url(' + connection.photoUrl + ')'}"></div>
         {{ connection.name }}
-        <i class="material-icons" matChipRemove *ngIf="removable">cancel</i>
+        <i class="material-icons icon-chip" fxLayoutAlign="center center" matChipRemove *ngIf="removable">cancel</i>
       </mat-chip>
       <input
         #connectionInput
         matInput
-        formControlName="connection"
+        formControlName="connections"
         placeholder="Ex. John Doe"
         class="drawer-form-input"
         [matAutocomplete]="auto"
@@ -21,7 +22,7 @@
         (matChipInputTokenEnd)="addConnectionChip($event)">
     </mat-chip-list>
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="connectionSelected($event)">
-      <mat-option (click)="selectedConnection = connection" *ngFor="let connection of filteredConnections | async" [value]="connection.name" class="background-eee">
+      <mat-option *ngFor="let connection of filteredConnections | async" [value]="connection.name" class="background-eee">
         <div fxLayout="row" fxLayoutAlign="start center">
           <div class="profile-image-container-mini" [ngStyle]="{'background-image': 'url(' + connection.photoUrl + ')'}" style="margin-right: 15px"></div>
           <span class="autocomp-text">{{ connection.name }}</span>
@@ -29,6 +30,7 @@
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
+  <p *ngIf="hourLogForm.controls.connections.errors && !hourLogForm.controls.connections.pristine" class="form-error-message">*One of the connections you entered is invalid. Please select one from the list. If you do not see the connection you are looking for, update your connections in settings.</p>
 
   <p class="drawer-form-label">DATE</p>
   <mat-form-field floatLabel="never" class="widthFullPer">

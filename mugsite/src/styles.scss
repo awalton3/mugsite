@@ -83,6 +83,16 @@
 	cursor: pointer !important;
 }
 
+.profile-image-container-chip {
+	background-position: center center !important;
+  background-size: cover !important;
+  border-radius: 50% !important;
+  width: 23px !important;
+  height: 23px !important;
+	margin-right: 8px !important;
+	margin-left: -4px !important
+}
+
 .profile-image-container-mini {
 	background-position: center center !important;
   background-size: cover !important;
@@ -184,7 +194,7 @@
 
 .form-error-message {
 	font-size: 13px !important;
-	color: #de6600 !important;
+	color: #de0005 !important;
 }
 
 .sidenav {
@@ -234,6 +244,16 @@
 	line-height: 22px !important;
 	font-weight: 400 !important;
 	color: grey;
+}
+
+.chip {
+	font-family: 'Montserrat', sans-serif !important;
+ 	font-weight: 500 !important;
+	color: grey !important;
+}
+
+.icon-chip {
+	font-size: 20px !important;
 }
 
 /* animations */

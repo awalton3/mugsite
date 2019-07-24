@@ -48,8 +48,7 @@ export class HourLogUploaderComponent implements OnInit, OnDestroy {
   }
 
   onAddHours() {
-    const nullConnection = new User(null, null, null, null, null, null, null, null)
-    const newHourLogEl = new HourLogElement(null, nullConnection, this.dateClicked.dateObj, "15:00", "16:00")
+    const newHourLogEl = new HourLogElement(null, [], this.dateClicked.dateObj, "15:00", "16:00")
     this.bottomSheet.open(HourLogUploaderBottomsheetComponent, {
       hasBackdrop: false,
       data: {

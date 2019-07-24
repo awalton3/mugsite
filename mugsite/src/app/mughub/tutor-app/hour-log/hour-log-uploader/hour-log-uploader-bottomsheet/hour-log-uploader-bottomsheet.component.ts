@@ -52,8 +52,10 @@ export class HourLogUploaderBottomsheetComponent implements OnInit {
   }
 
   initForm() {
+    if (this.data.hourLogEl.connections.length !== 0)
+      this.selectedConnections.push(...this.data.hourLogEl.connections);
     this.hourLogForm = new FormGroup({
-      connection: new FormControl(this.data.hourLogEl.connection.name, [this.ValidateConnection.bind(this)]),
+      connections: new FormControl(null, [this.ValidateConnection.bind(this)]),
       date: new FormControl(this.data.hourLogEl.date),
       startTime: new FormControl(this.data.hourLogEl.startTime, Validators.required),
       endTime: new FormControl(this.data.hourLogEl.endTime, [Validators.required, this.ValidateEndTime.bind(this)]),
@@ -76,7 +78,7 @@ export class HourLogUploaderBottomsheetComponent implements OnInit {
   }
 
   initAutoComp() {
-    this.filteredConnections = this.hourLogForm.controls.connection.valueChanges
+    this.filteredConnections = this.hourLogForm.controls.connections.valueChanges
       .pipe(
         startWith(''),
         map(value => this.filterAutoComp(value))
@@ -104,15 +106,14 @@ export class HourLogUploaderBottomsheetComponent implements OnInit {
       if (input)
         input.value = '';
 
-      this.hourLogForm.controls.connection.setValue(null);
+      this.hourLogForm.controls.connections.setValue(null);
     }
   }
 
   removeConnectionChip(connection: User) {
     const index = this.selectedConnections.indexOf(connection);
-    if (index >= 0) {
+    if (index >= 0)
       this.selectedConnections.splice(index, 1);
-    }
   }
 
   connectionSelected(event: MatAutocompleteSelectedEvent) {
@@ -121,7 +122,7 @@ export class HourLogUploaderBottomsheetComponent implements OnInit {
       this.selectedConnections.push(this.getConnectionUserObj(event.option.viewValue));
     }
     this.connectionInput.nativeElement.value = '';
-    this.hourLogForm.controls.connection.setValue(null);
+    this.hourLogForm.controls.connections.setValue(null);
   }
 
   onAutomate() {
@@ -150,6 +151,15 @@ export class HourLogUploaderBottomsheetComponent implements OnInit {
     } else this.onClose();
   }
 
+  ifFormChanged() {
+    for (let i = 0; i < Object.keys(this.hourLogForm.controls).length; i++) {
+      const field = Object.keys(this.hourLogForm.controls)[i];
+      if (!this.hourLogForm.controls[field].pristine)
+        return true;
+    }
+    return false;
+  }
+
   onSuccess() {
     this.hourLogService.onLoggedHoursChanged();
     this.onClose();
@@ -161,24 +171,9 @@ export class HourLogUploaderBottomsheetComponent implements OnInit {
     this.bottomSheetRef.dismiss();
   }
 
-  ifFormChanged() {
-    for (let i = 0; i < Object.keys(this.hourLogForm.controls).length; i++) {
-      const field = Object.keys(this.hourLogForm.controls)[i];
-      if (!this.hourLogForm.controls[field].pristine)
-        return true;
-    }
-    return false;
-  }
-
-  onDelete() {
-    this.hourLogService.deleteHoursInFb(this.data.hourLogEl.id)
-      .then(() => this.onSuccess())
-      .catch(error => console.log(error))
-  }
-
   getConnectionUserObj(connectionName: string) {
     let connectionUserObj = null;
-    this.connections.map(connection => {
+    this.connections.forEach(connection => {
       if (connection.name === connectionName) {
         connectionUserObj = connection;
       }
