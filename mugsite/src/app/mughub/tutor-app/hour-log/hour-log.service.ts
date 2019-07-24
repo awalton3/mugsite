@@ -87,6 +87,13 @@ export class HourLogService {
     return dateToCheck >= minDate;
   }
 
+  isHourLogConflict(startTime: string, endTime: string, date: Date) {
+    const loggedHoursOnDate = this.loggedHours[date.getTime()];
+    if (loggedHoursOnDate) {
+      return loggedHoursOnDate.some(hourLogEl => hourLogEl.startTime === startTime && hourLogEl.endTime === endTime);
+    } else return false
+  }
+
   getMinDate() {
     const minDate = new Date();
     minDate.setDate(minDate.getDate() - 14);

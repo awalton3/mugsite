@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, Output } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { User } from 'src/app/mughub/auth/user.model';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
@@ -17,6 +17,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 export class ConnectionFormComponent implements OnInit {
 
   @Input() existingConnections: User[];
+  @Output() formListener = new Subject<{ valid: boolean, value: User[], changed: boolean }>();
   connectionsForm = new FormGroup({});
 
   //autocomplete
@@ -54,10 +55,15 @@ export class ConnectionFormComponent implements OnInit {
   }
 
   ValidateConnection(control: AbstractControl) {
-    if (control.value && (!this.selectedConnections.includes(control.value) || this.connections.some(connection => connection.name === control.value)))
+    if (control.value && (!this.selectedConnections.includes(control.value) || this.connections.some(connection => connection.name === control.value))) {
+      this.formListener.next({ valid: false, value: this.selectedConnections, changed: this.ifFormChanged() })
       return { validConnection: false };
-    if (this.selectedConnections.length === 0 && control.value === null)
+    }
+    if (this.selectedConnections.length === 0 && control.value === null) {
+      this.formListener.next({ valid: false, value: this.selectedConnections, changed: this.ifFormChanged() })
       return { validConnection: false };
+    }
+    this.formListener.next({ valid: true, value: this.selectedConnections, changed: this.ifFormChanged() })
     return null;
   }
 
@@ -70,7 +76,6 @@ export class ConnectionFormComponent implements OnInit {
   }
 
   filterAutoComp(value: string) {
-    console.log(value)
     if (this.connections && value) {
       const filterValue = value.toLowerCase();
       return this.connections.filter(connection => connection.name.toLowerCase().includes(filterValue));

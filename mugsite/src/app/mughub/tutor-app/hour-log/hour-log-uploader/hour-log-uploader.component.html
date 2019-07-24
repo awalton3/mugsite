@@ -9,7 +9,7 @@
     </div>
     <div fxLayout="column" fxLayoutAlign="center start">
       <div fxLayout="row">
-        <span *ngFor="let connection of hourLogEl.connections; let i = index" class="marginNone">
+        <span *ngFor="let connection of hourLogEl.connections; let i = index" class="marginNone" style="font-weight: 500">
           {{ connection.name }}<span *ngIf="hourLogEl.connections.length !== 0 && i !== hourLogEl.connections.length - 1" style="margin-right: 4px">,</span>
         </span>
       </div>

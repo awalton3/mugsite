@@ -16,7 +16,7 @@ export class StandardTimePipe implements PipeTransform {
     let convertedTime = '';
     convertedTime = this.convertHours(hours);
     convertedTime += (minutes < 10) ? ":0" + minutes : ":" + minutes;
-    convertedTime += (hours >= 12) ? " P.M." : " A.M.";
+    convertedTime += (hours >= 12) ? " p.m." : " a.m.";
 
     return convertedTime;
   }
