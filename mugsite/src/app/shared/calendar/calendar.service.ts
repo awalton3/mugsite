@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { HourLogElement } from 'src/app/mughub/tutor-app/hour-log/hour-log-element.model';
 import { HourLogService } from 'src/app/mughub/tutor-app/hour-log/hour-log.service';
 
 @Injectable()
@@ -24,7 +23,7 @@ export class CalendarService {
     this.getMainMonthRange(numDaysInMonth, year, month);
     this.getEndMonthRange(endOffset, year, month);
 
-    return this.monthRange; 
+    return this.monthRange;
   }
 
   getBeginMonthRange(beginOffset: number, year: number, month: number) {

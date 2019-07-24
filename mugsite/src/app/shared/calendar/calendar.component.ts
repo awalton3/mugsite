@@ -8,6 +8,7 @@ import { Subject, Subscription } from 'rxjs';
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
+
 export class CalendarComponent implements OnInit, OnDestroy {
 
   constructor(private calendarService: CalendarService) { }

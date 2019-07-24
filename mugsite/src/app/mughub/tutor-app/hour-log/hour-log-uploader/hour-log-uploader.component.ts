@@ -17,12 +17,8 @@ export class HourLogUploaderComponent implements OnInit, OnDestroy {
 
   private subs = new Subscription();
   addBtnEnabled: boolean = false;
-  dateClicked: { month: string, date: number, hoursLogged: HourLogElement[], dateObj: Date } = {
-    month: null,
-    date: null,
-    hoursLogged: null,
-    dateObj: null
-  };
+  showErrorAddHint: boolean = false;
+  dateClicked: { month: string, date: number, hoursLogged: HourLogElement[], dateObj: Date };
   @Output() onCloseUploder = new Subject();
 
   constructor(
@@ -32,6 +28,12 @@ export class HourLogUploaderComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.dateClicked = {
+      month: '',
+      date: 0,
+      hoursLogged: [],
+      dateObj: new Date()
+    }
     this.subs.add(this.calendarService.onDateClick.subscribe(date => {
       this.dateClicked.month = date.month;
       this.dateClicked.date = date.date;

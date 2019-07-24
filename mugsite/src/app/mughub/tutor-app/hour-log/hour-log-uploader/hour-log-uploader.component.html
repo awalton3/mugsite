@@ -1,17 +1,24 @@
 <mughub-headnav title="{{ dateClicked.month }}  {{ dateClicked.date }}" iconLeft="close" (leftIconToggled)="onClose()"></mughub-headnav>
-<div (click)="onEditHourLogEl(hourLogEl)" *ngFor="let hourLogEl of dateClicked.hoursLogged" fxLayout="row" fxLayoutAlign="start center" class="widthFullPer hourLogEl" matRipple>
-  <div class="profile-image-container-small" [ngStyle]="{'background-image': 'url(' + hourLogEl.connection.photoUrl + ')'}" fxLayoutAlign="center center" style="margin-right: 20px;"></div>
-  <div fxLayout="column" fxLayoutAlign="center start">
-    <p style="margin:0">{{ hourLogEl.connection.name }}</p>
-    <p style="margin:0">{{ hourLogEl.startTime | standardTime }} - {{ hourLogEl.endTime | standardTime }}</p>
+
+<div fxLayout="column" fxLayoutAlign="space-between center">
+  <div (click)="onEditHourLogEl(hourLogEl)" *ngFor="let hourLogEl of dateClicked.hoursLogged" fxLayout="row" fxLayoutAlign="start center" class="widthFullPer hourLogEl" matRipple>
+    <div class="profile-image-container-small" [ngStyle]="{'background-image': 'url(' + hourLogEl.connection.photoUrl + ')'}" fxLayoutAlign="center center" style="margin-right: 20px;"></div>
+    <div fxLayout="column" fxLayoutAlign="center start">
+      <p style="margin:0">{{ hourLogEl.connection.name }}</p>
+      <p style="margin:0">{{ hourLogEl.startTime | standardTime }} - {{ hourLogEl.endTime | standardTime }}</p>
+    </div>
+  </div>
+  <div *ngIf="dateClicked.hoursLogged && dateClicked.hoursLogged.length === 0">
+    <p class="drawer-form-text"><i>No hours currently logged.</i></p>
+  </div>
+  <div *ngIf="showErrorAddHint">
+    <p style="margin: 0px 20px" class="drawer-form-text">*You are not permitted to add hours on this date as it is not within the pay period. Please contact ------- for assistance.</p>
   </div>
 </div>
-<div *ngIf="!addBtnEnabled">
-  <p style="margin: 0px 20px">*You are not permitted to add hours on this date as it is not within 2 weeks of today's date. Please contact ------- for more assistance.</p>
-</div>
+
 <div *ngIf="addBtnEnabled" (click)="onAddHours()" class="drawer-sticky-btn-accent" fxLayoutAlign="center center" matRipple>
   ADD
 </div>
-<div *ngIf="!addBtnEnabled" class="drawer-sticky-btn-disabled" fxLayoutAlign="center center">
+<div (click)="showErrorAddHint = true" *ngIf="!addBtnEnabled" class="drawer-sticky-btn-disabled" fxLayoutAlign="center center">
   ADD
 </div>
