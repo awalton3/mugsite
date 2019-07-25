@@ -1,7 +1,6 @@
 <mughub-headnav *ngIf="dateClicked" title="{{ dateClicked.month }} {{ dateClicked.date }}" iconLeft="close" (leftIconToggled)="onClose()"></mughub-headnav>
 
 <div *ngIf="dateClicked" fxLayout="column" fxLayoutAlign="space-between center">
-
   <div (click)="onEditHourLogEl(hourLogEl)" *ngFor="let hourLogEl of dateClicked.hoursLogged" fxLayout="row" fxLayoutAlign="start center" class="widthFullPer hourLogEl" matRipple>
     <div *ngIf="hourLogEl.connections.length === 1" class="profile-image-container-small" [ngStyle]="{'background-image': 'url(' + hourLogEl.connections[0].photoUrl + ')'}" fxLayoutAlign="center center" style="margin-right: 20px;"></div>
     <div *ngIf="hourLogEl.connections.length > 1" class="profile-image-container-small" fxLayoutAlign="center center" style="margin-right: 20px;">
@@ -16,18 +15,16 @@
       <p class="marginNone">{{ hourLogEl.startTime | standardTime }} - {{ hourLogEl.endTime | standardTime }}</p>
     </div>
   </div>
-
-  <!-- <div *ngIf="!dateClicked.hoursLogged || dateClicked.hoursLogged.length === 0">
-    <p class="drawer-form-text"><i>There are no hours currently logged.</i></p>
-  </div> -->
-  <!-- <div *ngIf="showErrorAddHint">
-    <p style="margin: 0px 20px" class="drawer-form-text">*You are not permitted to add hours on this date as it is not within the pay period. Please contact ------- for assistance.</p>
-  </div> -->
-
+  <div *ngIf="!dateClicked.hoursLogged">
+    <p class="drawer-form-text"><i>There are no hours currently logged for this date.</i></p>
+  </div>
 </div>
 
 <div *ngIf="!dateClicked" class="loader"></div>
 
+<div *ngIf="!addBtnEnabled" class="drawer-sticky-text">
+  <p>*The time to add or edit hours on this date has exceeded. Please contact ------- for assistance if needed.</p>
+</div>
 <div *ngIf="addBtnEnabled" (click)="onAddHours()" class="drawer-sticky-btn-accent" fxLayoutAlign="center center" matRipple>
   ADD
 </div>

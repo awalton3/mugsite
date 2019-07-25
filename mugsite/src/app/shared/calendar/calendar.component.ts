@@ -18,7 +18,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   private subs = new Subscription();
   displayedMonth: { num: number; name: string };
   displayedYear: number;
-  monthRange: { date: any, enabled: boolean, hasEvent: boolean }[] = [];
+  monthRange: { date: any, enabled: boolean, hasEvent: boolean, isToday: boolean }[] = [];
   days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   loggedHours: { [key: number]: HourLogElement[] } = {};
@@ -26,6 +26,10 @@ export class CalendarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const currDate = new Date();
     this.updateDisplayData(currDate.getFullYear(), currDate.getMonth() + 1)
+    this.listenForLoggedHours();
+  }
+
+  listenForLoggedHours() {
     this.subs.add(this.loggedHoursSub.subscribe(loggedHours => {
       this.loggedHours = loggedHours;
       this.updateDisplayData(this.displayedYear, this.displayedMonth.num);

@@ -33,7 +33,7 @@
 }
 
 .marginNone {
-	margin: 0 !important; 
+	margin: 0 !important;
 }
 
 
@@ -166,6 +166,14 @@
   font-weight: 600 !important;
 }
 
+.drawer-sticky-text {
+	position: fixed !important;
+	bottom: 0 !important;
+	margin: 0px 20px !important;
+	font-size: 13px !important;
+	color: grey !important;
+	padding-bottom: 80px !important;
+}
 
 .drawer-sticky-btn-accent {
   font-family: 'Montserrat', sans-serif !important;

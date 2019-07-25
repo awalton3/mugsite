@@ -12,7 +12,6 @@ import { HourLogUploaderBottomsheetComponent } from './hour-log-uploader-bottoms
 
 export class HourLogUploaderComponent implements OnInit {
 
-  showErrorAddHint: boolean = false;
   @Input() addBtnEnabled: boolean = false;
   @Input() dateClicked: { month: string, date: number, hoursLogged: HourLogElement[], dateObj: Date };
   @Output() onCloseUploder = new Subject();

@@ -17,7 +17,10 @@
   </div>
 
   <div fxLayout="row wrap" fxLayoutAlign="center center" class="widthFullPer">
-    <div fxLayout="column" fxLayoutAlign="center center" *ngFor="let dateEl of monthRange" (click)="onDateClicked(dateEl)" fxLayoutAlign="center center" fxFlex="14.2857%" [ngClass]="{'calendar-date-inactive': !dateEl.enabled, 'calendar-date': dateEl.enabled}"
+    <div fxLayout="column" fxLayoutAlign="center center" fxFlex="14.2857%"
+      *ngFor="let dateEl of monthRange" (click)="onDateClicked(dateEl)"
+      [ngClass]="{'calendar-date-inactive': !dateEl.enabled, 'calendar-date': dateEl.enabled}"
+      [ngStyle]="{'font-weight': dateEl.isToday ? '600' : '400' }"
       matRipple [matRippleCentered]="centered" [matRippleDisabled]="!dateEl.enabled">
       <div *ngIf="dateEl.hasEvent" class="event-circle" fxLayoutAlign="center center"></div>
       <div *ngIf="!dateEl.hasEvent" class="event-circle-placeholder" fxLayoutAlign="center center"></div>
