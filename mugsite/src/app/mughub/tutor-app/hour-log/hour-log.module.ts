@@ -17,6 +17,7 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { HourLogUploaderBottomsheetComponent } from './hour-log-uploader/hour-log-uploader-bottomsheet/hour-log-uploader-bottomsheet.component';
 import { StandardTimePipe } from './standard-time.pipe';
 import { ConnectionFormModule } from 'src/app/shared/connection-form/connection-form.module';
+import { SnackBarModule } from 'src/app/shared/snack-bar/snack-bar.module';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { ConnectionFormModule } from 'src/app/shared/connection-form/connection-
     MatNativeDateModule,
     MatSidenavModule,
     MatBottomSheetModule,
-    ConnectionFormModule
+    ConnectionFormModule,
+    SnackBarModule
   ],
   providers: [
     CalendarService

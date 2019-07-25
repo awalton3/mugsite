@@ -87,10 +87,11 @@ export class HourLogService {
     return dateToCheck >= minDate;
   }
 
-  isHourLogConflict(startTime: string, endTime: string, date: Date) {
+  isHourLogConflict(startTime: string, endTime: string, date: Date, id: string) {
     const loggedHoursOnDate = this.loggedHours[date.getTime()];
     if (loggedHoursOnDate) {
-      return loggedHoursOnDate.some(hourLogEl => hourLogEl.startTime === startTime && hourLogEl.endTime === endTime);
+      return loggedHoursOnDate
+        .some(hourLogEl => hourLogEl.startTime === startTime && hourLogEl.endTime === endTime && hourLogEl.id !== id);
     } else return false
   }
 

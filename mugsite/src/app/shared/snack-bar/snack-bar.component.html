@@ -1,0 +1,5 @@
+<span fxLayout="row" fxLayoutAlign="start center">
+   <i *ngIf="!data.isError" class="material-icons" style="color: #3CFF94; margin-right: 10px;">check_circle</i>
+   <i *ngIf="data.isError" class="material-icons" style="color: #de0005; margin-right: 10px;">error</i>
+   <span style="font-family: 'Montserrat', sans-serif !important;">{{ data.message }}</span>
+</span>

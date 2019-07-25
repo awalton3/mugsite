@@ -1,12 +1,13 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, Output } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from 'src/app/mughub/auth/user.model';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { UserService } from 'src/app/mughub/auth/user.service';
 import { startWith, map } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { ConnectionFormService } from './connection-form.service';
 
 @Component({
   selector: 'app-connection-form',
@@ -17,7 +18,6 @@ import { MatChipInputEvent } from '@angular/material/chips';
 export class ConnectionFormComponent implements OnInit {
 
   @Input() existingConnections: User[];
-  @Output() formListener = new Subject<{ valid: boolean, value: User[], changed: boolean }>();
   connectionsForm = new FormGroup({});
 
   //autocomplete
@@ -36,7 +36,10 @@ export class ConnectionFormComponent implements OnInit {
   connectionExist: boolean = false;
   @ViewChild('connectionInput', { static: false }) connectionInput: ElementRef<HTMLInputElement>
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private connectionFormService: ConnectionFormService
+  ) { }
 
   ngOnInit() {
     this.initForm();
@@ -56,14 +59,14 @@ export class ConnectionFormComponent implements OnInit {
 
   ValidateConnection(control: AbstractControl) {
     if (control.value && (!this.selectedConnections.includes(control.value) || this.connections.some(connection => connection.name === control.value))) {
-      this.formListener.next({ valid: false, value: this.selectedConnections, changed: this.ifFormChanged() })
+      this.connectionFormService.isformValid.next(false);
       return { validConnection: false };
     }
     if (this.selectedConnections.length === 0 && control.value === null) {
-      this.formListener.next({ valid: false, value: this.selectedConnections, changed: this.ifFormChanged() })
+      this.connectionFormService.isformValid.next(false);
       return { validConnection: false };
     }
-    this.formListener.next({ valid: true, value: this.selectedConnections, changed: this.ifFormChanged() })
+    this.connectionFormService.isformValid.next(true);
     return null;
   }
 
@@ -90,8 +93,13 @@ export class ConnectionFormComponent implements OnInit {
       this.connectionExist = this.selectedConnections.some(connection => connection.name === value.trim());
       this.connectionInvalid = !this.connections.some(connection => connection.name === value.trim())
 
-      if ((value || '').trim() && !this.connectionInvalid && !this.connectionExist)
+      if ((value || '').trim() && !this.connectionInvalid && !this.connectionExist) {
         this.selectedConnections.push(this.getConnectionUserObj(value.trim()));
+        this.connectionFormService.onConnectionsChanged.next({
+          selectedConnections: this.selectedConnections,
+          selectedConnectionsOrig: this.selectedConnectionsBeforeChanges
+        });
+      }
 
       if (input)
         input.value = '';
@@ -102,14 +110,23 @@ export class ConnectionFormComponent implements OnInit {
 
   removeConnectionChip(connection: User) {
     const index = this.selectedConnections.indexOf(connection);
-    if (index >= 0)
+    if (index >= 0) {
       this.selectedConnections.splice(index, 1);
+      this.connectionFormService.onConnectionsChanged.next({
+        selectedConnections: this.selectedConnections,
+        selectedConnectionsOrig: this.selectedConnectionsBeforeChanges
+      });
+    }
   }
 
   connectionSelected(event: MatAutocompleteSelectedEvent) {
     this.connectionExist = this.selectedConnections.some(connection => connection.name === event.option.viewValue);
     if (!this.connectionExist) {
       this.selectedConnections.push(this.getConnectionUserObj(event.option.viewValue));
+      this.connectionFormService.onConnectionsChanged.next({
+        selectedConnections: this.selectedConnections,
+        selectedConnectionsOrig: this.selectedConnectionsBeforeChanges
+      });
     }
     this.connectionInput.nativeElement.value = '';
     this.connectionsForm.controls.connections.setValue(null);
@@ -124,9 +141,4 @@ export class ConnectionFormComponent implements OnInit {
     })
     return connectionUserObj;
   }
-
-  ifFormChanged() {
-    return this.selectedConnections !== this.selectedConnectionsBeforeChanges;
-  }
-
 }
