@@ -1,6 +1,6 @@
 .sideDrawer-content {
   height: 100%;
-  padding: 50px 0px
+  padding: 20px 0px;
 }
 
 .profile-name {
@@ -11,12 +11,29 @@
 .sideDrawer-links {
   color: #eee;
   font-family: 'Montserrat', sans-serif;
-  /* margin: 2px 0px; */
   font-size: 16px;
+  padding: 0 65px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.sideDrawer-sublinks {
+  color: #eee;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  margin: -10px 0px;
+  cursor: pointer;
+}
+
+.sideDrawer-link-icon {
+  color: #eee;
+  margin-right: 15px;
+  font-size: 20px;
 }
 
 .sideDrawer-links-text {
-  width: 100px;
+  width: 100%;
 }
 
 .link-active {
@@ -25,20 +42,20 @@
   text-decoration: underline;
 }
 
-::ng-deep .mat-list-item-content {
+
+
+/* ::ng-deep .mat-list-item-content {
   padding: 0px 80px !important;
-}
+} */
 
 .logo {
-  width: 160px;
+  width: 190px;
+  margin-bottom: 10px;
+  padding: 0px 25px;
 }
 
-@media only screen and (max-width: 400px) {
-  ::ng-deep .mat-list-item-content {
+@media only screen and (max-width: 300px) {
+  /* ::ng-deep .mat-list-item-content {
     padding: 0px 120px !important;
-  }
-  .sideDrawer-content {
-    padding: 30px 0px;
-    margin-top: -50px;
-  }
+  } */
 }
