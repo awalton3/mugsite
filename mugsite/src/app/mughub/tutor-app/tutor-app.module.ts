@@ -6,6 +6,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { TutorAppRoutingModule } from './tutor-app-routing.module';
 import { SidenavModule } from '../sidenav/sidenav.module';
 import { UploadsResolve } from './uploads/uploads.resolve';
+import { HeadnavModule } from '../headnav/headnav.module';
 
 @NgModule({
   declarations: [TutorAppComponent],
@@ -14,7 +15,8 @@ import { UploadsResolve } from './uploads/uploads.resolve';
     CommonModule,
     MaterialComponentsModule,
     MatSidenavModule,
-    SidenavModule
+    SidenavModule,
+    HeadnavModule
   ],
   providers: [
     UploadsResolve

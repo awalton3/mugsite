@@ -17,7 +17,7 @@ export class SidenavComponent implements OnInit {
   defaultNavLinks = {};
   defaultNavLinksArr = [];
   selectedSublink: string = '';
-  // showSubLinks: boolean;
+  showSubLinks: boolean;
   user: User;
 
   screenWidth: any;
@@ -31,13 +31,13 @@ export class SidenavComponent implements OnInit {
 
   ngOnInit() {
     this.defaultNavLinks = {
-      'mailhub': ['inbox', 'sent', 'drafts', 'trash'],
+      'mail': ['inbox', 'sent', 'drafts', 'trash'],
       'manage': [],
       'hour log': [],
       'settings': []
     }
-    // const userType = this.userService.getUserSession().type;
-    // userType === 'tutor' ? this.showSubLinks = false : this.showSubLinks = true;
+    const userType = this.userService.getUserSession().type;
+    userType === 'tutor' ? this.showSubLinks = false : this.showSubLinks = true;
     this.defaultNavLinksArr = Object.keys(this.defaultNavLinks);
     this.screenWidth = window.innerWidth;
     this.user = this.userService.getUserSession();
@@ -45,7 +45,7 @@ export class SidenavComponent implements OnInit {
 
   getIconLink(link: string): string {
     switch (link) {
-      case 'mailhub': return 'mail';
+      case 'mail': return 'mail';
       case 'inbox': return 'inbox';
       case 'sent': return 'send';
       case 'drafts': return 'drafts';
@@ -57,21 +57,24 @@ export class SidenavComponent implements OnInit {
   }
 
   navigate(link: string) {
-    if (link === 'mailhub')
-      this.router.navigate(['mailhub/inbox'], { relativeTo: this.route });
+    if (link === 'mail') {
+      // this.router.navigate(['mailhub/inbox'], { relativeTo: this.route });
+    }
+    else if (link === 'hour log')
+      this.router.navigate(['hour-log'], { relativeTo: this.route })
     else
       this.router.navigate([link], { relativeTo: this.route })
+
   }
 
   navigateToSublink(sublink: string) {
-    this.selectedSublink = sublink;
-    this.router.navigate(['mailhub', this.selectedSublink], { relativeTo: this.route });
+    this.router.navigate(['mail', sublink], { relativeTo: this.route });
   }
 
-  // toggleSubLinks(link: string) {
-  //   if (link === 'mailhub')
-  //     this.showSubLinks = !this.showSubLinks;
-  // }
+  toggleSubLinks(link: string) {
+    if (link === 'mail')
+      this.showSubLinks = !this.showSubLinks;
+  }
 
   onClose() {
     this.closeNav.next();

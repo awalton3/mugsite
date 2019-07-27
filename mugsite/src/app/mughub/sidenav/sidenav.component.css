@@ -1,5 +1,6 @@
 .sideDrawer-content {
   height: 100%;
+  width: 100%;
   padding: 20px 0px;
 }
 
@@ -12,9 +13,10 @@
   color: #eee;
   font-family: 'Montserrat', sans-serif;
   font-size: 16px;
-  padding: 0 65px;
+  padding-left: 55px;
   font-weight: 400;
   cursor: pointer;
+  width: 100%;
 }
 
 .sideDrawer-sublinks {
@@ -28,7 +30,7 @@
 
 .sideDrawer-link-icon {
   color: #eee;
-  margin-right: 15px;
+  margin-right: 20px;
   font-size: 20px;
 }
 
@@ -49,7 +51,7 @@
 } */
 
 .logo {
-  width: 190px;
+  width: 180px;
   margin-bottom: 10px;
   padding: 0px 25px;
 }

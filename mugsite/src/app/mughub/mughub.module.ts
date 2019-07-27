@@ -14,7 +14,11 @@ import { MatListModule } from '@angular/material/list';
 
 
 @NgModule({
-  declarations: [MughubComponent, LoginComponent, RegisterComponent],
+  declarations: [
+    MughubComponent,
+    LoginComponent,
+    RegisterComponent
+  ],
   imports: [
     CommonModule,
     MaterialComponentsModule,
@@ -22,7 +26,7 @@ import { MatListModule } from '@angular/material/list';
     MughubRoutingModule,
     ReactiveFormsModule,
     MatSidenavModule,
-    MatListModule
+    MatListModule,
   ]
 })
 

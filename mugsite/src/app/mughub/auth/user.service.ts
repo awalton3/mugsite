@@ -27,7 +27,6 @@ export class UserService {
 
   isUserAuthenticated(attemptedRoute: string) {
     let user = this.getUserSession();
-
     switch (attemptedRoute) {
       case 'student':
         return (user && (user.type === 'student'));
