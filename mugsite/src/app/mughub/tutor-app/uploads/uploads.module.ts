@@ -17,7 +17,11 @@ import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
-  declarations: [UploadsComponent, UploadComponent, UploadEditorComponent],
+  declarations: [
+    UploadsComponent,
+    UploadComponent,
+    UploadEditorComponent
+  ],
   imports: [
     CommonModule,
     MaterialComponentsModule,

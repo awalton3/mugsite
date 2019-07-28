@@ -60,14 +60,18 @@ export class SidenavComponent implements OnInit {
     if (link === 'mail') {
       // this.router.navigate(['mailhub/inbox'], { relativeTo: this.route });
     }
-    else if (link === 'hour log')
-      this.router.navigate(['hour-log'], { relativeTo: this.route })
-    else
-      this.router.navigate([link], { relativeTo: this.route })
-
+    else if (link === 'hour log') {
+      this.toggleSubLinks('mail');
+      this.showSubLinks = false;
+    }
+    else {
+      this.showSubLinks = false;
+      this.router.navigate([link], { relativeTo: this.route });
+    }
   }
 
   navigateToSublink(sublink: string) {
+    this.showSubLinks = false;
     this.router.navigate(['mail', sublink], { relativeTo: this.route });
   }
 

@@ -1,3 +1,17 @@
-<p>
-  inbox works!
-</p>
+<mughub-headnav title="inbox" iconLeft="menu" (leftIconToggled)="closeSidenav()"></mughub-headnav>
+<div fxLayout="column" fxLayoutAlign="center center">
+  <mughub-upload [upload]="testUpload"></mughub-upload>
+  <mughub-upload [upload]="testUpload"></mughub-upload>
+  <mughub-upload [upload]="testUpload"></mughub-upload>
+  <mughub-upload [upload]="testUpload"></mughub-upload>
+  <mughub-upload [upload]="testUpload"></mughub-upload>
+  <mughub-upload [upload]="testUpload"></mughub-upload>
+  <mughub-upload [upload]="testUpload"></mughub-upload>
+  <mughub-upload [upload]="testUpload"></mughub-upload>
+  <mughub-upload [upload]="testUpload"></mughub-upload>
+</div>
+<div class="bottom-right-fab">
+  <button mat-fab color="accent">
+    <i class="material-icons" fxLayoutAlign="center center" style="color: white">add</i>
+  </button>
+</div>

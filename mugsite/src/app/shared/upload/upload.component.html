@@ -1,0 +1,81 @@
+<!-- <div class="upload" fxLayout="row" matRipple>
+
+  <div class="date" fxLayout="column" fxLayoutAlign="start center">
+    <p class="day">{{ upload.creationDate.day }}</p>
+    <p class="month">{{ creationMonth | uppercase}}</p>
+  </div>
+
+  <mat-divider class="divider" [vertical]="true"></mat-divider>
+
+  <div class="info">
+    <p class="name">{{ upload.recipient.name }}<br>{{ upload.subject }}</p>
+
+    <div *ngIf="upload.assignment">
+      <p class="category">ASSIGNMENT</p>
+      <p class="category-text">
+        {{ upload.assignment }}
+      </p>
+    </div>
+
+    <div *ngIf="upload.attachments.length !== 0">
+      <p class="category">ATTACHMENTS</p>
+      <p class="category-text">
+        <span *ngFor="let attachment of upload.attachments">
+          {{ attachment }}
+          <br>
+        </span>
+      </p>
+    </div>
+
+    <div *ngIf="upload.comments">
+      <p class="category">COMMENTS/CONCERNS</p>
+      <p class="category-text">
+        {{ upload.comments }}
+      </p>
+    </div>
+
+  </div>
+</div> -->
+
+
+
+<div class="upload" fxLayout="row" matRipple>
+
+  <div class="unread-symbol"></div>
+
+  <div class="date" fxLayout="column" fxLayoutAlign="start center">
+    <p class="day">23</p>
+    <p class="month">MAR</p>
+  </div>
+
+  <mat-divider class="divider" [vertical]="true"></mat-divider>
+
+  <div class="info" fxLayout="column" fxLayoutAlign="start start">
+    <p class="name">John Doe</p>
+    <p class="subject">Algebra II</p>
+    <!-- <div class="upload-content">
+      ahjjfajsdkfdslkadsjfksdsaadflkjkdlfalfakdlfjalsfjdkjsakfjksfsklfjskdfk;asdfjaskldnfsafkdfasdfklasdjfdklasjdflkadjfasdfjaskfsdklfsjafaslfklsdjfksdjfskljfsdfkjsdf;dfjdfasfkdsajfkdfjsakl;fjsakdjsdfdksfjaskdfaksj
+    </div> -->
+    <div class="upload-content">
+      hello
+    </div>
+
+    <!-- <div *ngIf="upload.attachments.length !== 0">
+      <p class="category">ATTACHMENTS</p>
+      <p class="category-text">
+        <span *ngFor="let attachment of upload.attachments">
+
+          <br>
+        </span>
+      </p>
+    </div> -->
+
+    <!-- <div *ngIf="upload.comments">
+      <p class="category">COMMENTS/CONCERNS</p>
+      <p class="category-text">
+        jakfakjkaldfjkl;asd
+      </p>
+    </div> -->
+
+  </div>
+</div>
