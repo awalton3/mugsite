@@ -1,8 +1,8 @@
-<div fxLayout="column" fxLayoutAlign="center center" class="fade-in heightFull">
-  <img class="logo--width" src="assets/img/mughub_logo_onlight.png">
+<div fxLayout="column" fxLayoutAlign="center center" class="fade-in heightFull" style="background-color: #30546c">
+  <img class="logo--width" src="assets/img/mughub_logo_horizontal_onDark.png">
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutAlign="center center">
     <mat-form-field floatLabel="never" class="auth-input" fxLayoutAlign="start start">
-      <input matInput formControlName="email" type="email" placeholder="Email" class="auth-input-field" fxLayoutAlign="center center">
+      <input matInput formControlName="email" type="email" placeholder="Email" class="auth-input-field" fxLayoutAlign="center center" autocomplete="off">
       <span matPrefix><i class="material-icons auth-input-field-icon" fxLayoutAlign="center center">email</i></span>
     </mat-form-field>
     <mat-form-field floatLabel="never" class="auth-input" fxLayoutAlign="start start">
@@ -10,7 +10,7 @@
       <span matPrefix><i class="material-icons auth-input-field-icon" fxLayoutAlign="center center">lock</i></span>
       <span matSuffix (click)="onResetPassword()" class="auth-input-field-forgot">?</span>
     </mat-form-field>
-    <button mat-raised-button color="accent" type="submit" class="action-button">LOGIN</button>
+    <button mat-raised-button color="accent" type="submit" class="action-button" style="color: #244359">LOGIN</button>
     <p class="auth-switch-prompt" routerLink="/mughub/register">Don't have an account, register here.</p>
   </form>
 </div>
