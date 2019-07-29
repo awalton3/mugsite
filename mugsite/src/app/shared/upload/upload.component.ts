@@ -47,9 +47,9 @@ export class UploadComponent implements OnInit, AfterViewInit {
 
     let elements = document.getElementsByClassName('upload-content');
     Object.keys(document.getElementsByClassName('upload-content')).map(element => {
-      elements[element].style.width = targetWidth + 'px';
+      elements[element].style.maxWidth = targetWidth + 'px';
     });
-    
+
   }
 
   getMonthStr(monthNum: number) {

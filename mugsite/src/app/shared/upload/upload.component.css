@@ -34,10 +34,18 @@
   font-weight: 600;
   color: grey;
   margin: 0;
-  /* white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 200px; */
+}
+
+.parent-flex {
+  display: -webkit-flex !important;
+  display: -moz-flex !important;
+  display: flex !important;
+}
+
+.test-flex {
+  -webkit-flex: 1;
+  -moz-flex: 1;
+  flex: 1;
 }
 
 .subject {
@@ -64,9 +72,11 @@
 }
 
 .upload-content {
+  /* max-width: 600px; */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
   font-size: 14px;
   font-weight: 400;
   color: grey;

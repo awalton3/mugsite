@@ -36,8 +36,25 @@
 
   </div>
 </div> -->
+<div class="upload" fxLayout="row" matRipple>
 
+  <div class="unread-symbol"></div>
 
+  <div class="date" fxLayout="column" fxLayoutAlign="start center">
+    <p class="day">23</p>
+    <p class="month">MAR</p>
+  </div>
+
+  <mat-divider class="divider" [vertical]="true"></mat-divider>
+
+  <div class="info" fxLayout="column" fxLayoutAlign="start start">
+    <p class="name">John Doe</p>
+    <p class="subject">Algebra II</p>
+    <div class="upload-content">
+      hello
+    </div>
+  </div>
+</div>
 
 <div class="upload" fxLayout="row" matRipple>
 
@@ -53,29 +70,10 @@
   <div class="info" fxLayout="column" fxLayoutAlign="start start">
     <p class="name">John Doe</p>
     <p class="subject">Algebra II</p>
-    <!-- <div class="upload-content">
-      ahjjfajsdkfdslkadsjfksdsaadflkjkdlfalfakdlfjalsfjdkjsakfjksfsklfjskdfk;asdfjaskldnfsafkdfasdfklasdjfdklasjdflkadjfasdfjaskfsdklfsjafaslfklsdjfksdjfskljfsdfkjsdf;dfjdfasfkdsajfkdfjsakl;fjsakdjsdfdksfjaskdfaksj
-    </div> -->
+
     <div class="upload-content">
-      hello
+      ahjjfajsdkfdslkadsjfksdsaadflkjkdlfalfakdlfjalsfjdkjsakfjksfsklfjskdfk;asdfjaskldnfsafkdfasdfklasdjfdklasjdflkadjfasdfjaskfsdklfsjafaslfklsdjfksdjfskljfsdfkjsdf;dfjdfasfkdsajfkdfjsakl;fjsakdjsdfdksfjaskdfaksj
+      ahjjfajsdkfdslkadsjfksdsaadflkjkdlfalfakdlfjalsfjdkjsakfjksfsklfjskdfk;asdfjaskldnfsafkdfasdfklasdjfdklasjdflkadjfasdfjaskfsdklfsjafaslfklsdjfksdjfskljfsdfkjsdf;dfjdfasfkdsajfkdfjsakl;fjsakdjsdfdksfjaskdfaksj
     </div>
-
-    <!-- <div *ngIf="upload.attachments.length !== 0">
-      <p class="category">ATTACHMENTS</p>
-      <p class="category-text">
-        <span *ngFor="let attachment of upload.attachments">
-
-          <br>
-        </span>
-      </p>
-    </div> -->
-
-    <!-- <div *ngIf="upload.comments">
-      <p class="category">COMMENTS/CONCERNS</p>
-      <p class="category-text">
-        jakfakjkaldfjkl;asd
-      </p>
-    </div> -->
-
   </div>
 </div>
