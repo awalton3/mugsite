@@ -44,10 +44,28 @@
   color: #de6600
 }
 
-.upload-header {
+.name {
+  font-size: 14px;
+  font-weight: 600;
+  color: grey;
+  margin: 0;
+}
+
+.subject {
+  font-weight: 400;
+  font-size: 14px;
+  font-weight: 600;
+  color: grey;
+  margin: 0;
+}
+
+.truncate {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.upload-header {
   font-weight: 400;
   font-size: 14px;
   font-weight: 600;

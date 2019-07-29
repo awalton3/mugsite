@@ -14,6 +14,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
   @Input() numOfUploads: number = null;
   @Output() finished = new Subject();
   creationMonth: string;
+  screenWidth: number;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -34,7 +35,7 @@ export class UploadComponent implements OnInit, AfterViewInit {
   }
 
   getUploadContentWidth() {
-
+    this.screenWidth = window.innerWidth;
     let targetWidth: number;
 
     if (window.innerWidth > 960)
@@ -50,8 +51,8 @@ export class UploadComponent implements OnInit, AfterViewInit {
       elements[element].style.maxWidth = targetWidth + 'px';
     });
 
-    elements = document.getElementsByClassName('upload-header');
-    Object.keys(document.getElementsByClassName('upload-header')).map(element => {
+    elements = document.getElementsByClassName('truncate ');
+    Object.keys(document.getElementsByClassName('truncate ')).map(element => {
       elements[element].style.maxWidth = targetWidth + 'px';
     });
   }
