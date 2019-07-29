@@ -30,17 +30,27 @@ export class SidenavComponent implements OnInit {
   constructor(private userService: UserService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.defaultNavLinks = {
-      'mail': ['inbox', 'sent', 'drafts', 'trash'],
-      'manage': [],
-      'hour log': [],
-      'settings': []
+
+    this.user = this.userService.getUserSession();
+
+    if (this.user.type === 'tutor') {
+      this.defaultNavLinks = {
+        'mail': ['inbox', 'sent', 'drafts', 'trash'],
+        'manage': [],
+        'hour log': [],
+        'settings': []
+      }
+      this.showSubLinks = false
+    } else {
+      this.defaultNavLinks = {
+        'mail': ['inbox', 'sent', 'drafts', 'trash'],
+        'settings': []
+      }
+      this.showSubLinks = true
     }
-    const userType = this.userService.getUserSession().type;
-    userType === 'tutor' ? this.showSubLinks = false : this.showSubLinks = true;
+
     this.defaultNavLinksArr = Object.keys(this.defaultNavLinks);
     this.screenWidth = window.innerWidth;
-    this.user = this.userService.getUserSession();
   }
 
   getIconLink(link: string): string {

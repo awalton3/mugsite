@@ -4,5 +4,6 @@ import { Subject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 
 export class SidenavService {
+
   onToggle = new Subject();
 }
