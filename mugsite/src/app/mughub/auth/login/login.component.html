@@ -1,8 +1,8 @@
-<div fxLayout="column" fxLayoutAlign="center center" class="fade-in heightFull" style="background-color: #30546c">
+<div fxLayout="column" fxLayoutAlign="center center" class="fade-in heightFull background-base">
   <img class="logo--width" src="assets/img/mughub_logo_horizontal_onDark.png">
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutAlign="center center">
     <mat-form-field floatLabel="never" class="auth-input" fxLayoutAlign="start start">
-      <input matInput formControlName="email" type="email" placeholder="Email" class="auth-input-field" fxLayoutAlign="center center" autocomplete="off">
+      <input matInput formControlName="email" type="email" placeholder="Email" class="auth-input-field" fxLayoutAlign="center center">
       <span matPrefix><i class="material-icons auth-input-field-icon" fxLayoutAlign="center center">email</i></span>
     </mat-form-field>
     <mat-form-field floatLabel="never" class="auth-input" fxLayoutAlign="start start">

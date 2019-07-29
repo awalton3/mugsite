@@ -1,15 +1,16 @@
 .logo--width {
-  width: 180px;
+  width: 260px;
 }
 
 .auth-input{
-  background-color: #2b5570;
+  background-color: #244359;
   border-radius: 33.5px;
   font-size: 14px;
   width: 320px;
   height: 38px;
   margin-bottom: 13px;
-  padding: 0px 25px;
+  padding: 0 25px;
+  font-family: 'Montserrat', sans-serif !important;
 }
 
 .auth-input-field {
@@ -17,20 +18,21 @@
   margin-top: -4px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
-  caret-color: white !important;
+  caret-color: #98aab6 !important;
 }
 
 .auth-input-field-icon {
-  color: white;
+  color: #98aab6;
   font-size: 17px;
   padding-right: 12px;
 }
+
 
 .auth-radio-label {
   margin-top: 5px;
   font-weight: 600;
   font-size: 15px;
-  color: #2b5570;
+  color: #eee;
 }
 
 .auth-radio-group {
@@ -38,7 +40,7 @@
   margin: 10px;
   margin-top: 15px;
   margin-bottom: 15px;
-  color: #2b5570;
+  color: #eee;
 }
 
 .auth-radio-buttons {
@@ -53,10 +55,11 @@
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   margin-top: 5px;
+  color: #98aab6;
 }
 
 .auth-switch-prompt {
-  color: grey;
+  color: #98aab6;
   font-size: 13px;
   text-decoration: underline;
   cursor: pointer;
@@ -78,7 +81,7 @@
 :host ::ng-deep .mat-form-field-label{
   font-family: 'Montserrat', sans-serif !important;
   font-weight: 400 !important;
-  color: white !important;
+  color: #98aab6 !important;
   top: 12px !important;
 }
 
@@ -86,8 +89,12 @@
   display: none !important;
 }
 
+:host ::ng-deep .mat-radio-outer-circle {
+  border-color: #ea9103 !important;
+}
+
 /* fix chrome autofill styling */
 input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px #2b5570 inset !important;
+    -webkit-box-shadow: 0 0 0px 1000px #244359 inset !important;
     -webkit-text-fill-color: #eee;
 }

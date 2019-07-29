@@ -15,11 +15,11 @@
 }
 
 .auth-input-field {
-  color: #98aab6;
+  color: #eee;
   margin-top: -4px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
-  caret-color: #98aab6 !important;
+  caret-color: #eee !important;
 }
 
 .auth-input-field-icon {
@@ -73,6 +73,6 @@ input:-webkit-autofill:focus
 
 {
     -webkit-box-shadow: 0 0 0px 1000px #244359 inset !important;
-    -webkit-text-fill-color: #98aab6 !important;
+    -webkit-text-fill-color: #eee !important;
     transition: background-color 5000s ease-in-out 0s !important;
   }
