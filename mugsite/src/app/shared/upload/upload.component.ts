@@ -50,6 +50,10 @@ export class UploadComponent implements OnInit, AfterViewInit {
       elements[element].style.maxWidth = targetWidth + 'px';
     });
 
+    elements = document.getElementsByClassName('upload-header');
+    Object.keys(document.getElementsByClassName('upload-header')).map(element => {
+      elements[element].style.maxWidth = targetWidth + 'px';
+    });
   }
 
   getMonthStr(monthNum: number) {

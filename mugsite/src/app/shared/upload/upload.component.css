@@ -29,33 +29,6 @@
   padding: 0px 30px;
 }
 
-.name {
-  font-size: 14px;
-  font-weight: 600;
-  color: grey;
-  margin: 0;
-}
-
-.parent-flex {
-  display: -webkit-flex !important;
-  display: -moz-flex !important;
-  display: flex !important;
-}
-
-.test-flex {
-  -webkit-flex: 1;
-  -moz-flex: 1;
-  flex: 1;
-}
-
-.subject {
-  font-weight: 400;
-  font-size: 14px;
-  font-weight: 600;
-  color: grey;
-  margin: 0;
-}
-
 .category {
   font-size: 13px;
   font-weight: 500;
@@ -71,12 +44,21 @@
   color: #de6600
 }
 
-.upload-content {
-  /* max-width: 600px; */
+.upload-header {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: 400;
+  font-size: 14px;
+  font-weight: 600;
+  color: grey;
+  margin: 0;
+}
 
+.upload-content {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   font-size: 14px;
   font-weight: 400;
   color: grey;
