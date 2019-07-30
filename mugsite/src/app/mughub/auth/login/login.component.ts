@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'mughub-login',
@@ -11,10 +12,16 @@ import { AuthService } from '../auth.service';
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
-
-  constructor(private authService: AuthService) { }
+  redirectUrl: string = null;
+  constructor(
+    private authService: AuthService,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    if (this.route.snapshot.queryParams && this.route.snapshot.queryParams.return) {
+      this.redirectUrl = this.route.snapshot.queryParams.return;
+    }
     this.initForm();
   }
 
@@ -33,7 +40,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authService.login(this.loginForm.value);
+    this.authService.login(this.loginForm.value, this.redirectUrl);
   }
 
 }

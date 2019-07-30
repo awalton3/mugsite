@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
 import { User } from './user.model';
 import { SnackBarService } from 'src/app/shared/snack-bar/snack-bar.service';
+import { first } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 
@@ -10,7 +12,8 @@ export class AuthService {
 
   constructor(
     private userService: UserService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private router: Router
   ) { }
 
   register(formData: { email: string; password: string; name: any; type: string; }) {
@@ -35,7 +38,7 @@ export class AuthService {
     return user
   }
 
-  login(formData: { email: string; password: string; }) {
+  login(formData: { email: string; password: string; }, redirectUrl: string) {
     firebase.auth().signInWithEmailAndPassword(formData.email, formData.password)
       .then(userObj => {
         // if (userObj.user.emailVerified) {
@@ -46,11 +49,14 @@ export class AuthService {
         // } else
         //   alert("Please verify your email before logging in.");
         this.userService.createLocalUser(userObj.user.uid);
-        // this.userService.user
-        //   .pipe(first())
-        //   .subscribe(user => {
-        //     user.isNewUser ? this.router.navigate(['mughub/welcome']) : this.router.navigate(['mughub', user.type]);
-        //   });
+        this.userService.user
+          .pipe(first())
+          .subscribe(user => {
+            if (!redirectUrl)
+              user.isNewUser ? this.router.navigate(['mughub/welcome']) : this.router.navigate(['mughub', user.type]);
+            else
+              this.router.navigateByUrl(redirectUrl);
+          });
       })
       .catch(error => this.handleError(error.code))
   }
@@ -66,20 +72,20 @@ export class AuthService {
       .then(() => this.onSuccess("A password reset email was sent to " + email))
       .catch(error => this.handleError(error.code));
   }
-
-  autoLogin() {
-    let user = JSON.parse(sessionStorage.getItem('user'));
-    if (user) {
-      this.userService.createLocalUser(user.uid);
-      // this.userService.user
-      //   .pipe(first())
-      //   .subscribe(user => {
-      //     user.isNewUser ? this.router.navigate(['mughub/welcome']) : this.router.navigate(['mughub', user.type]);
-      //   });
-    } else {
-
-    }
-  }
+  //
+  // autoLogin() {
+  //   let user = JSON.parse(sessionStorage.getItem('user'));
+  //   if (user) {
+  //     this.userService.createLocalUser(user.uid);
+  //     // this.userService.user
+  //     //   .pipe(first())
+  //     //   .subscribe(user => {
+  //     //     user.isNewUser ? this.router.navigate(['mughub/welcome']) : this.router.navigate(['mughub', user.type]);
+  //     //   });
+  //   } else {
+  //
+  //   }
+  // }
 
   logout() {
     firebase.auth().signOut();

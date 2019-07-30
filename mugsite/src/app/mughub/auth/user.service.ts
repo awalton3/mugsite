@@ -71,18 +71,10 @@ export class UserService {
           userObj.data().isNewUser,
           userObj.data().prefs,
           userObj.data().connections)
-
         this.user.next(currentUser);
-
         if (!this.getUserSession())
           this.createUserSession(currentUser);
-
-        this.navigateUser(currentUser);
       })
-  }
-
-  navigateUser(currentUser: User) {
-    currentUser.isNewUser ? this.router.navigate(['mughub/welcome']) : this.router.navigate(['mughub', currentUser.type]);
   }
 
   updateLocalUser(properties: { name: string, value: any }[]) {
@@ -117,7 +109,7 @@ export class UserService {
   }
 
   onError(message: string, error: string) {
-      this.snackBarService.onOpenSnackBar.next({ message: message, isError: true });
+    this.snackBarService.onOpenSnackBar.next({ message: message, isError: true });
     console.log(error);
   }
 
