@@ -1,21 +1,21 @@
 import { Injectable } from '@angular/core';
-import { CanLoad, Route, ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlSegment } from '@angular/router';
+import { CanLoad, Route, ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlSegment, CanActivateChild } from '@angular/router';
 import { UserService } from './user.service';
 
 @Injectable({ providedIn: 'root' })
 
-export class AuthGuard implements CanActivate, CanLoad {
+export class AuthGuard implements CanActivate, CanLoad, CanActivateChild {
   constructor(
     private userService: UserService,
     private router: Router
-  ) {}
+  ) { }
 
   canLoad(route: Route, segments: UrlSegment[]): boolean {
     let redirectUrl = '/mughub';
     segments.forEach(segment => redirectUrl = redirectUrl + '/' + segment.path);
     if (!this.userService.isUserAuthenticated(route.path)) {
       this.router.navigate(['mughub/login'], {
-        queryParams: { return:  redirectUrl }
+        queryParams: { return: redirectUrl }
       });
     }
     return this.userService.isUserAuthenticated(route.path);
@@ -28,6 +28,15 @@ export class AuthGuard implements CanActivate, CanLoad {
       });
     }
     return this.userService.isUserAuthenticated(route.parent.routeConfig.path);
+  }
+
+  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (!this.userService.isUserAuthenticated(null)) {
+      this.router.navigate(['mughub/login'], {
+        queryParams: { return: state.url }
+      });
+    }
+    return this.userService.isUserAuthenticated(null);
   }
 
 }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthService } from '../auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'mughub-login',
@@ -15,13 +16,14 @@ export class LoginComponent implements OnInit {
   redirectUrl: string = null;
   constructor(
     private authService: AuthService,
-    private route: ActivatedRoute
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
-    if (this.route.snapshot.queryParams && this.route.snapshot.queryParams.return) {
-      this.redirectUrl = this.route.snapshot.queryParams.return;
-    }
+    this.setRedirectUrl();
+    this.autoLogin();
     this.initForm();
   }
 
@@ -30,6 +32,20 @@ export class LoginComponent implements OnInit {
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'password': new FormControl(null, [Validators.required])
     });
+  }
+
+  setRedirectUrl() {
+    if (this.route.snapshot.queryParams && this.route.snapshot.queryParams.return) {
+      this.redirectUrl = this.route.snapshot.queryParams.return;
+    }
+  }
+
+  autoLogin() {
+    let user = this.userService.getUserSession();
+    if (user && this.redirectUrl)
+      this.router.navigateByUrl(this.redirectUrl);
+    if (user && !this.redirectUrl)
+      user.isNewUser ? this.router.navigate(['mughub/welcome']) : this.router.navigate(['mughub', user.type]);
   }
 
   onResetPassword() {
