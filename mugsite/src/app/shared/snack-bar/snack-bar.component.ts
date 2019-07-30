@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
+import { SnackBarService } from './snack-bar.service';
 
 @Component({
   selector: 'app-snack-bar',
@@ -8,11 +9,18 @@ import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 })
 export class SnackBarComponent implements OnInit {
 
-  constructor(@Inject(MAT_SNACK_BAR_DATA) public data: { message: string, isError: boolean }) {
+  constructor(
+    @Inject(MAT_SNACK_BAR_DATA) public data: { message: string, isError: boolean },
+    private snackBarService: SnackBarService
+  ) {
     console.log(this.data);
   }
 
   ngOnInit() {
+  }
+
+  onSnackBarClose() {
+    this.snackBarService.onCloseSnackBar.next(); 
   }
 
 }

@@ -11,7 +11,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatListModule } from '@angular/material/list';
-
+import { SnackBarModule } from '../shared/snack-bar/snack-bar.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +27,7 @@ import { MatListModule } from '@angular/material/list';
     ReactiveFormsModule,
     MatSidenavModule,
     MatListModule,
+    SnackBarModule
   ]
 })
 

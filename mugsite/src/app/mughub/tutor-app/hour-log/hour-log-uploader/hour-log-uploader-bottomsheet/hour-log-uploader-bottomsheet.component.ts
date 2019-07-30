@@ -87,7 +87,7 @@ export class HourLogUploaderBottomsheetComponent implements OnInit, OnDestroy {
         .then(() => this.onSuccess())
         .catch(error => this.onError(error))
     } else {
-      this.snackBarService.openSnackbar(this.snackBar, 3000, 'top', 'right', { message: 'Time Conflict', isError: true });
+      this.snackBarService.onOpenSnackBar.next({ message: 'Time Conflict', isError: true });
     }
   }
 
@@ -100,7 +100,7 @@ export class HourLogUploaderBottomsheetComponent implements OnInit, OnDestroy {
         .then(() => this.onSuccess())
         .catch(error => this.onError(error))
     } else {
-      this.snackBarService.openSnackbar(this.snackBar, 3000, 'top', 'right', { message: 'Time Conflict', isError: true });
+      this.snackBarService.onOpenSnackBar.next({ message: 'Time Conflict', isError: true });
     }
   }
 
@@ -121,14 +121,14 @@ export class HourLogUploaderBottomsheetComponent implements OnInit, OnDestroy {
   }
 
   onSuccess() {
-    this.snackBarService.openSnackbar(this.snackBar, 3000, 'top', 'right', { message: 'Successfully Updated Hour Log', isError: false });
+    this.snackBarService.onOpenSnackBar.next({ message: 'Successfully Updated Hour Log', isError: false });
     this.hourLogService.onLoggedHoursChanged();
     this.onClose();
   }
 
   onError(error: any) {
     console.log(error);
-    this.snackBarService.openSnackbar(this.snackBar, 3000, 'top', 'right', { message: 'Error Occurred', isError: true });
+    this.snackBarService.onOpenSnackBar.next({ message: 'Error Occurred', isError: true });
   }
 
   onClose() {

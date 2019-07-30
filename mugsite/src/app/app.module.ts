@@ -13,6 +13,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
+import { SnackBarModule } from './shared/snack-bar/snack-bar.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +27,8 @@ import { environment } from '../environments/environment';
     BrowserAnimationsModule,
     AppRoutingModule,
     HomeModule,
-    MaterialComponentsModule
+    MaterialComponentsModule,
+    SnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,7 +1,4 @@
-import { Router } from '@angular/router';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService } from './auth/auth.service';
-import { UserService } from './auth/user.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-mughub',
@@ -9,20 +6,13 @@ import { UserService } from './auth/user.service';
   styleUrls: ['./mughub.component.css']
 })
 
-export class MughubComponent implements OnInit, OnDestroy {
+export class MughubComponent implements OnInit {
 
   constructor(
-    private authService: AuthService,
-    private userService: UserService,
-    private router: Router
   ) { }
 
   ngOnInit() {
-    this.authService.autoLogin();
+    // if (!this.userService.getUserSession())
+    //   this.authService.autoLogin();
   }
-
-  ngOnDestroy() {
-    this.userService.user.unsubscribe();
-  }
-
 }

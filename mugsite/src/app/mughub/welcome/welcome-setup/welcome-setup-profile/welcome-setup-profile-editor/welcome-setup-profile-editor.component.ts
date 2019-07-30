@@ -9,7 +9,7 @@ import { User } from 'src/app/mughub/auth/user.model';
 })
 export class WelcomeSetupProfileEditorComponent implements OnInit {
 
-  urls: string[];
+  imageUrls: string[];
   imagesLoaded = false;
   imageClicked: string;
   user: User;
@@ -17,8 +17,8 @@ export class WelcomeSetupProfileEditorComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit() {
-    this.user = this.userService.getCurrentUser();
-    this.urls = [
+    this.user = this.userService.getUserSession();
+    this.imageUrls = [
       'https://i.ibb.co/pjG5Rkf/4k-wallpaper-astronomy-evening-2085998.jpg',
       'https://i.ibb.co/PQyS52p/adventure-automobile-classic-2533092.jpg',
       'https://i.ibb.co/hKqTZzd/alley-architecture-buildings-2119106.jpg',
@@ -35,7 +35,7 @@ export class WelcomeSetupProfileEditorComponent implements OnInit {
   }
 
   onImageClick(index: string | number) {
-    this.userService.updateLocalUser([{ name: 'photoUrl', value: this.urls[index] }]);
+    this.userService.updateLocalUser([{ name: 'photoUrl', value: this.imageUrls[index] }]);
   }
 
   onUpload(event) {
@@ -54,7 +54,7 @@ export class WelcomeSetupProfileEditorComponent implements OnInit {
 
     reader.onload = (e: FileReaderEvent) => {
       this.userService.updateLocalUser([{ name: 'photoUrl', value: e.target.result }]);
-      this.urls.unshift(this.user.photoUrl);
+      this.imageUrls.unshift(e.target.result);
     }
 
     if (file) {

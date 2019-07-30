@@ -25,7 +25,7 @@ export class WelcomeSetupSettingsComponent implements OnInit {
     this.emailForm = new FormGroup({
       email: new FormControl(null, Validators.email)
     })
-    this.user = this.userService.getCurrentUser();
+    this.user = this.userService.getUserSession();
   }
 
   onSettingsSubmit() {

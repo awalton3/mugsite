@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, HostListener, AfterViewInit, OnDestroy } from '@angular/core';
 import { SidenavService } from '../sidenav/sidenav.service';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
 
 @Component({

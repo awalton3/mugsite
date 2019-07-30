@@ -1,9 +1,8 @@
 import * as firebase from 'firebase/app';
 import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
-import { Router } from '@angular/router';
-import { first } from 'rxjs/operators';
 import { User } from './user.model';
+import { SnackBarService } from 'src/app/shared/snack-bar/snack-bar.service';
 
 @Injectable({ providedIn: 'root' })
 
@@ -11,14 +10,13 @@ export class AuthService {
 
   constructor(
     private userService: UserService,
-    private router: Router
+    private snackBarService: SnackBarService
   ) { }
 
   register(formData: { email: string; password: string; name: any; type: string; }) {
     firebase.auth().createUserWithEmailAndPassword(formData.email, formData.password)
       .then(userObj => {
         this.userService.addUserToFbCollect(this.createNewUserObj(userObj, formData))
-        this.router.navigate(['/mughub/login']);
         this.verifyEmail();
       })
       .catch(error => this.handleError(error.code))
@@ -47,25 +45,25 @@ export class AuthService {
         //     .subscribe(user => this.router.navigate(['mughub', user.type]));
         // } else
         //   alert("Please verify your email before logging in.");
-        this.userService.createLocalUser(userObj.user.uid)
-        this.userService.user
-          .pipe(first())
-          .subscribe(user => {
-            user.isNewUser ? this.router.navigate(['mughub/welcome']) : this.router.navigate(['mughub', user.type]);
-          });
+        this.userService.createLocalUser(userObj.user.uid);
+        // this.userService.user
+        //   .pipe(first())
+        //   .subscribe(user => {
+        //     user.isNewUser ? this.router.navigate(['mughub/welcome']) : this.router.navigate(['mughub', user.type]);
+        //   });
       })
       .catch(error => this.handleError(error.code))
   }
 
   verifyEmail() {
     firebase.auth().currentUser.sendEmailVerification()
-      .then(() => alert("An email verification has been sent. Please verify your email before logging in."))
-      .catch(() => alert("An error occured when sending the email verification. Please be sure the email is valid."));
+      .then(() => this.onSuccess("An email verification has been sent."))
+      .catch(() => this.onError("An error occured when sending the email verification. Please be sure the email is valid."));
   }
 
   resetPassword(email: string) {
     firebase.auth().sendPasswordResetEmail(email)
-      .then(() => alert("A password reset email was sent to " + email))
+      .then(() => this.onSuccess("A password reset email was sent to " + email))
       .catch(error => this.handleError(error.code));
   }
 
@@ -73,13 +71,13 @@ export class AuthService {
     let user = JSON.parse(sessionStorage.getItem('user'));
     if (user) {
       this.userService.createLocalUser(user.uid);
-      this.userService.user
-        .pipe(first())
-        .subscribe(user => {
-          user.isNewUser ? this.router.navigate(['mughub/welcome']) : this.router.navigate(['mughub', user.type]);
-        });
+      // this.userService.user
+      //   .pipe(first())
+      //   .subscribe(user => {
+      //     user.isNewUser ? this.router.navigate(['mughub/welcome']) : this.router.navigate(['mughub', user.type]);
+      //   });
     } else {
-      this.router.navigate(['mughub/login']);
+
     }
   }
 
@@ -88,44 +86,52 @@ export class AuthService {
     sessionStorage.clear();
   }
 
+  onSuccess(message: string) {
+    this.snackBarService.onOpenSnackBar.next({ message: message, isError: false });
+  }
+
+  onError(message: string) {
+    this.snackBarService.onOpenSnackBar.next({ message: message, isError: true });
+  }
+
   handleError(errorCode: any) {
 
     switch (errorCode) {
 
       //login
       case 'auth/invalid-email':
-        alert('The email you entered is not valid.')
+        this.onError('Your email is invalid.')
         break;
       case 'auth/user-disabled':
-        alert('This account has been disabled. Please contact an admin for more information.')
+        this.onError('Your account is disabled.')
         break;
       case 'auth/user-not-found':
-        alert('The email you entered does not exist in our records.')
+        this.onError('Your email is not registered.')
         break;
       case 'auth/wrong-password':
-        alert('The password you entered is invalid.')
+        this.onError('Your password is invalid.')
         break;
 
       //register
       case 'auth/email-already-in-use':
-        alert('This email is already in use by another user.')
+        this.onError('Email already in use')
         break;
       case 'auth/invalid-email':
-        alert('This email address is not a valid. Please enter a valid email.')
+        this.onError('Email address is invalid')
         break;
       case 'auth/operation-not-allowed':
-        alert('This operation is not allowed. Please contact awalton3@nd.edu to resolve this issue.');
+        this.onError('Operation not allowed');
         break;
       case 'auth/weak-password':
-        alert('The entered password is weak. Please enter a stronger password.');
+        this.onError('Password is weak');
         break;
 
       //reset
       case 'auth/invalid-email':
-        alert('The email you entered is invalid. Please enter a valid email address');
+        this.onError('Email invalid');
         break;
       case 'auth/user-not-found':
-        alert('No user was found with that email.');
+        this.onError('No user found');
         break;
 
     }

@@ -1,21 +1,26 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Subject } from 'rxjs';
 import { first } from 'rxjs/operators';
 import { User } from './user.model';
+import { SnackBarService } from 'src/app/shared/snack-bar/snack-bar.service';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 
 export class UserService {
 
-  private currentUser: User;
-  user = new Subject<User>();
+  // private currentUser: User;
+  // user = new Subject<User>();
 
-  constructor(private db: AngularFirestore) { }
+  constructor(
+    private db: AngularFirestore,
+    private snackBarService: SnackBarService,
+    private router: Router
+  ) { }
 
-  getCurrentUser() {
-    return this.currentUser;
-  }
+  // getCurrentUser() {
+  //   return this.currentUser;
+  // }
 
   getUserSession() {
     return JSON.parse(sessionStorage.getItem('user'))
@@ -46,15 +51,17 @@ export class UserService {
     this.db.collection('/users')
       .doc(user.uid)
       .set(Object.assign({}, user))
-      .then(() => console.log('success'))
-      .catch(error => console.log(error))
+      .then(() => {
+        this.router.navigate(['/mughub/login']);
+      })
+      .catch(error => this.onError('An unexpected error occured.', error))
   }
 
   createLocalUser(uid: string) {
     this.getUserFromFbCollect(uid)
       .pipe(first())
       .subscribe(userObj => {
-        this.currentUser = new User(
+        let currentUser = new User(
           userObj.data().name,
           userObj.data().photoUrl,
           userObj.data().email,
@@ -63,37 +70,51 @@ export class UserService {
           userObj.data().isNewUser,
           userObj.data().prefs,
           userObj.data().connections)
-        this.user.next(this.currentUser);
-        if (!this.isUserAuthenticated(null))
-          this.createUserSession(this.currentUser);
-        return Promise.resolve(this.currentUser);
+        // this.user.next(currentUser);
+        if (!this.getUserSession())
+          this.createUserSession(currentUser);
+
+        this.navigateUser(currentUser);
       })
   }
 
+  navigateUser(currentUser: User) {
+    currentUser.isNewUser ? this.router.navigate(['mughub/welcome']) : this.router.navigate(['mughub', currentUser.type]);
+  }
+
   updateLocalUser(properties: { name: string, value: any }[]) {
+    let currentUser = this.getUserSession();
     properties.map(property => {
       if (property.name === 'prefs') {
         Object.keys(property.value).map(pref => {
-          this.currentUser['prefs'][pref] = property.value[pref];
+          currentUser['prefs'][pref] = property.value[pref];
         })
-      } else if (Object.keys(this.currentUser).includes(property.name)) {
-        this.currentUser[property.name] = property.value;
+      } else if (Object.keys(currentUser).includes(property.name)) {
+        currentUser[property.name] = property.value;
       } else {
         console.log('an error occurred')
       }
     })
-    this.createUserSession(this.currentUser);
+    this.createUserSession(currentUser);
   }
 
   updateFbCollect() {
-    let user = Object.assign({}, this.currentUser);
-    let connections = this.currentUser.connections.map((obj)=> {return Object.assign({}, obj)});
-    user.connections = connections;
+    let user = Object.assign({}, this.getUserSession());
+    user.connections = user.connections.map((obj) => { return Object.assign({}, obj) });
     this.db.collection('/users')
-      .doc(this.currentUser.uid)
+      .doc(user.uid)
       .update(user)
-      .then(() => console.log('success'))
-      .catch(error => console.log(error))
+      .then(() => this.onSuccess('Successfully Updated'))
+      .catch(error => this.onError('An error occurred', error))
+  }
+
+  onSuccess(message: string) {
+    this.snackBarService.onOpenSnackBar.next({ message: message, isError: false });
+  }
+
+  onError(message: string, error: string) {
+      this.snackBarService.onOpenSnackBar.next({ message: message, isError: true });
+    console.log(error);
   }
 
 }

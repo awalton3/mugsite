@@ -1,5 +1,5 @@
 <div fxLayout="column" fxLayoutAlign="center center" class="background-eee widthFullPer" style="height: 40%">
-  <div id="profile-image" class="profile-image-container-large" [ngStyle]="{'background-image': 'url(' + user.photoUrl + ')'}"></div>
+  <div id="profile-image" class="profile-image-container-large" [ngStyle]="{'background-image': 'url(' + userService.getUserSession().photoUrl + ')'}"></div>
 </div>
 
 <div class="background-images">
@@ -14,7 +14,7 @@
         <i class="material-icons upload-icon">add</i>
       </div>
     </label>
-    <div (click)="onImageClick(i)" *ngFor="let url of urls, let i = index" class="image" [ngStyle]="{'background-image': 'url(' + url + ')'}" matRipple></div>
+    <div (click)="onImageClick(i)" *ngFor="let url of imageUrls, let i = index" class="image" [ngStyle]="{'background-image': 'url(' + url + ')'}" matRipple></div>
   </div>
 
   <!--spinner-->

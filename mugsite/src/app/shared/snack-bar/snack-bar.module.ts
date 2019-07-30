@@ -8,6 +8,7 @@ import { MaterialComponentsModule } from '../angular-material/material-component
   imports: [
     CommonModule,
     MaterialComponentsModule
-  ], entryComponents: [SnackBarComponent]
+  ],
+  entryComponents: [SnackBarComponent]
 })
 export class SnackBarModule {}

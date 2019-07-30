@@ -25,15 +25,13 @@ export class WelcomeSetupProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.user = this.userService.getCurrentUser();
-    this.chosenProfileImage = this.user.photoUrl;
     this.nameForm = new FormGroup({
-      'username': new FormControl(this.user.name)
+      'username': new FormControl(this.userService.getUserSession().name)
     })
   }
 
   onProfileSubmit() {
-    this.userService.updateLocalUser([{ name: 'name', value: this.nameForm.value.username.toLowerCase() }]);
+    this.userService.updateLocalUser([{ name: 'name', value: this.nameForm.value.username }]);
     this.stepperService.onChangeStep.next({ name: 'settings', num: 1 });
     this.router.navigate(["mughub/welcome/account-setup/settings"])
   }
@@ -43,7 +41,6 @@ export class WelcomeSetupProfileComponent implements OnInit {
   }
 
   onFinishProfileImage() {
-    this.chosenProfileImage = this.user.photoUrl;
     this.profileImageEditor.close();
   }
 }
