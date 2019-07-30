@@ -1,42 +1,16 @@
-<div fxLayout="column" fxLayoutAlign="start center" style="height: 80vh; width: 100vw">
-
-  <div *ngIf="connections.length !== 0" class="fade-in connections" fxLayoutAlign="start center">
-    <div *ngFor="let connection of connections; let i = index" class="connection" fxLayout="column" fxLayoutAlign="center center">
-      <i (click)="onRemoveConnection(i)" class="material-icons delete-connection-icon">close</i>
-      <div class="profile-image-container" [ngStyle]="{'background-image': 'url(' + connection.photoUrl + ')'}"></div>
-      <p class="profile-name">{{ connection.name }}</p>
-    </div>
-  </div>
-  <div *ngIf="connections.length === 0" class="placeholder-height"></div>
-
-  <br><br>
+<div class="widthFull" fxLayout="column" fxLayoutAlign="center center" style="height: 80vh;">
 
   <div fxLayout="column" fxLayoutAlign="center center">
     <p *ngIf="userService.getUserSession().type === 'tutor'" class="title">CONNECT WITH YOUR STUDENT(S)</p>
     <p *ngIf="userService.getUserSession().type === 'student'" class="title">CONNECT WITH YOUR TUTOR(S)</p>
 
-    <form fxLayoutAlign="center start" [formGroup]="connectForm" class="widthFullPer">
-      <div fxLayout="row" fxLayout="space-between end">
-        <mat-form-field fxLayoutAlign="center center">
-          <input type="text" placeholder="Name" aria-label="Number" matInput formControlName="name" [matAutocomplete]="auto">
-          <mat-autocomplete #auto="matAutocomplete">
-            <mat-option (click)="selectedOption = option" *ngFor="let option of filteredOptions | async" [value]="option.name" class="background-eee">
-              <div fxLayout="row" fxLayoutAlign="start center">
-                <div class="profile-image-container-mini" [ngStyle]="{'background-image': 'url(' + option.photoUrl + ')'}" style="margin-right: 15px"></div>
-                <span class="autocomp-text">{{ option.name }}</span>
-              </div>
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-        <span (click)="addStudent()" style="margin-top: 10px;" [ngClass]="{'btn-active' : connectForm.valid, 'btn-disabled' : connectForm.invalid}">
-          <i class="material-icons" fxLayoutAlign="center center">add</i>
-        </span>
-      </div>
-    </form>
+    <div fxLayoutAlign="center center" class="connection-form">
+      <app-connection-form [connections]="possibleConnections"></app-connection-form>
+    </div>
 
     <br><br>
 
-    <button (click)="onFinish()" type="submit" mat-raised-button color="accent" class="action-button" fxLayoutAlign="center center">
+    <button (click)="onFinish()" type="submit" mat-raised-button color="accent" class="action-button" fxLayoutAlign="center center" [disabled]="!connectionsValid">
       FINISH
     </button>
   </div>

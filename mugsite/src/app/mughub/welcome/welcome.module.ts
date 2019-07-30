@@ -13,7 +13,6 @@ import { WelcomeSetupSettingsComponent } from './welcome-setup/welcome-setup-set
 import { WelcomeSetupProfileEditorComponent } from './welcome-setup/welcome-setup-profile/welcome-setup-profile-editor/welcome-setup-profile-editor.component';
 import { StepperModule } from 'src/app/shared/stepper/stepper.module';
 import { StepperService } from 'src/app/shared/stepper/stepper.service';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 //font awesome
@@ -21,6 +20,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faUser, faCheckCircle, faTimesCircle, faCalendar, faBell } from '@fortawesome/free-solid-svg-icons';
 import { WelcomeSetupConnectionsComponent } from './welcome-setup/welcome-setup-connections/welcome-setup-connections.component';
+import { ConnectionFormModule } from 'src/app/shared/connection-form/connection-form.module';
 
 @NgModule({
   declarations: [
@@ -41,7 +41,7 @@ import { WelcomeSetupConnectionsComponent } from './welcome-setup/welcome-setup-
     ReactiveFormsModule,
     StepperModule,
     FontAwesomeModule,
-    MatAutocompleteModule
+    ConnectionFormModule
   ],
   providers: [StepperService] //creates a new instance for all components in this module
 })

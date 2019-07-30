@@ -2,7 +2,7 @@
 <form [formGroup]="hourLogForm" class="drawer-form">
 
   <p class="drawer-form-label">STUDENT NAME(S)</p>
-  <app-connection-form [existingConnections]="this.data.hourLogEl.connections"></app-connection-form>
+  <app-connection-form [existingConnections]="data.hourLogEl.connections" [connections]="possibleConnections"></app-connection-form>
 
   <p class="drawer-form-label">DATE</p>
   <mat-form-field floatLabel="never" class="widthFullPer">

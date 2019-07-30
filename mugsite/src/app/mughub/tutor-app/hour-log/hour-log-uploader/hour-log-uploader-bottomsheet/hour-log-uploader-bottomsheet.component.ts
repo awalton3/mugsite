@@ -5,10 +5,10 @@ import { HourLogService } from '../../hour-log.service';
 import { MatBottomSheet, MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { HourLogAutomateBottomSheetComponent } from '../hour-log-automate-bottom-sheet/hour-log-automate-bottom-sheet.component';
 import { HourLogElement } from '../../hour-log-element.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { SnackBarService } from 'src/app/shared/snack-bar/snack-bar.service';
 import { ConnectionFormService } from 'src/app/shared/connection-form/connection-form.service';
 import { Subscription } from 'rxjs';
+import { UserService } from 'src/app/mughub/auth/user.service';
 
 @Component({
   selector: 'app-hour-log-uploader-bottomsheet',
@@ -23,18 +23,20 @@ export class HourLogUploaderBottomsheetComponent implements OnInit, OnDestroy {
   connectionsValid: boolean = false;
   selectedConnections: User[] = [];
   selectedConnectionsOrig: User[] = [];
+  possibleConnections: User[] = [];
 
   constructor(
+    private userService: UserService,
     private bottomSheet: MatBottomSheet,
     private hourLogService: HourLogService,
     private connectionsFormService: ConnectionFormService,
-    private snackBar: MatSnackBar,
     private snackBarService: SnackBarService,
     private bottomSheetRef: MatBottomSheetRef<HourLogUploaderBottomsheetComponent>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: { isEditMode: boolean, hourLogEl: HourLogElement },
   ) { }
 
   ngOnInit() {
+    this.possibleConnections = this.userService.getUserSession().connections;
     this.initForm();
     this.listenToSelectedConnections();
     this.listenToConnectionsValid();

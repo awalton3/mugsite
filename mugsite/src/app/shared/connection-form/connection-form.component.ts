@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { User } from 'src/app/mughub/auth/user.model';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
-import { UserService } from 'src/app/mughub/auth/user.service';
 import { startWith, map } from 'rxjs/operators';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ConnectionFormService } from './connection-form.service';
@@ -17,12 +16,12 @@ import { ConnectionFormService } from './connection-form.service';
 
 export class ConnectionFormComponent implements OnInit {
 
-  @Input() existingConnections: User[];
+  @Input() existingConnections?: User[];
+  @Input() connections: User[] = [];
   connectionsForm = new FormGroup({});
 
   //autocomplete
   filteredConnections: Observable<User[]>;
-  connections: User[] = [];
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
 
   //chips
@@ -36,19 +35,15 @@ export class ConnectionFormComponent implements OnInit {
   connectionExist: boolean = false;
   @ViewChild('connectionInput', { static: false }) connectionInput: ElementRef<HTMLInputElement>
 
-  constructor(
-    private userService: UserService,
-    private connectionFormService: ConnectionFormService
-  ) { }
+  constructor(private connectionFormService: ConnectionFormService) { }
 
   ngOnInit() {
     this.initForm();
     this.initAutoComp();
-    this.connections = this.userService.getUserSession().connections;
   }
 
   initForm() {
-    if (this.existingConnections.length !== 0) {
+    if (this.existingConnections && this.existingConnections.length !== 0) {
       this.selectedConnections.push(...this.existingConnections);
       this.selectedConnectionsBeforeChanges.push(...this.existingConnections);
     }
