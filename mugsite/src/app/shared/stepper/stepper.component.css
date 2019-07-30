@@ -1,15 +1,15 @@
 .stepper {
-  background-color: #2B5670;
+  background-color: #30546c;
   font-family: 'Montserrat', sans-serif;
   height: 70px;
 }
 
 .stepper-mobile {
-  background-color: #2B5670;
+  background-color: #30546c;
 }
 
 .stepper-mobile-header {
-  background-color: #2B5670 !important;
+  background-color: #30546c !important;
   font-family: 'Montserrat', sans-serif !important;
   padding: 10px 30px;
 }
@@ -38,7 +38,7 @@
 
 .step-label-inactive {
   font-family: 'Montserrat', sans-serif !important;
-  color: #4487b2;
+  color: #98aab6;
   text-transform: uppercase;
   font-weight: 400;
   font-size: 15px;
@@ -60,23 +60,23 @@
 .step-header-inactive {
   font-family: 'Montserrat', sans-serif !important;
   border-radius: 50%;
-  border: 1.2px solid #4487b2;
+  border: 1.2px solid #98aab6;
   height: 25px;
   width: 25px;
   font-size: 13px;
   font-weight: 200;
-  color: #4487b2;
+  color: #98aab6;
   margin-right: 10px;
 }
 
 .stepper-divider {
-  background-color: #4487b2;
+  background-color: #98aab6;
   width: 50%;
   height: 1px;
 }
 
 .stepper-mobile-divider {
-  background-color: #4487b2;
+  background-color: #98aab6;
   height: 30px;
   width: 1px;
   margin-left: 12px;
