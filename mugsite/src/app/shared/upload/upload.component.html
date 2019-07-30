@@ -41,16 +41,16 @@
   <div class="unread-symbol"></div>
 
   <div class="date" fxLayout="column" fxLayoutAlign="start center">
-    <p class="day">23</p>
-    <p class="month">MAR</p>
+    <p class="day">{{ upload.creationDate.day }}</p>
+    <p class="month">{{ upload.creationDate.month | monthString | uppercase }}</p>
   </div>
 
   <mat-divider class="divider" [vertical]="true"></mat-divider>
 
   <div class="info" fxLayout="column" fxLayoutAlign="center start">
-    <div *ngIf="screenWidth < 600" class="upload-header truncate">John Doe</div>
-    <div *ngIf="screenWidth < 600" class="upload-header truncate">Algebra II</div>
-    <div *ngIf="screenWidth >= 600" class="upload-header truncate">John Doe - Algebra II</div>
+    <div *ngIf="screenWidth < 600" class="upload-header truncate">{{ upload.sender.name }}</div>
+    <div *ngIf="screenWidth < 600" class="upload-header truncate">{{ upload.subject}}</div>
+    <div *ngIf="screenWidth >= 600" class="upload-header truncate">{{ upload.sender.name }} - {{ upload.subject}}</div>
     <div class="upload-content truncate">hello</div>
   </div>
 

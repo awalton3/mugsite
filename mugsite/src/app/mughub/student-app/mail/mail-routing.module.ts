@@ -6,8 +6,9 @@ import { InboxComponent } from 'src/app/shared/inbox/inbox.component';
 const routes: Routes = [
   {
     path: '', component: MailComponent, children: [
-      { path: '', redirectTo: 'inbox', pathMatch: 'full'}, 
-      { path: 'inbox', component: InboxComponent }
+      { path: '', redirectTo: 'inbox', pathMatch: 'full'},
+      { path: 'inbox', component: InboxComponent },
+      { path: '**', redirectTo: 'inbox', pathMatch: 'full' }
     ]
   }
 ]

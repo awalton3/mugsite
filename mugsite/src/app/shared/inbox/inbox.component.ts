@@ -3,6 +3,7 @@ import { SidenavService } from 'src/app/mughub/sidenav/sidenav.service';
 import { Upload } from 'src/app/mughub/tutor-app/uploads/upload.model';
 import { InboxService } from './inbox.service';
 import { Subscription } from 'rxjs';
+import { QueryDocumentSnapshot } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-inbox',
@@ -28,11 +29,18 @@ export class InboxComponent implements OnInit, OnDestroy {
   listenForUploads() {
     let uploads = [];
     this.subs.add(this.inboxService.fetchUploads().onSnapshot(querySnapshot => {
-      querySnapshot.forEach(uploadDoc => uploads.push(uploadDoc))
+      querySnapshot.forEach(uploadDoc => uploads.push(this.createUploadObj(uploadDoc)));
       this.uploads = uploads;
       console.log(this.uploads);
     }))
   }
+
+  createUploadObj(uploadData: QueryDocumentSnapshot<any>) {
+    let uploadObj = {};
+    uploadObj['id'] = uploadData.id;
+    Object.assign(uploadObj, uploadData.data());
+    return uploadObj;
+  } /* add */
 
   closeSidenav() {
     this.sidenavService.onToggle.next();

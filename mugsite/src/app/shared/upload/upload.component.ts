@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, HostListener, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Input, Output, HostListener } from '@angular/core';
 import { Upload } from 'src/app/mughub/tutor-app/uploads/upload.model';
 import { Subject } from 'rxjs';
 
@@ -7,13 +7,12 @@ import { Subject } from 'rxjs';
   templateUrl: './upload.component.html',
   styleUrls: ['./upload.component.css']
 })
-export class UploadComponent implements OnInit, AfterViewInit {
+export class UploadComponent implements OnInit {
 
   @Input() upload: Upload = null;
   @Input() currIndex: number = null;
   @Input() numOfUploads: number = null;
   @Output() finished = new Subject();
-  creationMonth: string;
   screenWidth: number;
 
   @HostListener('window:resize', ['$event'])
@@ -24,14 +23,12 @@ export class UploadComponent implements OnInit, AfterViewInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.upload);
     this.getUploadContentWidth();
 
     // if (this.currIndex === this.numOfUploads - 1)
     //  this.finished.next();
     // this.creationMonth = this.getMonthStr(this.upload.creationDate.month);
-  }
-
-  ngAfterViewInit() {
   }
 
   getUploadContentWidth() {
@@ -55,11 +52,6 @@ export class UploadComponent implements OnInit, AfterViewInit {
     Object.keys(document.getElementsByClassName('truncate ')).map(element => {
       elements[element].style.maxWidth = targetWidth + 'px';
     });
-  }
-
-  getMonthStr(monthNum: number) {
-    let months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
-    return months[monthNum - 1];
   }
 
 }
