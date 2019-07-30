@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from 'src/app/mughub/auth/user.service';
 import { User } from 'src/app/mughub/auth/user.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'welcome-setup-profile-editor',
   templateUrl: './welcome-setup-profile-editor.component.html',
   styleUrls: ['./welcome-setup-profile-editor.component.css']
 })
-export class WelcomeSetupProfileEditorComponent implements OnInit {
+export class WelcomeSetupProfileEditorComponent implements OnInit, OnDestroy {
 
+  private subs = new Subscription();
   imageUrls: string[];
   imagesLoaded = false;
   imageClicked: string;
@@ -18,6 +20,7 @@ export class WelcomeSetupProfileEditorComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.userService.getUserSession();
+    this.listenForUser();
     this.imageUrls = [
       'https://i.ibb.co/pjG5Rkf/4k-wallpaper-astronomy-evening-2085998.jpg',
       'https://i.ibb.co/PQyS52p/adventure-automobile-classic-2533092.jpg',
@@ -30,6 +33,12 @@ export class WelcomeSetupProfileEditorComponent implements OnInit {
     ]
   }
 
+  listenForUser() {
+    this.subs.add(this.userService.user.subscribe(user => {
+      this.user = user;
+    }))
+  }
+
   ngAfterViewInit() {
     this.imagesLoaded = true;
   }
@@ -39,7 +48,6 @@ export class WelcomeSetupProfileEditorComponent implements OnInit {
   }
 
   onUpload(event) {
-
     interface FileReaderEventTarget extends EventTarget {
       result: string
     }
@@ -60,7 +68,10 @@ export class WelcomeSetupProfileEditorComponent implements OnInit {
     if (file) {
       reader.readAsDataURL(file);
     }
+  }
 
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 
 }

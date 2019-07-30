@@ -4,6 +4,7 @@ import { UserService } from 'src/app/mughub/auth/user.service';
 import { User } from 'src/app/mughub/auth/user.model';
 import { StepperService } from 'src/app/shared/stepper/stepper.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'mughub-welcome-setup-settings',
@@ -12,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class WelcomeSetupSettingsComponent implements OnInit {
 
+  private subs = new Subscription();
   emailForm: FormGroup;
   user: User;
 
@@ -24,8 +26,15 @@ export class WelcomeSetupSettingsComponent implements OnInit {
   ngOnInit() {
     this.emailForm = new FormGroup({
       email: new FormControl(null, Validators.email)
-    })
+    });
     this.user = this.userService.getUserSession();
+    this.listenForUser();
+  }
+
+  listenForUser() {
+    this.subs.add(this.userService.user.subscribe(user => {
+      this.user = user;
+    }))
   }
 
   onSettingsSubmit() {

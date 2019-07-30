@@ -4,13 +4,14 @@ import { first } from 'rxjs/operators';
 import { User } from './user.model';
 import { SnackBarService } from 'src/app/shared/snack-bar/snack-bar.service';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 
 export class UserService {
 
   // private currentUser: User;
-  // user = new Subject<User>();
+  user = new Subject<User>();
 
   constructor(
     private db: AngularFirestore,
@@ -70,7 +71,9 @@ export class UserService {
           userObj.data().isNewUser,
           userObj.data().prefs,
           userObj.data().connections)
-        // this.user.next(currentUser);
+
+        this.user.next(currentUser);
+
         if (!this.getUserSession())
           this.createUserSession(currentUser);
 
@@ -96,6 +99,7 @@ export class UserService {
       }
     })
     this.createUserSession(currentUser);
+    this.user.next(currentUser);
   }
 
   updateFbCollect() {
