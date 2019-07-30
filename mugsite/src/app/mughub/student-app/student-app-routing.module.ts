@@ -8,9 +8,9 @@ const routes: Routes = [
   //lazy loaded
   {
     path: '', component: StudentAppComponent, canActivate: [AuthGuard], children: [
-      // { path: '', redirectTo: 'inbox', pathMatch: 'full' },
+      { path: '', redirectTo: 'inbox', pathMatch: 'full' },
       { path: 'inbox', component: InboxComponent },
-      // { path: '**', component: InboxComponent }
+      { path: '**', redirectTo: 'inbox', pathMatch: 'full' }
     ]
   }
 ]

@@ -8,11 +8,9 @@ import { Component, OnInit } from '@angular/core';
 
 export class MughubComponent implements OnInit {
 
-  constructor(
-  ) { }
+  constructor() { }
 
   ngOnInit() {
-    // if (!this.userService.getUserSession())
-    //   this.authService.autoLogin();
   }
+  
 }

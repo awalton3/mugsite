@@ -52,7 +52,7 @@ export class AuthService {
         this.userService.user
           .pipe(first())
           .subscribe(user => {
-            if (!redirectUrl)
+            if (!redirectUrl || (redirectUrl && user.type !== redirectUrl.split('/')[2]))
               user.isNewUser ? this.router.navigate(['mughub/welcome']) : this.router.navigate(['mughub', user.type]);
             else
               this.router.navigateByUrl(redirectUrl);
@@ -72,20 +72,6 @@ export class AuthService {
       .then(() => this.onSuccess("A password reset email was sent to " + email))
       .catch(error => this.handleError(error.code));
   }
-  //
-  // autoLogin() {
-  //   let user = JSON.parse(sessionStorage.getItem('user'));
-  //   if (user) {
-  //     this.userService.createLocalUser(user.uid);
-  //     // this.userService.user
-  //     //   .pipe(first())
-  //     //   .subscribe(user => {
-  //     //     user.isNewUser ? this.router.navigate(['mughub/welcome']) : this.router.navigate(['mughub', user.type]);
-  //     //   });
-  //   } else {
-  //
-  //   }
-  // }
 
   logout() {
     firebase.auth().signOut();

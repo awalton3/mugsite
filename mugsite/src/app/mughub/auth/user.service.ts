@@ -10,7 +10,6 @@ import { Subject } from 'rxjs';
 
 export class UserService {
 
-  // private currentUser: User;
   user = new Subject<User>();
 
   constructor(
@@ -18,10 +17,6 @@ export class UserService {
     private snackBarService: SnackBarService,
     private router: Router
   ) { }
-
-  // getCurrentUser() {
-  //   return this.currentUser;
-  // }
 
   getUserSession() {
     return JSON.parse(sessionStorage.getItem('user'))
