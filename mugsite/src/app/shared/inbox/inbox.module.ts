@@ -5,6 +5,8 @@ import { MaterialComponentsModule } from '../angular-material/material-component
 import { HeadnavModule } from 'src/app/mughub/headnav/headnav.module';
 import { UploadComponent } from '../upload/upload.component';
 import { MonthStringPipe } from '../pipes/month-string.pipe';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { UploaderModule } from '../uploader/uploader.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +17,9 @@ import { MonthStringPipe } from '../pipes/month-string.pipe';
   imports: [
     CommonModule,
     HeadnavModule,
-    MaterialComponentsModule
+    MaterialComponentsModule,
+    MatSidenavModule,
+    UploaderModule
   ]
 })
 export class InboxModule { }

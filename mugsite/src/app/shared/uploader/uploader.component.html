@@ -1,0 +1,48 @@
+<mughub-headnav title="New Message" iconLeft="close" iconRight="done" (leftIconToggled)="onClose.next()" (rightIconToggled)="onSubmit()" [enableIconRight]="connectionsValid && uploadForm.valid"></mughub-headnav>
+<form [formGroup]="uploadForm" class="drawer-form">
+
+  <p *ngIf="user.type === 'tutor'" class="drawer-form-label">STUDENT NAME(S)</p>
+  <p *ngIf="user.type === 'student'" class="drawer-form-label">TUTOR NAME(S)</p>
+
+  <app-connection-form [connections]="user.connections"></app-connection-form>
+
+  <p class="drawer-form-label">SUBJECT</p>
+  <mat-form-field floatLabel="never" class="widthFullPer">
+    <input type="text" matInput formControlName="subject" placeholder="Ex. Algebra II" class="drawer-form-input">
+  </mat-form-field>
+
+  <!-- <div fxLayout="row" fxLayoutAlign="space-between center">
+    <p class="uploadForm-label">ATTACHMENTS</p>
+    <input (change)="onAttachmentUpload($event)" type="file" id="file" class="editForm-input" class="fileUploader">
+    <label for="file"><i class="material-icons add-attachment-btn" mat-ripple>add_circle</i></label>
+  </div>
+
+  <div *ngIf="attachments.length !== 0">
+    <mat-selection-list class="attachment-list" #attachmentsList>
+      <mat-list-option id="option" *ngFor="let attachment of attachments; let i = index" value="{{ i }}" class="attachment-list-item">
+        {{ attachment }}
+      </mat-list-option>
+    </mat-selection-list>
+    <br>
+    <div *ngIf="attachmentsList.selectedOptions.selected.length !== 0" fxLayout="row" fxLayoutAlign="space-between center">
+      <span></span>
+      <button (click)="onAttachmentsDelete()" mat-button class="delete-active">DELETE</button>
+    </div>
+  </div>
+
+  <div *ngIf="attachments.length === 0">
+    <p class="add-attachment-prompt">To add an attachment, click the button above.</p>
+  </div>
+
+  <br> -->
+
+  <p class="drawer-form-label">MESSAGE BODY</p>
+  <mat-form-field floatLabel="never" class="widthFullPer">
+    <textarea type="text" rows="7" matInput formControlName="body" placeholder="Ex. Complete attached worksheets. Student is improving in..." class="drawer-form-input"></textarea>
+  </mat-form-field>
+
+  <!-- <p *ngIf="uploadForm.errors && !uploadForm.errors.validUpload" class="form-error-message">
+    *Both the assignment field and questions/comments field cannot be empty. Please fill out at least one.
+  </p> -->
+
+</form>

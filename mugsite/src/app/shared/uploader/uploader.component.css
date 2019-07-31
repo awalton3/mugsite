@@ -1,0 +1,6 @@
+:host ::ng-deep .mat-form-field-label{
+  font-family: 'Montserrat', sans-serif !important;
+  font-weight: 200 !important;
+  font-size: 15px !important;
+  color: grey !important;
+}

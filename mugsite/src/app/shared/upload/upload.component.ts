@@ -23,12 +23,7 @@ export class UploadComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(this.upload);
     this.getUploadContentWidth();
-
-    // if (this.currIndex === this.numOfUploads - 1)
-    //  this.finished.next();
-    // this.creationMonth = this.getMonthStr(this.upload.creationDate.month);
   }
 
   getUploadContentWidth() {

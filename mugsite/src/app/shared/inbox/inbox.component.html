@@ -1,9 +1,19 @@
-<mughub-headnav title="inbox" iconLeft="menu" (leftIconToggled)="closeSidenav()"></mughub-headnav>
-<div *ngFor="let upload of uploads" fxLayout="column" fxLayoutAlign="center center">
-  <mughub-upload [upload]="upload"></mughub-upload>
-</div>
-<div class="bottom-right-fab">
-  <button mat-fab color="accent">
-    <i class="material-icons" fxLayoutAlign="center center" style="color: white">add</i>
-  </button>
-</div>
+<mat-drawer-container [hasBackdrop]="false" class="heightFull">
+
+  <mat-drawer #editor mode="over" position="end" opened="false" class="side-content-drawer">
+    <mughub-uploader (onClose)="editor.close()"></mughub-uploader>
+  </mat-drawer>
+
+  <mat-drawer-content class="background-eee heightFull paddingNone">
+    <mughub-headnav title="inbox" iconLeft="menu" (leftIconToggled)="closeSidenav()"></mughub-headnav>
+    <div *ngFor="let upload of uploads" fxLayout="column" fxLayoutAlign="center center">
+      <mughub-upload [upload]="upload"></mughub-upload>
+    </div>
+    <div class="bottom-right-fab">
+      <button (click)="editor.open()" mat-fab color="accent">
+        <i class="material-icons" fxLayoutAlign="center center" style="color: white">add</i>
+      </button>
+    </div>
+  </mat-drawer-content>
+
+</mat-drawer-container>
