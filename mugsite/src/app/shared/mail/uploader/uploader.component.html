@@ -1,4 +1,4 @@
-<mughub-headnav title="New Message" iconLeft="close" iconRight="done" (leftIconToggled)="onClose.next()" (rightIconToggled)="onSubmit()" [enableIconRight]="connectionsValid && uploadForm.valid"></mughub-headnav>
+<mughub-headnav title="New Message" iconLeft="close" iconRight="send" (leftIconToggled)="onClose.next()" (rightIconToggled)="onSubmit()" [enableIconRight]="connectionsValid && uploadForm.valid"></mughub-headnav>
 <form [formGroup]="uploadForm" class="drawer-form">
 
   <p *ngIf="user.type === 'tutor'" class="drawer-form-label">STUDENT NAME(S)</p>
@@ -19,7 +19,9 @@
   <div fxLayout="row" fxLayoutAlign="space-between center">
     <p class="drawer-form-label">ATTACHMENTS</p>
     <input (change)="onAttachmentUpload($event)" (click)="clearFileList($event)" type="file" id="file" class="fileUploader">
-    <label for="file"><i class="material-icons fileUploader-btn" mat-ripple>add_circle</i></label>
+    <button mat-icon-button type="button">
+      <label for="file"><i class="material-icons fileUploader-btn" fxLayoutAlign="center center">add_circle</i></label>
+    </button>
   </div>
 
   <mat-chip-list *ngIf="attachments.length !== 0" class="attachment-chip-list">
