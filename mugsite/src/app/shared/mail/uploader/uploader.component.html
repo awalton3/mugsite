@@ -1,4 +1,4 @@
-<mughub-headnav title="New Message" iconLeft="close" iconRight="send" (leftIconToggled)="onClose.next()" (rightIconToggled)="onSubmit()" [enableIconRight]="connectionsValid && uploadForm.valid"></mughub-headnav>
+<mughub-headnav title="New Message" iconLeft="close" iconRight="send" (leftIconToggled)="onCancel()" (rightIconToggled)="onSubmit()" [enableIconRight]="connectionsValid && uploadForm.valid"></mughub-headnav>
 <form [formGroup]="uploadForm" class="drawer-form">
 
   <p *ngIf="user.type === 'tutor'" class="drawer-form-label">STUDENT NAME(S)</p>

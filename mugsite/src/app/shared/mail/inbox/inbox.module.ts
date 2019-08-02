@@ -8,6 +8,10 @@ import { UploaderModule } from '../uploader/uploader.module';
 import { MonthStringPipe } from '../../pipes/month-string.pipe';
 import { MaterialComponentsModule } from '../../angular-material/material-components.module';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faTrophy } from '@fortawesome/free-solid-svg-icons';
+
 @NgModule({
   declarations: [
     InboxComponent,
@@ -19,7 +23,12 @@ import { MaterialComponentsModule } from '../../angular-material/material-compon
     HeadnavModule,
     MaterialComponentsModule,
     MatSidenavModule,
-    UploaderModule
+    UploaderModule,
+    FontAwesomeModule
   ]
 })
-export class InboxModule { }
+export class InboxModule {
+  constructor() {
+    library.add(faTrophy)
+  }
+}

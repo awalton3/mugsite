@@ -116,6 +116,10 @@ export class UploaderComponent implements OnInit, OnDestroy {
     this.resetUploader();
   }
 
+  onCancel() {
+    this.resetUploader();
+  }
+
   resetUploader() {
     this.onClose.next();
     this.connectionsFormService.resetConnectionForm.next();

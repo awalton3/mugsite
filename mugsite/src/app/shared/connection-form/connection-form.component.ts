@@ -84,6 +84,7 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
 
   listenForFormReset() {
     this.connectionFormService.resetConnectionForm.subscribe(() => {
+      this.connectionsForm.reset();
       this.selectedConnections = [];
       this.selectedConnectionsBeforeChanges = [];
       this.connectionFormService.onConnectionsChanged.next({

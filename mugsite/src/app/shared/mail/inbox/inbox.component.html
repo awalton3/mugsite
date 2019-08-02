@@ -6,14 +6,32 @@
 
   <mat-drawer-content class="background-eee heightFull paddingNone">
     <mughub-headnav title="inbox" iconLeft="menu" (leftIconToggled)="closeSidenav()"></mughub-headnav>
-    <div *ngFor="let upload of uploads" fxLayout="column" fxLayoutAlign="center center">
-      <mughub-upload [upload]="upload"></mughub-upload>
+
+    <div *ngIf="!uploads || uploads.length === 0" fxLayout="column" fxLayoutAlign="center center" style="height: 80%">
+      <div  fxLayout="column" fxLayoutAlign="center center">
+        <fa-icon [icon]="['fas', 'trophy']" class="inbox-empty-icon" fxLayoutAlign="center center"></fa-icon>
+        <br>
+        <p class="inbox-empty-title">CONGRATS, YOU HAVE A CLEAN INBOX!</p>
+        <p class="inbox-empty-subtext">We celebrate the small wins. Keep 'em coming.</p>
+      </div>
+      <div class="bottom-right-fab">
+        <button (click)="editor.open()" mat-fab color="accent">
+          <i class="material-icons" fxLayoutAlign="center center" style="color: white">add</i>
+        </button>
+      </div>
     </div>
-    <div class="bottom-right-fab">
-      <button (click)="editor.open()" mat-fab color="accent">
-        <i class="material-icons" fxLayoutAlign="center center" style="color: white">add</i>
-      </button>
+
+    <div *ngIf="uploads && uploads.length !== 0" fxLayout="column" fxLayoutAlign="start center" style="height: 80%">
+      <div *ngFor="let upload of uploads" fxLayout="column" fxLayoutAlign="center center">
+        <mughub-upload [upload]="upload"></mughub-upload>
+      </div>
+      <div class="bottom-right-fab">
+        <button (click)="editor.open()" mat-fab color="accent">
+          <i class="material-icons" fxLayoutAlign="center center" style="color: white">add</i>
+        </button>
+      </div>
     </div>
+
   </mat-drawer-content>
 
 </mat-drawer-container>
