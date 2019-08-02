@@ -65,26 +65,37 @@ export class UploaderComponent implements OnInit, OnDestroy {
   }
 
   getChipCharLimit() {
-    if (window.innerWidth > 500)
+    if (window.innerWidth > 500) {
       this.chipCharLimit = 40;
-    else if (window.innerWidth > 460)
+    }
+    else if (window.innerWidth > 460) {
       this.chipCharLimit = 34;
-    else if (window.innerWidth > 410)
+    }
+    else if (window.innerWidth > 410) {
       this.chipCharLimit = 28;
-    else if (window.innerWidth > 360)
+    }
+    else if (window.innerWidth > 360) {
       this.chipCharLimit = 23;
-    else if (window.innerWidth > 310)
+    }
+    else if (window.innerWidth > 310) {
       this.chipCharLimit = 18;
-    else if (window.innerWidth > 260)
+    } else if (window.innerWidth > 260) {
       this.chipCharLimit = 13;
-    else
+    }
+    else {
       this.chipCharLimit = 7;
+    }
   }
 
-  onAttachmentUpload(onFileUpload /* event */) {
+  onAttachmentUpload(onFileUpload: { target: { files: any[]; }; }) {
     let file = onFileUpload.target.files[0];
-    if (!this.attachments.some(attachment => attachment.name === file.name))
+    if (!this.attachments.some(attachment => attachment.name === file.name)) {
       this.attachments.push(file);
+    }
+  }
+
+  clearFileList(event: { target: { value: any; }; }) {
+    event.target.value = null;
   }
 
   isFileImage(file: File) {
@@ -96,6 +107,7 @@ export class UploaderComponent implements OnInit, OnDestroy {
     if (index >= 0) {
       this.attachments.splice(index, 1);
     }
+    console.log(this.attachments);
   }
 
   onSubmit() {

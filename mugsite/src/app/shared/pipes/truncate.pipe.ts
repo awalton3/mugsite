@@ -7,14 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class TruncatePipe implements PipeTransform {
 
   transform(value: string, charLimit: number) {
-    console.log(charLimit);
-    const valueArr = [...value];
-    if (valueArr.length <= charLimit) {
-      return value;
-    } else {
-      const truncatedArr = valueArr.slice(0, charLimit - 1);
-      return truncatedArr.join('') + '...';
-    }
+    return value.length <= charLimit ?  value : value.slice(0, charLimit - 1) + '...'; 
   }
 
 }

@@ -18,12 +18,12 @@
 
   <div fxLayout="row" fxLayoutAlign="space-between center">
     <p class="drawer-form-label">ATTACHMENTS</p>
-    <input (change)="onAttachmentUpload($event)" type="file" id="file" class="fileUploader">
+    <input (change)="onAttachmentUpload($event)" (click)="clearFileList($event)" type="file" id="file" class="fileUploader">
     <label for="file"><i class="material-icons fileUploader-btn" mat-ripple>add_circle</i></label>
   </div>
 
   <mat-chip-list *ngIf="attachments.length !== 0" class="attachment-chip-list">
-    <mat-chip *ngFor="let attachment of attachments" [selectable]="selectable" [removable]="removable" (removed)="removeAttachmentChip(attachment)" class="chip">
+    <mat-chip *ngFor="let attachment of attachments" [selectable]="selectable" [removable]="removable" (removed)="removeAttachmentChip(attachment)" class="chip" [matTooltip]="attachment.name" [matTooltipDisabled]="attachment.name.length <= chipCharLimit">
       <i class="material-icons icon-chip" fxLayoutAlign="center center">attachments</i>
       <p class="attachment-chip">{{ attachment.name | truncate: chipCharLimit }}</p>
       <i class="material-icons icon-chip" fxLayoutAlign="center center" matChipRemove *ngIf="removable">cancel</i>
@@ -33,26 +33,5 @@
   <div *ngIf="attachments.length === 0">
     <p class="add-attachment-prompt">To add an attachment, click the button above.</p>
   </div>
-
-
-
-  <!-- <div *ngIf="attachments.length !== 0">
-    <mat-selection-list class="attachment-list" #attachmentsList>
-      <mat-list-option id="option" *ngFor="let attachment of attachments; let i = index" value="{{ i }}" class="attachment-list-item">
-        {{ attachment }}
-      </mat-list-option>
-    </mat-selection-list>
-    <br>
-    <div *ngIf="attachmentsList.selectedOptions.selected.length !== 0" fxLayout="row" fxLayoutAlign="space-between center">
-      <span></span>
-      <button (click)="onAttachmentsDelete()" mat-button class="delete-active">DELETE</button>
-    </div>
-  </div> -->
-
-
-
-  <!-- <p *ngIf="uploadForm.errors && !uploadForm.errors.validUpload" class="form-error-message">
-    *Both the assignment field and questions/comments field cannot be empty. Please fill out at least one.
-  </p> -->
 
 </form>
