@@ -25,7 +25,7 @@
   <mat-chip-list *ngIf="attachments.length !== 0" class="attachment-chip-list">
     <mat-chip *ngFor="let attachment of attachments" [selectable]="selectable" [removable]="removable" (removed)="removeAttachmentChip(attachment)" class="chip">
       <i class="material-icons icon-chip" fxLayoutAlign="center center">attachments</i>
-      <p class="attachment-chip">{{ attachment.name | truncate: 40 }}</p>
+      <p class="attachment-chip">{{ attachment.name | truncate: chipCharLimit }}</p>
       <i class="material-icons icon-chip" fxLayoutAlign="center center" matChipRemove *ngIf="removable">cancel</i>
     </mat-chip>
   </mat-chip-list>

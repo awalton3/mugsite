@@ -1,11 +1,10 @@
-import { Component, OnInit, Output, OnDestroy } from '@angular/core';
+import { Component, OnInit, Output, OnDestroy, HostListener } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { UserService } from 'src/app/mughub/auth/user.service';
 import { User } from 'src/app/mughub/auth/user.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ConnectionFormService } from '../../connection-form/connection-form.service';
 import { MailService } from '../mail.service';
-import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'mughub-uploader',
@@ -20,11 +19,17 @@ export class UploaderComponent implements OnInit, OnDestroy {
   uploadForm: FormGroup = new FormGroup({});
   connectionsValid: boolean = false;
   selectedConnections: User[] = [];
-  attachments: any[] = []; //contains both strings and files
+  attachments: File[] = [];
   compressedAttachment: string = '';
   removable = true;
   selectable = true;
+  chipCharLimit: number;
   @Output() onClose = new Subject();
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.getChipCharLimit();
+  }
 
   constructor(
     private userService: UserService,
@@ -33,6 +38,7 @@ export class UploaderComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.getChipCharLimit();
     this.user = this.userService.getUserSession();
     this.initForm();
     this.listenToConnectionsValid();
@@ -56,6 +62,23 @@ export class UploaderComponent implements OnInit, OnDestroy {
     this.subs.add(this.connectionsFormService.isformValid.subscribe(isFormValid => {
       this.connectionsValid = isFormValid;
     }));
+  }
+
+  getChipCharLimit() {
+    if (window.innerWidth > 500)
+      this.chipCharLimit = 40;
+    else if (window.innerWidth > 460)
+      this.chipCharLimit = 34;
+    else if (window.innerWidth > 410)
+      this.chipCharLimit = 28;
+    else if (window.innerWidth > 360)
+      this.chipCharLimit = 23;
+    else if (window.innerWidth > 310)
+      this.chipCharLimit = 18;
+    else if (window.innerWidth > 260)
+      this.chipCharLimit = 13;
+    else
+      this.chipCharLimit = 7;
   }
 
   onAttachmentUpload(onFileUpload /* event */) {
