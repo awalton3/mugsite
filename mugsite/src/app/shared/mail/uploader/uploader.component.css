@@ -4,3 +4,9 @@
   font-size: 15px !important;
   color: grey !important;
 }
+
+.add-attachment-prompt {
+  color: grey;
+  font-size: 12px;
+  margin: 0;
+}

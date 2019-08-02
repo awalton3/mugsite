@@ -2,7 +2,6 @@
 // @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "./theme.scss";
 @import "https://fonts.googleapis.com/icon?family=Material+Icons";
-
 /* common app css classes */
 .heightFull {
 	height: 100vh !important;
@@ -40,7 +39,6 @@
 	margin: 0 !important;
 }
 
-
 .bottom-right-fab {
 	position: fixed;
 	bottom: 0 !important;
@@ -54,9 +52,8 @@
 	font-weight: 600 !important;
 	width: 320px !important;
 	font-size: 16px !important;
-	color: #244359 !important; 
+	color: #244359 !important;
 }
-
 @media only screen and (max-width: 330px) {
 	.action-button {
 		width: 250px !important;
@@ -69,20 +66,20 @@
 }
 
 .btn-active {
-  color: #de6600 !important;
-  cursor: pointer !important;
+	color: #de6600 !important;
+	cursor: pointer !important;
 }
 
 .btn-disabled {
-  color: #D1CFCF !important;
+	color: #D1CFCF !important;
 }
 
 .profile-image-container {
 	background-position: center center !important;
-  background-size: cover !important;
-  border-radius: 50% !important;
-  width: 90px !important;
-  height: 90px !important;
+	background-size: cover !important;
+	border-radius: 50% !important;
+	width: 90px !important;
+	height: 90px !important;
 }
 
 .profile-image-border {
@@ -95,21 +92,21 @@
 
 .profile-image-container-chip {
 	background-position: center center !important;
-  background-size: cover !important;
-  border-radius: 50% !important;
-  width: 23px !important;
-  height: 23px !important;
+	background-size: cover !important;
+	border-radius: 50% !important;
+	width: 23px !important;
+	height: 23px !important;
 	margin-right: 8px !important;
-	margin-left: -4px !important
+	margin-left: -4px !important;
 }
 
 .profile-image-container-mini {
 	background-color: #d7d8da !important;
 	background-position: center center !important;
-  background-size: cover !important;
-  border-radius: 50% !important;
-  width: 35px !important;
-  height: 35px !important;
+	background-size: cover !important;
+	border-radius: 50% !important;
+	width: 35px !important;
+	height: 35px !important;
 }
 
 .profile-image-container-small {
@@ -123,12 +120,11 @@
 
 .profile-image-container-large {
 	background-color: #d7d8da !important;
-
 	background-position: center center !important;
-  background-size: cover !important;
-  border-radius: 50% !important;
-  width: 150px !important;
-  height: 150px !important;
+	background-size: cover !important;
+	border-radius: 50% !important;
+	width: 150px !important;
+	height: 150px !important;
 }
 
 .profile-image-container-icon {
@@ -145,77 +141,89 @@
 	z-index: -1 !important;
 }
 
+.fileUploader-btn {
+	color: #2b5570 !important;
+	cursor: pointer !important;
+	font-size: 24px !important;
+	padding: 3px 0 !important;
+	vertical-align: middle !important;
+}
+
+.attachment-chip-list {
+	margin: 20px !important;
+}
+
 .side-content-drawer {
 	width: 500px !important;
-  height: 100% !important;
-  background-color: #eee !important;
-  color: grey !important;
+	height: 100% !important;
+	background-color: #eee !important;
+	color: grey !important;
 }
 
 @media only screen and (max-width: 500px) {
-  .side-content-drawer {
-    width: 100vw !important;
-  }
+	.side-content-drawer {
+		width: 100vw !important;
+	}
 }
 
 .drawer-sticky-btn-disabled {
 	font-family: 'Montserrat', sans-serif !important;
-  font-size: 17px !important;
+	font-size: 17px !important;
 	position: fixed !important;
-  background-color: #ea9103 !important;
+	background-color: #ea9103 !important;
 	opacity: 0.6;
 	bottom: 0 !important;
-  color: white !important;
+	color: white !important;
 	width: 500px !important;
-  height: 60px !important;
-  font-weight: 600 !important;
+	height: 60px !important;
+	font-weight: 600 !important;
 }
 
 .drawer-sticky-text {
 	position: fixed !important;
 	bottom: 0 !important;
-	margin: 0px 20px !important;
+	margin: 0 20px !important;
 	font-size: 13px !important;
 	color: grey !important;
 	padding-bottom: 80px !important;
 }
 
 .drawer-sticky-btn-accent {
-  font-family: 'Montserrat', sans-serif !important;
-  font-size: 17px !important;
+	font-family: 'Montserrat', sans-serif !important;
+	font-size: 17px !important;
 	position: fixed !important;
-  background-color: #ea9103 !important;
+	background-color: #ea9103 !important;
 	bottom: 0 !important;
-  color: white !important;
+	color: white !important;
 	width: 500px !important;
-  height: 60px !important;
-  cursor: pointer !important;
-  font-weight: 600 !important;
+	height: 60px !important;
+	cursor: pointer !important;
+	font-weight: 600 !important;
 }
 
 .drawer-sticky-btn-red {
-  font-family: 'Montserrat', sans-serif !important;
-  font-size: 17px !important;
+	font-family: 'Montserrat', sans-serif !important;
+	font-size: 17px !important;
 	position: fixed !important;
-  bottom: 0 !important;
-  background-color: #de0005 !important;
-  color: white !important;
-  width: 500px !important;
-  height: 60px !important;
-  cursor: pointer !important;
-  font-weight: 600 !important;
+	bottom: 0 !important;
+	background-color: #de0005 !important;
+	color: white !important;
+	width: 500px !important;
+	height: 60px !important;
+	cursor: pointer !important;
+	font-weight: 600 !important;
 }
 
 .drawer-sticky-btn-content {
 	margin-bottom: 70px !important;
 }
-
 @media only screen and (max-width: 500px) {
-  .drawer-sticky-btn-red {
-    width: 100vw !important;
-  }
+	.drawer-sticky-btn-red {
+		width: 100vw !important;
+	}
+
 	.drawer-sticky-btn-accent {
-	    width: 100vw !important;
+		width: 100vw !important;
 	}
 }
 
@@ -225,44 +233,41 @@
 }
 
 .sidenav {
-  width: 260px !important;
-  height: 100vh !important;
-  background-color: #30546c !important;
-  color: #eee !important;
+	width: 260px !important;
+	height: 100vh !important;
+	background-color: #30546c !important;
+	color: #eee !important;
 }
-
 @media only screen and (max-width: 300px) {
-  .sidenav {
-    width: 100vw !important;
-  }
+	.sidenav {
+		width: 100vw !important;
+	}
 }
-
 /* autocomplete */
 .autocomp-text {
-  color: grey !important;
+	color: grey !important;
 	font-family: 'Montserrat', sans-serif !important;
 }
-
 /* drawer-form */
 .drawer-form {
 	margin: 20px 40px !important;
-  font-family: 'Montserrat', sans-serif !important;
+	font-family: 'Montserrat', sans-serif !important;
 }
 
 .drawer-form-label {
 	font-family: 'Montserrat', sans-serif !important;
-  font-size: 14px !important;
-  font-weight: 500 !important;
-  color: grey !important;
-  margin: 5px 0 0 0 !important;
+	font-size: 14px !important;
+	font-weight: 500 !important;
+	color: grey !important;
+	margin: 5px 0 0 0 !important;
 }
 
 .drawer-form-input {
 	font-family: 'Montserrat', sans-serif !important;
-  color: grey !important;
-  font-size: 14px !important;
-  font-weight: 400 !important;
-  line-height: 20px !important;
+	color: grey !important;
+	font-size: 14px !important;
+	font-weight: 400 !important;
+	line-height: 20px !important;
 }
 
 .drawer-form-text {
@@ -275,14 +280,13 @@
 
 .chip {
 	font-family: 'Montserrat', sans-serif !important;
- 	font-weight: 500 !important;
+	font-weight: 500 !important;
 	color: grey !important;
 }
 
 .icon-chip {
 	font-size: 20px !important;
 }
-
 /* animations */
 .fade-in {
 	opacity: 1;
@@ -300,9 +304,7 @@
 		opacity: 1;
 	}
 }
-
 /* spinner */
-
 .loader,
 .loader:after,
 .loader:before {

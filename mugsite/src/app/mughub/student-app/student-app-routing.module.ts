@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { StudentAppComponent } from './student-app.component';
 import { AuthGuard } from '../auth/auth.guard';
-import { InboxComponent } from 'src/app/shared/inbox/inbox.component';
+import { InboxComponent } from 'src/app/shared/mail/inbox/inbox.component';
 
 const routes: Routes = [
   //lazy loaded

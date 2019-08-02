@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { User } from 'src/app/mughub/auth/user.model';
 import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
@@ -14,8 +14,9 @@ import { ConnectionFormService } from './connection-form.service';
   styleUrls: ['./connection-form.component.css']
 })
 
-export class ConnectionFormComponent implements OnInit {
+export class ConnectionFormComponent implements OnInit, OnDestroy {
 
+  private subs = new Subscription();
   @Input() existingConnections?: User[];
   @Input() connections: User[] = [];
   connectionsForm = new FormGroup({});
@@ -40,6 +41,7 @@ export class ConnectionFormComponent implements OnInit {
   ngOnInit() {
     this.initForm();
     this.initAutoComp();
+    this.listenForFormReset();
   }
 
   initForm() {
@@ -78,6 +80,17 @@ export class ConnectionFormComponent implements OnInit {
       const filterValue = value.toLowerCase();
       return this.connections.filter(connection => connection.name.toLowerCase().includes(filterValue));
     }
+  }
+
+  listenForFormReset() {
+    this.connectionFormService.resetConnectionForm.subscribe(() => {
+      this.selectedConnections = [];
+      this.selectedConnectionsBeforeChanges = [];
+      this.connectionFormService.onConnectionsChanged.next({
+        selectedConnections: this.selectedConnections,
+        selectedConnectionsOrig: this.selectedConnectionsBeforeChanges
+      })
+    })
   }
 
   addConnectionChip(event: MatChipInputEvent) {
@@ -135,5 +148,9 @@ export class ConnectionFormComponent implements OnInit {
       }
     })
     return connectionUserObj;
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 }

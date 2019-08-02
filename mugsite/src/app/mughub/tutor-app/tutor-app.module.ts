@@ -7,6 +7,7 @@ import { TutorAppRoutingModule } from './tutor-app-routing.module';
 import { SidenavModule } from '../sidenav/sidenav.module';
 import { UploadsResolve } from './uploads/uploads.resolve';
 import { HeadnavModule } from '../headnav/headnav.module';
+import { InboxModule } from 'src/app/shared/mail/inbox/inbox.module';
 
 @NgModule({
   declarations: [TutorAppComponent],
@@ -16,7 +17,8 @@ import { HeadnavModule } from '../headnav/headnav.module';
     MaterialComponentsModule,
     MatSidenavModule,
     SidenavModule,
-    HeadnavModule
+    HeadnavModule,
+    InboxModule
   ],
   providers: [
     UploadsResolve

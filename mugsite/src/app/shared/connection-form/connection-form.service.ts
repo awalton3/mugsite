@@ -7,4 +7,5 @@ import { User } from 'src/app/mughub/auth/user.model';
 export class ConnectionFormService {
   onConnectionsChanged = new Subject<{ selectedConnections: User[], selectedConnectionsOrig: User[] }>();
   isformValid = new Subject<boolean>();
+  resetConnectionForm = new Subject();
 }
