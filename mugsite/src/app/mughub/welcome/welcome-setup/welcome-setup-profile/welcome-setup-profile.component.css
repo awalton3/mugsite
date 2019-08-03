@@ -45,6 +45,16 @@
   cursor: pointer;
 }
 
+.dynamic-height {
+  height: 92vh;
+}
+
+@media (max-height: 450px) {
+  .dynamic-height {
+    height: 120vh;
+  }
+}
+
 :host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
   height: 0 !important;
 }

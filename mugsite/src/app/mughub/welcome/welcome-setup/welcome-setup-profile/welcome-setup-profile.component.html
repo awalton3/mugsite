@@ -4,16 +4,14 @@
     <welcome-setup-profile-editor></welcome-setup-profile-editor>
   </mat-drawer>
   <mat-drawer-content class="fade-in background-eee">
-    <div fxLayout="column" fxLayoutAlign="center center" style="height: 92vh">
+    <div fxLayout="column" fxLayoutAlign="center center" class="dynamic-height">
       <p class="title">CUSTOMIZE YOUR PROFILE</p>
-      <br>
       <div fxLayout="column" fxLayoutAlign="center center" class="background-eee widthFullPer">
         <div (click)="profileImageEditor.open()" class="profile-image-container-large profile-image-click" [ngStyle]="{'background-image': 'url(' + user.photoUrl + ')'}">
           <div class="profile-image-add">
             <i fxLayoutAlign="center center" class="material-icons profile-image-add-icon">add</i>
           </div>
         </div>
-        <br>
         <form [formGroup]="nameForm" fxLayoutAlign="center center">
           <mat-form-field floatLabel="never">
             <input matInput type="text" formControlName="username" class="nameFormField">
@@ -21,7 +19,6 @@
           </mat-form-field>
         </form>
       </div>
-      <br>
       <button (click)="onProfileSubmit()" type="submit" mat-raised-button color="accent" class="action-button" fxLayoutAlign="center center">
         CONTINUE
       </button>

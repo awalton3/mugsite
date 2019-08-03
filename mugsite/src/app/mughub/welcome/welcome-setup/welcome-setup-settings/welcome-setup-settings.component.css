@@ -6,11 +6,6 @@
   padding: 0px 10px;
 }
 
-.container {
-  height: 80vh;
-  margin: 30px 10px;
-}
-
 .category {
   width: 700px;
 }
@@ -78,6 +73,17 @@
 
 :host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
     height: 1px !important;
+}
+
+.dynamic-height {
+  height: 80vh;
+  margin: 30px 10px;
+}
+
+@media (max-height: 450px) {
+  .dynamic-height {
+    height: 120vh;
+  }
 }
 
 @media (max-width: 850px) {
