@@ -6,9 +6,10 @@ import { FormsMaterialComponentsModule } from '../angular-material/forms-materia
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TruncatePipe } from '../pipes/truncate.pipe';
 
 @NgModule({
-  declarations: [ConnectionFormComponent],
+  declarations: [ConnectionFormComponent, TruncatePipe],
   imports: [
     CommonModule,
     MaterialComponentsModule,

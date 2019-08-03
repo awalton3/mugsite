@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, OnDestroy, HostListener } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { User } from 'src/app/mughub/auth/user.model';
@@ -23,6 +23,7 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
 
   //autocomplete
   filteredConnections: Observable<User[]>;
+  charAutoOptionLimit: number;
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
 
   //chips
@@ -35,14 +36,39 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
   selectedConnectionsBeforeChanges: string[] = [];
   connectionInvalid: boolean = false;
   connectionExist: boolean = false;
+  charChipLimit: number;
   @ViewChild('connectionInput', { static: false }) connectionInput: ElementRef<HTMLInputElement>
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.getCharAutoOptionLimit();
+    this.getCharChipLimit();
+  }
 
   constructor(private connectionFormService: ConnectionFormService) { }
 
   ngOnInit() {
     this.initForm();
     this.initAutoComp();
+    this.getCharAutoOptionLimit();
+    this.getCharChipLimit();
     this.listenForFormReset();
+  }
+
+  getCharAutoOptionLimit() {
+    if (window.innerWidth > 430) {
+      this.charAutoOptionLimit = 40;
+    } else {
+      this.charAutoOptionLimit = 18;
+    }
+  }
+
+  getCharChipLimit() {
+    if (window.innerWidth > 430) {
+      this.charChipLimit = 50;
+    } else {
+      this.charChipLimit = 18;
+    }
   }
 
   initForm() {
@@ -77,7 +103,7 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
         startWith(''),
         map(value => {
           if (typeof value === 'string') return value;
-          else if (value) value.name; 
+          else if (value) value.name;
         }),
         map(name => name ? this.filterAutoComp(name) : this.connections.slice())
       );

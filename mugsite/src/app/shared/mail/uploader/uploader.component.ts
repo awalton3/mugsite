@@ -98,16 +98,15 @@ export class UploaderComponent implements OnInit, OnDestroy {
     event.target.value = null;
   }
 
-  isFileImage(file: File) {
-    return file && file['type'].split('/')[0] === 'image';
-  }
+  // isFileImage(file: File) {
+  //   return file && file['type'].split('/')[0] === 'image';
+  // }
 
   removeAttachmentChip(attachment: File) {
     const index = this.attachments.indexOf(attachment);
     if (index >= 0) {
       this.attachments.splice(index, 1);
     }
-    console.log(this.attachments);
   }
 
   onSubmit() {
