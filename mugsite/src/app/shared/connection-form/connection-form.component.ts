@@ -170,6 +170,7 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
     this.connectionExist = this.selectedConnections.includes(event.option.value);
     if (!this.connectionExist) {
       this.selectedConnections.push(event.option.value);
+      this.selectedConnectionsIds.push(event.option.value.uid); 
       this.connectionFormService.onConnectionsChanged.next({
         selectedConnections: this.selectedConnectionsIds,
         selectedConnectionsOrig: this.selectedConnectionsBeforeChanges

@@ -82,7 +82,7 @@
 
 @media (max-height: 450px) {
   .dynamic-height {
-    height: 120vh;
+    height: inherit;
   }
 }
 

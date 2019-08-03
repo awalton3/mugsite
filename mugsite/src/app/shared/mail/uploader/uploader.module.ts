@@ -6,12 +6,12 @@ import { MaterialComponentsModule } from '../../angular-material/material-compon
 import { FormsMaterialComponentsModule } from '../../angular-material/forms-material-components.module';
 import { ConnectionFormModule } from '../../connection-form/connection-form.module';
 import { MatChipsModule } from '@angular/material/chips';
-import { TruncatePipe } from '../../pipes/truncate.pipe';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TruncatePipeModule } from '../../pipes/truncate-pipe/truncate-pipe.module';
 
 
 @NgModule({
-  declarations: [UploaderComponent, TruncatePipe],
+  declarations: [UploaderComponent],
   imports: [
     CommonModule,
     MaterialComponentsModule,
@@ -19,7 +19,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     HeadnavModule,
     ConnectionFormModule,
     MatChipsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    TruncatePipeModule
   ],
   exports: [
     UploaderComponent

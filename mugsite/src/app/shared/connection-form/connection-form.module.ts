@@ -6,17 +6,18 @@ import { FormsMaterialComponentsModule } from '../angular-material/forms-materia
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TruncatePipe } from '../pipes/truncate.pipe';
+import { TruncatePipeModule } from '../pipes/truncate-pipe/truncate-pipe.module';
 
 @NgModule({
-  declarations: [ConnectionFormComponent, TruncatePipe],
+  declarations: [ConnectionFormComponent],
   imports: [
     CommonModule,
     MaterialComponentsModule,
     FormsMaterialComponentsModule,
     ReactiveFormsModule,
     MatChipsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    TruncatePipeModule
   ],
   exports: [ConnectionFormComponent]
 })

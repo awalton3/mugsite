@@ -16,6 +16,16 @@
   color: grey !important;
 }
 
+.dynamic-height {
+  height: 80vh;
+}
+
+@media (max-height: 450px) {
+  .dynamic-height {
+    height: inherit;
+  }
+}
+
 @media (max-width: 430px) {
   .connection-form {
     width: 230px;
