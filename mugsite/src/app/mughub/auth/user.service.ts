@@ -90,12 +90,11 @@ export class UserService {
   }
 
   updateFbCollect() {
-    let user = Object.assign({}, this.getUserSession());
-    user.connections = user.connections.map((obj) => { return Object.assign({}, obj) });
+    let user = this.getUserSession();
     this.db.collection('/users')
       .doc(user.uid)
       .update(user)
-      .then(() => this.onSuccess('Successfully Updated'))
+      .then(() => this.onSuccess('Profile Successfully Updated'))
       .catch(error => this.onError('An error occurred', error))
   }
 

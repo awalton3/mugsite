@@ -11,12 +11,14 @@ import { MaterialComponentsModule } from '../../angular-material/material-compon
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
+import { TwoDigitDatePipe } from '../../pipes/two-digit-date.pipe';
 
 @NgModule({
   declarations: [
     InboxComponent,
     UploadComponent,
-    MonthStringPipe
+    MonthStringPipe,
+    TwoDigitDatePipe
   ],
   imports: [
     CommonModule,

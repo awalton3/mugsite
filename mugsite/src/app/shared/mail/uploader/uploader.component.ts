@@ -5,6 +5,7 @@ import { User } from 'src/app/mughub/auth/user.model';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ConnectionFormService } from '../../connection-form/connection-form.service';
 import { MailService } from '../mail.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'mughub-uploader',
@@ -18,6 +19,7 @@ export class UploaderComponent implements OnInit, OnDestroy {
   user: User;
   uploadForm: FormGroup = new FormGroup({});
   connectionsValid: boolean = false;
+  possibleConnections: User[] = [];
   selectedConnections: string[] = [];
   attachments: File[] = [];
   compressedAttachment: string = '';
@@ -38,9 +40,10 @@ export class UploaderComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.initForm();
     this.getChipCharLimit();
     this.user = this.userService.getUserSession();
-    this.initForm();
+    this.getPossibleConnections();
     this.listenToConnectionsValid();
     this.listenToSelectedConnections();
   }
@@ -62,6 +65,24 @@ export class UploaderComponent implements OnInit, OnDestroy {
     this.subs.add(this.connectionsFormService.isformValid.subscribe(isFormValid => {
       this.connectionsValid = isFormValid;
     }));
+  }
+
+  getPossibleConnections() {
+    this.userService.getUserSession().connections.forEach(connectionId => {
+      this.userService.getUserFromFbCollect(connectionId)
+        .pipe(first())
+        .subscribe(userObj => {
+          this.possibleConnections.push(new User(
+            userObj.data().name,
+            userObj.data().photoUrl,
+            userObj.data().email,
+            userObj.data().type,
+            userObj.data().uid,
+            userObj.data().isNewUser,
+            userObj.data().prefs,
+            userObj.data().connections))
+        })
+    })
   }
 
   getChipCharLimit() {
@@ -94,19 +115,15 @@ export class UploaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  clearFileList(event: { target: { value: any; }; }) {
-    event.target.value = null;
-  }
-
-  // isFileImage(file: File) {
-  //   return file && file['type'].split('/')[0] === 'image';
-  // }
-
   removeAttachmentChip(attachment: File) {
     const index = this.attachments.indexOf(attachment);
     if (index >= 0) {
       this.attachments.splice(index, 1);
     }
+  }
+
+  clearFileList(event: { target: { value: any; }; }) {
+    event.target.value = null;
   }
 
   onSubmit() {

@@ -82,7 +82,6 @@ export class WelcomeSetupConnectionsComponent implements OnInit, OnDestroy {
   }
 
   onFinish() {
-    console.log(this.selectedConnections);
     this.userService.updateLocalUser([
       { name: 'isNewUser', value: false },
       { name: 'connections', value: this.selectedConnections }]);

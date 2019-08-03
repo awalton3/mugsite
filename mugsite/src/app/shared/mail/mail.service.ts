@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-// import * as firebase from 'firebase/app';
-// import 'firebase/firestore';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { UserService } from 'src/app/mughub/auth/user.service';
 import { SnackBarService } from '../snack-bar/snack-bar.service';
@@ -57,6 +57,18 @@ export class MailService {
   onError(message: string, error: any) {
     this.snackBarService.onOpenSnackBar.next({ message: message, isError: true });
     console.log(error);
+  }
+
+  fetchUserUploads() {
+    return firebase.firestore().collection('/uploads')
+      .where('sender', '==', this.userService.getUserSession().uid)
+      .orderBy('timestamp', 'desc')
+  }
+
+  fetchInboxUploads() {
+    return firebase.firestore().collection('/uploads')
+      .where('recipients', 'array-contains', this.userService.getUserSession().uid)
+      .orderBy('timestamp', 'desc')
   }
 
   //

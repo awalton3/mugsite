@@ -4,7 +4,7 @@
   <p *ngIf="user.type === 'tutor'" class="drawer-form-label">STUDENT NAME(S)</p>
   <p *ngIf="user.type === 'student'" class="drawer-form-label">TUTOR NAME(S)</p>
 
-  <app-connection-form [connections]="user.connections"></app-connection-form>
+  <app-connection-form [connections]="possibleConnections"></app-connection-form>
 
   <p class="drawer-form-label">SUBJECT</p>
   <mat-form-field floatLabel="never" class="widthFullPer">

@@ -20,8 +20,8 @@ export class AttachmentService {
   private attachmentsListView: string[] = [];
   private attachmentsToDelete: Set<string> = new Set();
   private attachmentsToAdd: Set<File> = new Set();
-
   attachmentsChanged = new Subject<string[]>();
+
 
   getAttachments() {
     return this.attachmentsListView.slice();
@@ -100,6 +100,5 @@ export class AttachmentService {
       return attachment.name + new Date().getTime() + this.userService.getUserSession().uid;
     });
   }
-
 
 }
