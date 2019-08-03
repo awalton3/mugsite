@@ -18,7 +18,7 @@ export class UploaderComponent implements OnInit, OnDestroy {
   user: User;
   uploadForm: FormGroup = new FormGroup({});
   connectionsValid: boolean = false;
-  selectedConnections: User[] = [];
+  selectedConnections: string[] = [];
   attachments: File[] = [];
   compressedAttachment: string = '';
   removable = true;

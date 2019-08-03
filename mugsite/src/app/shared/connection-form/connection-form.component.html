@@ -1,5 +1,5 @@
-<form [formGroup]="connectionsForm">
-  <mat-form-field floatLabel="never" fxFill>
+<form [formGroup]="connectionsForm"  class="widthFullPer">
+  <mat-form-field floatLabel="never" class="widthFullPer">
     <mat-chip-list #chipList aria-label="Student Selection">
       <mat-chip *ngFor="let connection of selectedConnections" [selectable]="selectable" [removable]="removable" (removed)="removeConnectionChip(connection)" class="chip">
         <div class="profile-image-container-chip" [ngStyle]="{'background-image': 'url(' + connection.photoUrl + ')'}"></div>

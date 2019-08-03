@@ -21,8 +21,8 @@ export class HourLogUploaderBottomsheetComponent implements OnInit, OnDestroy {
   private subs = new Subscription();
   hourLogForm = new FormGroup({});
   connectionsValid: boolean = false;
-  selectedConnections: User[] = [];
-  selectedConnectionsOrig: User[] = [];
+  selectedConnections: string[] = [];
+  selectedConnectionsOrig: string[] = [];
   possibleConnections: User[] = [];
 
   constructor(

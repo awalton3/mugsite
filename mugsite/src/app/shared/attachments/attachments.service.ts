@@ -3,12 +3,19 @@ import { MatListOption } from '@angular/material/list';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { UserService } from 'src/app/mughub/auth/user.service';
+import { take } from 'rxjs/operators';
+import { CompressImagesService } from '../compress-images.service';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({ providedIn: 'root' })
 
 export class AttachmentService {
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private compressImagesService: CompressImagesService,
+    private storage: AngularFireStorage,
+  ) { }
 
   private attachmentsListView: string[] = [];
   private attachmentsToDelete: Set<string> = new Set();
@@ -69,5 +76,30 @@ export class AttachmentService {
     this.attachmentsToDelete = new Set();
     this.attachmentsChanged.next(this.attachmentsListView);
   }
+
+
+  /* NEW */
+
+  uploadAttachments(attachments: File[], attachmentNameRefs: string[]) {
+    return Promise.all(attachments.map((attachment, index) => {
+      if (this.compressImagesService.isFileImage(attachment)) {
+        this.compressImagesService.compressImage(attachment)
+          .then(observable => observable
+            .pipe(take(1))
+            .subscribe(image => {
+              return this.storage.ref(attachmentNameRefs[index]).putString(image.compressedImage.imageDataUrl, 'data_url');
+            }))
+      } else {
+        return this.storage.ref(attachmentNameRefs[index]).put(attachment);
+      }
+    }));
+  }
+
+  getAttachmentNameRefs(attachments: File[]): string[] {
+    return attachments.map((attachment: File) => {
+      return attachment.name + new Date().getTime() + this.userService.getUserSession().uid;
+    });
+  }
+
 
 }

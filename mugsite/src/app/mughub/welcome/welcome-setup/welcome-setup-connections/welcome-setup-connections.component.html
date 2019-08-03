@@ -5,7 +5,7 @@
     <p *ngIf="userService.getUserSession().type === 'student'" class="title">CONNECT WITH YOUR TUTOR(S)</p>
 
     <div fxLayoutAlign="center center" class="connection-form">
-      <app-connection-form [connections]="possibleConnections"></app-connection-form>
+      <app-connection-form [connections]="possibleConnections" fxFill></app-connection-form>
     </div>
 
     <br><br>

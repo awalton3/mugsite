@@ -75,7 +75,10 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
     this.filteredConnections = this.connectionsForm.controls.connections.valueChanges
       .pipe(
         startWith(''),
-        map(value => typeof value === 'string' ? value : value.name),
+        map(value => {
+          if (typeof value === 'string') return value;
+          else if (value) value.name; 
+        }),
         map(name => name ? this.filterAutoComp(name) : this.connections.slice())
       );
   }

@@ -15,8 +15,8 @@ export class WelcomeSetupConnectionsComponent implements OnInit, OnDestroy {
 
   private subs = new Subscription();
   possibleConnections: User[] = [];
-  selectedConnections: User[] = [];
-  selectedConnectionsOrig: User[] = [];
+  selectedConnections: string[] = [];
+  selectedConnectionsOrig: string[] = [];
   connectionsValid: boolean = false;
 
   constructor(
