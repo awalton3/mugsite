@@ -23,7 +23,7 @@ export class MailService {
     private snackBarService: SnackBarService
   ) { }
 
-  async uploadMessage(recipients /* of type User[] */, subject: string, body: string, attachments: File[]) {
+  async uploadMessage(recipients /* of type string[] */, subject: string, body: string, attachments: File[]) {
     let attachmentNameRefs = this.getAttachmentNameRefs(attachments);
     try {
       await this.db.collection('/uploads')

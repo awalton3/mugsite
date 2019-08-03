@@ -31,7 +31,8 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
   addOnBlur = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   selectedConnections: User[] = [];
-  selectedConnectionsBeforeChanges: User[] = [];
+  selectedConnectionsIds: string[] = [];
+  selectedConnectionsBeforeChanges: string[] = [];
   connectionInvalid: boolean = false;
   connectionExist: boolean = false;
   @ViewChild('connectionInput', { static: false }) connectionInput: ElementRef<HTMLInputElement>
@@ -47,7 +48,10 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
   initForm() {
     if (this.existingConnections && this.existingConnections.length !== 0) {
       this.selectedConnections.push(...this.existingConnections);
-      this.selectedConnectionsBeforeChanges.push(...this.existingConnections);
+      this.existingConnections.forEach(connection => {
+        this.selectedConnectionsBeforeChanges.push(connection.uid);
+        this.selectedConnectionsIds.push(connection.uid)
+      })
     }
     this.connectionsForm = new FormGroup({
       connections: new FormControl(null, this.ValidateConnection.bind(this))
@@ -71,7 +75,8 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
     this.filteredConnections = this.connectionsForm.controls.connections.valueChanges
       .pipe(
         startWith(''),
-        map(value => this.filterAutoComp(value))
+        map(value => typeof value === 'string' ? value : value.name),
+        map(name => name ? this.filterAutoComp(name) : this.connections.slice())
       );
   }
 
@@ -86,9 +91,10 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
     this.connectionFormService.resetConnectionForm.subscribe(() => {
       this.connectionsForm.reset();
       this.selectedConnections = [];
+      this.selectedConnectionsIds = [];
       this.selectedConnectionsBeforeChanges = [];
       this.connectionFormService.onConnectionsChanged.next({
-        selectedConnections: this.selectedConnections,
+        selectedConnections: this.selectedConnectionsIds,
         selectedConnectionsOrig: this.selectedConnectionsBeforeChanges
       })
     })
@@ -103,9 +109,11 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
       this.connectionInvalid = !this.connections.some(connection => connection.name === value.trim())
 
       if ((value || '').trim() && !this.connectionInvalid && !this.connectionExist) {
-        this.selectedConnections.push(this.getConnectionUserObj(value.trim()));
+        const connectionUserObj = this.getConnectionUserObj(value.trim());
+        this.selectedConnections.push(connectionUserObj);
+        this.selectedConnectionsIds.push(connectionUserObj.uid)
         this.connectionFormService.onConnectionsChanged.next({
-          selectedConnections: this.selectedConnections,
+          selectedConnections: this.selectedConnectionsIds,
           selectedConnectionsOrig: this.selectedConnectionsBeforeChanges
         });
       }
@@ -121,19 +129,20 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
     const index = this.selectedConnections.indexOf(connection);
     if (index >= 0) {
       this.selectedConnections.splice(index, 1);
+      this.selectedConnectionsIds.splice(index, 1);
       this.connectionFormService.onConnectionsChanged.next({
-        selectedConnections: this.selectedConnections,
+        selectedConnections: this.selectedConnectionsIds,
         selectedConnectionsOrig: this.selectedConnectionsBeforeChanges
       });
     }
   }
 
   connectionSelected(event: MatAutocompleteSelectedEvent) {
-    this.connectionExist = this.selectedConnections.some(connection => connection.name === event.option.viewValue);
+    this.connectionExist = this.selectedConnections.includes(event.option.value);
     if (!this.connectionExist) {
-      this.selectedConnections.push(this.getConnectionUserObj(event.option.viewValue));
+      this.selectedConnections.push(event.option.value);
       this.connectionFormService.onConnectionsChanged.next({
-        selectedConnections: this.selectedConnections,
+        selectedConnections: this.selectedConnectionsIds,
         selectedConnectionsOrig: this.selectedConnectionsBeforeChanges
       });
     }

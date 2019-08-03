@@ -11,7 +11,7 @@ export class InboxService {
 
   fetchUploads() {
     return firebase.firestore().collection('/uploads')
-      .where('recipient.email', '==', this.userService.getUserSession().email)
+      .where('recipients', 'array-contains', this.userService.getUserSession())
       .orderBy('timestamp', 'desc')
   }
 
