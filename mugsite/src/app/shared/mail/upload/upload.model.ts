@@ -13,6 +13,7 @@ export class Upload {
       month: number
     },
     public timestamp: Timestamp<string>,
-    public id: string
+    public id: string,
+    public unread: boolean
   ) { }
 }

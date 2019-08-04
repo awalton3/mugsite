@@ -1,6 +1,6 @@
 <div class="upload" fxLayout="row" matRipple>
 
-  <div class="unread-symbol"></div>
+  <div *ngIf="upload.unread" class="unread-symbol"></div>
 
   <div class="date" fxLayout="column" fxLayoutAlign="start center">
     <p class="day">{{ upload.creationDate.day | twoDigitDate }}</p>
@@ -10,10 +10,16 @@
   <mat-divider class="divider" [vertical]="true"></mat-divider>
 
   <div class="info" fxLayout="column" fxLayoutAlign="center start">
-    <div *ngIf="screenWidth < 600" class="upload-header truncate">{{ upload.sender.name }}</div>
-    <div *ngIf="screenWidth < 600" class="upload-header truncate">{{ upload.subject}}</div>
-    <div *ngIf="screenWidth >= 600" class="upload-header truncate">{{ upload.sender.name }} - {{ upload.subject}}</div>
+    <div *ngIf="screenWidth < 600" class="name truncate">{{ upload.sender.name }}</div>
+    <div *ngIf="screenWidth < 600" class="subject truncate">{{ upload.subject }}</div>
+    <div *ngIf="screenWidth >= 600" class="truncate"><span class="name">{{ upload.sender.name }}</span><span class="subject"> ~ {{ upload.subject}}</span></div>
     <div class="upload-content truncate">{{ upload.body }}</div>
+    <mat-chip-list *ngIf="upload.attachments.length !== 0" aria-label="Fish selection" style="margin: 15px -5px">
+      <mat-chip class="chip" *ngFor="let attachment of upload.attachments" [matTooltip]="attachment" [matTooltipDisabled]="attachment.length <= 15">
+        <i class="material-icons icon-chip" fxLayoutAlign="center center">attachments</i>
+        {{ attachment | truncate: 15 }}
+      </mat-chip>
+    </mat-chip-list>
   </div>
 
 </div>

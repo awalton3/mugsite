@@ -1,6 +1,6 @@
 <mat-drawer-container class="heightFull">
   <mat-drawer #sidenav class="sidenav">
-    <mughub-sidenav (closeNav)="navDrawer.close()"></mughub-sidenav>
+    <mughub-sidenav (closeNav)="sidenav.close()"></mughub-sidenav>
   </mat-drawer>
   <mat-drawer-content class="background-eee paddingNone">
     <router-outlet></router-outlet>

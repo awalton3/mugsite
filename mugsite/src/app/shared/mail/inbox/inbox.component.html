@@ -12,24 +12,29 @@
         <fa-icon [icon]="['fas', 'trophy']" class="inbox-empty-icon" fxLayoutAlign="center center"></fa-icon>
         <br>
         <p class="inbox-empty-title">CONGRATS, YOU HAVE A CLEAN INBOX!</p>
-        <p class="inbox-empty-subtext">We celebrate the small wins. Keep 'em coming.</p>
-      </div>
-      <div class="bottom-right-fab">
-        <button (click)="editor.open()" mat-fab color="accent">
-          <i class="material-icons" fxLayoutAlign="center center" style="color: white">add</i>
-        </button>
+        <p class="inbox-empty-subtext">At MUG, we celebrate the small wins. Keep 'em coming.</p>
       </div>
     </div>
 
-    <div *ngIf="uploads && uploads.length !== 0" fxLayout="column" fxLayoutAlign="start center" style="height: 80%">
-      <div *ngFor="let upload of uploads" fxLayout="column" fxLayoutAlign="center center">
-        <mughub-upload [upload]="upload"></mughub-upload>
+    <div *ngIf="uploads && uploads.length !== 0 && !uploadClicked" fxLayout="column" fxLayoutAlign="start center" style="height: 80%">
+      <div *ngFor="let upload of uploads;" fxLayout="column" fxLayoutAlign="center center">
+        <mughub-upload [upload]="upload" (click)="onUploadClick(upload)"></mughub-upload>
       </div>
-      <div class="bottom-right-fab">
-        <button (click)="editor.open()" mat-fab color="accent">
-          <i class="material-icons" fxLayoutAlign="center center" style="color: white">add</i>
+    </div>
+
+    <div *ngIf="uploadClicked" style="width: 50px" fxLayout="column" fxLayoutAlign="center center">
+      <mat-toolbar fxLayout="row" fxLayoutAlign="start center" class="uploadClicked-toolbar">
+        <button mat-icon-button>
+          <i class="material-icons sidenav-toggle-btn" (click)="uploadClicked = null">arrow_back</i>
         </button>
-      </div>
+        <p style="margin-left: 20px">{{ uploadClicked.subject }}</p>
+      </mat-toolbar>
+    </div>
+
+    <div class="bottom-right-fab">
+      <button (click)="editor.open()" mat-fab color="accent">
+        <i class="material-icons" fxLayoutAlign="center center" style="color: white">add</i>
+      </button>
     </div>
 
   </mat-drawer-content>

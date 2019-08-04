@@ -20,7 +20,7 @@ export class MailService {
     private snackBarService: SnackBarService
   ) { }
 
-  async uploadMessage(recipients: string[], subject: string, body: string, attachments: File[]) {
+  async uploadMessage(recipients: string[], body: string, subject: string, attachments: File[]) {
     let attachmentNameRefs = this.attachmentService.getAttachmentNameRefs(attachments);
     try {
       await this.db.collection('/uploads')
@@ -35,7 +35,8 @@ export class MailService {
             day: new Date().getDate(),
             month: new Date().getMonth() + 1
           },
-          timestamp: new Date()
+          timestamp: new Date(),
+          unread: true
         });
       return this.onSuccessUpload(attachments, attachmentNameRefs);
     } catch (error) {

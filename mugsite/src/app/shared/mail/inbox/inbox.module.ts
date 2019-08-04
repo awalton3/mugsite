@@ -12,6 +12,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
 import { TwoDigitDatePipe } from '../../pipes/two-digit-date.pipe';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatChipsModule } from '@angular/material/chips';
+import { TruncatePipeModule } from '../../pipes/truncate-pipe/truncate-pipe.module';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -26,7 +30,11 @@ import { TwoDigitDatePipe } from '../../pipes/two-digit-date.pipe';
     MaterialComponentsModule,
     MatSidenavModule,
     UploaderModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatToolbarModule,
+    MatChipsModule,
+    TruncatePipeModule,
+    MatTooltipModule
   ]
 })
 export class InboxModule {

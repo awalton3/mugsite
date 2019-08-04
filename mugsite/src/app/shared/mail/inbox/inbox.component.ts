@@ -16,8 +16,8 @@ import { take } from 'rxjs/operators';
 export class InboxComponent implements OnInit, OnDestroy {
 
   private subs = new Subscription();
-  testUpload: Upload;
   uploads: Upload[];
+  uploadClicked: Upload = null; 
 
   constructor(
     private userService: UserService,
@@ -54,6 +54,10 @@ export class InboxComponent implements OnInit, OnDestroy {
 
     return uploadObj;
   } /* add */
+
+  onUploadClick(upload: Upload) {
+    this.uploadClicked = upload;
+  }
 
   closeSidenav() {
     this.sidenavService.onToggle.next();

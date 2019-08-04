@@ -19,3 +19,12 @@
   font-size: 54px;
   color: #ea9103;
 }
+
+.uploadClicked-toolbar {
+  background-color: #eee;
+  color: grey;
+  font-family: 'Montserrat', sans-serif;
+  font-size:  16px;
+  font-weight: 500;
+  padding: 0px 25px;
+}
