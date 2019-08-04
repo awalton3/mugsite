@@ -6,6 +6,7 @@ import { UserService } from 'src/app/mughub/auth/user.service';
 import { take } from 'rxjs/operators';
 import { CompressImagesService } from '../compress-images.service';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { SnackBarService } from '../snack-bar/snack-bar.service';
 
 @Injectable({ providedIn: 'root' })
 
@@ -15,6 +16,7 @@ export class AttachmentService {
     private userService: UserService,
     private compressImagesService: CompressImagesService,
     private storage: AngularFireStorage,
+    private snackBarService: SnackBarService
   ) { }
 
   private attachmentsListView: string[] = [];
@@ -80,25 +82,51 @@ export class AttachmentService {
 
   /* NEW */
 
-  uploadAttachments(attachments: File[], attachmentNameRefs: string[]) {
+  uploadAttachments(attachments: File[], attachmentRefs: { displayName: string, storageRef: string }[]) {
     return Promise.all(attachments.map((attachment, index) => {
       if (this.compressImagesService.isFileImage(attachment)) {
         this.compressImagesService.compressImage(attachment)
           .then(observable => observable
             .pipe(take(1))
             .subscribe(image => {
-              return this.storage.ref(attachmentNameRefs[index]).putString(image.compressedImage.imageDataUrl, 'data_url');
+              return this.storage.ref(attachmentRefs[index].storageRef).putString(image.compressedImage.imageDataUrl, 'data_url');
             }))
       } else {
-        return this.storage.ref(attachmentNameRefs[index]).put(attachment);
+        return this.storage.ref(attachmentRefs[index].storageRef).put(attachment);
       }
     }));
   }
 
-  getAttachmentNameRefs(attachments: File[]): string[] {
+  getAttachmentNameRefs(attachments: File[]) {
     return attachments.map((attachment: File) => {
-      return attachment.name + new Date().getTime() + this.userService.getUserSession().uid;
+      let storageRef = attachment.name + new Date().getTime() + this.userService.getUserSession().uid;
+      return { displayName: attachment.name, storageRef: storageRef };
     });
+  }
+
+  downloadAttachment(storageRef: string) {
+    this.storage.ref(storageRef).getDownloadURL()
+      .pipe(take(1))
+      .subscribe(url => {
+        console.log(url)
+      }, error => this.handleErrors(error.code))
+  }
+
+  handleErrors(error: any) {
+    switch (error) {
+      case 'storage/object-not-found':
+        this.snackBarService.onOpenSnackBar.next({ message: 'Cannot download file because it does not exists.', isError: true });
+        break;
+      case 'storage/unauthorized':
+        this.snackBarService.onOpenSnackBar.next({ message: 'You are unauthorized to access this file', isError: true });
+        break;
+      case 'storage/canceled':
+        this.snackBarService.onOpenSnackBar.next({ message: 'Download canceled', isError: true });
+        break;
+      default:
+        this.snackBarService.onOpenSnackBar.next({ message: 'Error Downloading File', isError: true });
+        break;
+    }
   }
 
 }

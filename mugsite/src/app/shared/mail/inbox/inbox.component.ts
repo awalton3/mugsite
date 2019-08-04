@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SidenavService } from 'src/app/mughub/sidenav/sidenav.service';
 import { Upload } from 'src/app/mughub/tutor-app/uploads/upload.model';
-import { InboxService } from './inbox.service';
 import { Subscription } from 'rxjs';
 import { QueryDocumentSnapshot } from '@angular/fire/firestore';
 import { MailService } from '../mail.service';
@@ -17,7 +16,7 @@ export class InboxComponent implements OnInit, OnDestroy {
 
   private subs = new Subscription();
   uploads: Upload[];
-  uploadClicked: Upload = null; 
+  uploadClicked: Upload = null;
 
   constructor(
     private userService: UserService,

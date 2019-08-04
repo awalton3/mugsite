@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { StudentAppComponent } from './student-app.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { InboxComponent } from 'src/app/shared/mail/inbox/inbox.component';
+import { SentComponent } from 'src/app/shared/mail/sent/sent.component';
 
 const routes: Routes = [
   //lazy loaded
@@ -10,6 +11,7 @@ const routes: Routes = [
     path: '', component: StudentAppComponent, canActivate: [AuthGuard], children: [
       { path: '', redirectTo: 'mail/inbox', pathMatch: 'full' },
       { path: 'mail/inbox', component: InboxComponent },
+      { path: 'mail/sent', component: SentComponent }, 
       { path: '**', redirectTo: 'mail/inbox', pathMatch: 'full' }
     ]
   }

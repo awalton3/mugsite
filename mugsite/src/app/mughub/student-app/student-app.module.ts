@@ -6,6 +6,7 @@ import { StudentAppRoutingModule } from './student-app-routing.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SidenavModule } from '../sidenav/sidenav.module';
 import { InboxModule } from 'src/app/shared/mail/inbox/inbox.module';
+import { SentModule } from 'src/app/shared/mail/sent/sent.module';
 
 @NgModule({
   declarations: [StudentAppComponent],
@@ -15,7 +16,8 @@ import { InboxModule } from 'src/app/shared/mail/inbox/inbox.module';
     StudentAppRoutingModule,
     MatSidenavModule,
     SidenavModule,
-    InboxModule
+    InboxModule,
+    SentModule
   ]
 })
 

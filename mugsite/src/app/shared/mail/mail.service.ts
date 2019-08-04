@@ -21,7 +21,7 @@ export class MailService {
   ) { }
 
   async uploadMessage(recipients: string[], body: string, subject: string, attachments: File[]) {
-    let attachmentNameRefs = this.attachmentService.getAttachmentNameRefs(attachments);
+    let attachmentRefs = this.attachmentService.getAttachmentNameRefs(attachments);
     try {
       await this.db.collection('/uploads')
         .doc(this.db.createId())
@@ -30,7 +30,7 @@ export class MailService {
           recipients: recipients,
           subject: subject,
           body: body,
-          attachments: attachmentNameRefs,
+          attachments: attachmentRefs,
           creationDate: {
             day: new Date().getDate(),
             month: new Date().getMonth() + 1
@@ -38,14 +38,14 @@ export class MailService {
           timestamp: new Date(),
           unread: true
         });
-      return this.onSuccessUpload(attachments, attachmentNameRefs);
+      return this.onSuccessUpload(attachments, attachmentRefs);
     } catch (error) {
       return this.onError('An error occured in sending this message', error);
     }
   }
 
-  onSuccessUpload(attachments: File[], attachmentNameRefs: string[]) {
-    this.attachmentService.uploadAttachments(attachments, attachmentNameRefs)
+  onSuccessUpload(attachments: File[], attachmentRefs: { displayName: string, storageRef: string }[]) {
+    this.attachmentService.uploadAttachments(attachments, attachmentRefs)
       .then(() => this.onSuccess('Message Sent'))
       .catch(error => this.onError('An error occured in uploading your attachments.', error))
     //TODO need better error handling and info for user.

@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, HostListener } from '@angular/core';
 import { Upload } from 'src/app/mughub/tutor-app/uploads/upload.model';
 import { Subject } from 'rxjs';
+import { AttachmentService } from '../../attachments/attachments.service';
 
 @Component({
   selector: 'mughub-upload',
@@ -20,7 +21,7 @@ export class UploadComponent implements OnInit {
     this.getUploadContentWidth();
   }
 
-  constructor() { }
+  constructor(private attachmentService: AttachmentService) { }
 
   ngOnInit() {
     this.getUploadContentWidth();
@@ -47,6 +48,10 @@ export class UploadComponent implements OnInit {
     Object.keys(document.getElementsByClassName('truncate ')).map(element => {
       elements[element].style.maxWidth = targetWidth + 'px';
     });
+  }
+
+  onDownloadAttachment(storageRef) {
+    this.attachmentService.downloadAttachment(storageRef);
   }
 
 }
