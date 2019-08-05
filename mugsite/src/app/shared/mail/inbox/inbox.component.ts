@@ -29,8 +29,8 @@ export class InboxComponent implements OnInit, OnDestroy {
   }
 
   listenForUploads() {
-    let uploads = [];
     this.subs.add(this.mailService.fetchInboxUploads().onSnapshot(querySnapshot => {
+      let uploads = [];
       querySnapshot.forEach(uploadDoc => uploads.push(this.createUploadObj(uploadDoc)));
       this.uploads = uploads;
     }))

@@ -1,12 +1,13 @@
-import { Subject } from 'rxjs';
+import { Subject, throwError } from 'rxjs';
 import { MatListOption } from '@angular/material/list';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { UserService } from 'src/app/mughub/auth/user.service';
-import { take } from 'rxjs/operators';
+import { take, map, catchError } from 'rxjs/operators';
 import { CompressImagesService } from '../compress-images.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { SnackBarService } from '../snack-bar/snack-bar.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 
@@ -16,7 +17,8 @@ export class AttachmentService {
     private userService: UserService,
     private compressImagesService: CompressImagesService,
     private storage: AngularFireStorage,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private http: HttpClient,
   ) { }
 
   private attachmentsListView: string[] = [];
@@ -104,12 +106,31 @@ export class AttachmentService {
     });
   }
 
-  downloadAttachment(storageRef: string) {
-    this.storage.ref(storageRef).getDownloadURL()
+  downloadAttachment(attachmentRefs: { displayName: string, storageRef: string }) {
+    this.storage.ref(attachmentRefs.storageRef).getDownloadURL()
       .pipe(take(1))
       .subscribe(url => {
-        console.log(url)
+        this.performRequest(url, attachmentRefs.displayName)
       }, error => this.handleErrors(error.code))
+  }
+
+  performRequest(url: string, filename: string) {
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'blob';
+    xhr.onload = function(event) {
+      const blob = this.response;
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      document.body.appendChild(a);
+      a.setAttribute('style', 'display: none');
+      a.href = url;
+      a.download = filename;
+      a.click();
+      window.URL.revokeObjectURL(url);
+      a.remove();
+    };
+    xhr.open('GET', url);
+    xhr.send();
   }
 
   handleErrors(error: any) {

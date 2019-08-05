@@ -15,11 +15,13 @@
     <div *ngIf="screenWidth >= 600" class="truncate"><span class="name">{{ upload.sender.name }}</span><span class="subject"> ~ {{ upload.subject}}</span></div>
     <div class="upload-content truncate">{{ upload.body }}</div>
     <mat-chip-list *ngIf="upload.attachments.length !== 0" aria-label="Fish selection" style="margin: 15px -5px">
-      <mat-chip (click)="onDownloadAttachment(attachment.storageRef)" class="chip" *ngFor="let attachment of upload.attachments" [matTooltip]="attachment.displayName" [matTooltipDisabled]="attachment.displayName.length <= 15">
+      <mat-chip (click)="onDownloadAttachment(attachment)" class="chip" *ngFor="let attachment of upload.attachments" [matTooltip]="attachment.displayName" [matTooltipDisabled]="attachment.displayName.length <= 15">
         <i class="material-icons icon-chip" fxLayoutAlign="center center">attachments</i>
         {{ attachment.displayName | truncate: 15 }}
       </mat-chip>
     </mat-chip-list>
   </div>
+
+
 
 </div>

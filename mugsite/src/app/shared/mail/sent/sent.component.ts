@@ -27,13 +27,13 @@ export class SentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.user = this.userService.getUserSession(); 
+    this.user = this.userService.getUserSession();
     this.listenForUploads();
   }
 
   listenForUploads() {
-    let uploads = [];
     this.subs.add(this.mailService.fetchUserUploads().onSnapshot(querySnapshot => {
+      let uploads = [];
       querySnapshot.forEach(uploadDoc => uploads.push(this.createUploadObj(uploadDoc)));
       this.uploads = uploads;
     }))

@@ -15,6 +15,7 @@ export class UploadComponent implements OnInit {
   @Input() numOfUploads: number = null;
   @Output() finished = new Subject();
   screenWidth: number;
+  selectable: boolean = true;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -50,8 +51,8 @@ export class UploadComponent implements OnInit {
     });
   }
 
-  onDownloadAttachment(storageRef) {
-    this.attachmentService.downloadAttachment(storageRef);
+  onDownloadAttachment(attachmentRefs: { displayName: string; storageRef: string; }) {
+    this.attachmentService.downloadAttachment(attachmentRefs);
   }
 
 }
