@@ -111,26 +111,36 @@ export class AttachmentService {
       .pipe(take(1))
       .subscribe(url => {
         this.performRequest(url, attachmentRefs.displayName)
+          .then(() => this.snackBarService.onOpenSnackBar.next({ message: 'Attachment Downloaded', isError: false }))
+          .catch(() => this.snackBarService.onOpenSnackBar.next({ message: 'Error in Downloading Attachment', isError: true }))
       }, error => this.handleErrors(error.code))
   }
 
   performRequest(url: string, filename: string) {
-    var xhr = new XMLHttpRequest();
-    xhr.responseType = 'blob';
-    xhr.onload = function(event) {
-      const blob = this.response;
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      document.body.appendChild(a);
-      a.setAttribute('style', 'display: none');
-      a.href = url;
-      a.download = filename;
-      a.click();
-      window.URL.revokeObjectURL(url);
-      a.remove();
-    };
-    xhr.open('GET', url);
-    xhr.send();
+    return new Promise((resolve, reject) => {
+      var xhr = new XMLHttpRequest();
+      xhr.responseType = 'blob';
+      xhr.onload = () => {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          const blob = xhr.response;
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          document.body.appendChild(a);
+          a.setAttribute('style', 'display: none');
+          a.href = url;
+          a.download = filename;
+          a.click();
+          window.URL.revokeObjectURL(url);
+          a.remove();
+          resolve(blob)
+        } else {
+          reject(xhr.statusText)
+        }
+      };
+      xhr.onerror = () => reject(xhr.statusText);
+      xhr.open('GET', url);
+      xhr.send();
+    });
   }
 
   getAttachmentMetadata(storageRef: string) {

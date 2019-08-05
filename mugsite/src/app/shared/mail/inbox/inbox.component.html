@@ -16,9 +16,9 @@
       </div>
     </div>
 
-    <div *ngIf="uploads && uploads.length !== 0 && !uploadClicked" fxLayout="column" fxLayoutAlign="start center" style="height: 80%">
-      <div *ngFor="let upload of uploads;" fxLayout="column" fxLayoutAlign="center center">
-        <mughub-upload [upload]="upload" [parent]="'inbox'" (click)="onUploadClick(upload)"></mughub-upload>
+    <div fxLayout="column" fxLayoutAlign="center center" style="height: 80%">
+      <div *ngIf="uploads && uploads.length !== 0 && !uploadClicked" fxLayout="column" fxLayoutAlign="start start">
+        <mughub-upload *ngFor="let upload of uploads;" [upload]="upload" [parent]="'inbox'" (click)="onUploadClick(upload)"></mughub-upload>
       </div>
     </div>
 

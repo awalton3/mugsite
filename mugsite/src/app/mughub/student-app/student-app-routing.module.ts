@@ -11,8 +11,8 @@ const routes: Routes = [
   {
     path: '', component: StudentAppComponent, canActivate: [AuthGuard], children: [
       { path: '', redirectTo: 'mail/inbox', pathMatch: 'full' },
-      { path: 'mail/inbox', component: InboxComponent },
-      { path: 'mail/sent', component: SentComponent, resolve: { uploads: SentResolve }},
+      { path: 'mail/inbox', component: InboxComponent, resolve: { uploads: SentResolve } },
+      { path: 'mail/sent', component: SentComponent, resolve: { uploads: SentResolve } },
       { path: '**', redirectTo: 'mail/inbox', pathMatch: 'full' }
     ]
   }
