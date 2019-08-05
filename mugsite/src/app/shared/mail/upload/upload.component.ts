@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, HostListener } from '@angular/core';
-import { Upload } from 'src/app/mughub/tutor-app/uploads/upload.model';
 import { Subject } from 'rxjs';
 import { AttachmentService } from '../../attachments/attachments.service';
+import { Upload } from './upload.model';
 
 @Component({
   selector: 'mughub-upload',
@@ -13,9 +13,11 @@ export class UploadComponent implements OnInit {
   @Input() upload: Upload = null;
   @Input() currIndex: number = null;
   @Input() numOfUploads: number = null;
+  @Input() parent?: string = null;
   @Output() finished = new Subject();
   screenWidth: number;
   selectable: boolean = true;
+  uploadRecipients: string;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -25,7 +27,10 @@ export class UploadComponent implements OnInit {
   constructor(private attachmentService: AttachmentService) { }
 
   ngOnInit() {
+    console.log(this.upload.recipients);
     this.getUploadContentWidth();
+    this.uploadRecipients = this.upload.recipients.join(', ');
+    console.log(this.upload.recipients)
   }
 
   getUploadContentWidth() {
