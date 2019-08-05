@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { MailService } from '../mail.service';
 import { Subscription } from 'rxjs';
 import { Upload } from '../upload/upload.model';
 import { UserService } from 'src/app/mughub/auth/user.service';
-import { take } from 'rxjs/operators';
-import { QueryDocumentSnapshot } from '@angular/fire/firestore';
 import { SidenavService } from 'src/app/mughub/sidenav/sidenav.service';
 import { User } from 'src/app/mughub/auth/user.model';
+import { UploadService } from '../upload/upload.service';
+import { ActivatedRoute } from '@angular/router';
+import { Query } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-sent',
@@ -21,41 +21,24 @@ export class SentComponent implements OnInit {
   user: User;
 
   constructor(
-    private mailService: MailService,
     private userService: UserService,
-    private sidenavService: SidenavService
+    private sidenavService: SidenavService,
+    private uploadService: UploadService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.user = this.userService.getUserSession();
-    this.listenForUploads();
+    this.listenForUploads(this.route.snapshot.data.uploads);
   }
 
-  listenForUploads() {
-    this.subs.add(this.mailService.fetchUserUploads().onSnapshot(querySnapshot => {
+  listenForUploads(uploadQuery: Query) {
+    this.subs.add(uploadQuery.onSnapshot(querySnapshot => {
       let uploads = [];
-      querySnapshot.forEach(uploadDoc => uploads.push(this.createUploadObj(uploadDoc)));
+      querySnapshot.forEach(uploadDoc => uploads.push(this.uploadService.createUploadObj(uploadDoc)));
       this.uploads = uploads;
-    }))
+    }, error => console.log(error)))
   }
-
-  createUploadObj(uploadData: QueryDocumentSnapshot<any>) {
-    let uploadObj = {};
-    uploadObj['id'] = uploadData.id;
-    Object.assign(uploadObj, uploadData.data());
-
-    this.userService.getUserFromFbCollect(uploadData.data().sender)
-      .pipe(take(1))
-      .subscribe(user => uploadObj['sender'] = user.data())
-
-    uploadData.data().recipients.forEach(recipientId => {
-      this.userService.getUserFromFbCollect(recipientId)
-        .pipe(take(1))
-        .subscribe(user => uploadObj['recipients'] = user.data())
-    });
-
-    return uploadObj;
-  } /* add */
 
   onUploadClick(upload: Upload) {
     this.uploadClicked = upload;

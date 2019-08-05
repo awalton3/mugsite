@@ -1,7 +1,7 @@
-import { Component, OnInit, Input, Output, HostListener } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Component, OnInit, Input, HostListener } from '@angular/core';
 import { AttachmentService } from '../../attachments/attachments.service';
 import { Upload } from './upload.model';
+import { User } from 'src/app/mughub/auth/user.model';
 
 @Component({
   selector: 'mughub-upload',
@@ -10,15 +10,14 @@ import { Upload } from './upload.model';
 })
 export class UploadComponent implements OnInit {
 
-  @Input() upload: Upload = null;
-  @Input() currIndex: number = null;
-  @Input() numOfUploads: number = null;
+  // @Input() currIndex: number = null;
+  // @Input() numOfUploads: number = null;
+  @Input() upload: Upload;
   @Input() parent?: string = null;
-  @Output() finished = new Subject();
+  // @Output() finished = new Subject();
   screenWidth: number;
   selectable: boolean = true;
   attachmentIcon: string;
-  uploadRecipients: string;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
@@ -28,8 +27,18 @@ export class UploadComponent implements OnInit {
   constructor(private attachmentService: AttachmentService) { }
 
   ngOnInit() {
+    // this.getRecipientsAsString();
     this.getUploadContentWidth();
-    this.uploadRecipients = this.upload.recipients.join(', ');
+  }
+
+  getRecipientsAsString(recipientsObjs: User[]) {
+    let recipients = '';
+    recipientsObjs.forEach((recipient, index) => {
+      recipients + recipient.name;
+      if (index !== this.upload.recipients.length - 1)
+        recipients = ', ';
+    })
+    return recipients;
   }
 
   getUploadContentWidth() {

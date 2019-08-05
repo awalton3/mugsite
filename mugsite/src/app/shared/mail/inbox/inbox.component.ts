@@ -6,6 +6,7 @@ import { QueryDocumentSnapshot } from '@angular/fire/firestore';
 import { MailService } from '../mail.service';
 import { UserService } from 'src/app/mughub/auth/user.service';
 import { take } from 'rxjs/operators';
+import { UploadService } from '../upload/upload.service';
 
 @Component({
   selector: 'app-inbox',
@@ -21,7 +22,8 @@ export class InboxComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UserService,
     private sidenavService: SidenavService,
-    private mailService: MailService
+    private mailService: MailService,
+    private uploadService: UploadService
   ) { }
 
   ngOnInit() {
@@ -31,28 +33,10 @@ export class InboxComponent implements OnInit, OnDestroy {
   listenForUploads() {
     this.subs.add(this.mailService.fetchInboxUploads().onSnapshot(querySnapshot => {
       let uploads = [];
-      querySnapshot.forEach(uploadDoc => uploads.push(this.createUploadObj(uploadDoc)));
+      querySnapshot.forEach(uploadDoc => uploads.push(this.uploadService.createUploadObj(uploadDoc)));
       this.uploads = uploads;
     }))
   }
-
-  createUploadObj(uploadData: QueryDocumentSnapshot<any>) {
-    let uploadObj = {};
-    uploadObj['id'] = uploadData.id;
-    Object.assign(uploadObj, uploadData.data());
-
-    this.userService.getUserFromFbCollect(uploadData.data().sender)
-      .pipe(take(1))
-      .subscribe(user => uploadObj['sender'] = user.data())
-
-    uploadData.data().recipients.forEach(recipientId => {
-      this.userService.getUserFromFbCollect(recipientId)
-        .pipe(take(1))
-        .subscribe(user => uploadObj['recipients'] = user.data())
-    });
-
-    return uploadObj;
-  } /* add */
 
   onUploadClick(upload: Upload) {
     this.uploadClicked = upload;

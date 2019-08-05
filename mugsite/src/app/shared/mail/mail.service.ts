@@ -11,7 +11,6 @@ import { AttachmentService } from '../attachments/attachments.service';
 export class MailService {
 
   // uploadClicked = new Subject<Upload>();
-  //
 
   constructor(
     private db: AngularFirestore,
