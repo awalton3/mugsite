@@ -34,9 +34,9 @@ export class UploadComponent implements OnInit {
   getRecipientsAsString(recipientsObjs: User[]) {
     let recipients = '';
     recipientsObjs.forEach((recipient, index) => {
-      recipients + recipient.name;
+      recipients = recipients + recipient.name;
       if (index !== this.upload.recipients.length - 1)
-        recipients = ', ';
+        recipients = recipients + ', ';
     })
     return recipients;
   }

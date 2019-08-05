@@ -31,11 +31,11 @@ export class UploadService {
       this.userService.getUserFromFbCollect(recipientId)
         .pipe(take(1))
         .subscribe(user => {
-          newRecipientsArray.push(user.data().name)
+          newRecipientsArray.push(user.data())
         })
     });
     uploadObj['recipients'] = newRecipientsArray;
-    return uploadObj
+    return uploadObj;
   }
-  
+
 }
