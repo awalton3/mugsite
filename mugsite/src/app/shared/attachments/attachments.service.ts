@@ -133,6 +133,10 @@ export class AttachmentService {
     xhr.send();
   }
 
+  getAttachmentMetadata(storageRef: string) {
+    return this.storage.ref(storageRef).getMetadata();
+  }
+
   handleErrors(error: any) {
     switch (error) {
       case 'storage/object-not-found':

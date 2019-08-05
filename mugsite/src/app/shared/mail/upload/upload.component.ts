@@ -17,6 +17,7 @@ export class UploadComponent implements OnInit {
   @Output() finished = new Subject();
   screenWidth: number;
   selectable: boolean = true;
+  attachmentIcon: string;
   uploadRecipients: string;
 
   @HostListener('window:resize', ['$event'])
@@ -27,10 +28,8 @@ export class UploadComponent implements OnInit {
   constructor(private attachmentService: AttachmentService) { }
 
   ngOnInit() {
-    console.log(this.upload.recipients);
     this.getUploadContentWidth();
     this.uploadRecipients = this.upload.recipients.join(', ');
-    console.log(this.upload.recipients)
   }
 
   getUploadContentWidth() {
@@ -54,6 +53,37 @@ export class UploadComponent implements OnInit {
     Object.keys(document.getElementsByClassName('truncate ')).map(element => {
       elements[element].style.maxWidth = targetWidth + 'px';
     });
+  }
+
+  getAttachmentIcon(attachmentName: string) {
+    const nameArr = attachmentName.split('.');
+    const fileType = nameArr[nameArr.length - 1];
+    switch (fileType) {
+      case 'svg':
+      case 'png':
+      case 'jpeg':
+      case 'jpg':
+      case 'gif': return 'file-image';
+        break;
+      case 'pdf': return 'file-pdf';
+        break;
+      case 'key':
+      case 'odp':
+      case 'pps':
+      case 'ppt':
+      case 'pptx': return 'file-powerpoint';
+        break;
+      case 'ods':
+      case 'xlr':
+      case 'xls':
+      case 'xlsx': return 'file-excel';
+        break;
+      case 'doc':
+      case 'docx':
+      case 'odt': return 'file-word'
+        break;
+      default: return 'file'
+    }
   }
 
   onDownloadAttachment(attachmentRefs: { displayName: string; storageRef: string; }) {

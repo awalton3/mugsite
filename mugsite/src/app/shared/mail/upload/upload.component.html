@@ -1,6 +1,6 @@
 <div class="upload" fxLayout="row" matRipple>
 
-  <div *ngIf="upload.unread" class="unread-symbol"></div>
+  <div *ngIf="upload.unread && parent === 'inbox'" class="unread-symbol"></div>
 
   <div class="date" fxLayout="column" fxLayoutAlign="start start">
     <p class="day">{{ upload.creationDate.day | twoDigitDate }}</p>
@@ -16,7 +16,7 @@
     <div class="upload-content truncate">{{ upload.body }}</div>
     <mat-chip-list *ngIf="upload.attachments.length !== 0" aria-label="Fish selection" style="margin: 15px -5px">
       <mat-chip (click)="onDownloadAttachment(attachment)" class="chip" *ngFor="let attachment of upload.attachments" [matTooltip]="attachment.displayName" [matTooltipDisabled]="attachment.displayName.length <= 15">
-        <i class="material-icons icon-chip" fxLayoutAlign="center center">attachments</i>
+        <fa-icon [icon]="['fas', getAttachmentIcon(attachment.displayName)]" class="icon-chip" fxLayoutAlign="center center" style="color: #ea9103; padding: 5px 10px;"></fa-icon>
         {{ attachment.displayName | truncate: 15 }}
       </mat-chip>
     </mat-chip-list>
