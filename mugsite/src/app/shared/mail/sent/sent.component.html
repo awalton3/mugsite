@@ -5,12 +5,32 @@
   </mat-drawer>
 
   <mat-drawer-content class="background-eee heightFull paddingNone">
+
     <mughub-headnav title="sent" iconLeft="menu" (leftIconToggled)="closeSidenav()"></mughub-headnav>
+
+    <div *ngIf="!uploads || uploads.length === 0" fxLayout="column" fxLayoutAlign="center center" style="height: 80%">
+      <div  fxLayout="column" fxLayoutAlign="center center">
+        <fa-icon [icon]="['fas', 'globe']" class="inbox-empty-icon" fxLayoutAlign="center center"></fa-icon>
+        <br>
+        <p class="inbox-empty-title" *ngIf="user.type === 'tutor'">BUILD A BETTER CONNECTION WITH YOUR STUDENT</p>
+        <p class="inbox-empty-title" *ngIf="user.type === 'student'">BUILD A BETTER CONNECTION WITH YOUR TUTOR</p>
+        <p class="inbox-empty-subtext" *ngIf="user.type === 'tutor'">Upload an assignment using the button on the bottom right.</p>
+        <p class="inbox-empty-subtext" *ngIf="user.type === 'student'">Ask a question or discuss assigned work, using the button on the bottom right.</p>
+      </div>
+    </div>
+
+    <div *ngIf="uploads && uploads.length !== 0 && !uploadClicked" fxLayout="column" fxLayoutAlign="start center" style="height: 80%">
+      <div *ngFor="let upload of uploads;" fxLayout="column" fxLayoutAlign="center center">
+        <mughub-upload [upload]="upload" (click)="onUploadClick(upload)"></mughub-upload>
+      </div>
+    </div>
+
     <div class="bottom-right-fab">
       <button (click)="editor.open()" mat-fab color="accent">
         <i class="material-icons" fxLayoutAlign="center center" style="color: white">add</i>
       </button>
     </div>
+
   </mat-drawer-content>
 
 </mat-drawer-container>

@@ -8,6 +8,10 @@ import { UploaderModule } from '../uploader/uploader.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { UploadModule } from '../upload/upload.module';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faGlobe } from '@fortawesome/free-solid-svg-icons';
+
 @NgModule({
   declarations: [SentComponent],
   imports: [
@@ -16,9 +20,14 @@ import { UploadModule } from '../upload/upload.module';
     MaterialComponentsModule,
     MatSidenavModule,
     UploaderModule,
-    UploadModule, 
+    UploadModule,
+    FontAwesomeModule,
     MatToolbarModule
   ],
   exports: [SentComponent]
 })
-export class SentModule { }
+export class SentModule {
+  constructor() {
+    library.add(faGlobe)
+  }
+}
