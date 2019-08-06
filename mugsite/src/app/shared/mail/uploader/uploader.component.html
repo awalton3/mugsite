@@ -16,7 +16,7 @@
     <textarea type="text" rows="7" matInput formControlName="body" placeholder="Ex. Complete attached worksheets. Student is improving in..." class="drawer-form-input"></textarea>
   </mat-form-field>
 
-  <div fxLayout="row" fxLayoutAlign="space-between center">
+  <!-- <div fxLayout="row" fxLayoutAlign="space-between center">
     <p class="drawer-form-label">ATTACHMENTS</p>
     <input (change)="onAttachmentUpload($event)" (click)="clearFileList($event)" type="file" id="file" class="fileUploader">
     <button mat-icon-button type="button">
@@ -30,10 +30,12 @@
       <p class="attachment-chip">{{ attachment.name | truncate: chipCharLimit }}</p>
       <i class="material-icons icon-chip" fxLayoutAlign="center center" matChipRemove *ngIf="removable">cancel</i>
     </mat-chip>
-  </mat-chip-list>
+  </mat-chip-list> -->
 
-  <div *ngIf="attachments.length === 0">
+  <mughub-attachments [attachments]="[]" [removable]="removable"></mughub-attachments>
+
+  <!-- <div *ngIf="attachments.length === 0">
     <p class="add-attachment-prompt">To add an attachment, click the button above.</p>
-  </div>
+  </div> -->
 
 </form>

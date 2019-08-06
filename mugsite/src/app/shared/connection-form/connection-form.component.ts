@@ -52,6 +52,7 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
     this.initAutoComp();
     this.getCharAutoOptionLimit();
     this.getCharChipLimit();
+    this.listenForExistingConnections();
     this.listenForFormReset();
   }
 
@@ -70,6 +71,14 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
       this.charChipLimit = 18;
     }
   }
+
+    listenForExistingConnections() {
+      this.subs.add(this.connectionFormService.onInitForEdit.subscribe(existingConnections => {
+        this.existingConnections = existingConnections;
+        this.initForm();
+        this.initAutoComp();
+      }))
+    }
 
   initForm() {
     if (this.existingConnections && this.existingConnections.length !== 0) {
@@ -170,7 +179,7 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
     this.connectionExist = this.selectedConnections.includes(event.option.value);
     if (!this.connectionExist) {
       this.selectedConnections.push(event.option.value);
-      this.selectedConnectionsIds.push(event.option.value.uid); 
+      this.selectedConnectionsIds.push(event.option.value.uid);
       this.connectionFormService.onConnectionsChanged.next({
         selectedConnections: this.selectedConnectionsIds,
         selectedConnectionsOrig: this.selectedConnectionsBeforeChanges

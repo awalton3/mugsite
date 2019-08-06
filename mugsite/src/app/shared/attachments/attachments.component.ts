@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AttachmentService } from './attachments.service';
+import { Attachment } from './attachment.model';
+import { UserService } from 'src/app/mughub/auth/user.service';
 
 @Component({
   selector: 'mughub-attachments',
@@ -8,9 +10,15 @@ import { AttachmentService } from './attachments.service';
 })
 export class AttachmentsComponent implements OnInit {
 
-  @Input() attachments: any[] = [];
+  @Input() attachments: Attachment[] = [];
+  attachmentsToRemoveFromStorage: Attachment[] = [];
+  @Input() removable?: boolean = false;
+  selectable: boolean = true;
 
-  constructor(private attachmentService: AttachmentService) { }
+  constructor(
+    private attachmentService: AttachmentService,
+    private userService: UserService
+  ) { }
 
   ngOnInit() {
   }
@@ -47,7 +55,33 @@ export class AttachmentsComponent implements OnInit {
   }
 
   onDownloadAttachment(attachmentRefs: { displayName: string; storageRef: string; }) {
-    this.attachmentService.downloadAttachment(attachmentRefs);
+    if (!this.removable)
+      this.attachmentService.downloadAttachment(attachmentRefs);
+  }
+
+  onAttachmentUpload(onFileUpload: { target: { files: any[]; }; }) {
+    const file = onFileUpload.target.files[0];
+    const doesFileExist = this.attachments.some(attachment => attachment.displayName === file.name);
+    if (!doesFileExist) {
+      const displayName = file.name;
+      const storageRef = file.name + new Date().getTime() + this.userService.getUserSession().uid;
+      const newAttachment = new Attachment(displayName, storageRef, file);
+      this.attachments.push(newAttachment);
+    }
+  }
+
+  removeAttachmentChip(attachment: Attachment) {
+    const index = this.attachments.indexOf(attachment);
+    const isFileInStorage = !(!!(attachment.file));
+    if (index >= 0) {
+      this.attachments.splice(index, 1);
+      if (isFileInStorage)
+        this.attachmentsToRemoveFromStorage.push(attachment);
+    }
+  }
+
+  clearFileList(event: { target: { value: any; }; }) {
+    event.target.value = null;
   }
 
 }

@@ -6,6 +6,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ConnectionFormService } from '../../connection-form/connection-form.service';
 import { MailService } from '../mail.service';
 import { first } from 'rxjs/operators';
+import { UploadService } from '../upload/upload.service';
+import { Upload } from '../upload/upload.model';
 
 @Component({
   selector: 'mughub-uploader',
@@ -26,6 +28,7 @@ export class UploaderComponent implements OnInit, OnDestroy {
   removable = true;
   selectable = true;
   chipCharLimit: number;
+  isEditMode: boolean = false;
   @Output() onClose = new Subject();
 
   @HostListener('window:resize', ['$event'])
@@ -36,7 +39,8 @@ export class UploaderComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UserService,
     private connectionsFormService: ConnectionFormService,
-    private mailService: MailService
+    private mailService: MailService,
+    private uploadService: UploadService
   ) { }
 
   ngOnInit() {
@@ -46,6 +50,7 @@ export class UploaderComponent implements OnInit, OnDestroy {
     this.getPossibleConnections();
     this.listenToConnectionsValid();
     this.listenToSelectedConnections();
+    this.listenForUploadToEdit();
   }
 
   initForm() {
@@ -65,6 +70,15 @@ export class UploaderComponent implements OnInit, OnDestroy {
     this.subs.add(this.connectionsFormService.isformValid.subscribe(isFormValid => {
       this.connectionsValid = isFormValid;
     }));
+  }
+
+  listenForUploadToEdit() {
+    this.subs.add(this.uploadService.uploadToEdit.subscribe(uploadToEdit => {
+      this.isEditMode = true;
+      this.connectionsFormService.onInitForEdit.next(uploadToEdit.recipients);
+      this.uploadForm.controls.subject.setValue(uploadToEdit.subject);
+      this.uploadForm.controls.body.setValue(uploadToEdit.body)
+    }))
   }
 
   getPossibleConnections() {
@@ -128,7 +142,12 @@ export class UploaderComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     let form = this.uploadForm.value;
-    this.mailService.uploadMessage(this.selectedConnections, form.body, form.subject, this.attachments);
+    if (this.isEditMode) {
+      
+    }
+    else {
+      this.mailService.uploadMessage(this.selectedConnections, form.body, form.subject, this.attachments);
+    }
     this.resetUploader();
   }
 

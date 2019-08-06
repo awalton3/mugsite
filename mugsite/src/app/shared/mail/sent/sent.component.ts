@@ -17,7 +17,7 @@ export class SentComponent implements OnInit {
 
   private subs = new Subscription();
   uploads: Upload[];
-  uploadClicked: Upload;
+  uploadClicked: Upload = null;
   user: User;
 
   constructor(
@@ -29,7 +29,14 @@ export class SentComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.userService.getUserSession();
+    this.listenForUploadClicked();
     this.listenForUploads(this.route.snapshot.data.uploads);
+  }
+
+  listenForUploadClicked() {
+    this.subs.add(this.uploadService.uploadClicked.subscribe(uploadClicked => {
+      this.uploadClicked = uploadClicked;
+    }))
   }
 
   listenForUploads(uploadQuery: Query) {
@@ -41,7 +48,7 @@ export class SentComponent implements OnInit {
   }
 
   onUploadClick(upload: Upload) {
-    this.uploadClicked = upload;
+    this.uploadService.uploadClicked.next(upload);
   }
 
   closeSidenav() {

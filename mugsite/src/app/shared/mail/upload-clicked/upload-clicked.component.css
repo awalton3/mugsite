@@ -28,6 +28,7 @@
 
 .upload-header-expanded {
   margin: 0 20px;
+  width: 100%;
 }
 
 .upload-header-expanded-icon {
@@ -50,6 +51,12 @@
 
 .upload-header-text {
   margin: 0;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.upload-header-expanded-text {
   font-size: 14px;
   font-weight: 400;
   font-family: 'Montserrat', sans-serif;

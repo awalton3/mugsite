@@ -1,6 +1,19 @@
-<mat-chip-list *ngIf="attachments.length !== 0" aria-label="Attachment selection" style="margin: 15px -5px">
-  <mat-chip (click)="onDownloadAttachment(attachment)" class="chip" *ngFor="let attachment of attachments" [matTooltip]="attachment.displayName" [matTooltipDisabled]="attachment.displayName.length <= 15">
+<div *ngIf="removable" fxLayout="row" fxLayoutAlign="space-between center">
+  <p class="drawer-form-label">ATTACHMENTS</p>
+  <input (change)="onAttachmentUpload($event)" (click)="clearFileList($event)" type="file" id="file" class="fileUploader">
+  <button mat-icon-button type="button">
+    <label for="file"><i class="material-icons fileUploader-btn" fxLayoutAlign="center center">add_circle</i></label>
+  </button>
+</div>
+
+<mat-chip-list *ngIf="attachments && attachments.length !== 0" aria-label="Attachment selection" style="margin: 15px -5px">
+  <mat-chip (click)="onDownloadAttachment(attachment)" class="chip" *ngFor="let attachment of attachments" [selectable]="selectable" [removable]="removable" (removed)="removeAttachmentChip(attachment)" [matTooltip]="attachment.displayName" [matTooltipDisabled]="attachment.displayName.length <= 15">
     <fa-icon [icon]="['fas', getAttachmentIcon(attachment.displayName)]" class="icon-chip" fxLayoutAlign="center center" style="color: #ea9103; padding: 5px 10px;"></fa-icon>
     {{ attachment.displayName | truncate: 15 }}
+    <i *ngIf="removable" class="material-icons icon-chip" fxLayoutAlign="center center" matChipRemove>cancel</i>
   </mat-chip>
 </mat-chip-list>
+
+<div *ngIf="attachments.length === 0 && removable">
+  <p class="add-attachment-prompt">To add an attachment, click the button above.</p>
+</div>

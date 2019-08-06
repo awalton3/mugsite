@@ -10,6 +10,7 @@ import { UploadModule } from '../upload/upload.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { UploadClickedModule } from '../upload-clicked/upload-clicked.module';
 
 @NgModule({
   declarations: [SentComponent],
@@ -20,6 +21,7 @@ import { faGlobe } from '@fortawesome/free-solid-svg-icons';
     MatSidenavModule,
     UploaderModule,
     UploadModule,
+    UploadClickedModule,
     FontAwesomeModule
   ],
   exports: [SentComponent]

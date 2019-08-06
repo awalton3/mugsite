@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SidenavService } from 'src/app/mughub/sidenav/sidenav.service';
-import { Upload } from 'src/app/mughub/tutor-app/uploads/upload.model';
 import { Subscription } from 'rxjs';
 import { UploadService } from '../upload/upload.service';
 import { ActivatedRoute } from '@angular/router';
 import { Query } from '@angular/fire/firestore';
+import { Upload } from '../upload/upload.model';
 
 @Component({
   selector: 'app-inbox',
@@ -14,8 +14,8 @@ import { Query } from '@angular/fire/firestore';
 export class InboxComponent implements OnInit, OnDestroy {
 
   private subs = new Subscription();
-  uploads: Upload[];
   uploadClicked: Upload = null;
+  uploads: Upload[];
 
   constructor(
     private sidenavService: SidenavService,
@@ -25,6 +25,13 @@ export class InboxComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.listenForUploads(this.route.snapshot.data.uploads);
+    this.listenForUploadClicked();
+  }
+
+  listenForUploadClicked() {
+    this.subs.add(this.uploadService.uploadClicked.subscribe(uploadClicked => {
+      this.uploadClicked = uploadClicked;
+    }))
   }
 
   listenForUploads(uploadQuery: Query) {
@@ -36,7 +43,7 @@ export class InboxComponent implements OnInit, OnDestroy {
   }
 
   onUploadClick(upload: Upload) {
-    this.uploadClicked = upload;
+    this.uploadService.uploadClicked.next(upload);
   }
 
   closeSidenav() {

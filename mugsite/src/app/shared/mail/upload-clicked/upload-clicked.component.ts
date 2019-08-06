@@ -1,8 +1,8 @@
-import { Component, OnInit, Output, Input, HostListener } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Upload } from 'src/app/mughub/tutor-app/uploads/upload.model';
+import { Component, OnInit, Input, HostListener, Output } from '@angular/core';
 import { UploadService } from '../upload/upload.service';
 import { User } from 'src/app/mughub/auth/user.model';
+import { Upload } from '../upload/upload.model';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'mughub-upload-clicked',
@@ -11,9 +11,9 @@ import { User } from 'src/app/mughub/auth/user.model';
 })
 export class UploadClickedComponent implements OnInit {
 
-  @Input() upload: Upload;
   @Input() parent: string;
-  @Output() onBack = new Subject();
+  @Input() upload: Upload;
+  @Output() onEditUpload = new Subject();
   screenWidth: number;
   mediaBreakpoint: number = 599;
 
@@ -50,8 +50,17 @@ export class UploadClickedComponent implements OnInit {
     return this.uploadService.getRecipientsAsString(recipientsObjs);
   }
 
+  getRecipientsFormattedWithEmail(recipientsObjs: User[]) {
+    return this.uploadService.getRecipientsAsStringWithEmail(recipientsObjs);
+  }
+
+  onEdit() {
+    this.onEditUpload.next();
+    this.uploadService.uploadToEdit.next(this.upload);
+  }
+
   onToggleBack() {
-    this.onBack.next();
+    this.uploadService.uploadClicked.next(null);
   }
 
 }

@@ -3,10 +3,15 @@ import { QueryDocumentSnapshot } from '@angular/fire/firestore';
 import { UserService } from 'src/app/mughub/auth/user.service';
 import { take } from 'rxjs/operators';
 import { User } from 'src/app/mughub/auth/user.model';
+import { Upload } from './upload.model';
+import { Subject } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 
 export class UploadService {
+
+  uploadClicked = new Subject<Upload>();
+  uploadToEdit = new Subject<Upload>(); 
 
   constructor(private userService: UserService) {}
 
@@ -48,5 +53,16 @@ export class UploadService {
     })
     return recipients;
   }
+
+  getRecipientsAsStringWithEmail(recipientsObjs: User[]) {
+    let recipients = '';
+    recipientsObjs.forEach((recipient, index) => {
+      recipients = recipients + recipient.name + ' <' + recipient.email + '>';
+      if (index !== recipientsObjs.length - 1)
+        recipients = recipients + ', ';
+    })
+    return recipients;
+  }
+
 
 }

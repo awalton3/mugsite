@@ -23,10 +23,14 @@
       </div>
     </div>
 
-    <div fxLayout="column" fxLayoutAlign="center center">
-      <div *ngIf="uploads && uploads.length !== 0" fxLayout="column" fxLayoutAlign="start start">
-        <mughub-upload *ngFor="let upload of uploads;" [upload]="upload" (click)="onUploadClick(upload)" [parent]="'sent'" fxLayoutAlign="start start"></mughub-upload>
+    <div *ngIf="uploads && uploads.length !== 0 && !uploadClicked" fxLayout="column" fxLayoutAlign="center center" class="uploads dynamic-height">
+      <div fxLayout="column" fxLayoutAlign="start start">
+        <mughub-upload *ngFor="let upload of uploads;" [upload]="upload" [parent]="'sent'" (click)="onUploadClick(upload)"></mughub-upload>
       </div>
+    </div>
+
+    <div *ngIf="uploadClicked" fxLayout="column" fxLayoutAlign="start start">
+      <mughub-upload-clicked style="width: 90%" [upload]="uploadClicked" [parent]="'sent'" (onEditUpload)="editor.toggle()"></mughub-upload-clicked>
     </div>
 
     <div class="bottom-right-fab">

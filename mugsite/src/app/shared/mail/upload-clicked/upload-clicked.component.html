@@ -12,7 +12,7 @@
       </button>
       <div class="upload-actions" fxLayout="row">
         <button mat-icon-button><i class="material-icons">reply</i></button>
-        <button *ngIf="parent === 'sent'" mat-icon-button><i class="material-icons">edit</i></button>
+        <button (click)="onEdit()" *ngIf="parent === 'sent'" mat-icon-button><i class="material-icons">edit</i></button>
         <button mat-icon-button><i class="material-icons">delete</i></button>
       </div>
     </div>
@@ -20,7 +20,7 @@
   </div>
   <br>
 
-  <div fxLayout="column" fxLayoutAlign.gt-xm="start start" fxLayoutAlign.lt-sm="center center" fxFill>
+  <div *ngIf="upload" fxLayout="column" fxLayoutAlign.gt-xm="start start" fxLayoutAlign.lt-sm="center center" fxFill>
     <div class="upload" fxLayout="column" fxLayoutAlign="start start" fxFill>
       <mat-expansion-panel fxLayout="column" fxLayoutAlign="start center" class="background-eee upload-expansion-panel" style="width: 400px">
         <mat-expansion-panel-header class="upload-header widthFullPer" fxLayout="row" fxLayoutAlign="center center">
@@ -33,19 +33,16 @@
           </div>
         </mat-expansion-panel-header>
         <div class="upload-header-expanded">
-          <p class="upload-header-text" fxLayoutAlign="start start">
+          <p class="upload-header-expanded-text" fxLayoutAlign="start start">
             <i class="material-icons upload-header-expanded-icon">person</i>
             From: {{ upload.sender.name }}
             <{{ upload.sender.email }}>
           </p>
-          <p class="upload-header-text" fxLayoutAlign="start start">
+          <p class="upload-header-expanded-text" fxLayoutAlign="start start">
             <i class="material-icons upload-header-expanded-icon">{{ upload.recipients.length > 1 ? 'people' : 'person' }}</i>
-            <span *ngFor="let recipient of upload.recipients; let i = index">To: {{ recipient.name }}
-              < {{ recipient.email }}>
-                <span *ngIf="upload.recipients.length - 1 !== i">, </span>
-            </span>
+            To: {{ getRecipientsFormattedWithEmail(upload.recipients) }}
           </p>
-          <p class="upload-header-text" fxLayoutAlign="start start">
+          <p class="upload-header-expanded-text" fxLayoutAlign="start start">
             <i class="material-icons upload-header-expanded-icon">schedule</i>
             Sent on {{ upload.creationDate.month | monthString }}
             {{ upload.creationDate.day | twoDigitDate }} at
@@ -61,7 +58,7 @@
           <p class="upload-content-subject widthFullPer">{{ upload.subject }}</p>
           <div *ngIf="screenWidth > mediaBreakpoint" class="upload-actions" fxLayout="row">
             <button mat-icon-button><i class="material-icons">reply</i></button>
-            <button *ngIf="parent === 'sent'" mat-icon-button><i class="material-icons">edit</i></button>
+            <button (click)="onEdit()" *ngIf="parent === 'sent'" mat-icon-button><i class="material-icons">edit</i></button>
             <button mat-icon-button><i class="material-icons">delete</i></button>
           </div>
         </div>
