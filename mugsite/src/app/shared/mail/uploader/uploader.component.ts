@@ -7,7 +7,8 @@ import { ConnectionFormService } from '../../connection-form/connection-form.ser
 import { MailService } from '../mail.service';
 import { first } from 'rxjs/operators';
 import { UploadService } from '../upload/upload.service';
-import { Upload } from '../upload/upload.model';
+import { Attachment } from '../../attachments/attachment.model';
+import { AttachmentService } from '../../attachments/attachments.service';
 
 @Component({
   selector: 'mughub-uploader',
@@ -23,7 +24,7 @@ export class UploaderComponent implements OnInit, OnDestroy {
   connectionsValid: boolean = false;
   possibleConnections: User[] = [];
   selectedConnections: string[] = [];
-  attachments: File[] = [];
+  attachments: Attachment[] = [];
   compressedAttachment: string = '';
   removable = true;
   selectable = true;
@@ -40,10 +41,12 @@ export class UploaderComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private connectionsFormService: ConnectionFormService,
     private mailService: MailService,
-    private uploadService: UploadService
+    private uploadService: UploadService,
+    private attachmentService: AttachmentService
   ) { }
 
   ngOnInit() {
+    console.log(this.isEditMode);
     this.initForm();
     this.getChipCharLimit();
     this.user = this.userService.getUserSession();
@@ -78,6 +81,7 @@ export class UploaderComponent implements OnInit, OnDestroy {
       this.connectionsFormService.onInitForEdit.next(uploadToEdit.recipients);
       this.uploadForm.controls.subject.setValue(uploadToEdit.subject);
       this.uploadForm.controls.body.setValue(uploadToEdit.body)
+      this.attachments = uploadToEdit.attachments.map(attachment => new Attachment(attachment.displayName, attachment.stroageRef, null));
     }))
   }
 
@@ -122,33 +126,20 @@ export class UploaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  onAttachmentUpload(onFileUpload: { target: { files: any[]; }; }) {
-    let file = onFileUpload.target.files[0];
-    if (!this.attachments.some(attachment => attachment.name === file.name)) {
-      this.attachments.push(file);
-    }
-  }
-
-  removeAttachmentChip(attachment: File) {
-    const index = this.attachments.indexOf(attachment);
-    if (index >= 0) {
-      this.attachments.splice(index, 1);
-    }
-  }
-
-  clearFileList(event: { target: { value: any; }; }) {
-    event.target.value = null;
-  }
-
   onSubmit() {
+    this.attachmentService.onAttachmentsRequest.next();
     let form = this.uploadForm.value;
     if (this.isEditMode) {
-      
+      //...
     }
     else {
       this.mailService.uploadMessage(this.selectedConnections, form.body, form.subject, this.attachments);
     }
     this.resetUploader();
+  }
+
+  getAttachments(event: Attachment[]) {
+    this.attachments = event;
   }
 
   onCancel() {
@@ -160,6 +151,7 @@ export class UploaderComponent implements OnInit, OnDestroy {
     this.connectionsFormService.resetConnectionForm.next();
     this.uploadForm.reset();
     this.attachments = [];
+    this.isEditMode = false; 
   }
 
   ngOnDestroy() {

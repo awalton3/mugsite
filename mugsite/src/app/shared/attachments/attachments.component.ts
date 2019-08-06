@@ -1,18 +1,22 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output } from '@angular/core';
 import { AttachmentService } from './attachments.service';
 import { Attachment } from './attachment.model';
 import { UserService } from 'src/app/mughub/auth/user.service';
+import { Subscription, Subject } from 'rxjs';
 
 @Component({
   selector: 'mughub-attachments',
   templateUrl: './attachments.component.html',
   styleUrls: ['./attachments.component.css']
 })
-export class AttachmentsComponent implements OnInit {
+export class AttachmentsComponent implements OnInit, OnDestroy {
 
+  private subs = new Subscription();
   @Input() attachments: Attachment[] = [];
+  @Output() attachmentsSub = new Subject<Attachment[]>();
   attachmentsToRemoveFromStorage: Attachment[] = [];
   @Input() removable?: boolean = false;
+  @Output() onAttach = new Subject<Attachment>();
   selectable: boolean = true;
 
   constructor(
@@ -21,6 +25,13 @@ export class AttachmentsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.listenForAttachmentsRequests();
+  }
+
+  listenForAttachmentsRequests() {
+    this.subs.add(this.attachmentService.onAttachmentsRequest.subscribe(() => {
+      this.attachmentsSub.next(this.attachments);
+    }))
   }
 
   getAttachmentIcon(attachmentName: string) {
@@ -82,6 +93,10 @@ export class AttachmentsComponent implements OnInit {
 
   clearFileList(event: { target: { value: any; }; }) {
     event.target.value = null;
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 
 }

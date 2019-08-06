@@ -1,4 +1,4 @@
-<mughub-headnav title="New Message" iconLeft="close" iconRight="send" (leftIconToggled)="onCancel()" (rightIconToggled)="onSubmit()" [enableIconRight]="connectionsValid && uploadForm.valid"></mughub-headnav>
+<mughub-headnav [title]="isEditMode ? 'Edit Message' : 'New Message'" iconLeft="close" [iconRight]="isEditMode ? 'done' : 'send'" (leftIconToggled)="onCancel()" (rightIconToggled)="onSubmit()" [enableIconRight]="connectionsValid && uploadForm.valid"></mughub-headnav>
 <form [formGroup]="uploadForm" class="drawer-form">
 
   <p *ngIf="user.type === 'tutor'" class="drawer-form-label">STUDENT NAME(S)</p>
@@ -16,26 +16,6 @@
     <textarea type="text" rows="7" matInput formControlName="body" placeholder="Ex. Complete attached worksheets. Student is improving in..." class="drawer-form-input"></textarea>
   </mat-form-field>
 
-  <!-- <div fxLayout="row" fxLayoutAlign="space-between center">
-    <p class="drawer-form-label">ATTACHMENTS</p>
-    <input (change)="onAttachmentUpload($event)" (click)="clearFileList($event)" type="file" id="file" class="fileUploader">
-    <button mat-icon-button type="button">
-      <label for="file"><i class="material-icons fileUploader-btn" fxLayoutAlign="center center">add_circle</i></label>
-    </button>
-  </div>
-
-  <mat-chip-list *ngIf="attachments.length !== 0" class="attachment-chip-list">
-    <mat-chip *ngFor="let attachment of attachments" [selectable]="selectable" [removable]="removable" (removed)="removeAttachmentChip(attachment)" class="chip" [matTooltip]="attachment.name" [matTooltipDisabled]="attachment.name.length <= chipCharLimit">
-      <i class="material-icons icon-chip" fxLayoutAlign="center center">attachments</i>
-      <p class="attachment-chip">{{ attachment.name | truncate: chipCharLimit }}</p>
-      <i class="material-icons icon-chip" fxLayoutAlign="center center" matChipRemove *ngIf="removable">cancel</i>
-    </mat-chip>
-  </mat-chip-list> -->
-
-  <mughub-attachments [attachments]="[]" [removable]="removable"></mughub-attachments>
-
-  <!-- <div *ngIf="attachments.length === 0">
-    <p class="add-attachment-prompt">To add an attachment, click the button above.</p>
-  </div> -->
+  <mughub-attachments [attachments]="attachments" [removable]="removable" (attachmentsSub)="getAttachments($event)"></mughub-attachments>
 
 </form>
