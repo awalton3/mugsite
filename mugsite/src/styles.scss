@@ -39,6 +39,12 @@
 	margin: 0 !important;
 }
 
+.truncate {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
 .bottom-right-fab {
 	position: fixed;
 	bottom: 0 !important;
@@ -116,6 +122,15 @@
 	border-radius: 50% !important;
 	width: 50px !important;
 	height: 50px !important;
+}
+
+.profile-image-container-medium {
+	background-color: #d7d8da !important;
+	background-position: center center !important;
+	background-size: cover !important;
+	border-radius: 50% !important;
+	width: 70px !important;
+	height: 70px !important;
 }
 
 .profile-image-container-large {

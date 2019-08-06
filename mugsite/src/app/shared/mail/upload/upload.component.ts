@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, HostListener } from '@angular/core';
-import { AttachmentService } from '../../attachments/attachments.service';
 import { Upload } from './upload.model';
 import { User } from 'src/app/mughub/auth/user.model';
+import { UploadService } from './upload.service';
 
 @Component({
   selector: 'mughub-upload',
@@ -10,11 +10,8 @@ import { User } from 'src/app/mughub/auth/user.model';
 })
 export class UploadComponent implements OnInit {
 
-  // @Input() currIndex: number = null;
-  // @Input() numOfUploads: number = null;
   @Input() upload: Upload;
   @Input() parent?: string = null;
-  // @Output() finished = new Subject();
   screenWidth: number;
   selectable: boolean = true;
   attachmentIcon: string;
@@ -24,21 +21,14 @@ export class UploadComponent implements OnInit {
     this.getUploadContentWidth();
   }
 
-  constructor(private attachmentService: AttachmentService) { }
+  constructor(private uploadService: UploadService) { }
 
   ngOnInit() {
-    // this.getRecipientsAsString();
     this.getUploadContentWidth();
   }
 
-  getRecipientsAsString(recipientsObjs: User[]) {
-    let recipients = '';
-    recipientsObjs.forEach((recipient, index) => {
-      recipients = recipients + recipient.name;
-      if (index !== this.upload.recipients.length - 1)
-        recipients = recipients + ', ';
-    })
-    return recipients;
+  getRecipientsFormatted(recipientsObjs: User[]) {
+    return this.uploadService.getRecipientsAsString(recipientsObjs);
   }
 
   getUploadContentWidth() {
@@ -58,8 +48,8 @@ export class UploadComponent implements OnInit {
       elements[element].style.maxWidth = targetWidth + 'px';
     });
 
-    elements = document.getElementsByClassName('truncate ');
-    Object.keys(document.getElementsByClassName('truncate ')).map(element => {
+    elements = document.getElementsByClassName('truncate');
+    Object.keys(document.getElementsByClassName('truncate')).map(element => {
       elements[element].style.maxWidth = targetWidth + 'px';
     });
   }
@@ -93,10 +83,6 @@ export class UploadComponent implements OnInit {
         break;
       default: return 'file'
     }
-  }
-
-  onDownloadAttachment(attachmentRefs: { displayName: string; storageRef: string; }) {
-    this.attachmentService.downloadAttachment(attachmentRefs);
   }
 
 }

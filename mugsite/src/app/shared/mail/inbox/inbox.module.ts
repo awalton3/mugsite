@@ -8,8 +8,8 @@ import { MaterialComponentsModule } from '../../angular-material/material-compon
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faTrophy } from '@fortawesome/free-solid-svg-icons';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { UploadModule } from '../upload/upload.module';
+import { UploadClickedModule } from '../upload-clicked/upload-clicked.module';
 
 @NgModule({
   declarations: [InboxComponent],
@@ -21,7 +21,7 @@ import { UploadModule } from '../upload/upload.module';
     UploaderModule,
     UploadModule,
     FontAwesomeModule,
-    MatToolbarModule
+    UploadClickedModule
   ],
   exports: [InboxComponent]
 })

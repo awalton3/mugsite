@@ -5,7 +5,6 @@ import { MaterialComponentsModule } from '../../angular-material/material-compon
 import { HeadnavModule } from 'src/app/mughub/headnav/headnav.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { UploaderModule } from '../uploader/uploader.module';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { UploadModule } from '../upload/upload.module';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -21,8 +20,7 @@ import { faGlobe } from '@fortawesome/free-solid-svg-icons';
     MatSidenavModule,
     UploaderModule,
     UploadModule,
-    FontAwesomeModule,
-    MatToolbarModule
+    FontAwesomeModule
   ],
   exports: [SentComponent]
 })

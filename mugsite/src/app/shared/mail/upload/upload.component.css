@@ -59,12 +59,6 @@
   margin: 0;
 }
 
-.truncate {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .upload-header {
   font-size: 14px;
   font-weight: 600;

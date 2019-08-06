@@ -1,0 +1,20 @@
+<div fxLayout="row" fxLayoutAlign="start start" class="uploadClicked-toolbar">
+  <button mat-icon-button>
+    <i class="material-icons sidenav-toggle-btn" (click)="onToggleBack()">arrow_back</i>
+  </button>
+  <div class="upload-header" fxLayout="column" fxLayoutAlign="start start">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <div class="profile-image-container-small" [ngStyle]="{'background-image': 'url(' + upload.sender.photoUrl + ')'}"></div>
+      <div class="upload-header-info">
+        <p class="upload-header-main truncate">{{ upload.sender.name }}<{{ upload.sender.email }}></p>
+        <p class="upload-header-text truncate">to {{ getRecipientsFormatted(upload.recipients) }}</p>
+      </div>
+    </div>
+    <div class="upload-content widthFullPer">
+      <p class="upload-content-subject">{{ upload.subject }}</p>
+      <mat-divider></mat-divider>
+      <p class="upload-content-body">{{ upload.body }}</p>
+      <mughub-attachments [attachments]="upload.attachments"></mughub-attachments>
+    </div>
+  </div>
+</div>

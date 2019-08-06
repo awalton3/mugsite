@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { QueryDocumentSnapshot } from '@angular/fire/firestore';
 import { UserService } from 'src/app/mughub/auth/user.service';
 import { take } from 'rxjs/operators';
+import { User } from 'src/app/mughub/auth/user.model';
 
 @Injectable({providedIn: 'root'})
 
@@ -36,6 +37,16 @@ export class UploadService {
     });
     uploadObj['recipients'] = newRecipientsArray;
     return uploadObj;
+  }
+
+  getRecipientsAsString(recipientsObjs: User[]) {
+    let recipients = '';
+    recipientsObjs.forEach((recipient, index) => {
+      recipients = recipients + recipient.name;
+      if (index !== recipientsObjs.length - 1)
+        recipients = recipients + ', ';
+    })
+    return recipients;
   }
 
 }

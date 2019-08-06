@@ -20,11 +20,16 @@
   color: #ea9103;
 }
 
-.uploadClicked-toolbar {
-  background-color: #eee;
-  color: grey;
-  font-family: 'Montserrat', sans-serif;
-  font-size:  16px;
-  font-weight: 500;
-  padding: 0px 25px;
+.uploads {
+  margin: 30px 0px;
+}
+
+.dynamic-height {
+  height: 80%;
+}
+
+@media (max-width: 600) {
+  .dynamic-height {
+    height: 90%;
+  }
 }

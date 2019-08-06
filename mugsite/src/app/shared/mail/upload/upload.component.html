@@ -10,16 +10,11 @@
   <mat-divider class="divider" [vertical]="true"></mat-divider>
 
   <div class="info" fxLayout="column" fxLayoutAlign="center start">
-    <div *ngIf="screenWidth < 600" class="name truncate">{{ parent === 'sent' ? uploadRecipients : upload.sender.name }}</div>
+    <div *ngIf="screenWidth < 600" class="name truncate">{{ parent === 'sent' ? getRecipientsFormatted(upload.recipients) : upload.sender.name }}</div>
     <div *ngIf="screenWidth < 600" class="subject truncate">{{ upload.subject }}</div>
-    <div *ngIf="screenWidth >= 600" class="truncate"><span class="name">{{ parent === 'sent' ? 'To: ' + getRecipientsAsString(upload.recipients) : upload.sender.name }}</span><span class="subject"> ~ {{ upload.subject}}</span></div>
+    <div *ngIf="screenWidth >= 600" class="truncate"><span class="name">{{ parent === 'sent' ? 'To: ' + getRecipientsFormatted(upload.recipients) : upload.sender.name }}</span><span class="subject"> ~ {{ upload.subject}}</span></div>
     <div class="upload-content truncate">{{ upload.body }}</div>
-    <mat-chip-list *ngIf="upload.attachments.length !== 0" aria-label="Fish selection" style="margin: 15px -5px">
-      <mat-chip (click)="onDownloadAttachment(attachment)" class="chip" *ngFor="let attachment of upload.attachments" [matTooltip]="attachment.displayName" [matTooltipDisabled]="attachment.displayName.length <= 15">
-        <fa-icon [icon]="['fas', getAttachmentIcon(attachment.displayName)]" class="icon-chip" fxLayoutAlign="center center" style="color: #ea9103; padding: 5px 10px;"></fa-icon>
-        {{ attachment.displayName | truncate: 15 }}
-      </mat-chip>
-    </mat-chip-list>
+    <mughub-attachments [attachments]="upload.attachments"></mughub-attachments>
   </div>
 
 </div>

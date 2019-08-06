@@ -16,19 +16,14 @@
       </div>
     </div>
 
-    <div fxLayout="column" fxLayoutAlign="center center" style="height: 80%">
-      <div *ngIf="uploads && uploads.length !== 0 && !uploadClicked" fxLayout="column" fxLayoutAlign="start start">
+    <div *ngIf="uploads && uploads.length !== 0 && !uploadClicked" fxLayout="column" fxLayoutAlign="center center" class="uploads dynamic-height">
+      <div fxLayout="column" fxLayoutAlign="start start">
         <mughub-upload *ngFor="let upload of uploads;" [upload]="upload" [parent]="'inbox'" (click)="onUploadClick(upload)"></mughub-upload>
       </div>
     </div>
 
-    <div *ngIf="uploadClicked" style="width: 50px" fxLayout="column" fxLayoutAlign="center center">
-      <mat-toolbar fxLayout="row" fxLayoutAlign="start center" class="uploadClicked-toolbar">
-        <button mat-icon-button>
-          <i class="material-icons sidenav-toggle-btn" (click)="uploadClicked = null">arrow_back</i>
-        </button>
-        <p style="margin-left: 20px">{{ uploadClicked.subject }}</p>
-      </mat-toolbar>
+    <div *ngIf="uploadClicked" fxLayout="column" fxLayoutAlign="start start">
+      <mughub-upload-clicked [upload]="uploadClicked" [parent]="'inbox'" (onBack)="uploadClicked = null"></mughub-upload-clicked>
     </div>
 
     <div class="bottom-right-fab">
