@@ -1,5 +1,5 @@
-import { Timestamp } from 'rxjs/internal/types';
 import { User } from 'src/app/mughub/auth/user.model';
+import { Timestamp } from 'rxjs';
 
 export class Upload {
   constructor(

@@ -7,16 +7,35 @@
   padding: 0px 25px;
 }
 
+.upload-expansion-panel {
+  background-color: #eee;
+  color: grey;
+  font-family: 'Montserrat', sans-serif;
+}
+
 .upload {
   margin-left: 30px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .upload-header {
-  /* margin-left: 30px; */
+  color: grey;
+  padding: 40px 30px;
+  font-family: 'Montserrat', sans-serif;
+
 }
 
 .upload-header-info {
   margin: 0 20px;
+}
+
+.upload-header-expanded {
+  margin: 0 77px;
+}
+
+.upload-header-expanded-icon {
+  font-size: 17px;
+  padding: 0 10px;
 }
 
 .upload-actions {
@@ -27,12 +46,15 @@
   margin: 0;
   font-size: 14px;
   font-weight: 600;
+  font-family: 'Montserrat', sans-serif;
+
 }
 
 .upload-header-text {
   margin: 0;
   font-size: 14px;
   font-weight: 400;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .upload-content {
@@ -59,4 +81,8 @@
   .upload {
     margin: 0 10px;
   }
+}
+
+:host ::ng-deep .mat-expansion-panel:not([class*=mat-elevation-z]) {
+  box-shadow: none !important;
 }

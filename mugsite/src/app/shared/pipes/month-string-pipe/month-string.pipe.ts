@@ -3,7 +3,7 @@ import { PipeTransform, Pipe } from '@angular/core';
 
 export class MonthStringPipe implements PipeTransform {
   transform(monthNum: number) {
-    let months = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     return months[monthNum - 1];
   }
 }
