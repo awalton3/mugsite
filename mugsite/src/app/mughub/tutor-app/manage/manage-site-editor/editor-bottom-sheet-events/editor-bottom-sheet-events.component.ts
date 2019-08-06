@@ -32,7 +32,7 @@ export class EditorBottomSheetEventsComponent implements OnInit {
   @ViewChild('dateOption', { static: false }) dateOption: MatRadioGroup;
   @ViewChild('attachmentsList', { static: false }) attachmentsList: MatSelectionList;
 
-  attachments: Attachment[] = [];
+  // attachments: Attachment[] = [];
 
   constructor(
     private bottomSheetRef: MatBottomSheetRef<EditorBottomSheetEventsComponent>,
@@ -78,7 +78,7 @@ export class EditorBottomSheetEventsComponent implements OnInit {
       dateTo.setMonth(eventData.dateTo.month - 1);
     }
 
-    this.getAttachmentsArrayOnEdit(eventData.attachments)
+    // this.getAttachmentsArrayOnEdit(eventData.attachments)
 
     this.editForm = new FormGroup({
       'title': new FormControl(eventData.title, Validators.required),
@@ -102,12 +102,12 @@ export class EditorBottomSheetEventsComponent implements OnInit {
   onSubmit() {
     //add
     if (!this.data.isEditMode) {
-      this.manageService.addNewEvent(this.editForm.value, this.getAttachmentNameRefs())
-        .then(() => {
-          this.manageService.uploadAttachments(this.getAttachmentFileObjs());
-          this.onActionSuccess("Event was successfully added.")
-        })
-        .catch(error => this.onActionError(error))
+      // this.manageService.addNewEvent(this.editForm.value, this.getAttachmentNameRefs())
+      //   .then(() => {
+      //     this.manageService.uploadAttachments(this.getAttachmentFileObjs());
+      //     this.onActionSuccess("Event was successfully added.")
+      //   })
+      //   .catch(error => this.onActionError(error))
     } else {
       //edit
       this.manageService.updateEvent(this.getChangedFields(), this.data.docId)
@@ -146,9 +146,9 @@ export class EditorBottomSheetEventsComponent implements OnInit {
         changedFields[formField] = this.editForm.value[formField];
     });
 
-    let updatedAttachments = this.getUpdatedAttachments();
-    if (updatedAttachments)
-      changedFields['attachments'] = updatedAttachments;
+    // let updatedAttachments = this.getUpdatedAttachments();
+    // if (updatedAttachments)
+    //   changedFields['attachments'] = updatedAttachments;
 
     return changedFields;
   }
@@ -170,49 +170,49 @@ export class EditorBottomSheetEventsComponent implements OnInit {
     this.minDateTo = this.editForm.value.dateFrom;
   }
 
-  getAttachmentsArrayOnEdit(attachmentNameRefs: string[]) {
-    attachmentNameRefs.map(nameRef => {
-      this.attachments.push(new Attachment(null, nameRef, false, false, true))
-    })
-  }
+  // getAttachmentsArrayOnEdit(attachmentNameRefs: string[]) {
+  //   attachmentNameRefs.map(nameRef => {
+  //     this.attachments.push(new Attachment(null, nameRef, false, false, true))
+  //   })
+  // }
+  //
+  // getUpdatedAttachments() {
+  //   let updatedAttachmentNameRefs = [];
+  //   this.attachments.map(attachment => {
+  //     if (attachment.shouldDelete || !attachment.inDataStorage)
+  //       updatedAttachmentNameRefs.push(attachment.nameRef);
+  //   })
+  //   return updatedAttachmentNameRefs;
+  // }
+  //
+  // onFileSubmit(onUploadFile) {
+  //   let newFileObj = onUploadFile.target.files[0];
+  //   this.attachments.push(new Attachment(newFileObj, newFileObj.name, false, false, false));
+  // }
+  //
+  // onDeleteAttachments() {
+  //   this.attachmentsList.selectedOptions.selected.map((attachment, index) => {
+  //     this.attachments[attachment.value - index].shouldDelete = true;
+  //     // if (this.attachments[attachment.value - index].inDataStorage)
+  //     //   this.manageService.deleteAttachment(this.attachments[attachment.value - index].nameRef);
+  //     // this.attachments.splice(attachment.value - index, 1);
+  //   })
+  // }
 
-  getUpdatedAttachments() {
-    let updatedAttachmentNameRefs = [];
-    this.attachments.map(attachment => {
-      if (attachment.shouldDelete || !attachment.inDataStorage)
-        updatedAttachmentNameRefs.push(attachment.nameRef);
-    })
-    return updatedAttachmentNameRefs;
-  }
-
-  onFileSubmit(onUploadFile) {
-    let newFileObj = onUploadFile.target.files[0];
-    this.attachments.push(new Attachment(newFileObj, newFileObj.name, false, false, false));
-  }
-
-  onDeleteAttachments() {
-    this.attachmentsList.selectedOptions.selected.map((attachment, index) => {
-      this.attachments[attachment.value - index].shouldDelete = true;
-      // if (this.attachments[attachment.value - index].inDataStorage)
-      //   this.manageService.deleteAttachment(this.attachments[attachment.value - index].nameRef);
-      // this.attachments.splice(attachment.value - index, 1);
-    })
-  }
-
-  getAttachmentNameRefs() {
-    let attachmentNameRefs = []
-    this.attachments.map(attachment => {
-      attachmentNameRefs.push(attachment.nameRef);
-    })
-    return attachmentNameRefs;
-  }
-
-  getAttachmentFileObjs() {
-    let attachmentFileObjs = [];
-    this.attachments.map(attachment => {
-      attachmentFileObjs.push(attachment.fileObj);
-    })
-    return attachmentFileObjs;
-  }
+  // getAttachmentNameRefs() {
+  //   let attachmentNameRefs = []
+  //   this.attachments.map(attachment => {
+  //     attachmentNameRefs.push(attachment.nameRef);
+  //   })
+  //   return attachmentNameRefs;
+  // }
+  //
+  // getAttachmentFileObjs() {
+  //   let attachmentFileObjs = [];
+  //   this.attachments.map(attachment => {
+  //     attachmentFileObjs.push(attachment.fileObj);
+  //   })
+  //   return attachmentFileObjs;
+  // }
 
 }

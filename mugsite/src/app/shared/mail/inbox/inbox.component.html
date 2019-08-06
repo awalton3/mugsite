@@ -5,9 +5,14 @@
   </mat-drawer>
 
   <mat-drawer-content class="background-eee heightFull paddingNone">
+
     <mughub-headnav title="inbox" iconLeft="menu" (leftIconToggled)="closeSidenav()"></mughub-headnav>
 
-    <div *ngIf="!uploads || uploads.length === 0" fxLayout="column" fxLayoutAlign="center center" style="height: 80%">
+    <div *ngIf="!uploads" fxLayoutAlign="center center" style="height: 80vh">
+      <div class="loader">...</div>
+    </div>
+
+    <div *ngIf="uploads && uploads.length === 0" fxLayout="column" fxLayoutAlign="center center" style="height: 80%">
       <div  fxLayout="column" fxLayoutAlign="center center">
         <fa-icon [icon]="['fas', 'trophy']" class="inbox-empty-icon" fxLayoutAlign="center center"></fa-icon>
         <br>
