@@ -1,10 +1,8 @@
-.uploadClicked-toolbar {
+.upload-container {
   background-color: #eee;
   color: grey;
   font-family: 'Montserrat', sans-serif;
-  font-size:  16px;
-  font-weight: 500;
-  padding: 0px 25px;
+  margin: 0px 20px;
 }
 
 .upload-expansion-panel {
@@ -20,9 +18,8 @@
 
 .upload-header {
   color: grey;
-  padding: 40px 30px;
+  padding: 40px 10px;
   font-family: 'Montserrat', sans-serif;
-
 }
 
 .upload-header-info {
@@ -30,12 +27,13 @@
 }
 
 .upload-header-expanded {
-  margin: 0 77px;
+  margin: 0 20px;
 }
 
 .upload-header-expanded-icon {
   font-size: 17px;
   padding: 0 10px;
+  margin-top: 3px;
 }
 
 .upload-actions {
@@ -63,7 +61,7 @@
 }
 
 .upload-content-subject {
-  font-size: 25px;
+  font-size: 23px;
   font-weight: 400;
   color: grey;
 }
@@ -79,7 +77,19 @@
 
 @media (max-width: 599px) {
   .upload {
-    margin: 0 10px;
+    margin-left: 100px;
+  }
+}
+
+@media (max-width: 500px) {
+  .upload {
+    margin-left: 15px;
+  }
+}
+
+@media (hover: none) {
+  :host ::ng-deep .mat-expansion-panel:not(.mat-expanded):not([aria-disabled=true]) .mat-expansion-panel-header:hover {
+    background: none !important;
   }
 }
 

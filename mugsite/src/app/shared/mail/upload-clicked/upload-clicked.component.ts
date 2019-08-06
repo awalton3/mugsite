@@ -34,11 +34,11 @@ export class UploadClickedComponent implements OnInit {
     let targetWidth: number;
 
     if (window.innerWidth > 960)
-      targetWidth = window.innerWidth - 700;
+      targetWidth = window.innerWidth - 600;
     else if (window.innerWidth < 960 && window.innerWidth > 550)
-      targetWidth = window.innerWidth - 400;
+      targetWidth = window.innerWidth - 230;
     else
-      targetWidth = window.innerWidth - 150;
+      targetWidth = window.innerWidth - 170;
 
     let elements = document.getElementsByClassName('truncate');
     Object.keys(document.getElementsByClassName('truncate')).map(element => {

@@ -1,4 +1,4 @@
-<div fxLayout.lt-sm="column" fxLayout.gt-xs="row" fxLayoutAlign="start start" class="uploadClicked-toolbar widthFullPer">
+<div fxLayout.lt-sm="column" fxLayout.gt-xs="row" fxLayoutAlign="start start" class="upload-container widthFullPer">
 
   <div *ngIf="screenWidth > mediaBreakpoint">
     <button mat-icon-button>
@@ -20,11 +20,10 @@
   </div>
   <br>
 
-  <div class="upload" fxLayout="column" fxLayoutAlign="start start" fxFill>
-    <div fxLayout="row" fxLayoutAlign="start center">
-
-      <mat-expansion-panel class="upload-expansion-panel">
-        <mat-expansion-panel-header class="upload-header" fxLayout="row" fxLayoutAlign="center center">
+  <div fxLayout="column" fxLayoutAlign.gt-xm="start start" fxLayoutAlign.lt-sm="center center" fxFill>
+    <div class="upload" fxLayout="column" fxLayoutAlign="start start" fxFill>
+      <mat-expansion-panel fxLayout="column" fxLayoutAlign="start center" class="background-eee upload-expansion-panel" style="width: 400px">
+        <mat-expansion-panel-header class="upload-header widthFullPer" fxLayout="row" fxLayoutAlign="center center">
           <div class="profile-image-container-small" [ngStyle]="{'background-image': 'url(' + upload.sender.photoUrl + ')'}"></div>
           <div class="upload-header-info" fxLayout="column" fxLayoutAlign="center start">
             <p class="upload-header-main truncate"> {{ upload.sender.name }}
@@ -34,37 +33,42 @@
           </div>
         </mat-expansion-panel-header>
         <div class="upload-header-expanded">
-          <p class="upload-header-text" fxLayoutAlign="start center">
+          <p class="upload-header-text" fxLayoutAlign="start start">
+            <i class="material-icons upload-header-expanded-icon">person</i>
+            From: {{ upload.sender.name }}
+            <{{ upload.sender.email }}>
+          </p>
+          <p class="upload-header-text" fxLayoutAlign="start start">
             <i class="material-icons upload-header-expanded-icon">{{ upload.recipients.length > 1 ? 'people' : 'person' }}</i>
-            <span *ngFor="let recipient of upload.recipients; let i = index">{{ recipient.name }} <{{ recipient.email }}>
-              <span *ngIf="upload.recipients.length - 1 !== i">, </span>
+            <span *ngFor="let recipient of upload.recipients; let i = index">To: {{ recipient.name }}
+              < {{ recipient.email }}>
+                <span *ngIf="upload.recipients.length - 1 !== i">, </span>
             </span>
           </p>
-          <p class="upload-header-text" fxLayoutAlign="start center">
+          <p class="upload-header-text" fxLayoutAlign="start start">
             <i class="material-icons upload-header-expanded-icon">schedule</i>
             Sent on {{ upload.creationDate.month | monthString }}
             {{ upload.creationDate.day | twoDigitDate }} at
             {{ upload.timestamp | formattedTimestamp | standardTime }}
           </p>
-          <p *ngIf="upload.attachments.length > 0" class="upload-header-text" fxLayoutAlign="start center">
+          <p *ngIf="upload.attachments.length > 0" class="upload-header-text" fxLayoutAlign="start start">
             <i class="material-icons upload-header-expanded-icon" style="margin-right: -17px">attachments</i>Contains attachment(s)
           </p>
         </div>
       </mat-expansion-panel>
-
-    </div>
-    <div class="upload-content" fxLayout="column">
-      <div class="widthFullPer" fxLayout="row" fxLayoutAlign="space-between center">
-        <p class="upload-content-subject widthFullPer">{{ upload.subject }}</p>
-        <div *ngIf="screenWidth > mediaBreakpoint" class="upload-actions" fxLayout="row">
-          <button mat-icon-button><i class="material-icons">reply</i></button>
-          <button *ngIf="parent === 'sent'" mat-icon-button><i class="material-icons">edit</i></button>
-          <button mat-icon-button><i class="material-icons">delete</i></button>
+      <div class="upload-content" fxLayout="column">
+        <div class="widthFullPer" fxLayout="row">
+          <p class="upload-content-subject widthFullPer">{{ upload.subject }}</p>
+          <div *ngIf="screenWidth > mediaBreakpoint" class="upload-actions" fxLayout="row">
+            <button mat-icon-button><i class="material-icons">reply</i></button>
+            <button *ngIf="parent === 'sent'" mat-icon-button><i class="material-icons">edit</i></button>
+            <button mat-icon-button><i class="material-icons">delete</i></button>
+          </div>
         </div>
+        <mat-divider *ngIf="screenWidth > mediaBreakpoint"></mat-divider>
+        <p class="upload-content-body" [ngStyle]="{'margin-top': screenWidth > mediaBreakpoint ? '20px' : '-5px'}">{{ upload.body }}</p>
+        <mughub-attachments [attachments]="upload.attachments"></mughub-attachments>
       </div>
-      <mat-divider *ngIf="screenWidth > mediaBreakpoint"></mat-divider>
-      <p class="upload-content-body" [ngStyle]="{'margin-top': screenWidth > mediaBreakpoint ? '20px' : '-8px'}">{{ upload.body }}</p>
-      <mughub-attachments [attachments]="upload.attachments"></mughub-attachments>
     </div>
   </div>
 
