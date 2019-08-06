@@ -14,15 +14,19 @@ export class UploadClickedComponent implements OnInit {
   @Input() upload: Upload;
   @Input() parent: string;
   @Output() onBack = new Subject();
+  screenWidth: number;
+  mediaBreakpoint: number = 599;
 
   @HostListener('window:resize', ['$event'])
   onResize() {
+    this.screenWidth = window.innerWidth;
     this.getUploadContentWidth();
   }
 
   constructor(private uploadService: UploadService) { }
 
   ngOnInit() {
+    this.screenWidth = window.innerWidth;
     this.getUploadContentWidth();
   }
 
@@ -32,7 +36,7 @@ export class UploadClickedComponent implements OnInit {
     if (window.innerWidth > 960)
       targetWidth = window.innerWidth - 700;
     else if (window.innerWidth < 960 && window.innerWidth > 550)
-      targetWidth = window.innerWidth - 300;
+      targetWidth = window.innerWidth - 400;
     else
       targetWidth = window.innerWidth - 150;
 

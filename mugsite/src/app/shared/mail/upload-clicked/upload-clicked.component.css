@@ -7,12 +7,20 @@
   padding: 0px 25px;
 }
 
-.upload-header {
+.upload {
   margin-left: 30px;
 }
 
+.upload-header {
+  /* margin-left: 30px; */
+}
+
 .upload-header-info {
-  margin: 0 30px;
+  margin: 0 20px;
+}
+
+.upload-actions {
+  padding: 0 20px;
 }
 
 .upload-header-main {
@@ -28,7 +36,8 @@
 }
 
 .upload-content {
-  margin: 20px 78px;
+  width: 90%;
+  margin: 0 10px;
 }
 
 .upload-content-subject {
@@ -44,4 +53,10 @@
   margin: 20px 25px;
   white-space: pre-wrap;
   line-height: 20px;
+}
+
+@media (max-width: 599px) {
+  .upload {
+    margin: 0 10px;
+  }
 }
