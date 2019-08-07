@@ -5,7 +5,6 @@ import { WelcomeComponent } from './welcome.component';
 import { WelcomeRoutingModule } from './welcome-routing.module';
 import { WelcomeSetupComponent } from './welcome-setup/welcome-setup.component';
 import { WelcomeSetupProfileComponent } from './welcome-setup/welcome-setup-profile/welcome-setup-profile.component';
-import { HeadnavModule } from '../headnav/headnav.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { WelcomeSetupSettingsComponent } from './welcome-setup/welcome-setup-settings/welcome-setup-settings.component';
 import { StepperModule } from 'src/app/shared/stepper/stepper.module';
@@ -30,7 +29,6 @@ import { EditPreferencesModule } from 'src/app/shared/settings/edit-preferences/
     WelcomeRoutingModule,
     MaterialComponentsModule,
     MatSidenavModule,
-    HeadnavModule,
     StepperModule,
     ConnectionFormModule,
     EditUserProfileModule,

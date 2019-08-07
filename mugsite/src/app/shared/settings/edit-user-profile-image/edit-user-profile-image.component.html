@@ -1,6 +1,7 @@
+<mughub-headnav title="PROFILE IMAGE" iconLeft="close" iconRight="done" (leftIconToggled)="onCancelImageUploader.next()" (rightIconToggled)="onFinish.next(imageClicked)"></mughub-headnav>
 <div fxLayout="column" fxLayoutAlign="center center" class="background-eee widthFullPer" style="height: 40%">
   <div *ngIf="imageUploading" class="loader">loading...</div>
-  <div *ngIf="!imageUploading" id="profile-image" class="profile-image-container-large" [ngStyle]="{'background-image': 'url(' + user.photoUrl + ')'}"></div>
+  <div *ngIf="!imageUploading" id="profile-image" class="profile-image-container-large" [ngStyle]="{'background-image': 'url(' + imageClicked.url + ')'}"></div>
 </div>
 
 <div class="background-images">

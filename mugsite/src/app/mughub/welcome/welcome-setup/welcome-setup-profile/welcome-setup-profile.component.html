@@ -1,15 +1,15 @@
 <mat-drawer-container [hasBackdrop]="false">
   <mat-drawer #profileImageEditor mode="over" position="end" (openedStart)="loadImages()" class="side-content-drawer">
-    <mughub-headnav title="PROFILE IMAGE" iconLeft="close" iconRight="done" (leftIconToggled)="profileImageEditor.close()" (rightIconToggled)="onFinishProfileImage()"></mughub-headnav>
-    <mughub-edit-user-profile-image></mughub-edit-user-profile-image>
+    <mughub-edit-user-profile-image [currProfileImage]="currProfileImage" (onCancelImageUploader)="profileImageEditor.close()" (onFinish)="onFinishEditProfileImage($event)"></mughub-edit-user-profile-image>
   </mat-drawer>
   <mat-drawer-content class="fade-in background-eee">
-    <div fxLayout="column" fxLayoutAlign="center center" class="dynamic-height">
+    <div *ngIf="!isUploading" fxLayout="column" fxLayoutAlign="center center" class="dynamic-height">
       <p class="title">CUSTOMIZE YOUR PROFILE</p>
-      <mughub-edit-user-profile (onOpenImageUploader)="profileImageEditor.open()" (onValueRequest)="onProfileSubmit($event)" [valueRequested]="submitted"></mughub-edit-user-profile>
+      <mughub-edit-user-profile [currProfileImageUrl]="currProfileImage.url" (onOpenImageUploader)="profileImageEditor.open()" (onValueRequest)="onProfileSubmit($event)" [valueRequested]="submitted"></mughub-edit-user-profile>
       <button (click)="requestNameFormValue()" type="submit" mat-raised-button color="accent" class="action-button" fxLayoutAlign="center center">
         CONTINUE
       </button>
     </div>
+    <div *ngIf="isUploading" class="loader heightFull" fxLayout="column" fxLayoutAlign="center center">...</div>
   </mat-drawer-content>
 </mat-drawer-container>

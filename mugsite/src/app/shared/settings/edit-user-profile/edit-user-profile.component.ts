@@ -1,7 +1,7 @@
-import { Component, OnInit, Output, OnDestroy, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Output, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { UserService } from 'src/app/mughub/auth/user.service';
-import { Subject, Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
 import { User } from 'src/app/mughub/auth/user.model';
 
 @Component({
@@ -9,10 +9,11 @@ import { User } from 'src/app/mughub/auth/user.model';
   templateUrl: './edit-user-profile.component.html',
   styleUrls: ['./edit-user-profile.component.css']
 })
-export class EditUserProfileComponent implements OnInit, OnDestroy, OnChanges {
+export class EditUserProfileComponent implements OnInit, OnChanges {
 
-  private subs = new Subscription();
+  // private subs = new Subscription();
   @Input() valueRequested: boolean = false;
+  @Input() currProfileImageUrl: string;
   @Output() onOpenImageUploader = new Subject();
   @Output() onValueRequest = new Subject<string>();
   nameForm: FormGroup = new FormGroup({});
@@ -24,8 +25,8 @@ export class EditUserProfileComponent implements OnInit, OnDestroy, OnChanges {
     this.nameForm = new FormGroup({
       'username': new FormControl(this.userService.getUserSession().name)
     })
-    this.user = this.userService.getUserSession();
-    this.listenForUser();
+    // this.user = this.userService.getUserSession();
+    // this.listenForUser();
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -33,13 +34,13 @@ export class EditUserProfileComponent implements OnInit, OnDestroy, OnChanges {
       this.onValueRequest.next(this.nameForm.value.username);
   }
 
-  listenForUser() {
-    this.subs.add(this.userService.user.subscribe(user => {
-      this.user = user;
-    }))
-  }
-
-  ngOnDestroy() {
-    this.subs.unsubscribe();
-  }
+  // listenForUser() {
+  //   this.subs.add(this.userService.user.subscribe(user => {
+  //     this.user = user;
+  //   }))
+  // }
+  //
+  // ngOnDestroy() {
+  //   this.subs.unsubscribe();
+  // }
 }

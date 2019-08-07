@@ -1,11 +1,9 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
-import { User } from 'src/app/mughub/auth/user.model';
+import { Component, OnInit, OnDestroy, AfterViewInit, Output, Input } from '@angular/core';
 import { Subscription } from 'rxjs/internal/Subscription';
-import { UserService } from 'src/app/mughub/auth/user.service';
 import { CompressImagesService } from '../../compress-images.service';
 import { SnackBarService } from '../../snack-bar/snack-bar.service';
-import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
 import { take } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'mughub-edit-user-profile-image',
@@ -15,22 +13,25 @@ import { take } from 'rxjs/operators';
 
 export class EditUserProfileImageComponent implements OnInit, OnDestroy, AfterViewInit {
 
+  @Input() currProfileImage: { isDataUrl: boolean, url: string };
   private subs = new Subscription();
   imageUrls: string[];
   imagesLoaded = false;
-  imageClicked: string;
+  imageClicked: { isDataUrl: boolean, url: string };
   imageUploading: boolean = false;
-  user: User;
+  @Output() onCancelImageUploader = new Subject();
+  @Output() onFinish = new Subject<{ isDataUrl: boolean, url: string }>();
 
   constructor(
-    private userService: UserService,
     private compressImagesService: CompressImagesService,
     private snackBarService: SnackBarService
   ) { }
 
   ngOnInit() {
-    this.user = this.userService.getUserSession();
-    this.listenForUser();
+    this.imageClicked = {
+      isDataUrl: this.currProfileImage.isDataUrl,
+      url:  this.currProfileImage.url
+    }
     this.imageUrls = [
       'https://i.ibb.co/qCWxMp9/4k-wallpaper-astronomy-evening-2085998-1.jpg',
       'https://i.ibb.co/TRW7CpR/action-adventure-bike-2519374-1.jpg',
@@ -44,18 +45,15 @@ export class EditUserProfileImageComponent implements OnInit, OnDestroy, AfterVi
     ]
   }
 
-  listenForUser() {
-    this.subs.add(this.userService.user.subscribe(user => {
-      this.user = user;
-    }))
-  }
-
   ngAfterViewInit() {
     this.imagesLoaded = true;
   }
 
   onImageClick(index: string | number) {
-    this.userService.updateLocalUser([{ name: 'photoUrl', value: this.imageUrls[index] }]);
+    this.imageClicked = {
+      isDataUrl: false,
+      url:  this.imageUrls[index]
+    }
   }
 
   onUpload(event: { target: { files: any[]; }; }): void {
@@ -69,15 +67,14 @@ export class EditUserProfileImageComponent implements OnInit, OnDestroy, AfterVi
         .then(imageObservable => {
           imageObservable
             .pipe(take(1))
-            .subscribe(image => {
+            .subscribe((image: { compressedImage: { imageDataUrl: string; }; }) => {
               const validImageSize = this.compressImagesService.ifImageinSizeRange(image.compressedImage.imageDataUrl)
               if (validImageSize) {
-                this.uploadProfileImage(image.compressedImage.imageDataUrl)
-                  .then(snapshot => this.updateUserSession(snapshot))
-                  .catch(error => {
-                    console.log(error);
-                    this.onError("Error saving your image to storage.");
-                  })
+                this.imageClicked = {
+                  isDataUrl: true,
+                  url:  image.compressedImage.imageDataUrl
+                }
+                this.imageUploading = false;
               } else {
                 this.onError("File must be 1MB or under");
               }
@@ -98,28 +95,6 @@ export class EditUserProfileImageComponent implements OnInit, OnDestroy, AfterVi
     catch (error) {
       return Promise.reject(error);
     }
-  }
-
-  async uploadProfileImage(imageDataUrl: string): Promise<any> {
-    try {
-      const snapshot = await this.userService.uploadProfileImage(imageDataUrl);
-      return Promise.resolve(snapshot);
-    }
-    catch (error) {
-      return Promise.reject(error);
-    }
-  }
-
-  updateUserSession(snapshot: UploadTaskSnapshot): void {
-    snapshot.ref.getDownloadURL()
-      .then(url => {
-        this.userService.updateLocalUser([{ name: 'photoUrl', value: url }]);
-        this.imageUrls.unshift(url);
-        this.imageUploading = false;
-      }).catch(error => {
-        console.log(error)
-        this.onError("Error in retrieving imageUrl from storage");
-      })
   }
 
   onError(message: string) {
