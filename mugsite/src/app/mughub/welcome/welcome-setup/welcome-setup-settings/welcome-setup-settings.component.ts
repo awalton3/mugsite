@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { UserService } from 'src/app/mughub/auth/user.service';
-import { User } from 'src/app/mughub/auth/user.model';
 import { StepperService } from 'src/app/shared/stepper/stepper.service';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'mughub-welcome-setup-settings',
@@ -13,38 +9,16 @@ import { Subscription } from 'rxjs';
 })
 export class WelcomeSetupSettingsComponent implements OnInit {
 
-  private subs = new Subscription();
-  emailForm: FormGroup;
-  user: User;
-
   constructor(
-    private userService: UserService,
     private stepperService: StepperService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.emailForm = new FormGroup({
-      email: new FormControl(null, Validators.email)
-    });
-    this.user = this.userService.getUserSession();
-    this.listenForUser();
-  }
-
-  listenForUser() {
-    this.subs.add(this.userService.user.subscribe(user => {
-      this.user = user;
-    }))
   }
 
   onSettingsSubmit() {
     this.stepperService.onChangeStep.next({ name: 'connections', num: 2 });
     this.router.navigate(['mughub/welcome/account-setup/connections']);
-  }
-
-  togglePref(pref: string) {
-    let newPref = {};
-    newPref[pref] = !this.user.prefs[pref];
-    this.userService.updateLocalUser([{ name: 'prefs', value: newPref }])
   }
 }

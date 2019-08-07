@@ -6,45 +6,6 @@
   padding: 0px 10px;
 }
 
-.profile-image-add {
-  position: relative;
-  top: 110px;
-  left: 110px;
-  border-radius: 50%;
-  background-color: #de6600;
-  width: 30px;
-  height: 30px;
-  color: white;
-}
-
-.profile-image-add-icon {
-  font-size: 18px;
-  padding-top: 6px
-}
-
-.profile-name {
-  color: grey;
-  font-size: 15px;
-  font-family: 'Montserrat', sans-serif;
-  text-align: center;
-  margin-left: 25px;
-  cursor: pointer;
-}
-
-.profile-name-icon-edit {
-  font-size: 17px;
-  padding: 5px;
-  vertical-align: middle;
-}
-
-.nameFormField {
-  font-family: 'Montserrat', sans-serif;
-  color: grey;
-  text-align: center;
-  padding-left: 15px;
-  cursor: pointer;
-}
-
 .dynamic-height {
   height: 92vh;
 }
@@ -53,8 +14,4 @@
   .dynamic-height {
     height: inherit;
   }
-}
-
-:host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
-  height: 0 !important;
 }

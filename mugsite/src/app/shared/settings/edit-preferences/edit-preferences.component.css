@@ -1,0 +1,117 @@
+.title {
+  color: #2b5670;
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  padding: 0px 10px;
+}
+
+.category {
+  width: 700px;
+}
+
+.category-title-container {
+  width: 100%;
+}
+
+.category-title {
+  color: grey;
+  font-weight: 500;
+  font-size: 15px;
+  width: 100%
+}
+
+.category-info {
+  width: 90%;
+}
+
+.category-info-title-container {
+  width: 100%;
+}
+
+.category-info-title {
+  color: grey;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.category-info {
+  font-size: 15px;
+  font-weight: 300;
+  color: grey;
+  margin: 0;
+  width: 100%;
+  line-height: 23px;
+}
+
+.category-toggle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.icons {
+  padding: 0px 15px;
+}
+
+.icon-on {
+  color: #3fa700;
+}
+
+.icon-off {
+  color: #de0005;
+}
+
+.divider {
+  width: 96%;
+}
+
+.form-input {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+}
+
+:host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
+  height: 1px !important;
+}
+
+.dynamic-height {
+  height: 80vh;
+  margin: 30px 10px;
+}
+
+@media (max-height: 450px) {
+  .dynamic-height {
+    height: inherit;
+  }
+}
+
+@media (max-width: 850px) {
+  .category {
+    width: 80%;
+  }
+
+  .category-title {
+    font-size: 14px;
+  }
+
+  .category-toggle {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 580px) {
+  .category-title {
+    font-size: 12px;
+  }
+
+  .category-toggle {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    height: 100vh;
+  }
+}
