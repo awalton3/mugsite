@@ -6,20 +6,8 @@
   <mat-drawer-content class="fade-in background-eee">
     <div fxLayout="column" fxLayoutAlign="center center" class="dynamic-height">
       <p class="title">CUSTOMIZE YOUR PROFILE</p>
-      <div fxLayout="column" fxLayoutAlign="center center" class="background-eee widthFullPer">
-        <div (click)="profileImageEditor.open()" class="profile-image-container-large profile-image-click" [ngStyle]="{'background-image': 'url(' + user.photoUrl + ')'}">
-          <div class="profile-image-add">
-            <i fxLayoutAlign="center center" class="material-icons profile-image-add-icon">add</i>
-          </div>
-        </div>
-        <form [formGroup]="nameForm" fxLayoutAlign="center center" class="widthFullPer">
-          <mat-form-field floatLabel="never" style="width: 250px">
-            <input matInput type="text" formControlName="username" class="nameFormField">
-            <span matSuffix style="color: grey; cursor: pointer;"><i class="material-icons" fxLayoutAlign="center center">edit</i></span>
-          </mat-form-field>
-        </form>
-      </div>
-      <button (click)="onProfileSubmit()" type="submit" mat-raised-button color="accent" class="action-button" fxLayoutAlign="center center">
+      <mughub-edit-user-profile (onOpenImageUploader)="profileImageEditor.open()" (onValueRequest)="onProfileSubmit($event)" [valueRequested]="submitted"></mughub-edit-user-profile>
+      <button (click)="requestNameFormValue()" type="submit" mat-raised-button color="accent" class="action-button" fxLayoutAlign="center center">
         CONTINUE
       </button>
     </div>

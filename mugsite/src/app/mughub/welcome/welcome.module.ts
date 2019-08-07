@@ -21,6 +21,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { faUser, faCheckCircle, faTimesCircle, faCalendar, faBell } from '@fortawesome/free-solid-svg-icons';
 import { WelcomeSetupConnectionsComponent } from './welcome-setup/welcome-setup-connections/welcome-setup-connections.component';
 import { ConnectionFormModule } from 'src/app/shared/connection-form/connection-form.module';
+import { EditUserProfileModule } from 'src/app/shared/settings/edit-user-profile/edit-user-profile.module';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ConnectionFormModule } from 'src/app/shared/connection-form/connection-
     ReactiveFormsModule,
     StepperModule,
     FontAwesomeModule,
-    ConnectionFormModule
+    ConnectionFormModule,
+    EditUserProfileModule
   ],
   providers: [StepperService] //creates a new instance for all components in this module
 })

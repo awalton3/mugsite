@@ -49,7 +49,6 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
   constructor(private connectionFormService: ConnectionFormService) { }
 
   ngOnInit() {
-    console.log(this.required);
     this.initForm();
     this.initAutoComp();
     this.getCharAutoOptionLimit();

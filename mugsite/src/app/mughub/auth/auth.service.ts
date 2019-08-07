@@ -25,7 +25,7 @@ export class AuthService {
       .catch(error => this.handleError(error.code))
   }
 
-  createNewUserObj(userObj, formData) {
+  createNewUserObj(userObj, formData): User {
     let user = new User(
       formData.name,
       'https://i.ibb.co/bN7LHf8/environment-flora-foliage-2537632-1.jpg',
@@ -33,7 +33,7 @@ export class AuthService {
       formData.type,
       userObj.user.uid,
       true,
-      { AutoLog: true, InboxNotif: true, LogNotif: true },
+      { MultiEmails: false, AutoLog: true, InboxNotif: true, LogNotif: true },
       []);
     return user
   }

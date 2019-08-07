@@ -6,9 +6,12 @@
     <div fxLayout="row" fxLayoutAlign="space-between center" class="category-title-container">
       <div fxLayout="row">
         <p class="category-title">MULTIPLE EMAILS</p>
-        <fa-icon [icon]="['fas', 'times-circle']" class="icons icon-off" fxLayoutAlign="center center"></fa-icon>
+        <fa-icon
+        [icon]="['fas', user.prefs.MultiEmails ? 'check-circle' : 'times-circle']"
+        class="icons" [ngClass]="{'icon-on': user.prefs.MultiEmails, 'icon-off': !user.prefs.MultiEmails}"
+        fxLayoutAlign="center center"></fa-icon>
       </div>
-      <button class="category-toggle" mat-button color="accent">TURN ON</button>
+      <button (click)="togglePref('MultiEmails')" class="category-toggle" mat-button color="accent">{{ user.prefs.MultiEmails ? 'TURN OFF' : 'TURN ON' }}</button>
     </div>
     <p class="category-info">
       Allow notifications to be sent to multiple emails. For example, a student and a parent both can receive notifications of assignment uploads.

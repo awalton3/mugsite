@@ -7,6 +7,7 @@ export class User {
     public uid: string,
     public isNewUser: boolean,
     public prefs: {
+      MultiEmails: boolean, 
       AutoLog: boolean,
       InboxNotif: boolean,
       LogNotif: boolean
