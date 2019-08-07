@@ -1,5 +1,6 @@
 <div fxLayout="column" fxLayoutAlign="center center" class="background-eee widthFullPer" style="height: 40%">
-  <div id="profile-image" class="profile-image-container-large" [ngStyle]="{'background-image': 'url(' + user.photoUrl + ')'}"></div>
+  <div *ngIf="imageUploading" class="loader">loading...</div>
+  <div *ngIf="!imageUploading" id="profile-image" class="profile-image-container-large" [ngStyle]="{'background-image': 'url(' + user.photoUrl + ')'}"></div>
 </div>
 
 <div class="background-images">

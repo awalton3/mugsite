@@ -5,6 +5,7 @@ import { User } from './user.model';
 import { SnackBarService } from 'src/app/shared/snack-bar/snack-bar.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
 
 @Injectable({ providedIn: 'root' })
 
@@ -14,6 +15,7 @@ export class UserService {
 
   constructor(
     private db: AngularFirestore,
+    private storage: AngularFireStorage,
     private snackBarService: SnackBarService,
     private router: Router
   ) { }
@@ -96,6 +98,10 @@ export class UserService {
       .update(user)
       .then(() => this.onSuccess('Profile Successfully Updated'))
       .catch(error => this.onError('An error occurred', error))
+  }
+
+  uploadProfileImage(imageDataUrl: string): AngularFireUploadTask {
+    return this.storage.ref('profileImage_' + this.getUserSession().uid).putString(imageDataUrl, 'data_url');
   }
 
   onSuccess(message: string) {
