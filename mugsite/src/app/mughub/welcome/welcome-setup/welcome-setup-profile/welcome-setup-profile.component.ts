@@ -30,7 +30,7 @@ export class WelcomeSetupProfileComponent implements OnInit, OnDestroy {
     this.nameForm = new FormGroup({
       'username': new FormControl(this.userService.getUserSession().name)
     })
-    this.user = this.userService.getUserSession(); 
+    this.user = this.userService.getUserSession();
     this.listenForUser();
   }
 

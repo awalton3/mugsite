@@ -1,9 +1,21 @@
+.container {
+  margin: 50px 20px;
+}
+
 .title {
   color: #2b5670;
   font-size: 28px;
   font-weight: 600;
   text-align: center;
   padding: 0px 10px;
+}
+
+.connection-container {
+  height: 65%;
+}
+
+.helper-container {
+  height: 35%;
 }
 
 .connection-form {
@@ -17,7 +29,38 @@
 }
 
 .dynamic-height {
-  height: 80vh;
+  height: 90vh;
+}
+
+.helper-text-icon {
+  color: #ea9103;
+  font-size: 30px;
+}
+
+.helper-text-title {
+  font-family: 'Montserrat', sans-serif !important;
+  color: #ea9103;
+  font-weight: 600;
+  font-size: 17px;
+  text-align: center;
+  padding: 0px 20px;
+}
+
+.helper-text {
+  font-family: 'Montserrat', sans-serif !important;
+  color: grey;
+  font-weight: 400;
+  width: 60%;
+  font-size: 15px;
+  line-height: 20px;
+  margin: 0;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .helper-text {
+    width: 88%;
+  }
 }
 
 @media (max-height: 450px) {

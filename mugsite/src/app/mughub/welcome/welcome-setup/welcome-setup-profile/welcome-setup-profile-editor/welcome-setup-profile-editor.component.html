@@ -9,9 +9,9 @@
   <div *ngIf="imagesLoaded" fxLayout="row wrap" fxLayoutAlign="center start" layout-wrap>
     <input (change)="onUpload($event)" type="file" id="image" accept="image/*" class="fileUploader">
     <label for="image">
-      <div class="image" fxLayoutAlign="center center" style="background: transparent">
+      <div class="image" fxLayout="column" fxLayoutAlign="center center" style="background: transparent">
+        <i class="material-icons upload-icon" fxLayoutAlign="center center">add_photo_alternate</i>
         <p class="upload-text">UPLOAD</p>
-        <i class="material-icons upload-icon">add</i>
       </div>
     </label>
     <div (click)="onImageClick(i)" *ngFor="let url of imageUrls, let i = index" class="image" [ngStyle]="{'background-image': 'url(' + url + ')'}" matRipple></div>

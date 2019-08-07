@@ -18,6 +18,7 @@ export class WelcomeSetupConnectionsComponent implements OnInit, OnDestroy {
   selectedConnections: string[] = [];
   selectedConnectionsOrig: string[] = [];
   connectionsValid: boolean = false;
+  connectionRequired: boolean = false;
 
   constructor(
     private userService: UserService,

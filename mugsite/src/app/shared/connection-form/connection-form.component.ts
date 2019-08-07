@@ -19,6 +19,7 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
   private subs = new Subscription();
   @Input() existingConnections?: User[];
   @Input() connections: User[] = [];
+  @Input() required?: boolean = true;
   connectionsForm = new FormGroup({});
 
   //autocomplete
@@ -48,6 +49,7 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
   constructor(private connectionFormService: ConnectionFormService) { }
 
   ngOnInit() {
+    console.log(this.required);
     this.initForm();
     this.initAutoComp();
     this.getCharAutoOptionLimit();
@@ -72,13 +74,13 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
     }
   }
 
-    listenForExistingConnections() {
-      this.subs.add(this.connectionFormService.onInitForEdit.subscribe(existingConnections => {
-        this.existingConnections = existingConnections;
-        this.initForm();
-        this.initAutoComp();
-      }))
-    }
+  listenForExistingConnections() {
+    this.subs.add(this.connectionFormService.onInitForEdit.subscribe(existingConnections => {
+      this.existingConnections = existingConnections;
+      this.initForm();
+      this.initAutoComp();
+    }))
+  }
 
   initForm() {
     if (this.existingConnections && this.existingConnections.length !== 0) {
@@ -98,9 +100,11 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
       this.connectionFormService.isformValid.next(false);
       return { validConnection: false };
     }
-    if (this.selectedConnections.length === 0 && control.value === null) {
-      this.connectionFormService.isformValid.next(false);
-      return { validConnection: false };
+    if (this.required) {
+      if (this.selectedConnections.length === 0 && control.value === null) {
+        this.connectionFormService.isformValid.next(false);
+        return { validConnection: false };
+      }
     }
     this.connectionFormService.isformValid.next(true);
     return null;

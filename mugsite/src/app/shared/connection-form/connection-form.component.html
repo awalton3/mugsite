@@ -19,6 +19,7 @@
         (matChipInputTokenEnd)="addConnectionChip($event)">
     </mat-chip-list>
     <mat-autocomplete #auto="matAutocomplete" (optionSelected)="connectionSelected($event)">
+      <p *ngIf="filteredConnections.length === 0"><i>No results</i></p>
       <mat-option *ngFor="let connection of filteredConnections | async" [value]="connection" class="background-eee">
         <div fxLayout="row" fxLayoutAlign="start center" class="widthFullPer">
           <div class="profile-image-container-mini" [ngStyle]="{'background-image': 'url(' + connection.photoUrl + ')'}" style="margin-right: 15px"></div>
@@ -29,4 +30,4 @@
   </mat-form-field>
 </form>
 
-<p *ngIf="connectionsForm.controls.connections.errors && !connectionsForm.controls.connections.pristine" class="form-error-message">*One of the connections you entered is invalid. Please select one from the list. If you do not see the connection you are looking for, update your connections in settings.</p>
+<p *ngIf="connectionsForm.controls.connections.errors && !connectionsForm.controls.connections.pristine" class="form-error-message">*One of the connections you entered is invalid. Please select one from the list.</p>
