@@ -1,0 +1,43 @@
+<!-- <p class="section-title">CONNECTIONS</p>
+<mat-divider class="widthFullPer"></mat-divider>
+<br>
+<div fxLayout="column" fxLayoutAlign="center center" class="widthFullPer" style="margin: 80px 20px;">
+  <app-connection-form [existingConnections]="existingConnections" [connections]="possibleConnections" style="width: 70%"></app-connection-form>
+</div>
+
+<br>  -->
+
+<mat-drawer-container class="background-eee" [hasBackdrop]="false">
+
+  <mat-drawer #profileImageEditor mode="over" position="end" class="side-content-drawer">
+    <mughub-edit-user-profile-image [currProfileImage]="currProfileImage" (onCancelImageUploader)="profileImageEditor.close()" (onFinish)="onFinishEditProfileImage($event)"></mughub-edit-user-profile-image>
+  </mat-drawer>
+
+  <mat-drawer-content class="fade-in background-eee heightFull">
+    <mughub-headnav title="Settings" iconLeft="menu" (leftIconToggled)="closeSidenav()"></mughub-headnav>
+    <br>
+    <div fxLayout="column" fxLayoutAlign="start center" class="widthFullPer" style="height: 80vh">
+      <div fxLayout="column" fxLayoutAlign="start start" class="container">
+
+        <p class="section-title">PROFILE</p>
+        <mat-divider class="widthFullPer"></mat-divider>
+        <br><br>
+        <div fxLayout="column" fxLayoutAlign="center center" class="widthFullPer">
+          <mughub-edit-user-profile [currProfileImageUrl]="currProfileImage.url" (onOpenImageUploader)="profileImageEditor.open()"></mughub-edit-user-profile>
+        </div>
+
+        <br><br>
+
+        <p class="section-title">PREFERENCES</p>
+        <mat-divider class="widthFullPer"></mat-divider>
+        <br>
+        <div fxLayout="column" fxLayoutAlign="center center" class="widthFullPer">
+          <mughub-edit-preferences></mughub-edit-preferences>
+        </div>
+
+        <br><br>
+
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

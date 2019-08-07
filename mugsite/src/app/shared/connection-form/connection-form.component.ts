@@ -75,6 +75,7 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
 
   listenForExistingConnections() {
     this.subs.add(this.connectionFormService.onInitForEdit.subscribe(existingConnections => {
+      console.log(existingConnections);
       this.existingConnections = existingConnections;
       this.initForm();
       this.initAutoComp();
@@ -83,6 +84,7 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
 
   initForm() {
     if (this.existingConnections && this.existingConnections.length !== 0) {
+      console.log('hey');
       this.selectedConnections.push(...this.existingConnections);
       this.existingConnections.forEach(connection => {
         this.selectedConnectionsBeforeChanges.push(connection.uid);

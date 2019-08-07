@@ -9,8 +9,9 @@ import { SentResolve } from 'src/app/shared/mail/sent/sent.resolve';
 const routes: Routes = [
   //lazy loaded
   {
-    path: '', component: StudentAppComponent, canActivate: [AuthGuard], children: [
+    path: '', component: StudentAppComponent, canActivate: [AuthGuard], canActivateChild: [AuthGuard], children: [
       { path: '', redirectTo: 'mail/inbox', pathMatch: 'full' },
+      { path: 'settings', loadChildren: '../settings/settings.module#SettingsModule' },
       { path: 'mail/inbox', component: InboxComponent, resolve: { uploads: SentResolve } },
       { path: 'mail/sent', component: SentComponent, resolve: { uploads: SentResolve } },
       { path: '**', redirectTo: 'mail/inbox', pathMatch: 'full' }
