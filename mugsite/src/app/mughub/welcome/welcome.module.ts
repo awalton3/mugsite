@@ -10,7 +10,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { FormsMaterialComponentsModule } from 'src/app/shared/angular-material/forms-material-components.module';
 import { WelcomeSetupSettingsComponent } from './welcome-setup/welcome-setup-settings/welcome-setup-settings.component';
-import { WelcomeSetupProfileEditorComponent } from './welcome-setup/welcome-setup-profile/welcome-setup-profile-editor/welcome-setup-profile-editor.component';
 import { StepperModule } from 'src/app/shared/stepper/stepper.module';
 import { StepperService } from 'src/app/shared/stepper/stepper.service';
 
@@ -22,6 +21,7 @@ import { faUser, faCheckCircle, faTimesCircle, faCalendar, faBell } from '@forta
 import { WelcomeSetupConnectionsComponent } from './welcome-setup/welcome-setup-connections/welcome-setup-connections.component';
 import { ConnectionFormModule } from 'src/app/shared/connection-form/connection-form.module';
 import { EditUserProfileModule } from 'src/app/shared/settings/edit-user-profile/edit-user-profile.module';
+import { EditUserProfileImageModule } from 'src/app/shared/settings/edit-user-profile-image/edit-user-profile-image.module';
 
 @NgModule({
   declarations: [
@@ -29,7 +29,6 @@ import { EditUserProfileModule } from 'src/app/shared/settings/edit-user-profile
     WelcomeSetupComponent,
     WelcomeSetupProfileComponent,
     WelcomeSetupSettingsComponent,
-    WelcomeSetupProfileEditorComponent,
     WelcomeSetupConnectionsComponent
   ],
   imports: [
@@ -43,7 +42,8 @@ import { EditUserProfileModule } from 'src/app/shared/settings/edit-user-profile
     StepperModule,
     FontAwesomeModule,
     ConnectionFormModule,
-    EditUserProfileModule
+    EditUserProfileModule,
+    EditUserProfileImageModule
   ],
   providers: [StepperService] //creates a new instance for all components in this module
 })

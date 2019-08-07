@@ -1,18 +1,19 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UserService } from 'src/app/mughub/auth/user.service';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { User } from 'src/app/mughub/auth/user.model';
-import { Subscription } from 'rxjs';
-import { CompressImagesService } from 'src/app/shared/compress-images.service';
-import { SnackBarService } from 'src/app/shared/snack-bar/snack-bar.service';
-import { take } from 'rxjs/operators';
+import { Subscription } from 'rxjs/internal/Subscription';
+import { UserService } from 'src/app/mughub/auth/user.service';
+import { CompressImagesService } from '../../compress-images.service';
+import { SnackBarService } from '../../snack-bar/snack-bar.service';
 import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
+import { take } from 'rxjs/operators';
 
 @Component({
-  selector: 'welcome-setup-profile-editor',
-  templateUrl: './welcome-setup-profile-editor.component.html',
-  styleUrls: ['./welcome-setup-profile-editor.component.css']
+  selector: 'mughub-edit-user-profile-image',
+  templateUrl: './edit-user-profile-image.component.html',
+  styleUrls: ['./edit-user-profile-image.component.css']
 })
-export class WelcomeSetupProfileEditorComponent implements OnInit, OnDestroy {
+
+export class EditUserProfileImageComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private subs = new Subscription();
   imageUrls: string[];
@@ -57,7 +58,7 @@ export class WelcomeSetupProfileEditorComponent implements OnInit, OnDestroy {
     this.userService.updateLocalUser([{ name: 'photoUrl', value: this.imageUrls[index] }]);
   }
 
-  onUpload(event): void {
+  onUpload(event: { target: { files: any[]; }; }): void {
     this.imageUploading = true;
     const file = event.target.files[0];
     const isFileImage = this.compressImagesService.isFileImage(file);
@@ -128,5 +129,6 @@ export class WelcomeSetupProfileEditorComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subs.unsubscribe();
   }
+
 
 }
