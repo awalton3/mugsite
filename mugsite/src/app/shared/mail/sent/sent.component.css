@@ -19,3 +19,19 @@
   font-size: 54px;
   color: #ea9103;
 }
+
+.upload--width {
+  width: 80%;
+}
+
+@media(max-width: 600px) {
+  .upload--width {
+    width: 90%;
+  }
+}
+
+@media(max-width: 400px) {
+  .upload--width {
+    width: 100%;
+  }
+}

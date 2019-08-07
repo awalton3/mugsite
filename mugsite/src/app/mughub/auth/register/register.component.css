@@ -98,3 +98,13 @@ input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px #244359 inset !important;
     -webkit-text-fill-color: #eee;
 }
+
+.dynamic-height {
+  height: 100vh;
+}
+
+@media (max-height: 450px) {
+  .dynamic-height {
+    height: inherit;
+  }
+}

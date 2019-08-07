@@ -69,12 +69,14 @@ export class MailService {
       .orderBy('timestamp', 'desc')
   }
 
-  //
-  // editUpload(id: string, updateObj: any) {
-  //   return this.db.collection('/uploads')
-  //     .doc(id)
-  //     .update(updateObj)
-  // }
+
+  editMessage(id: string, updateObj: any) {
+    console.log(updateObj)
+    // return this.db.collection('/uploads')
+    //   .doc(id)
+    //   .update(updateObj)
+  }
+
   //
   // deleteUpload(id) {
   //   return this.db.collection('/uploads')

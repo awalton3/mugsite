@@ -24,12 +24,14 @@ export class UploaderComponent implements OnInit, OnDestroy {
   connectionsValid: boolean = false;
   possibleConnections: User[] = [];
   selectedConnections: string[] = [];
+  selectedConnectionsOrig: string[] = [];
   attachments: Attachment[] = [];
   compressedAttachment: string = '';
   removable = true;
   selectable = true;
   chipCharLimit: number;
   isEditMode: boolean = false;
+  uploadToEditId: string;
   @Output() onClose = new Subject();
 
   @HostListener('window:resize', ['$event'])
@@ -66,6 +68,7 @@ export class UploaderComponent implements OnInit, OnDestroy {
   listenToSelectedConnections() {
     this.subs.add(this.connectionsFormService.onConnectionsChanged.subscribe(connectionsObj => {
       this.selectedConnections = connectionsObj.selectedConnections;
+      this.selectedConnectionsOrig = connectionsObj.selectedConnectionsOrig;
     }));
   }
 
@@ -78,6 +81,7 @@ export class UploaderComponent implements OnInit, OnDestroy {
   listenForUploadToEdit() {
     this.subs.add(this.uploadService.uploadToEdit.subscribe(uploadToEdit => {
       this.isEditMode = true;
+      this.uploadToEditId = uploadToEdit.id;
       this.connectionsFormService.onInitForEdit.next(uploadToEdit.recipients);
       this.uploadForm.controls.subject.setValue(uploadToEdit.subject);
       this.uploadForm.controls.body.setValue(uploadToEdit.body)
@@ -129,17 +133,33 @@ export class UploaderComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.attachmentService.onAttachmentsRequest.next();
     let form = this.uploadForm.value;
-    if (this.isEditMode) {
-      //...
-    }
-    else {
+    if (this.isEditMode)
+      this.mailService.editMessage(this.uploadToEditId, this.getChangedFields())
+    else
       this.mailService.uploadMessage(this.selectedConnections, form.body, form.subject, this.attachments);
-    }
     this.resetUploader();
   }
 
   getAttachments(event: Attachment[]) {
     this.attachments = event;
+  }
+
+  getChangedFields() {
+    let changedFields = {};
+    Object.keys(this.uploadForm.controls).map(field => {
+      if (!this.uploadForm.controls[field].pristine)
+        changedFields[field] = this.uploadForm.value[field];
+    });
+    if (this.selectedConnectionsOrig !== this.selectedConnections) {
+      console.log('Before: ', this.selectedConnectionsOrig);
+      console.log('Current: ', this.selectedConnections);
+      console.log(JSON.stringify(this.selectedConnectionsOrig) === JSON.stringify(this.selectedConnections))
+      changedFields['recipients'] = this.selectedConnections;
+    }
+    if (this.attachments.some(attachment => attachment.file !== null)) {
+      changedFields['attachments'] = this.attachments;
+    }
+    return changedFields;
   }
 
   onCancel() {
@@ -151,7 +171,7 @@ export class UploaderComponent implements OnInit, OnDestroy {
     this.connectionsFormService.resetConnectionForm.next();
     this.uploadForm.reset();
     this.attachments = [];
-    this.isEditMode = false; 
+    this.isEditMode = false;
   }
 
   ngOnDestroy() {

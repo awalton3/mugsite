@@ -28,7 +28,7 @@ export class AuthService {
   createNewUserObj(userObj, formData) {
     let user = new User(
       formData.name,
-      'https://i.ibb.co/pjG5Rkf/4k-wallpaper-astronomy-evening-2085998.jpg',
+      'https://i.ibb.co/bN7LHf8/environment-flora-foliage-2537632-1.jpg',
       userObj.user.email,
       formData.type,
       userObj.user.uid,
