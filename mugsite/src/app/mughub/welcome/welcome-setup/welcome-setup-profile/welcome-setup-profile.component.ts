@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/mughub/auth/user.service';
 import { StepperService } from 'src/app/shared/stepper/stepper.service';
 import { MatDrawer } from '@angular/material/sidenav';
-import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
 import { SnackBarService } from 'src/app/shared/snack-bar/snack-bar.service';
 
 @Component({
@@ -38,53 +37,30 @@ export class WelcomeSetupProfileComponent implements OnInit {
   }
 
   onProfileSubmit(event: string) {
+    this.isUploading = true; 
     const username = event;
-    this.userService.updateLocalUser([{ name: 'name', value: username }]);
-    this.handleProfileImage();
+    if (username !== '') {
+      this.userService.updateLocalUser([{ name: 'name', value: username }]);
+      this.handleProfileImage();
+    } else {
+      this.onError('Your username cannot be blank.');
+    }
   }
 
   handleProfileImage() {
-    this.isUploading = true;
     if (this.currProfileImage.isDataUrl) {
-      this.uploadProfileImage(this.currProfileImage.url)
-        .then(snapshot => {
-          this.getFbDownloadUrl(snapshot)
-            .then(url => {
-              this.userService.updateLocalUser([{ name: 'photoUrl', value: url }]);
-              this.onSuccess();
-            })
-            .catch(error => {
-              console.log(error);
-              this.onError('Error in retrieving imageUrl from storage');
-            })
+      this.userService.uploadProfileImage(this.currProfileImage.url)
+        .then(imageUrl => {
+          this.userService.updateLocalUser([{ name: 'photoUrl', value: imageUrl }]);
+          this.onSuccess();
         })
         .catch(error => {
           console.log(error);
-          this.onError("Error saving your image to storage.");
+          this.onError("Error in uploading your profile image.");
         })
     } else {
       this.userService.updateLocalUser([{ name: 'photoUrl', value: this.currProfileImage.url }]);
       this.onSuccess();
-    }
-  }
-
-  async uploadProfileImage(imageDataUrl: string): Promise<any> {
-    try {
-      const snapshot = await this.userService.uploadProfileImageToFb(imageDataUrl);
-      return Promise.resolve(snapshot);
-    }
-    catch (error) {
-      return Promise.reject(error);
-    }
-  }
-
-  async getFbDownloadUrl(snapshot: UploadTaskSnapshot) {
-    try {
-      const url = await snapshot.ref.getDownloadURL();
-      return Promise.resolve(url);
-    }
-    catch (error) {
-      return Promise.resolve(error);
     }
   }
 
