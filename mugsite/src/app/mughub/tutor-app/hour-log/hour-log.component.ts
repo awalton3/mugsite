@@ -57,7 +57,7 @@ export class HourLogComponent implements OnInit, OnDestroy {
   onLoggedHoursChanged(querySnapshot: QuerySnapshot<any>) {
     this.hourLogService.loggedHours = {};
     querySnapshot.forEach(doc => this.hourLogService.addToLoggedHours(doc.data(), doc.id));
-    this.hourLogService.onLoggedHoursChanged();
+    // this.hourLogService.onLoggedHoursChanged();
     if (this.dateClicked)
       this.dateClicked.hoursLogged = this.hourLogService.loggedHours[this.dateClicked.dateObj.getTime()];
   }

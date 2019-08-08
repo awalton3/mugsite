@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { User } from '../../auth/user.model';
 import { UserService } from '../../auth/user.service';
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
@@ -12,13 +11,11 @@ export class HourLogService {
 
   loggedHours: { [key: number]: HourLogElement[] } = {};
   loggedHoursChanged = new Subject<{ [key: number]: HourLogElement[] }>();
+  newHourLogEl: HourLogElement;
 
   constructor(private userService: UserService) { }
 
   uploadHoursToFb(connections: string[], date: Date, startTime: string, endTime: string) {
-    // const connectionsPureJs = connections.map(connection => {
-    //   return Object.assign({}, connection);
-    // });
     return firebase.firestore().collection('/hours')
       .doc()
       .set({
@@ -57,25 +54,30 @@ export class HourLogService {
   }
 
   addToLoggedHours(hourLogElData: any, hourLogElId: string) {
-    const hourLogElement = this.getLogEl(hourLogElData, hourLogElId);
-    const dateInMiliSecs = hourLogElement.date.getTime();
-    if (this.loggedHours[dateInMiliSecs]) {
-      this.loggedHours[dateInMiliSecs].push(hourLogElement);
-    } else {
-      this.loggedHours[dateInMiliSecs] = [];
-      this.loggedHours[dateInMiliSecs].push(hourLogElement);
-    }
+    this.getLogEl(hourLogElData, hourLogElId)
+      .then(logEl => {
+        const dateInMiliSecs = logEl.date.getTime();
+        if (this.loggedHours[dateInMiliSecs]) {
+          this.loggedHours[dateInMiliSecs].push(logEl);
+        } else {
+          this.loggedHours[dateInMiliSecs] = [];
+          this.loggedHours[dateInMiliSecs].push(logEl);
+        }
+        this.onLoggedHoursChanged()
+      })
+      .catch(error => console.log(error))
   }
 
-  getLogEl(hourLogEldata, hourLogElid: string) {
+  async getLogEl(hourLogEldata, hourLogElid: string): Promise<any> {
     let date = hourLogEldata.date.toDate(); //convert firebase timestamp to Date obj
     date.setHours(0, 0, 0, 0);
-    return {
-      id: hourLogElid,
-      connections: hourLogEldata.connections,
-      date: date,
-      startTime: hourLogEldata.startTime,
-      endTime: hourLogEldata.endTime,
+    try {
+      const connectionsAsUsers = await this.userService.getConnectionsAsUsers(hourLogEldata.connections);
+      const newHourLogEl = new HourLogElement(hourLogElid, connectionsAsUsers, date, hourLogEldata.startTime, hourLogEldata.endTime);
+      return Promise.resolve(newHourLogEl);
+    }
+    catch (error) {
+      return Promise.reject(error);
     }
   }
 

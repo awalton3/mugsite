@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { first } from 'rxjs/operators';
+import { first, take } from 'rxjs/operators';
 import { User } from './user.model';
 import { SnackBarService } from 'src/app/shared/snack-bar/snack-bar.service';
 import { Router } from '@angular/router';
@@ -130,6 +130,26 @@ export class UserService {
       return Promise.resolve(error);
     }
   }
+
+  async getConnectionsAsUsers(connectionIds: string[]): Promise<any> {
+    const connections: User[] = [];
+    try {
+      await Promise.all(connectionIds.map((uid: string) => {
+        this.getUserFromFbCollect(uid)
+          .pipe(take(1))
+          .subscribe(user => {
+            const userObj = new User(user.data().name, user.data().photoUrl, user.data().email, user.data().type, user.data().uid, user.data().isNewUser, user.data().prefs, user.data().connections);
+            connections.push(userObj);
+            return Promise.resolve('success');
+          }, error => { return Promise.reject(error); });
+      }));
+      return Promise.resolve(connections);
+    }
+    catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
 
   onSuccess(message: string) {
     this.snackBarService.onOpenSnackBar.next({ message: message, isError: false });
