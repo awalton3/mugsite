@@ -4,16 +4,18 @@
   <p *ngIf="user.type === 'tutor'" class="drawer-form-label">STUDENT NAME(S)</p>
   <p *ngIf="user.type === 'student'" class="drawer-form-label">TUTOR NAME(S)</p>
 
-  <app-connection-form [connections]="possibleConnections"></app-connection-form>
+  <app-connection-form [connections]="possibleConnections" [required]="requiredConnections"></app-connection-form>
 
   <p class="drawer-form-label">SUBJECT</p>
   <mat-form-field floatLabel="never" class="widthFullPer">
     <input type="text" matInput formControlName="subject" placeholder="Ex. Algebra II" class="drawer-form-input">
   </mat-form-field>
 
+  <p *ngIf="uploadForm.controls.subject.errors && !uploadForm.controls.subject.pristine" class="form-error-message">Subject is required and must be 80 characters or less.</p>
+
   <p class="drawer-form-label">MESSAGE BODY</p>
   <mat-form-field floatLabel="never" class="widthFullPer">
-    <textarea type="text" rows="7" matInput formControlName="body" placeholder="Ex. Complete attached worksheets. Student is improving in..." class="drawer-form-input"></textarea>
+    <textarea type="text" rows="7" matInput formControlName="body" placeholder="Ex. Complete attached worksheets. Student is improving in..." class="drawer-form-input" required></textarea>
   </mat-form-field>
 
   <mughub-attachments [attachments]="attachments" [removable]="removable" (attachmentsSub)="getAttachments($event)"></mughub-attachments>

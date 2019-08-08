@@ -29,6 +29,7 @@ export class UploaderComponent implements OnInit, OnDestroy {
   compressedAttachment: string = '';
   removable = true;
   selectable = true;
+  requiredConnections = true;
   chipCharLimit: number;
   isEditMode: boolean = false;
   uploadToEditId: string;
@@ -162,6 +163,7 @@ export class UploaderComponent implements OnInit, OnDestroy {
   }
 
   onCancel() {
+    console.log(this.uploadForm.controls.subject.errors)
     this.resetUploader();
   }
 
