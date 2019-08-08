@@ -81,6 +81,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
     }
     else if (link === 'hour log') {
       this.toggleSubLinks('mail');
+      this.router.navigate(['hour-log'], { relativeTo: this.route });
       this.showSubLinks = false;
     }
     else {
