@@ -15,6 +15,7 @@ export class WelcomeSetupProfileComponent implements OnInit {
 
   @ViewChild('profileImageEditor', { static: false }) profileImageEditor: MatDrawer;
   currProfileImage: { isDataUrl: boolean, url: string };
+  prevProfileImageUrl: string;
   isUploading: boolean = false;
   submitted: boolean = false;
 
@@ -26,6 +27,7 @@ export class WelcomeSetupProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.prevProfileImageUrl = this.userService.getUserSession().photoUrl;
     this.currProfileImage = {
       isDataUrl: false,
       url: this.userService.getUserSession().photoUrl
@@ -37,14 +39,28 @@ export class WelcomeSetupProfileComponent implements OnInit {
   }
 
   onProfileSubmit(event: string) {
-    this.isUploading = true; 
-    const username = event;
-    if (username !== '') {
-      this.userService.updateLocalUser([{ name: 'name', value: username }]);
-      this.handleProfileImage();
+    this.isUploading = true;
+    const newUsername = event;
+    if (this.profileHasChanged(newUsername)) {
+      if (this.isValidUsername(newUsername)) {
+        this.userService.updateLocalUser([{ name: 'name', value: newUsername }]);
+        this.handleProfileImage();
+      } else {
+        this.onError("Your username cannot be blank.");
+      }
     } else {
-      this.onError('Your username cannot be blank.');
+      this.onError('There are no changes to update.');
     }
+  }
+
+  isValidUsername(newUsername: string) {
+    return (newUsername !== '')
+  }
+
+  profileHasChanged(newUsername: string): boolean {
+    const usernameChanged = (newUsername !== this.userService.getUserSession().photoUrl.name);
+    const profileImageChanged = (this.currProfileImage.url !== this.prevProfileImageUrl);
+    return usernameChanged || profileImageChanged;
   }
 
   handleProfileImage() {
@@ -65,11 +81,15 @@ export class WelcomeSetupProfileComponent implements OnInit {
   }
 
   onError(message: string) {
+    this.isUploading = false;
+    this.submitted = false;
     this.snackBarService.onOpenSnackBar.next({ message: message, isError: true });
   }
 
   onSuccess() {
     this.isUploading = false;
+    this.submitted = false;
+    this.userService.updateFbCollect();
     this.stepperService.onChangeStep.next({ name: 'settings', num: 1 });
     this.router.navigate(["mughub/welcome/account-setup/settings"])
   }
@@ -79,6 +99,7 @@ export class WelcomeSetupProfileComponent implements OnInit {
   }
 
   onFinishEditProfileImage(event: { isDataUrl: boolean, url: string }) {
+    this.prevProfileImageUrl = this.currProfileImage.url;
     this.currProfileImage.url = event.url;
     this.currProfileImage.isDataUrl = event.isDataUrl;
     this.profileImageEditor.close();
