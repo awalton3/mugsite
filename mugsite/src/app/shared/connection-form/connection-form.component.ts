@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, OnDestroy, HostListener, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { User } from 'src/app/mughub/auth/user.model';
@@ -14,7 +14,7 @@ import { ConnectionFormService } from './connection-form.service';
   styleUrls: ['./connection-form.component.css']
 })
 
-export class ConnectionFormComponent implements OnInit, OnDestroy {
+export class ConnectionFormComponent implements OnInit, OnChanges, OnDestroy {
 
   private subs = new Subscription();
   @Input() existingConnections?: User[]= [];
@@ -55,6 +55,10 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
     this.getCharChipLimit();
     this.listenForExistingConnections();
     this.listenForFormReset();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes)
   }
 
   getCharAutoOptionLimit() {
@@ -179,7 +183,7 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
   }
 
   connectionSelected(event: MatAutocompleteSelectedEvent) {
-    this.connectionExist = this.selectedConnections.includes(event.option.value);
+    this.connectionExist = this.selectedConnections.some(connection => JSON.stringify(connection) === JSON.stringify(event.option.value));
     if (!this.connectionExist) {
       this.selectedConnections.push(event.option.value);
       this.selectedConnectionsIds.push(event.option.value.uid);

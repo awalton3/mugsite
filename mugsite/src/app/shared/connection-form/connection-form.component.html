@@ -10,7 +10,7 @@
         #connectionInput
         matInput
         formControlName="connections"
-        placeholder="Ex. John Doe"
+        placeholder="Add a connection"
         class="drawer-form-input widthFullPer"
         [matAutocomplete]="auto"
         [matChipInputFor]="chipList"
@@ -30,4 +30,4 @@
   </mat-form-field>
 </form>
 
-<p *ngIf="connectionsForm.controls.connections.errors && !connectionsForm.controls.connections.pristine" class="form-error-message">*One of the connections you entered is invalid. Please select one from the list.</p>
+<p *ngIf="connectionsForm.controls.connections.errors && !connectionsForm.controls.connections.pristine" class="form-error-message">*One of the connections you entered does not exist. Please select one from the list.</p>
