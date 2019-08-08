@@ -11,11 +11,11 @@
 }
 
 .container {
-  width: 65%;
+  width: 80%;
 }
 
 .profile-card {
-  padding: 45px 30px;
+  padding: 35px 30px;
   width: 230px;
 }
 
@@ -43,5 +43,5 @@
 }
 
 :host ::ng-deep .mat-stroked-button {
-  border: 1px solid #ea9103 !important; 
+  border: 1px solid #ea9103 !important;
 }

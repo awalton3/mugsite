@@ -1,5 +1,5 @@
-import { Component, OnInit, Output, HostListener } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Component, OnInit, Output, HostListener, OnDestroy } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
 import { UserService } from '../auth/user.service';
 import { User } from '../auth/user.model';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -10,8 +10,9 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./sidenav.component.css']
 })
 
-export class SidenavComponent implements OnInit {
+export class SidenavComponent implements OnInit, OnDestroy {
 
+  private subs = new Subscription();
   @Output() closeNav = new Subject();
   // defaultNavLinks = ['inbox', 'uploads', 'manage', 'hour-log', 'settings'];
   defaultNavLinks = {};
@@ -30,9 +31,20 @@ export class SidenavComponent implements OnInit {
   constructor(private userService: UserService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
-
     this.user = this.userService.getUserSession();
+    this.listenForUser();
+    this.getDefaultNavLinks();
+    this.defaultNavLinksArr = Object.keys(this.defaultNavLinks);
+    this.screenWidth = window.innerWidth;
+  }
 
+  listenForUser() {
+    this.subs.add(this.userService.user.subscribe(user => {
+      this.user = user;
+    }))
+  }
+
+  getDefaultNavLinks() {
     if (this.user.type === 'tutor') {
       this.defaultNavLinks = {
         'mail': ['inbox', 'sent', 'drafts', 'trash'],
@@ -48,9 +60,6 @@ export class SidenavComponent implements OnInit {
       }
       this.showSubLinks = true
     }
-
-    this.defaultNavLinksArr = Object.keys(this.defaultNavLinks);
-    this.screenWidth = window.innerWidth;
   }
 
   getIconLink(link: string): string {
@@ -92,6 +101,10 @@ export class SidenavComponent implements OnInit {
 
   onClose() {
     this.closeNav.next();
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 
 }
