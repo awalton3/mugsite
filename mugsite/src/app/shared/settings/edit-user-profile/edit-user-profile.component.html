@@ -4,6 +4,7 @@
       <i fxLayoutAlign="center center" class="material-icons profile-image-add-icon">add</i>
     </div>
   </div>
+  <br *ngIf="styleBreak">
   <form [formGroup]="nameForm" fxLayoutAlign="center center" class="widthFullPer">
     <mat-form-field floatLabel="never" style="width: 250px">
       <input matInput type="text" formControlName="username" class="nameFormField">

@@ -6,6 +6,7 @@ import { SnackBarService } from 'src/app/shared/snack-bar/snack-bar.service';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
+import { UploadTaskSnapshot } from '@angular/fire/storage/interfaces';
 
 @Injectable({ providedIn: 'root' })
 
@@ -100,8 +101,34 @@ export class UserService {
       .catch(error => this.onError('An error occurred', error))
   }
 
-  uploadProfileImage(imageDataUrl: string): AngularFireUploadTask {
+  async uploadProfileImage(imageDataUrl: string): Promise<any> {
+    try {
+      const snapshot = await this.uploadProfileImageToFb(imageDataUrl);
+      try {
+        const url = await this.getFbDownloadUrl(snapshot);
+        return await Promise.resolve(url);
+      }
+      catch (error) {
+        return await Promise.reject(error);
+      }
+    }
+    catch (error_1) {
+      Promise.reject(error_1);
+    }
+  }
+
+  uploadProfileImageToFb(imageDataUrl: string): AngularFireUploadTask {
     return this.storage.ref('profileImage_' + this.getUserSession().uid).putString(imageDataUrl, 'data_url');
+  }
+
+  async getFbDownloadUrl(snapshot: UploadTaskSnapshot) {
+    try {
+      const url = await snapshot.ref.getDownloadURL();
+      return Promise.resolve(url);
+    }
+    catch (error) {
+      return Promise.resolve(error);
+    }
   }
 
   onSuccess(message: string) {

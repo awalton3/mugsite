@@ -5,10 +5,43 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+.title-icon {
+  padding-right: 10px;
+  vertical-align: middle;
+}
+
 .container {
   width: 65%;
 }
 
+.profile-card {
+  padding: 45px 30px;
+  width: 230px;
+}
+
+.profile-card-title {
+  font-family: 'Montserrat', sans-serif;
+  color: #30546c;
+  font-weight: 500;
+  font-size: 22px;
+  text-align: center;
+}
+
+.profile-save-button {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+}
+
 .section {
   padding: 10px 30px;
+}
+
+@media (max-width: 550px) {
+  .container {
+    width: 80%;
+  }
+}
+
+:host ::ng-deep .mat-stroked-button {
+  border: 1px solid #ea9103 !important; 
 }

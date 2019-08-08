@@ -9,6 +9,8 @@ import { EditPreferencesModule } from 'src/app/shared/settings/edit-preferences/
 import { SettingsRoutingModule } from './settings-routing.module';
 import { ConnectionFormModule } from 'src/app/shared/connection-form/connection-form.module';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatCardModule } from '@angular/material/card';
+
 
 @NgModule({
   declarations: [SettingsComponent],
@@ -21,7 +23,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     EditUserProfileImageModule,
     EditPreferencesModule,
     ConnectionFormModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatCardModule
   ]
 })
 export class SettingsModule { }

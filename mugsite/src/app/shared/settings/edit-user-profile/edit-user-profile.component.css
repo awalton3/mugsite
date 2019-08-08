@@ -3,7 +3,7 @@
   top: 110px;
   left: 110px;
   border-radius: 50%;
-  background-color: #de6600;
+  background-color: #ea9103;
   width: 30px;
   height: 30px;
   color: white;
@@ -16,7 +16,7 @@
 
 .profile-name {
   color: grey;
-  font-size: 15px;
+  font-size: 18px;
   font-family: 'Montserrat', sans-serif;
   text-align: center;
   margin-left: 25px;

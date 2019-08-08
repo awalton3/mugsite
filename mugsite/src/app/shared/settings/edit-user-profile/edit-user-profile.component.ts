@@ -11,9 +11,9 @@ import { User } from 'src/app/mughub/auth/user.model';
 })
 export class EditUserProfileComponent implements OnInit, OnChanges {
 
-  // private subs = new Subscription();
   @Input() valueRequested: boolean = false;
   @Input() currProfileImageUrl: string;
+  @Input() styleBreak?: boolean = false;
   @Output() onOpenImageUploader = new Subject();
   @Output() onValueRequest = new Subject<string>();
   nameForm: FormGroup = new FormGroup({});
@@ -25,22 +25,10 @@ export class EditUserProfileComponent implements OnInit, OnChanges {
     this.nameForm = new FormGroup({
       'username': new FormControl(this.userService.getUserSession().name)
     })
-    // this.user = this.userService.getUserSession();
-    // this.listenForUser();
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if(changes && changes.valueRequested && changes.valueRequested.currentValue)
       this.onValueRequest.next(this.nameForm.value.username);
   }
-
-  // listenForUser() {
-  //   this.subs.add(this.userService.user.subscribe(user => {
-  //     this.user = user;
-  //   }))
-  // }
-  //
-  // ngOnDestroy() {
-  //   this.subs.unsubscribe();
-  // }
 }

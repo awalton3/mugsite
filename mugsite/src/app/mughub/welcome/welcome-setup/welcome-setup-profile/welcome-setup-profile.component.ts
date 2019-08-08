@@ -70,7 +70,7 @@ export class WelcomeSetupProfileComponent implements OnInit {
 
   async uploadProfileImage(imageDataUrl: string): Promise<any> {
     try {
-      const snapshot = await this.userService.uploadProfileImage(imageDataUrl);
+      const snapshot = await this.userService.uploadProfileImageToFb(imageDataUrl);
       return Promise.resolve(snapshot);
     }
     catch (error) {
@@ -93,7 +93,7 @@ export class WelcomeSetupProfileComponent implements OnInit {
   }
 
   onSuccess() {
-    this.isUploading = false; 
+    this.isUploading = false;
     this.stepperService.onChangeStep.next({ name: 'settings', num: 1 });
     this.router.navigate(["mughub/welcome/account-setup/settings"])
   }

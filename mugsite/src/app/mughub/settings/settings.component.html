@@ -10,28 +10,42 @@
 <mat-drawer-container class="background-eee" [hasBackdrop]="false">
 
   <mat-drawer #profileImageEditor mode="over" position="end" class="side-content-drawer">
-    <mughub-edit-user-profile-image [currProfileImage]="currProfileImage" (onCancelImageUploader)="profileImageEditor.close()" (onFinish)="onFinishEditProfileImage($event)"></mughub-edit-user-profile-image>
+    <mughub-edit-user-profile-image [currProfileImage]="currProfileImage" (onCancelImageUploader)="profileImageEditor.close()" (onFinish)="onFinishProfileImage($event)"></mughub-edit-user-profile-image>
   </mat-drawer>
 
   <mat-drawer-content class="fade-in background-eee heightFull">
     <mughub-headnav title="Settings" iconLeft="menu" (leftIconToggled)="closeSidenav()"></mughub-headnav>
-    <br>
+    <br><br>
     <div fxLayout="column" fxLayoutAlign="start center" class="widthFullPer" style="height: 80vh">
       <div fxLayout="column" fxLayoutAlign="start start" class="container">
 
-        <p class="section-title">PROFILE</p>
+        <p class="section-title" fxLayoutAlign="start center"><i class="material-icons title-icon">person</i> PROFILE</p>
         <mat-divider class="widthFullPer"></mat-divider>
-        <br><br>
+        <br>
         <div fxLayout="column" fxLayoutAlign="center center" class="widthFullPer">
-          <mughub-edit-user-profile [currProfileImageUrl]="currProfileImage.url" (onOpenImageUploader)="profileImageEditor.open()"></mughub-edit-user-profile>
+          <mat-card class="profile-card background-eee">
+            <mat-card-content fxLayout="column" fxLayoutAlign="space-between center">
+              <i class="material-icons" style="color: #ea9103; font-size: 35px">gesture</i>
+              <div>
+                <p class="profile-card-title">Customize Your Profile</p>
+                <br><br>
+                <mughub-edit-user-profile [valueRequested]="submittedProfile" [currProfileImageUrl]="currProfileImage.url" (onOpenImageUploader)="profileImageEditor.open()" [styleBreak]="styleBreak" (onValueRequest)="updateUserProfile($event)"></mughub-edit-user-profile>
+              </div>
+              <mat-card-actions>
+                <button (click)="requestProfileNameFormValue()" mat-stroked-button color="accent" fxLayoutAlign="center center" class="profile-save-button">
+                  UPDATE PROFILE
+                </button>
+              </mat-card-actions>
+            </mat-card-content>
+          </mat-card>
         </div>
 
         <br><br>
 
-        <p class="section-title">PREFERENCES</p>
+        <p class="section-title" fxLayoutAlign="start center"><i class="material-icons title-icon">settings</i> PREFERENCES</p>
         <mat-divider class="widthFullPer"></mat-divider>
         <br>
-        <div fxLayout="column" fxLayoutAlign="center center" class="widthFullPer">
+        <div fxLayout="column" fxLayoutAlign="center center" class=" widthFullPer">
           <mughub-edit-preferences></mughub-edit-preferences>
         </div>
 
