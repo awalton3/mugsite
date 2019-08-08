@@ -9,6 +9,7 @@ import { SnackBarService } from 'src/app/shared/snack-bar/snack-bar.service';
 import { ConnectionFormService } from 'src/app/shared/connection-form/connection-form.service';
 import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/mughub/auth/user.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-hour-log-uploader-bottomsheet',
@@ -24,6 +25,8 @@ export class HourLogUploaderBottomsheetComponent implements OnInit, OnDestroy {
   selectedConnections: string[] = [];
   selectedConnectionsOrig: string[] = [];
   possibleConnections: User[] = [];
+  requireConnections: boolean = true;
+  isFetchingPossibleConnections: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -36,10 +39,36 @@ export class HourLogUploaderBottomsheetComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.possibleConnections = this.userService.getUserSession().connections;
+    // this.possibleConnections = this.userService.getUserSession().connections;
+    this.getPossibleConnectionsAsUsers()
+      .then(() => this.isFetchingPossibleConnections = false)
+      .catch((error) => console.log(error))
+
     this.initForm();
     this.listenToSelectedConnections();
     this.listenToConnectionsValid();
+  }
+
+  getPossibleConnectionsAsUsers() {
+    this.isFetchingPossibleConnections = true;
+    this.possibleConnections = [];
+    return Promise.all(this.userService.getUserSession().connections.map((uid: string) => {
+      this.userService.getUserFromFbCollect(uid)
+        .pipe(take(1))
+        .subscribe(user => {
+          const userObj = new User(
+            user.data().name,
+            user.data().photoUrl,
+            user.data().email,
+            user.data().type,
+            user.data().uid,
+            user.data().isNewUser,
+            user.data().prefs,
+            user.data().connections);
+          this.possibleConnections.push(userObj);
+          return Promise.resolve('success');
+        }, error => { return Promise.reject(error) })
+    }))
   }
 
   listenToSelectedConnections() {
@@ -52,6 +81,7 @@ export class HourLogUploaderBottomsheetComponent implements OnInit, OnDestroy {
   listenToConnectionsValid() {
     this.subs.add(this.connectionsFormService.isformValid.subscribe(isFormValid => {
       this.connectionsValid = isFormValid;
+      console.log("VALID?: ", this.connectionsValid)
     }));
   }
 
@@ -60,7 +90,6 @@ export class HourLogUploaderBottomsheetComponent implements OnInit, OnDestroy {
       date: new FormControl(this.data.hourLogEl.date),
       startTime: new FormControl(this.data.hourLogEl.startTime, Validators.required),
       endTime: new FormControl(this.data.hourLogEl.endTime, [Validators.required, this.ValidateEndTime.bind(this)]),
-      test: new FormControl(null)
     })
   }
 

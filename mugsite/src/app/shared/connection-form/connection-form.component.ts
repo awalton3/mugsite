@@ -17,7 +17,7 @@ import { ConnectionFormService } from './connection-form.service';
 export class ConnectionFormComponent implements OnInit, OnDestroy {
 
   private subs = new Subscription();
-  @Input() existingConnections?: User[]= [];
+  @Input() existingConnections?: User[] = [];
   @Input() connections: User[] = [];
   @Input() required?: boolean = true;
   connectionsForm = new FormGroup({});
@@ -49,6 +49,7 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
   constructor(private connectionFormService: ConnectionFormService) { }
 
   ngOnInit() {
+    console.log(this.existingConnections, this.connections)
     this.initForm();
     this.initAutoComp();
     this.getCharAutoOptionLimit();
@@ -103,12 +104,11 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
       this.connectionFormService.isformValid.next(false);
       return { validConnection: false };
     }
-    if (this.required) {
-      if (this.selectedConnections.length === 0 && control.value === null) {
-        this.connectionFormService.isformValid.next(false);
-        return { validConnection: false };
-      }
+    if (this.selectedConnections.length === 0 && (control.value === null || control.value === '') && this.required) {
+      this.connectionFormService.isformValid.next(false);
+      return { validConnection: false };
     }
+
     this.connectionFormService.isformValid.next(true);
     return null;
   }

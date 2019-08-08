@@ -22,9 +22,7 @@ export class CalendarService {
     this.getBeginMonthRange(beginOffset, year, month);
     this.getMainMonthRange(numDaysInMonth, year, month);
     this.getEndMonthRange(endOffset, year, month);
-
-    console.log(this.monthRange);
-
+    
     return this.monthRange;
   }
 
