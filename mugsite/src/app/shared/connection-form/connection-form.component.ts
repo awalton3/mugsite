@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, OnDestroy, HostListener, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, OnDestroy, HostListener, SimpleChanges } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { User } from 'src/app/mughub/auth/user.model';
@@ -14,7 +14,7 @@ import { ConnectionFormService } from './connection-form.service';
   styleUrls: ['./connection-form.component.css']
 })
 
-export class ConnectionFormComponent implements OnInit, OnChanges, OnDestroy {
+export class ConnectionFormComponent implements OnInit, OnDestroy {
 
   private subs = new Subscription();
   @Input() existingConnections?: User[]= [];
@@ -57,10 +57,6 @@ export class ConnectionFormComponent implements OnInit, OnChanges, OnDestroy {
     this.listenForFormReset();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    console.log(changes)
-  }
-
   getCharAutoOptionLimit() {
     if (window.innerWidth > 430) {
       this.charAutoOptionLimit = 40;
@@ -95,6 +91,10 @@ export class ConnectionFormComponent implements OnInit, OnChanges, OnDestroy {
     }
     this.connectionsForm = new FormGroup({
       connections: new FormControl(null, this.ValidateConnection.bind(this))
+    })
+    this.connectionFormService.onConnectionsChanged.next({
+      selectedConnections: this.selectedConnectionsIds,
+      selectedConnectionsOrig: this.selectedConnectionsBeforeChanges
     })
   }
 

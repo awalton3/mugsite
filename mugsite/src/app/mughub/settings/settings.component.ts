@@ -23,6 +23,8 @@ export class SettingsComponent implements OnInit, OnDestroy {
   prevProfileImageUrl: string;
   possibleConnections: User[] = [];
   existingConnections: User[] = [];
+  selectedConnections: string[] = [];
+  selectedConnectionsOrig: string[] = [];
   connectionsValid: boolean = false;
   styleBreak = true;
   isUploading: boolean = false;
@@ -47,6 +49,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     this.getPossibleConnections();
     this.getExistingConnections();
     this.listenForConnectionsValid();
+    this.listenForSelectedConnections();
   }
 
   getPossibleConnections() {
@@ -92,9 +95,10 @@ export class SettingsComponent implements OnInit, OnDestroy {
       }, error => { console.log(error) }));
   }
 
-  getExistingConnections() {
+  getExistingConnections(): Promise<any> {
+    this.existingConnections = [];
     const currConnectionIds = this.userService.getUserSession().connections;
-    currConnectionIds.map((connectionId: string) => {
+    return Promise.all(currConnectionIds.map((connectionId: string) => {
       this.userService.getUserFromFbCollect(connectionId)
         .pipe(take(1))
         .subscribe((user) => {
@@ -108,14 +112,25 @@ export class SettingsComponent implements OnInit, OnDestroy {
             user.data().prefs,
             user.data().connections);
           this.existingConnections.push(userObj);
-        }, error => throwError(error))
-    })
+          return Promise.resolve('success');
+        }, error => {
+          throwError(error)
+          return Promise.reject(error)
+        })
+    }))
   }
 
   listenForConnectionsValid() {
     this.subs.add(this.connectionFormService.isformValid.subscribe(isFormValid => {
       this.connectionsValid = isFormValid;
     }))
+  }
+
+  listenForSelectedConnections() {
+    this.subs.add(this.connectionFormService.onConnectionsChanged.subscribe(connectionsObj => {
+      this.selectedConnections = connectionsObj.selectedConnections;
+      this.selectedConnectionsOrig = connectionsObj.selectedConnectionsOrig;
+    }, error => throwError(error)))
   }
 
   requestProfileNameFormValue() {
@@ -163,7 +178,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
           this.onError("Error in uploading your profile image.");
         })
     } else {
-      console.log('simple work occuring...')
       this.userService.updateLocalUser([{ name: 'photoUrl', value: this.currProfileImage.url }]);
       this.onSuccess();
     }
@@ -176,6 +190,19 @@ export class SettingsComponent implements OnInit, OnDestroy {
       url: event.url
     }
     this.profileImageEditor.close();
+  }
+
+  updateUserConnections() {
+    if (JSON.stringify(this.selectedConnections) !== JSON.stringify(this.selectedConnectionsOrig)) {
+      this.userService.updateLocalUser([{ name: 'connections', value: this.selectedConnections }]);
+      this.userService.updateFbCollect();
+      this.connectionFormService.resetConnectionForm.next();
+      this.getExistingConnections()
+        .then(() => this.connectionFormService.onInitForEdit.next(this.existingConnections))
+        .catch(error => console.log(error))
+    } else {
+      this.onError("No changes to save");
+    }
   }
 
   onError(message: string) {

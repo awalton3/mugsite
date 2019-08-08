@@ -35,6 +35,7 @@ export class EditPreferencesComponent implements OnInit {
     let newPref = {};
     newPref[pref] = !this.user.prefs[pref];
     this.userService.updateLocalUser([{ name: 'prefs', value: newPref }])
+    this.userService.updateFbCollect(); 
   }
 
 }

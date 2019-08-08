@@ -41,7 +41,7 @@
 
         <br><br>
 
-        <p class="section-title" fxLayoutAlign="start center"><i class="material-icons title-icon">settings</i> PREFERENCES</p>
+        <p class="section-title" fxLayoutAlign="start center"><i class="material-icons title-icon">settings</i>PREFERENCES</p>
         <mat-divider class="widthFullPer"></mat-divider>
         <br>
         <div fxLayout="column" fxLayoutAlign="center center" class=" widthFullPer">
@@ -50,14 +50,14 @@
 
         <br><br>
 
-        <p class="section-title" fxLayoutAlign="start center"><i class="material-icons title-icon">group</i>CONNECTIONS</p>
+        <p class="section-title" fxLayoutAlign="start center"><i class="material-icons title-icon">group</i>CURRENT CONNECTIONS</p>
         <mat-divider class="widthFullPer"></mat-divider>
         <br><br><br><br>
         <div fxLayout="column" fxLayoutAlign="center center" class="widthFullPer">
           <app-connection-form *ngIf="existingConnections && existingConnections.length > 0" [existingConnections]="existingConnections" [connections]="possibleConnections" [required]="connectionsRequired" style="width: 50%"></app-connection-form>
           <app-connection-form *ngIf="existingConnections && existingConnections.length === 0" [connections]="possibleConnections" [required]="connectionsRequired" style="width: 50%"></app-connection-form>
           <br>
-          <button mat-stroked-button color="accent" fxLayoutAlign="center center" class="profile-save-button" [disabled]="!connectionsValid">
+          <button (click)="updateUserConnections()" mat-stroked-button color="accent" fxLayoutAlign="center center" class="profile-save-button" [disabled]="!connectionsValid">
               UPDATE CONNECTIONS
           </button>
         </div>
