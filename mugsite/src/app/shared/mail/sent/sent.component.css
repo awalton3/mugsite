@@ -21,7 +21,7 @@
 }
 
 .upload--width {
-  width: 80%;
+  width: inherit;
 }
 
 @media(max-width: 600px) {

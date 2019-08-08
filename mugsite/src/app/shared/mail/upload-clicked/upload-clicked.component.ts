@@ -3,6 +3,7 @@ import { UploadService } from '../upload/upload.service';
 import { User } from 'src/app/mughub/auth/user.model';
 import { Upload } from '../upload/upload.model';
 import { Subject } from 'rxjs';
+import { MailService } from '../mail.service';
 
 @Component({
   selector: 'mughub-upload-clicked',
@@ -23,7 +24,10 @@ export class UploadClickedComponent implements OnInit {
     this.getUploadContentWidth();
   }
 
-  constructor(private uploadService: UploadService) { }
+  constructor(
+    private uploadService: UploadService,
+    private mailService: MailService
+  ) { }
 
   ngOnInit() {
     this.screenWidth = window.innerWidth;
@@ -57,6 +61,10 @@ export class UploadClickedComponent implements OnInit {
   onEdit() {
     this.onEditUpload.next();
     this.uploadService.uploadToEdit.next(this.upload);
+  }
+
+  onDelete() {
+    this.mailService.addToTrash(this.upload);
   }
 
   onToggleBack() {

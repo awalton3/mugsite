@@ -6,14 +6,16 @@ import { User } from 'src/app/mughub/auth/user.model';
 import { Upload } from './upload.model';
 import { Subject } from 'rxjs';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 
 export class UploadService {
 
   uploadClicked = new Subject<Upload>();
-  uploadToEdit = new Subject<Upload>(); 
+  uploadToEdit = new Subject<Upload>();
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService
+  ) { }
 
   createUploadObj(uploadData: QueryDocumentSnapshot<any>) {
     let uploadObj = {};
@@ -63,6 +65,4 @@ export class UploadService {
     })
     return recipients;
   }
-
-
 }
