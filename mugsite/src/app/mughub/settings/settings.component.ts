@@ -2,12 +2,12 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { SidenavService } from '../sidenav/sidenav.service';
 import { UserService } from '../auth/user.service';
 import { User } from '../auth/user.model';
-import { Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { Subscription, throwError } from 'rxjs';
 import { MughubService } from '../mughub.service';
 import { ConnectionFormService } from 'src/app/shared/connection-form/connection-form.service';
 import { MatDrawer } from '@angular/material/sidenav';
 import { SnackBarService } from 'src/app/shared/snack-bar/snack-bar.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-settings',
@@ -20,11 +20,14 @@ export class SettingsComponent implements OnInit, OnDestroy {
   private subs = new Subscription();
   user: User;
   currProfileImage: { isDataUrl: boolean; url: string };
+  prevProfileImageUrl: string;
   possibleConnections: User[] = [];
   existingConnections: User[] = [];
+  connectionsValid: boolean = false;
   styleBreak = true;
   isUploading: boolean = false;
   submittedProfile: boolean = false;
+  connectionsRequired: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -36,12 +39,14 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.user = this.userService.getUserSession();
+    this.prevProfileImageUrl = this.user.photoUrl;
     this.currProfileImage = {
       isDataUrl: false,
       url: this.user.photoUrl
     }
-    this.getExistingConnections();
     this.getPossibleConnections();
+    this.getExistingConnections();
+    this.listenForConnectionsValid();
   }
 
   getPossibleConnections() {
@@ -49,26 +54,6 @@ export class SettingsComponent implements OnInit, OnDestroy {
       this.getStudents();
     else
       this.getTutors();
-  }
-
-  getExistingConnections() {
-    this.userService.getUserSession().connections.forEach((connectionId: string) => {
-      this.userService.getUserFromFbCollect(connectionId)
-        .pipe(take(1))
-        .subscribe((user) => {
-          const userObj = new User(
-            user.data().name,
-            user.data().photoUrl,
-            user.data().email,
-            user.data().type,
-            user.data().uid,
-            user.data().isNewUser,
-            user.data().prefs,
-            user.data().connections);
-          this.existingConnections.push(userObj);
-        })
-      this.connectionFormService.onInitForEdit.next(this.existingConnections);
-    })
   }
 
   getStudents() {
@@ -107,38 +92,85 @@ export class SettingsComponent implements OnInit, OnDestroy {
       }, error => { console.log(error) }));
   }
 
+  getExistingConnections() {
+    const currConnectionIds = this.userService.getUserSession().connections;
+    currConnectionIds.map((connectionId: string) => {
+      this.userService.getUserFromFbCollect(connectionId)
+        .pipe(take(1))
+        .subscribe((user) => {
+          const userObj = new User(
+            user.data().name,
+            user.data().photoUrl,
+            user.data().email,
+            user.data().type,
+            user.data().uid,
+            user.data().isNewUser,
+            user.data().prefs,
+            user.data().connections);
+          this.existingConnections.push(userObj);
+        }, error => throwError(error))
+    })
+  }
+
+  listenForConnectionsValid() {
+    this.subs.add(this.connectionFormService.isformValid.subscribe(isFormValid => {
+      this.connectionsValid = isFormValid;
+    }))
+  }
+
   requestProfileNameFormValue() {
     this.submittedProfile = true; //triggers edit-user-profile comp to send value
   }
 
   updateUserProfile(event: string) {
     this.isUploading = true;
-    if (event !== '') {
-      const username = event;
-      this.userService.updateLocalUser([{ name: 'name', value: username }]);
-      this.handleProfileImage();
+    const newUsername = event;
+    if (this.profileHasChanged(newUsername)) {
+      if (this.isValidUsername(newUsername)) {
+        this.userService.updateLocalUser([{ name: 'name', value: newUsername }]);
+        this.handleProfileImage();
+      } else {
+        this.onError("Your username cannot be blank.");
+      }
     } else {
-      this.onError('Your username cannot be blank.');
+      this.onError('There are no changes to update.');
     }
+  }
+
+  isValidUsername(newUsername: string) {
+    return (newUsername !== '')
+  }
+
+  profileHasChanged(newUsername: string): boolean {
+    const usernameChanged = (newUsername !== this.user.name);
+    const profileImageChanged = (this.currProfileImage.url !== this.prevProfileImageUrl);
+    return usernameChanged || profileImageChanged;
   }
 
   handleProfileImage() {
     if (this.currProfileImage.isDataUrl) {
       this.userService.uploadProfileImage(this.currProfileImage.url)
         .then(imageUrl => {
+          this.currProfileImage = {
+            isDataUrl: false,
+            url: imageUrl
+          }
           this.userService.updateLocalUser([{ name: 'photoUrl', value: imageUrl }]);
-          this.isUploading = false;
+          this.onSuccess();
         })
         .catch(error => {
           console.log(error);
           this.onError("Error in uploading your profile image.");
         })
     } else {
+      console.log('simple work occuring...')
       this.userService.updateLocalUser([{ name: 'photoUrl', value: this.currProfileImage.url }]);
+      this.onSuccess();
     }
   }
 
   onFinishProfileImage(event: { isDataUrl: boolean, url: string }) {
+    this.prevProfileImageUrl = this.currProfileImage.url;
     this.currProfileImage = {
       isDataUrl: event.isDataUrl,
       url: event.url
@@ -147,7 +179,15 @@ export class SettingsComponent implements OnInit, OnDestroy {
   }
 
   onError(message: string) {
+    this.isUploading = false;
+    this.submittedProfile = false;
     this.snackBarService.onOpenSnackBar.next({ message: message, isError: true });
+  }
+
+  onSuccess() {
+    this.isUploading = false;
+    this.submittedProfile = false;
+    this.userService.updateFbCollect();
   }
 
   closeSidenav() {

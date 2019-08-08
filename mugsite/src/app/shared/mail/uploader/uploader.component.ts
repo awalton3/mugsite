@@ -48,7 +48,6 @@ export class UploaderComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    console.log(this.isEditMode);
     this.initForm();
     this.getChipCharLimit();
     this.user = this.userService.getUserSession();

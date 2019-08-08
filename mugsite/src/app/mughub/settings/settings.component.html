@@ -1,12 +1,3 @@
-<!-- <p class="section-title">CONNECTIONS</p>
-<mat-divider class="widthFullPer"></mat-divider>
-<br>
-<div fxLayout="column" fxLayoutAlign="center center" class="widthFullPer" style="margin: 80px 20px;">
-  <app-connection-form [existingConnections]="existingConnections" [connections]="possibleConnections" style="width: 70%"></app-connection-form>
-</div>
-
-<br>  -->
-
 <mat-drawer-container class="background-eee" [hasBackdrop]="false">
 
   <mat-drawer #profileImageEditor mode="over" position="end" class="side-content-drawer">
@@ -22,13 +13,14 @@
         <!-- <p class="section-title" fxLayoutAlign="start center"><i class="material-icons title-icon">person</i> PROFILE</p>
         <mat-divider class="widthFullPer"></mat-divider>
         <br> -->
+
         <div fxLayout="column" fxLayoutAlign="center center" class="widthFullPer">
           <mat-card class="profile-card background-eee">
-            <mat-card-content fxLayout="column" fxLayoutAlign="space-between center">
+            <mat-card-content *ngIf="!isUploading" fxLayout="column" fxLayoutAlign="space-between center">
               <i class="material-icons" style="color: #ea9103; font-size: 35px">gesture</i>
               <div>
                 <p class="profile-card-title">Customize Your Profile</p>
-                <br><br>
+                <br>
                 <mughub-edit-user-profile [valueRequested]="submittedProfile" [currProfileImageUrl]="currProfileImage.url" (onOpenImageUploader)="profileImageEditor.open()" [styleBreak]="styleBreak" (onValueRequest)="updateUserProfile($event)"></mughub-edit-user-profile>
               </div>
               <mat-card-actions>
@@ -36,6 +28,13 @@
                   UPDATE PROFILE
                 </button>
               </mat-card-actions>
+            </mat-card-content>
+            <mat-card-content *ngIf="isUploading" fxLayout="column" fxLayoutAlign="space-between center">
+              <div></div>
+              <div></div>
+              <div class="loader"></div>
+              <div></div>
+              <div></div>
             </mat-card-content>
           </mat-card>
         </div>
@@ -50,6 +49,20 @@
         </div>
 
         <br><br>
+
+        <p class="section-title" fxLayoutAlign="start center"><i class="material-icons title-icon">group</i>CONNECTIONS</p>
+        <mat-divider class="widthFullPer"></mat-divider>
+        <br><br><br><br>
+        <div fxLayout="column" fxLayoutAlign="center center" class="widthFullPer">
+          <app-connection-form *ngIf="existingConnections && existingConnections.length > 0" [existingConnections]="existingConnections" [connections]="possibleConnections" [required]="connectionsRequired" style="width: 50%"></app-connection-form>
+          <app-connection-form *ngIf="existingConnections && existingConnections.length === 0" [connections]="possibleConnections" [required]="connectionsRequired" style="width: 50%"></app-connection-form>
+          <br>
+          <button mat-stroked-button color="accent" fxLayoutAlign="center center" class="profile-save-button" [disabled]="!connectionsValid">
+              UPDATE CONNECTIONS
+          </button>
+        </div>
+
+        <br><br><br><br>
 
       </div>
     </div>

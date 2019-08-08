@@ -98,6 +98,7 @@ export class EditUserProfileImageComponent implements OnInit, OnDestroy, AfterVi
   }
 
   onError(message: string) {
+    this.imageUploading = false;
     this.snackBarService.onOpenSnackBar.next({ message: message, isError: true });
   }
 

@@ -23,7 +23,7 @@ import { SentModule } from 'src/app/shared/mail/sent/sent.module';
     SentModule
   ],
   providers: [
-    UploadsResolve
+    UploadsResolve,
   ]
 })
 

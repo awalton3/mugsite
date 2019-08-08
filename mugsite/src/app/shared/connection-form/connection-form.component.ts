@@ -17,7 +17,7 @@ import { ConnectionFormService } from './connection-form.service';
 export class ConnectionFormComponent implements OnInit, OnDestroy {
 
   private subs = new Subscription();
-  @Input() existingConnections?: User[];
+  @Input() existingConnections?: User[]= [];
   @Input() connections: User[] = [];
   @Input() required?: boolean = true;
   connectionsForm = new FormGroup({});
@@ -75,7 +75,6 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
 
   listenForExistingConnections() {
     this.subs.add(this.connectionFormService.onInitForEdit.subscribe(existingConnections => {
-      console.log(existingConnections);
       this.existingConnections = existingConnections;
       this.initForm();
       this.initAutoComp();
@@ -84,7 +83,6 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
 
   initForm() {
     if (this.existingConnections && this.existingConnections.length !== 0) {
-      console.log('hey');
       this.selectedConnections.push(...this.existingConnections);
       this.existingConnections.forEach(connection => {
         this.selectedConnectionsBeforeChanges.push(connection.uid);
