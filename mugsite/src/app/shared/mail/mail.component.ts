@@ -109,10 +109,12 @@ export class MailComponent implements OnInit, OnDestroy {
           subtitle: { tutor: "Upload an assignment using the button on the bottom right.", student: "Ask a question or discuss assigned work, using the button on the bottom right." }
         }
         break;
-      // case 'trash':
-      //   this.emptyState = {
-      //
-      //   }
+      case 'trash':
+        this.emptyState = {
+          icon: 'trash',
+          title: { tutor: "WHO TOOK THE TRASH OUT?", student: "WHO TOOK THE TRASH OUT?" },
+          subtitle: { tutor: "When your trash bin reaches a max of 15 messages, we empty it for you.", student: "When your trash bin reaches a max of 15 messages, we empty it for you." }
+        }
     }
   }
 

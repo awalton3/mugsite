@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { EmptyStateComponent } from './empty-state.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faGlobe } from '@fortawesome/free-solid-svg-icons';
+import { faGlobe, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @NgModule({
   declarations: [EmptyStateComponent],
@@ -17,6 +17,7 @@ import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 })
 export class EmptyStateModule {
   constructor() {
-    library.add(faGlobe)
+    library.add(faGlobe);
+    library.add(faTrash);
   }
 }
