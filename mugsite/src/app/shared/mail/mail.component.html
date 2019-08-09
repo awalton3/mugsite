@@ -8,15 +8,15 @@
 
     <mughub-headnav [title]="parent" iconLeft="menu" (leftIconToggled)="closeSidenav()"></mughub-headnav>
 
-    <div *ngIf="!uploads" fxLayoutAlign="center center" style="height: 80vh">
+    <div *ngIf="loading" fxLayoutAlign="center center" style="height: 80vh">
       <div class="loader">...</div>
     </div>
 
-    <div *ngIf="uploads && uploads.length === 0" fxLayout="column" fxLayoutAlign="center center" style="height: 80%">
+    <div *ngIf="uploads && uploads.length === 0 && !loading" fxLayout="column" fxLayoutAlign="center center" style="height: 80%">
       <mail-empty-state [icon]="emptyState.icon" [title]="emptyState.title" [subtitle]="emptyState.subtitle" [userType]="user.type"></mail-empty-state>
     </div>
 
-    <div *ngIf="uploads && uploads.length !== 0 && !uploadClicked" fxLayout="column" fxLayoutAlign="center center" class="uploads dynamic-height">
+    <div *ngIf="uploads && uploads.length !== 0 && !uploadClicked && !loading" fxLayout="column" fxLayoutAlign="center center" class="uploads dynamic-height">
       <div class="upload--width" fxLayout="column" fxLayoutAlign="start start">
         <mughub-upload *ngFor="let upload of uploads;" [upload]="upload" [parent]="parent" (click)="onUploadClick(upload)"></mughub-upload>
       </div>

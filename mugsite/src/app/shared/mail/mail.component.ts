@@ -19,6 +19,7 @@ export class MailComponent implements OnInit, OnDestroy {
   parent: string = 'inbox';
   uploads: Upload[];
   uploadClicked: Upload;
+  loading: boolean;
   emptyState = {
     icon: '',
     title: { tutor: '', student: '' },
@@ -35,6 +36,7 @@ export class MailComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.loading = !(!!(this.uploads))
     this.user = this.userService.getUserSession();
     this.listenForUploads();
     this.listenForParentParam();
@@ -54,6 +56,7 @@ export class MailComponent implements OnInit, OnDestroy {
   }
 
   listenForUploads() {
+    this.loading = true;
     if (this.parent === 'inbox')
       this.listenForInboxUploads();
     else if (this.parent === 'sent')
@@ -67,7 +70,11 @@ export class MailComponent implements OnInit, OnDestroy {
       let uploads = [];
       querySnapshot.forEach(uploadDoc => uploads.push(this.uploadService.createUploadObj(uploadDoc)));
       this.uploads = uploads;
-    }, error => console.log(error)))
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+      console.log(error)
+    }))
   }
 
   listenForSentUploads() {
@@ -75,7 +82,11 @@ export class MailComponent implements OnInit, OnDestroy {
       let uploads = [];
       querySnapshot.forEach(uploadDoc => uploads.push(this.uploadService.createUploadObj(uploadDoc)));
       this.uploads = uploads;
-    }, error => console.log(error)))
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+      console.log(error)
+    }))
   }
 
   listenForTrashUploads() {
@@ -85,7 +96,11 @@ export class MailComponent implements OnInit, OnDestroy {
         uploads.push(this.uploadService.createUploadObj(uploadDoc));
       });
       this.uploads = uploads;
-    }, error => console.log(error)))
+      this.loading = false;
+    }, error => {
+      this.loading = false;
+      console.log(error)
+    }))
   }
 
   listenForUploadClicked() {
