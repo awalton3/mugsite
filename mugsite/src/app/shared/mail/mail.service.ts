@@ -223,6 +223,23 @@ export class MailService {
     }))
   }
 
+  restoreMessage(userId: string, upload: any, uploadId: string): Promise<any> {
+    const tasks = ['upload to inbox', 'delete from trash'];
+    return Promise.all(tasks.map(task => {
+      if (task === 'upload to inbox') {
+        return this.uploadMessageToFbColl([userId], uploadId, upload)
+          .then(() => Promise.resolve('success'))
+          .catch(error => Promise.reject(error))
+      } else {
+        const collection = '/trash/' + this.userService.getUserSession().uid + '/uploads';
+        return this.deleteUploadFromColl(uploadId, collection)
+          .then(() => Promise.resolve('success'))
+          .catch(error => Promise.reject(error))
+      }
+    }))
+  }
+
+
   onSuccess(message: string) {
     this.snackBarService.onOpenSnackBar.next({ message: message, isError: false });
   }

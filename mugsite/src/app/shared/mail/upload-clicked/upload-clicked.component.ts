@@ -5,6 +5,7 @@ import { Upload } from '../upload/upload.model';
 import { Subject } from 'rxjs';
 import { MailService } from '../mail.service';
 import { SnackBarService } from '../../snack-bar/snack-bar.service';
+import { UserService } from 'src/app/mughub/auth/user.service';
 
 @Component({
   selector: 'mughub-upload-clicked',
@@ -28,7 +29,8 @@ export class UploadClickedComponent implements OnInit {
   constructor(
     private uploadService: UploadService,
     private mailService: MailService,
-    private snackBarService: SnackBarService
+    private snackBarService: SnackBarService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -76,6 +78,21 @@ export class UploadClickedComponent implements OnInit {
           .catch(error => this.onError("Error Occurred in deleting this message.", error))
     } else {
       this.mailService.addToTrash(this.upload);
+    }
+  }
+
+  onRestore() {
+    if (this.parent === 'trash') {
+      const userId = this.userService.getUserSession().uid;
+      const senderId = this.upload.sender.uid;
+      const recipientIds = this.userService.getUsersAsIds(this.upload.recipients)
+      const upload = this.uploadService.createUploadForFbColl(senderId, recipientIds, this.upload.body, this.upload.subject, this.upload.attachments);
+      this.mailService.restoreMessage(userId, upload, this.upload.id)
+        .then(() => {
+          this.onSuccess("Message was restored to inbox");
+          this.uploadService.uploadClicked.next(null);
+        })
+        .catch(error => this.onError("Error occurred when trying to restore your message", error))
     }
   }
 

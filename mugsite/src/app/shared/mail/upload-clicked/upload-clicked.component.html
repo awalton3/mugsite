@@ -13,7 +13,7 @@
       <div class="upload-actions" fxLayout="row">
         <button mat-icon-button><i class="material-icons">reply</i></button>
         <button (click)="onEdit()" *ngIf="parent === 'sent'" mat-icon-button><i class="material-icons">edit</i></button>
-        <button mat-icon-button *ngIf="parent === 'trash'"><i class="material-icons">restore_from_trash</i></button>
+        <button (click)="onRestore()" mat-icon-button *ngIf="parent === 'trash'"><i class="material-icons">restore_from_trash</i></button>
         <button (click)="onDelete()" mat-icon-button><i class="material-icons" [ngStyle]="{'color': parent === 'trash' ? 'red' : 'grey' }">delete</i></button>
       </div>
     </div>
@@ -60,7 +60,7 @@
           <div *ngIf="screenWidth > mediaBreakpoint" class="upload-actions" fxLayout="row">
             <button mat-icon-button *ngIf="parent === 'inbox'"><i class="material-icons">reply</i></button>
             <button (click)="onEdit()" *ngIf="parent === 'sent'" mat-icon-button><i class="material-icons">edit</i></button>
-            <button mat-icon-button *ngIf="parent === 'trash'"><i class="material-icons">restore_from_trash</i></button>
+            <button (click)="onRestore()" mat-icon-button *ngIf="parent === 'trash'"><i class="material-icons">restore_from_trash</i></button>
             <button (click)="onDelete()" mat-icon-button><i class="material-icons" [ngStyle]="{'color': parent === 'trash' ? 'red' : 'grey' }">delete</i></button>
           </div>
         </div>
