@@ -38,9 +38,8 @@ export class MailComponent implements OnInit, OnDestroy {
     this.user = this.userService.getUserSession();
     this.listenForUploads();
     this.listenForParentParam();
-    this.listenForUploadClicked();
+    this.listenForUploadClicked(); //do i need this???
     this.getEmptyState();
-
   }
 
   listenForParentParam() {
@@ -82,7 +81,9 @@ export class MailComponent implements OnInit, OnDestroy {
   listenForTrashUploads() {
     this.subs.add(this.mailService.fetchTrashUploads().onSnapshot(querySnapshot => {
       let uploads = [];
-      querySnapshot.forEach(uploadDoc => uploads.push(this.uploadService.createUploadObj(uploadDoc)));
+      querySnapshot.forEach(uploadDoc => {
+        uploads.push(this.uploadService.createUploadObj(uploadDoc));
+      });
       this.uploads = uploads;
     }, error => console.log(error)))
   }
@@ -120,6 +121,7 @@ export class MailComponent implements OnInit, OnDestroy {
 
   onUploadClick(upload: Upload) {
     this.uploadService.uploadClicked.next(upload);
+    this.uploadClicked = upload;
   }
 
   closeSidenav() {

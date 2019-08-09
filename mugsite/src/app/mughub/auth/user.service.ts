@@ -150,6 +150,9 @@ export class UserService {
     }
   }
 
+  getUsersAsIds(users: User[]): string[] {
+    return users.map(user => { return user.uid });
+  }
 
   onSuccess(message: string) {
     this.snackBarService.onOpenSnackBar.next({ message: message, isError: false });

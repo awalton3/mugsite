@@ -53,6 +53,10 @@ export class AttachmentService {
     })
   }
 
+  // typeCastAttachments(attachments: { displayName: string, stroageRef: string }[]) {
+  //    uploadToEdit.attachments.map(attachment => new Attachment(attachment.displayName, attachment.storageRef, null));
+  // }
+
   downloadAttachment(attachmentRefs: { displayName: string, storageRef: string }) {
     this.storage.ref(attachmentRefs.storageRef).getDownloadURL()
       .pipe(take(1))

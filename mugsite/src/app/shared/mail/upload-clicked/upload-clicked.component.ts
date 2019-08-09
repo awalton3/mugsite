@@ -4,6 +4,7 @@ import { User } from 'src/app/mughub/auth/user.model';
 import { Upload } from '../upload/upload.model';
 import { Subject } from 'rxjs';
 import { MailService } from '../mail.service';
+import { SnackBarService } from '../../snack-bar/snack-bar.service';
 
 @Component({
   selector: 'mughub-upload-clicked',
@@ -26,7 +27,8 @@ export class UploadClickedComponent implements OnInit {
 
   constructor(
     private uploadService: UploadService,
-    private mailService: MailService
+    private mailService: MailService,
+    private snackBarService: SnackBarService
   ) { }
 
   ngOnInit() {
@@ -64,7 +66,26 @@ export class UploadClickedComponent implements OnInit {
   }
 
   onDelete() {
-    this.mailService.addToTrash(this.upload);
+    if (this.parent === 'trash') {
+      if (confirm('Are you sure you want to permanently delete this message'))
+        this.mailService.deleteUploadFromFb(this.upload)
+          .then(() => {
+            this.onSuccess("Permanently Deleted Message");
+            this.uploadService.uploadClicked.next(null);
+          })
+          .catch(error => this.onError("Error Occurred in deleting this message.", error))
+    } else {
+      this.mailService.addToTrash(this.upload);
+    }
+  }
+
+  onSuccess(message: string) {
+    this.snackBarService.onOpenSnackBar.next({ message: message, isError: false });
+  }
+
+  onError(message: string, error: any) {
+    this.snackBarService.onOpenSnackBar.next({ message: message, isError: true });
+    console.log(error);
   }
 
   onToggleBack() {

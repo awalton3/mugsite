@@ -48,8 +48,7 @@ export class InboxComponent implements OnInit, OnDestroy {
   onUploadClick(upload: Upload) {
     this.uploadService.uploadClicked.next(upload);
     if (upload.unread) {
-      console.log('yoooooo whoooo')
-      this.mailService.editMessage(upload.id, { unread: false }, []);
+      this.mailService.editMessage(upload, { unread: false }, []);
     }
   }
 

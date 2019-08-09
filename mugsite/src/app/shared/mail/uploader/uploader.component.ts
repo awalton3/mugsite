@@ -9,6 +9,7 @@ import { first } from 'rxjs/operators';
 import { UploadService } from '../upload/upload.service';
 import { Attachment } from '../../attachments/attachment.model';
 import { AttachmentService } from '../../attachments/attachments.service';
+import { Upload } from '../upload/upload.model';
 
 @Component({
   selector: 'mughub-uploader',
@@ -33,7 +34,7 @@ export class UploaderComponent implements OnInit, OnDestroy {
   requiredConnections = true;
   chipCharLimit: number;
   isEditMode: boolean = false;
-  uploadToEditId: string;
+  uploadToEdit: Upload;
   @Output() onClose = new Subject();
 
   @HostListener('window:resize', ['$event'])
@@ -82,7 +83,7 @@ export class UploaderComponent implements OnInit, OnDestroy {
   listenForUploadToEdit() {
     this.subs.add(this.uploadService.uploadToEdit.subscribe(uploadToEdit => {
       this.isEditMode = true;
-      this.uploadToEditId = uploadToEdit.id;
+      this.uploadToEdit = uploadToEdit;
       this.connectionsFormService.onInitForEdit.next(uploadToEdit.recipients);
       this.uploadForm.controls.subject.setValue(uploadToEdit.subject);
       this.uploadForm.controls.body.setValue(uploadToEdit.body)
@@ -153,15 +154,19 @@ export class UploaderComponent implements OnInit, OnDestroy {
   }
 
   editMessage() {
-    this.mailService.editMessage(this.uploadToEditId, this.getChangedFields(), this.attachmentsToRemove)
-      .then(() => {
-        this.mailService.onSuccess("Message Updated");
-        this.uploadService.uploadClicked.next(null);
-        this.resetUploader()
-      })
-      .catch((error) => {
-        this.mailService.onError("Error Updating Message.", error);
-      })
+    if (this.mailService.isUserAllowedToEdit(this.uploadToEdit.sender.uid)) {
+      this.mailService.editMessage(this.uploadToEdit, this.getChangedFields(), this.attachmentsToRemove)
+        .then(() => {
+          this.mailService.onSuccess("Message Updated");
+          this.uploadService.uploadClicked.next(null);
+          this.resetUploader()
+        })
+        .catch((error) => {
+          this.mailService.onError("Error Updating Message.", error);
+        })
+    } else {
+      //..not authorized
+    }
   }
 
   getAttachments(event: Attachment[]) {

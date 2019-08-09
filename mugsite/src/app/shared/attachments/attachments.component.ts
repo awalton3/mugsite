@@ -83,7 +83,7 @@ export class AttachmentsComponent implements OnInit, OnDestroy {
     const doesFileExist = this.attachments.some(attachment => attachment.displayName === file.name);
     if (!doesFileExist) {
       const displayName = file.name;
-      const storageRef = file.name + new Date().getTime() + this.userService.getUserSession().uid;
+      const storageRef = file.name + new Date().getTime();
       const newAttachment = new Attachment(displayName, storageRef, file);
       this.attachments.push(newAttachment);
     }

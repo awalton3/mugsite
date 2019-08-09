@@ -5,6 +5,8 @@ import { take } from 'rxjs/operators';
 import { User } from 'src/app/mughub/auth/user.model';
 import { Upload } from './upload.model';
 import { Subject } from 'rxjs';
+import { Attachment } from '../../attachments/attachment.model';
+import { AttachmentService } from '../../attachments/attachments.service';
 
 @Injectable({ providedIn: 'root' })
 
@@ -14,7 +16,8 @@ export class UploadService {
   uploadToEdit = new Subject<Upload>();
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private attachmentService: AttachmentService
   ) { }
 
   createUploadObj(uploadData: QueryDocumentSnapshot<any>) {
@@ -24,6 +27,22 @@ export class UploadService {
     uploadObj = this.getSenderAsUser(uploadData, uploadObj);
     uploadObj = this.getRecipientsAsUsers(uploadData, uploadObj);
     return uploadObj;
+  }
+
+  createUploadForFbColl(sender: string, recipients: string[], body: string, subject: string, attachments: Attachment[]) {
+    return {
+      sender: sender,
+      recipients: recipients,
+      subject: subject,
+      body: body,
+      attachments: this.attachmentService.getAttachmentsForFbColl(attachments),
+      creationDate: {
+        day: new Date().getDate(),
+        month: new Date().getMonth() + 1
+      },
+      timestamp: new Date(),
+      unread: true
+    }
   }
 
   getSenderAsUser(uploadData: QueryDocumentSnapshot<any>, uploadObj: any) {
