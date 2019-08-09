@@ -134,15 +134,34 @@ export class UploaderComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.attachmentService.onAttachmentsRequest.next();
     this.attachmentService.onAttachmentsToRemoveRequest.next();
-    let form = this.uploadForm.value;
     if (this.isEditMode)
-      this.mailService.editMessage(this.uploadToEditId, this.getChangedFields(), this.attachmentsToRemove)
-        .then(() => this.resetUploader())
-        .catch((error) => console.log(error))
+      this.editMessage();
     else
-      this.mailService.uploadMessage(this.selectedConnections, form.body, form.subject, this.attachments)
-        .then(() => this.resetUploader())
-        .catch((error) => console.log(error))
+      this.uploadMessage();
+  }
+
+  uploadMessage() {
+    const form = this.uploadForm.value;
+    this.mailService.uploadMessage(this.selectedConnections, form.body, form.subject, this.attachments)
+      .then(() => {
+        this.mailService.onSuccess('Message Sent');
+        this.resetUploader();
+      })
+      .catch((error) => {
+        this.mailService.onError('An error occured in sending this message', error)
+      })
+  }
+
+  editMessage() {
+    this.mailService.editMessage(this.uploadToEditId, this.getChangedFields(), this.attachmentsToRemove)
+      .then(() => {
+        this.mailService.onSuccess("Message Updated");
+        this.uploadService.uploadClicked.next(null);
+        this.resetUploader()
+      })
+      .catch((error) => {
+        this.mailService.onError("Error Updating Message.", error);
+      })
   }
 
   getAttachments(event: Attachment[]) {

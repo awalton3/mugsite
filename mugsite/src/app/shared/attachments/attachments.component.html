@@ -9,7 +9,7 @@
 <mat-chip-list *ngIf="attachments && attachments.length !== 0" aria-label="Attachment selection" style="margin: 15px -5px">
   <mat-chip (click)="onDownloadAttachment(attachment)" class="chip" *ngFor="let attachment of attachments" [selectable]="selectable" [removable]="removable" (removed)="removeAttachmentChip(attachment)" [matTooltip]="attachment.displayName" [matTooltipDisabled]="attachment.displayName.length <= 15">
     <fa-icon [icon]="['fas', getAttachmentIcon(attachment.displayName)]" class="icon-chip" fxLayoutAlign="center center" style="color: #ea9103; padding: 5px 10px;"></fa-icon>
-    {{ attachment.displayName | truncate: 15 }}
+    {{ attachment.displayName | truncate: 12 }}
     <i *ngIf="removable" class="material-icons icon-chip" fxLayoutAlign="center center" matChipRemove>cancel</i>
   </mat-chip>
 </mat-chip-list>

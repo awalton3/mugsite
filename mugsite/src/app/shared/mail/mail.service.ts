@@ -20,7 +20,7 @@ export class MailService {
     private snackBarService: SnackBarService
   ) { }
 
-  async uploadMessage(recipients: string[], body: string, subject: string, attachments: Attachment[]) {
+  uploadMessage(recipients: string[], body: string, subject: string, attachments: Attachment[]) {
     return this.db.collection('/uploads')
       .doc(this.db.createId())
       .set({
@@ -39,28 +39,25 @@ export class MailService {
       .then(() => {
         this.onSuccessUpload(attachments)
           .then(() => {
-            this.onSuccess('Message Sent');
             return Promise.resolve('success');
           })
           .catch(error => {
-            this.onError('An error occured in uploading your attachments.', error);
             return Promise.reject('success');
           })
       }).catch(error => {
-        this.onError('An error occured in sending this message', error);
         return Promise.reject(error);
       })
   }
 
-  onSuccessUpload(attachments: Attachment[]) {
-    // this.attachmentService.uploadAttachments(attachments)
-    //   .then(() => this.onSuccess('Message Sent'))
-    //   .catch(error => this.onError('An error occured in uploading your attachments.', error))
+  async onSuccessUpload(attachments: Attachment[]) {
     //TODO need better error handling and info for user.
-
-    return this.attachmentService.uploadAttachments(attachments)
-      .then(() => Promise.resolve('success'))
-      .catch(error => Promise.reject(error))
+    try {
+      await this.attachmentService.uploadAttachments(attachments);
+      return await Promise.resolve('success');
+    }
+    catch (error) {
+      return await Promise.reject(error);
+    }
   }
 
   onSuccess(message: string) {
@@ -89,29 +86,29 @@ export class MailService {
       .orderBy('timestamp', 'desc')
   }
 
-  editMessage(id: string, updateObj: any, attachmentsToRemove: any): Promise<any> {
-    const attachmentsToAdd = [...updateObj.attachments];
-    updateObj['attachments'] = this.attachmentService.getAttachmentsForFbColl(updateObj.attachments)
+  async editMessage(id: string, updateObj: any, attachmentsToRemove: any): Promise<any> {
+    let attachmentsToAdd = [];
 
-    return this.db.collection('/uploads')
-      .doc(id)
-      .update(updateObj)
-      .then(() => {
-        return this.onSuccessEdit(attachmentsToAdd, attachmentsToRemove)
-          .then(() => {
-            this.onSuccess("Message Updated");
-            this.uploadService.uploadClicked.next(null);
-            return Promise.resolve('success')
-          })
-          .catch((error) => {
-            this.onError("Message failed to update.", error)
-            return Promise.reject(error)
-          })
-      })
-      .catch(error => {
-        this.onError("Error Updating Message.", error);
+    if (updateObj.attachments) {
+      attachmentsToAdd = [...updateObj.attachments];
+      updateObj['attachments'] = this.attachmentService.getAttachmentsForFbColl(updateObj.attachments)
+    }
+
+    try {
+      await this.db.collection('/uploads')
+        .doc(id)
+        .update(updateObj);
+      try {
+        await this.onSuccessEdit(attachmentsToAdd, attachmentsToRemove);
+        return Promise.resolve('success');
+      }
+      catch (error) {
         return Promise.reject(error);
-      })
+      }
+    }
+    catch (error_1) {
+      return Promise.reject(error_1);
+    }
   }
 
   async onSuccessEdit(attachments: Attachment[], attachmentsToRemove: Attachment[]) {

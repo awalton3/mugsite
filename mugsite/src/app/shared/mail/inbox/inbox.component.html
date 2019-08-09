@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <div *ngIf="uploads && uploads.length !== 0 && !uploadClicked" fxLayout="column" fxLayoutAlign="center center" class="uploads dynamic-height">
+    <div *ngIf="uploads && uploads.length !== 0 && !uploadClicked" fxLayout="column" fxLayoutAlign="start center" class="uploads dynamic-height">
       <div fxLayout="column" fxLayoutAlign="start start">
         <mughub-upload *ngFor="let upload of uploads;" [upload]="upload" [parent]="'inbox'" (click)="onUploadClick(upload)"></mughub-upload>
       </div>
