@@ -20,33 +20,34 @@ export class MailService {
     private snackBarService: SnackBarService
   ) { }
 
-  uploadMessage(recipients: string[], body: string, subject: string, attachments: Attachment[]) {
-    return this.db.collection('/uploads')
-      .doc(this.db.createId())
-      .set({
-        sender: this.userService.getUserSession().uid,
-        recipients: recipients,
-        subject: subject,
-        body: body,
-        attachments: this.attachmentService.getAttachmentsForFbColl(attachments),
-        creationDate: {
-          day: new Date().getDate(),
-          month: new Date().getMonth() + 1
-        },
-        timestamp: new Date(),
-        unread: true
-      })
-      .then(() => {
-        this.onSuccessUpload(attachments)
-          .then(() => {
-            return Promise.resolve('success');
-          })
-          .catch(error => {
-            return Promise.reject('success');
-          })
-      }).catch(error => {
+  async uploadMessage(recipients: string[], body: string, subject: string, attachments: Attachment[]) {
+    try {
+      await this.db.collection('/uploads')
+        .doc(this.db.createId())
+        .set({
+          sender: this.userService.getUserSession().uid,
+          recipients: recipients,
+          subject: subject,
+          body: body,
+          attachments: this.attachmentService.getAttachmentsForFbColl(attachments),
+          creationDate: {
+            day: new Date().getDate(),
+            month: new Date().getMonth() + 1
+          },
+          timestamp: new Date(),
+          unread: true
+        });
+      try {
+        await this.onSuccessUpload(attachments);
+        return Promise.resolve('success');
+      }
+      catch (error) {
         return Promise.reject(error);
-      })
+      }
+    }
+    catch (error_1) {
+      return Promise.reject(error_1);
+    }
   }
 
   async onSuccessUpload(attachments: Attachment[]) {

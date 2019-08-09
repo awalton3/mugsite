@@ -1,0 +1,37 @@
+<mat-drawer-container [hasBackdrop]="false" class="heightFull">
+
+  <mat-drawer #editor mode="over" position="end" opened="false" class="side-content-drawer">
+    <mughub-uploader (onClose)="editor.close()"></mughub-uploader>
+  </mat-drawer>
+
+  <mat-drawer-content class="background-eee heightFull paddingNone">
+
+    <mughub-headnav [title]="parent" iconLeft="menu" (leftIconToggled)="closeSidenav()"></mughub-headnav>
+
+    <div *ngIf="!uploads" fxLayoutAlign="center center" style="height: 80vh">
+      <div class="loader">...</div>
+    </div>
+
+    <div *ngIf="uploads && uploads.length === 0" fxLayout="column" fxLayoutAlign="center center" style="height: 80%">
+      <mail-empty-state [icon]="emptyState.icon" [title]="emptyState.title" [subtitle]="emptyState.subtitle" [userType]="user.type"></mail-empty-state>
+    </div>
+
+    <div *ngIf="uploads && uploads.length !== 0 && !uploadClicked" fxLayout="column" fxLayoutAlign="center center" class="uploads dynamic-height">
+      <div class="upload--width" fxLayout="column" fxLayoutAlign="start start">
+        <mughub-upload *ngFor="let upload of uploads;" [upload]="upload" [parent]="parent" (click)="onUploadClick(upload)"></mughub-upload>
+      </div>
+    </div>
+
+    <div *ngIf="uploadClicked" fxLayout="column" fxLayoutAlign="start start">
+      <mughub-upload-clicked style="width: 90%" [upload]="uploadClicked" [parent]="parent" (onEditUpload)="editor.toggle()"></mughub-upload-clicked>
+    </div>
+
+    <div class="bottom-right-fab">
+      <button (click)="editor.open()" mat-fab color="accent">
+        <i class="material-icons" fxLayoutAlign="center center" style="color: white">add</i>
+      </button>
+    </div>
+
+  </mat-drawer-content>
+
+</mat-drawer-container>

@@ -1,0 +1,8 @@
+<div fxLayout="column" fxLayoutAlign="center center">
+  <fa-icon [icon]="['fas', icon]" class="icon"></fa-icon>
+  <br>
+  <p class="title" *ngIf="userType === 'tutor'">{{ title.tutor }}</p>
+  <p class="title" *ngIf="userType === 'student'">{{ title.student }}</p>
+  <p class="subtitle" *ngIf="userType === 'tutor'">{{ subtitle.tutor }}</p>
+  <p class="subtitle" *ngIf="userType === 'student'">{{ subtitle.student }}</p>
+</div>

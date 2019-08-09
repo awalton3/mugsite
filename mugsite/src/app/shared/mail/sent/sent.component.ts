@@ -5,8 +5,7 @@ import { UserService } from 'src/app/mughub/auth/user.service';
 import { SidenavService } from 'src/app/mughub/sidenav/sidenav.service';
 import { User } from 'src/app/mughub/auth/user.model';
 import { UploadService } from '../upload/upload.service';
-import { ActivatedRoute } from '@angular/router';
-import { Query } from '@angular/fire/firestore';
+import { MailService } from '../mail.service';
 
 @Component({
   selector: 'app-sent',
@@ -24,13 +23,13 @@ export class SentComponent implements OnInit {
     private userService: UserService,
     private sidenavService: SidenavService,
     private uploadService: UploadService,
-    private route: ActivatedRoute
+    private mailService: MailService
   ) { }
 
   ngOnInit() {
     this.user = this.userService.getUserSession();
     this.listenForUploadClicked();
-    this.listenForUploads(this.route.snapshot.data.uploads);
+    this.listenForUploads();
   }
 
   listenForUploadClicked() {
@@ -39,8 +38,8 @@ export class SentComponent implements OnInit {
     }))
   }
 
-  listenForUploads(uploadQuery: Query) {
-    this.subs.add(uploadQuery.onSnapshot(querySnapshot => {
+  listenForUploads() {
+    this.subs.add(this.mailService.fetchUserUploads().onSnapshot(querySnapshot => {
       let uploads = [];
       querySnapshot.forEach(uploadDoc => uploads.push(this.uploadService.createUploadObj(uploadDoc)));
       this.uploads = uploads;

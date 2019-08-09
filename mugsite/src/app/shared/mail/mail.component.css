@@ -1,0 +1,15 @@
+.upload--width {
+  width: inherit;
+}
+
+@media(max-width: 600px) {
+  .upload--width {
+    width: 90%;
+  }
+}
+
+@media(max-width: 400px) {
+  .upload--width {
+    width: 100%;
+  }
+}

@@ -1,0 +1,23 @@
+.title {
+  font-size: 27px;
+  font-weight: 600;
+  color: #30546c;
+  margin: 5px;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.subtitle{
+  font-size: 17px;
+  color: #30546c;
+  margin: 5px;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.icon {
+  font-size: 54px;
+  color: #ea9103;
+  display: block;
+  text-align: center;
+}

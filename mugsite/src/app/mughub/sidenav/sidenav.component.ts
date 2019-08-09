@@ -92,7 +92,7 @@ export class SidenavComponent implements OnInit, OnDestroy {
 
   navigateToSublink(sublink: string) {
     this.showSubLinks = false;
-    this.router.navigate(['mail', sublink], { relativeTo: this.route });
+    this.router.navigate(['mail'], { relativeTo: this.route, queryParams: { reqDest: sublink } });
   }
 
   toggleSubLinks(link: string) {

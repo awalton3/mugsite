@@ -9,6 +9,7 @@ import { UploadsResolve } from './uploads/uploads.resolve';
 import { HeadnavModule } from '../headnav/headnav.module';
 import { InboxModule } from 'src/app/shared/mail/inbox/inbox.module';
 import { SentModule } from 'src/app/shared/mail/sent/sent.module';
+import { MailModule } from 'src/app/shared/mail/mail.module';
 
 @NgModule({
   declarations: [TutorAppComponent],
@@ -20,7 +21,8 @@ import { SentModule } from 'src/app/shared/mail/sent/sent.module';
     SidenavModule,
     HeadnavModule,
     InboxModule,
-    SentModule
+    SentModule,
+    MailModule
   ],
   providers: [
     UploadsResolve,
