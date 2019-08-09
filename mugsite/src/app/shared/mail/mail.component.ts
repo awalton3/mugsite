@@ -105,6 +105,7 @@ export class MailComponent implements OnInit, OnDestroy {
 
   listenForUploadClicked() {
     this.subs.add(this.uploadService.uploadClicked.subscribe(uploadClicked => {
+      console.log("listesting", uploadClicked);
       this.uploadClicked = uploadClicked;
     }))
   }
@@ -137,6 +138,9 @@ export class MailComponent implements OnInit, OnDestroy {
   onUploadClick(upload: Upload) {
     this.uploadService.uploadClicked.next(upload);
     this.uploadClicked = upload;
+    if (upload.unread) {
+      this.mailService.editMessage(upload, { unread: false }, []);
+    }
   }
 
   closeSidenav() {

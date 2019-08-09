@@ -186,6 +186,7 @@ export class MailService {
   }
 
   addToTrash(upload /* of type Upload */) {
+    console.log("ID: ", upload.id)
     upload.sender = this.userService.getUsersAsIds([upload.sender])[0];
     upload.recipients = this.userService.getUsersAsIds(upload.recipients);
 

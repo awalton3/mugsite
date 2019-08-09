@@ -67,7 +67,7 @@ export class UploadClickedComponent implements OnInit {
 
   onDelete() {
     if (this.parent === 'trash') {
-      if (confirm('Are you sure you want to permanently delete this message'))
+      if (confirm('This action will permanently delete this message.'))
         this.mailService.deleteUploadFromFb(this.upload)
           .then(() => {
             this.onSuccess("Permanently Deleted Message");

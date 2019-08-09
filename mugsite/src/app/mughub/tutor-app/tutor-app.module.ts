@@ -7,8 +7,6 @@ import { TutorAppRoutingModule } from './tutor-app-routing.module';
 import { SidenavModule } from '../sidenav/sidenav.module';
 import { UploadsResolve } from './uploads/uploads.resolve';
 import { HeadnavModule } from '../headnav/headnav.module';
-import { InboxModule } from 'src/app/shared/mail/inbox/inbox.module';
-import { SentModule } from 'src/app/shared/mail/sent/sent.module';
 import { MailModule } from 'src/app/shared/mail/mail.module';
 
 @NgModule({
@@ -20,8 +18,6 @@ import { MailModule } from 'src/app/shared/mail/mail.module';
     MatSidenavModule,
     SidenavModule,
     HeadnavModule,
-    InboxModule,
-    SentModule,
     MailModule
   ],
   providers: [
