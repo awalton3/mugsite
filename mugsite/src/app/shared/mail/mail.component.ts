@@ -57,6 +57,7 @@ export class MailComponent implements OnInit, OnDestroy {
 
   listenForUploads() {
     this.loading = true;
+    this.uploads = [];
     if (this.parent === 'inbox')
       this.listenForInboxUploads();
     else if (this.parent === 'sent')
@@ -67,6 +68,7 @@ export class MailComponent implements OnInit, OnDestroy {
 
   listenForInboxUploads() {
     this.subs.add(this.mailService.fetchInboxUploads().onSnapshot(querySnapshot => {
+      console.log(querySnapshot)
       let uploads = [];
       querySnapshot.forEach(uploadDoc => uploads.push(this.uploadService.createUploadObj(uploadDoc)));
       this.uploads = uploads;
