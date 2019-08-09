@@ -105,7 +105,6 @@ export class MailComponent implements OnInit, OnDestroy {
 
   listenForUploadClicked() {
     this.subs.add(this.uploadService.uploadClicked.subscribe(uploadClicked => {
-      console.log("listesting", uploadClicked);
       this.uploadClicked = uploadClicked;
     }))
   }

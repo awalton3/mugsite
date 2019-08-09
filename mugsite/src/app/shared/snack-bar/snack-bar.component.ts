@@ -12,15 +12,13 @@ export class SnackBarComponent implements OnInit {
   constructor(
     @Inject(MAT_SNACK_BAR_DATA) public data: { message: string, isError: boolean },
     private snackBarService: SnackBarService
-  ) {
-    console.log(this.data);
-  }
+  ) {}
 
   ngOnInit() {
   }
 
   onSnackBarClose() {
-    this.snackBarService.onCloseSnackBar.next(); 
+    this.snackBarService.onCloseSnackBar.next();
   }
 
 }

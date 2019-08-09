@@ -186,12 +186,11 @@ export class MailService {
   }
 
   addToTrash(upload /* of type Upload */) {
-    console.log("ID: ", upload.id)
     upload.sender = this.userService.getUsersAsIds([upload.sender])[0];
     upload.recipients = this.userService.getUsersAsIds(upload.recipients);
 
     this.db.collection(this.userTrashCollection)
-      .doc(this.db.createId())
+      .doc(upload.id)
       .set(upload)
       .then(() => {
         this.uploadService.uploadClicked.next(null);
