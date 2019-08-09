@@ -11,6 +11,7 @@ import { Subject } from 'rxjs';
 export class AttachmentService {
 
   onAttachmentsRequest = new Subject();
+  onAttachmentsToRemoveRequest = new Subject();
 
   constructor(
     private userService: UserService,
@@ -32,7 +33,7 @@ export class AttachmentService {
                 return this.storage.ref(attachment.storageRef).putString(image.compressedImage.imageDataUrl, 'data_url');
               }))
         } else {
-          return this.storage.ref(attachment.storageRef).put(attachment);
+          return this.storage.ref(attachment.storageRef).put(attachment.file);
         }
       }
     }))
@@ -91,6 +92,19 @@ export class AttachmentService {
 
   getAttachmentMetadata(storageRef: string) {
     return this.storage.ref(storageRef).getMetadata();
+  }
+
+  removeAttachmentsFromStorage(attachments: Attachment[]) {
+    return Promise.all(attachments.map(attachment => {
+      this.storage.ref(attachment.storageRef)
+        .delete()
+        .pipe(take(1))
+        .subscribe(() => {
+          return Promise.resolve('success')
+        }, error => {
+          return Promise.reject(error)
+        })
+    }))
   }
 
   handleErrors(error: any) {

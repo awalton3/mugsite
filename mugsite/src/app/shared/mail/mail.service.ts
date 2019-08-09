@@ -21,33 +21,46 @@ export class MailService {
   ) { }
 
   async uploadMessage(recipients: string[], body: string, subject: string, attachments: Attachment[]) {
-    try {
-      await this.db.collection('/uploads')
-        .doc(this.db.createId())
-        .set({
-          sender: this.userService.getUserSession().uid,
-          recipients: recipients,
-          subject: subject,
-          body: body,
-          attachments: this.attachmentService.getAttachmentsForFbColl(attachments),
-          creationDate: {
-            day: new Date().getDate(),
-            month: new Date().getMonth() + 1
-          },
-          timestamp: new Date(),
-          unread: true
-        });
-      return this.onSuccessUpload(attachments);
-    } catch (error) {
-      return this.onError('An error occured in sending this message', error);
-    }
+    return this.db.collection('/uploads')
+      .doc(this.db.createId())
+      .set({
+        sender: this.userService.getUserSession().uid,
+        recipients: recipients,
+        subject: subject,
+        body: body,
+        attachments: this.attachmentService.getAttachmentsForFbColl(attachments),
+        creationDate: {
+          day: new Date().getDate(),
+          month: new Date().getMonth() + 1
+        },
+        timestamp: new Date(),
+        unread: true
+      })
+      .then(() => {
+        this.onSuccessUpload(attachments)
+          .then(() => {
+            this.onSuccess('Message Sent');
+            return Promise.resolve('success');
+          })
+          .catch(error => {
+            this.onError('An error occured in uploading your attachments.', error);
+            return Promise.reject('success');
+          })
+      }).catch(error => {
+        this.onError('An error occured in sending this message', error);
+        return Promise.reject(error);
+      })
   }
 
   onSuccessUpload(attachments: Attachment[]) {
-    this.attachmentService.uploadAttachments(attachments)
-      .then(() => this.onSuccess('Message Sent'))
-      .catch(error => this.onError('An error occured in uploading your attachments.', error))
+    // this.attachmentService.uploadAttachments(attachments)
+    //   .then(() => this.onSuccess('Message Sent'))
+    //   .catch(error => this.onError('An error occured in uploading your attachments.', error))
     //TODO need better error handling and info for user.
+
+    return this.attachmentService.uploadAttachments(attachments)
+      .then(() => Promise.resolve('success'))
+      .catch(error => Promise.reject(error))
   }
 
   onSuccess(message: string) {
@@ -76,11 +89,49 @@ export class MailService {
       .orderBy('timestamp', 'desc')
   }
 
-  editMessage(id: string, updateObj: any) {
-    console.log(updateObj)
-    // return this.db.collection('/uploads')
-    //   .doc(id)
-    //   .update(updateObj)
+  editMessage(id: string, updateObj: any, attachmentsToRemove: any): Promise<any> {
+    const attachmentsToAdd = [...updateObj.attachments];
+    updateObj['attachments'] = this.attachmentService.getAttachmentsForFbColl(updateObj.attachments)
+
+    return this.db.collection('/uploads')
+      .doc(id)
+      .update(updateObj)
+      .then(() => {
+        return this.onSuccessEdit(attachmentsToAdd, attachmentsToRemove)
+          .then(() => {
+            this.onSuccess("Message Updated");
+            this.uploadService.uploadClicked.next(null);
+            return Promise.resolve('success')
+          })
+          .catch((error) => {
+            this.onError("Message failed to update.", error)
+            return Promise.reject(error)
+          })
+      })
+      .catch(error => {
+        this.onError("Error Updating Message.", error);
+        return Promise.reject(error);
+      })
+  }
+
+  async onSuccessEdit(attachments: Attachment[], attachmentsToRemove: Attachment[]) {
+    const tasks = [
+      'upload attachments',
+      'remove attachments'
+    ]
+
+    return Promise.all(tasks.map(task => {
+      if (task === 'upload attachments') {
+        this.attachmentService.uploadAttachments(attachments)
+          .then(() => { return Promise.resolve('success') })
+          .catch(error => { return Promise.reject(error) })
+      } else {
+        this.attachmentService.removeAttachmentsFromStorage(attachmentsToRemove)
+          .then(() => Promise.resolve('success'))
+          .catch((error) => Promise.reject(error))
+      }
+    }))
+    //TODO need better error handling and info for user.
   }
 
   addToTrash(upload /* Upload */) {
@@ -91,10 +142,10 @@ export class MailService {
         this.uploadService.uploadClicked.next(null);
         this.onSuccess("Message Added to Trash");
         this.deleteUploadFromUploadsColl(upload.id)
-          .then(() => {})
+          .then(() => { })
           .catch(error => console.log(error))
       })
-      .catch(error => this.onError("Could not add message to trash bin.", error ))
+      .catch(error => this.onError("Could not add message to trash bin.", error))
   }
 
   deleteUploadFromUploadsColl(id: string) {

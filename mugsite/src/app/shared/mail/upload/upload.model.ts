@@ -7,7 +7,7 @@ export class Upload {
     public recipients: User[],
     public subject: string,
     public body: string,
-    public attachments: { displayName: string, stroageRef: string }[],
+    public attachments: { displayName: string, storageRef: string }[],
     public creationDate: {
       day: number,
       month: number

@@ -14,6 +14,7 @@ export class AttachmentsComponent implements OnInit, OnDestroy {
   private subs = new Subscription();
   @Input() attachments: Attachment[] = [];
   @Output() attachmentsSub = new Subject<Attachment[]>();
+  @Output() attachmentsToRemoveSub = new Subject<Attachment[]>();
   attachmentsToRemoveFromStorage: Attachment[] = [];
   @Input() removable?: boolean = false;
   @Output() onAttach = new Subject<Attachment>();
@@ -26,11 +27,18 @@ export class AttachmentsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.listenForAttachmentsRequests();
+    this.listenForAttachmentsToRemoveRequests();
   }
 
   listenForAttachmentsRequests() {
     this.subs.add(this.attachmentService.onAttachmentsRequest.subscribe(() => {
       this.attachmentsSub.next(this.attachments);
+    }))
+  }
+
+  listenForAttachmentsToRemoveRequests() {
+    this.subs.add(this.attachmentService.onAttachmentsToRemoveRequest.subscribe(() => {
+      this.attachmentsToRemoveSub.next(this.attachmentsToRemoveFromStorage);
     }))
   }
 

@@ -18,6 +18,6 @@
     <textarea type="text" rows="7" matInput formControlName="body" placeholder="Ex. Complete attached worksheets. Student is improving in..." class="drawer-form-input" required></textarea>
   </mat-form-field>
 
-  <mughub-attachments [attachments]="attachments" [removable]="removable" (attachmentsSub)="getAttachments($event)"></mughub-attachments>
+  <mughub-attachments [attachments]="attachments" [removable]="removable" (attachmentsSub)="getAttachments($event)" (attachmentsToRemoveSub)="getAttachmentsToRemove($event)"></mughub-attachments>
 
 </form>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input, OnDestroy, HostListener, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Input, OnDestroy, HostListener } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { User } from 'src/app/mughub/auth/user.model';
@@ -103,6 +103,7 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
       this.connectionFormService.isformValid.next(false);
       return { validConnection: false };
     }
+    
     if (this.selectedConnections.length === 0 && (control.value === null || control.value === '') && this.required) {
       this.connectionFormService.isformValid.next(false);
       return { validConnection: false };
@@ -179,6 +180,8 @@ export class ConnectionFormComponent implements OnInit, OnDestroy {
         selectedConnectionsOrig: this.selectedConnectionsBeforeChanges
       });
     }
+    if (this.selectedConnections.length === 0 && this.required)
+      this.connectionFormService.isformValid.next(false);
   }
 
   connectionSelected(event: MatAutocompleteSelectedEvent) {
