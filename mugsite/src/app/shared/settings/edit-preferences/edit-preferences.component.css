@@ -1,13 +1,20 @@
-.title {
+/* .title {
   color: #30546c;
   font-size: 28px;
   font-weight: 600;
   text-align: center;
   padding: 0px 10px;
+} */
+
+.container {
+  width: 69vw;
+  padding: 0 20px;
 }
 
 .category {
-  width: 700px;
+  width: 100%;
+  /* width: 850px; */
+  /* width: 60vw; */
 }
 
 .category-title-container {
@@ -15,14 +22,14 @@
 }
 
 .category-title {
-  color: grey;
+  color: #30546c;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 16px;
   width: 100%
 }
 
 .category-info {
-  width: 90%;
+  width: 85%;
 }
 
 .category-info-title-container {
@@ -30,13 +37,13 @@
 }
 
 .category-info-title {
-  color: grey;
+  color: black;
   font-weight: 500;
-  font-size: 15px;
+  font-size: 18px;
 }
 
 .category-info {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 300;
   color: grey;
   margin: 0;
@@ -46,7 +53,7 @@
 
 .category-toggle {
   font-family: 'Montserrat', sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 400;
 }
 
@@ -68,7 +75,7 @@
 
 .form-input {
   font-family: 'Montserrat', sans-serif;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 :host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline {
@@ -86,32 +93,36 @@
   }
 }
 
-@media (max-width: 850px) {
-  .category {
+@media (max-width: 960px) {
+  /* .category {
     width: 80%;
+  } */
+
+  .container {
+    width: 90vw;
   }
 
   .category-title {
+    font-size: 15px;
+  }
+
+  .category-toggle {
     font-size: 14px;
+  }
+}
+
+@media (max-width: 580px) {
+  .category-title {
+    font-size: 13px;
   }
 
   .category-toggle {
     font-size: 13px;
   }
 }
-
-@media (max-width: 580px) {
-  .category-title {
-    font-size: 12px;
-  }
-
-  .category-toggle {
-    font-size: 12px;
-  }
-}
-
+/*
 @media (max-width: 360px) {
   .container {
     height: 100vh;
   }
-}
+} */

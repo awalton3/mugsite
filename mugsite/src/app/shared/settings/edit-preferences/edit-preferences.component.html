@@ -1,4 +1,4 @@
-<div fxLayout="column" fxLayoutAlign="center center">
+<div fxLayout="column" fxLayoutAlign="center center" class="container">
   <div *ngIf="user.type === 'student'" class="category">
     <div fxLayout="row" fxLayoutAlign="space-between center" class="category-title-container">
       <div fxLayout="row">
@@ -21,21 +21,6 @@
 
   <br>
 
-  <div *ngIf="user.type === 'tutor'" class="category">
-    <div fxLayout="row" fxLayoutAlign="space-between center" class="category-title-container">
-      <div fxLayout="row">
-        <p class="category-title">AUTO LOG</p>
-        <fa-icon [icon]="['fas', user.prefs.AutoLog ? 'check-circle' : 'times-circle']" class="icons" [ngClass]="{'icon-on': user.prefs.AutoLog, 'icon-off': !user.prefs.AutoLog}" fxLayoutAlign="center center"></fa-icon>
-      </div>
-      <button (click)="togglePref('AutoLog')" class="category-toggle" mat-button color="accent">{{ user.prefs.AutoLog ? 'TURN OFF' : 'TURN ON' }}</button>
-    </div>
-    <p class="category-info">
-      Leave it to us. Set your hours beforehand and have them automatically logged for you every week.
-    </p>
-  </div>
-
-  <br>
-
   <div class="category">
     <div fxLayout="row" fxLayoutAlign="space-between center" class="category-title-container">
       <div fxLayout="row">
@@ -49,6 +34,21 @@
     </p>
     <p *ngIf="user.type === 'student'" class="category-info">
       Get inbox notifications when you receive a message or upload from your tutor.
+    </p>
+  </div>
+
+  <br>
+
+  <div *ngIf="user.type === 'tutor'" class="category">
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="category-title-container">
+      <div fxLayout="row">
+        <p class="category-title">AUTO LOG</p>
+        <fa-icon [icon]="['fas', user.prefs.AutoLog ? 'check-circle' : 'times-circle']" class="icons" [ngClass]="{'icon-on': user.prefs.AutoLog, 'icon-off': !user.prefs.AutoLog}" fxLayoutAlign="center center"></fa-icon>
+      </div>
+      <button (click)="togglePref('AutoLog')" class="category-toggle" mat-button color="accent">{{ user.prefs.AutoLog ? 'TURN OFF' : 'TURN ON' }}</button>
+    </div>
+    <p class="category-info">
+      Leave it to us. Set your hours beforehand and have them automatically logged for you every week.
     </p>
   </div>
 

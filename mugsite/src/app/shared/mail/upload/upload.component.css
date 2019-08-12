@@ -10,13 +10,13 @@
 
 .day {
   font-weight: 600;
-  font-size: 25px;
+  font-size: 29px;
   margin: 0;
 }
 
 .month {
   font-weight: 400;
-  font-size: 14px;
+  font-size: 17px;
   margin: 0;
 }
 
@@ -29,40 +29,25 @@
   padding: 10px 30px;
 }
 
-/* .category {
-  font-size: 13px;
-  font-weight: 500;
-  color: grey;
-}
-
-.download-icon {
-  vertical-align: middle;
-  padding: 0px 10px;
-  margin-top: -5px;
-  font-size: 20px;
-  cursor: pointer;
-  color: #de6600
-} */
-
 .name {
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 600;
-  color: grey;
+  color: black;
   margin: 0;
 }
 
 .subject {
   font-weight: 400;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 400;
-  color: grey;
+  color: black;
   margin: 0;
 }
 
 .upload-header {
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 600;
-  color: grey;
+  color: black;
   margin: 0;
 }
 
@@ -70,7 +55,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 400;
   color: grey;
   line-height: 24px;
@@ -79,11 +64,12 @@
 .unread-symbol {
   border-radius: 300px;
   background-color: #3fa700;
+  border: 1px solid white;
   width: 10px;
   height: 10px;
   position: absolute;
-  left: 25px;
-  top: 13px;
+  left: 20px;
+  top: 12px;
 }
 
 @media (max-width: 450px) {
@@ -100,10 +86,10 @@
   }
 
   .day {
-    font-size: 23px;
+    font-size: 26px;
   }
 
   .month {
-    font-size: 12px;
+    font-size: 15px;
   }
 }

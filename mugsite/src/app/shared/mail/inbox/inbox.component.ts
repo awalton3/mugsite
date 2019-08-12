@@ -3,7 +3,6 @@ import { SidenavService } from 'src/app/mughub/sidenav/sidenav.service';
 import { Subscription } from 'rxjs';
 import { UploadService } from '../upload/upload.service';
 import { ActivatedRoute } from '@angular/router';
-import { Query } from '@angular/fire/firestore';
 import { Upload } from '../upload/upload.model';
 import { MailService } from '../mail.service';
 
@@ -21,8 +20,7 @@ export class InboxComponent implements OnInit, OnDestroy {
   constructor(
     private sidenavService: SidenavService,
     private uploadService: UploadService,
-    private mailService: MailService,
-    private route: ActivatedRoute
+    private mailService: MailService
   ) { }
 
   ngOnInit() {

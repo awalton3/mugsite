@@ -8,6 +8,7 @@ import { AttachmentService } from '../attachments/attachments.service';
 import { Attachment } from '../attachments/attachment.model';
 import { UploadService } from './upload/upload.service';
 import { Upload } from './upload/upload.model';
+import { take } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 
@@ -15,6 +16,7 @@ export class MailService {
 
   userUploadCollection: string = '/uploads/' + this.userService.getUserSession().uid + '/uploads';
   userTrashCollection: string = '/trash/' + this.userService.getUserSession().uid + '/uploads';
+  validUsers: string[];
 
   constructor(
     private db: AngularFirestore,
@@ -143,6 +145,9 @@ export class MailService {
       updateObj['attachments'] = this.attachmentService.getAttachmentsForFbColl(updateObj.attachments);
     }
 
+    // return this.checkIfUsersHaveUpload(totalUsers, upload.id)
+    //   .then(() => {
+
     return this.editMessageInFbColl(totalUsers, upload.id, updateObj)
       .then(() => {
         return this.onSuccessEdit(attachmentsToAdd, attachmentsToRemove)
@@ -150,6 +155,9 @@ export class MailService {
           .catch(error => Promise.reject(error))
       })
       .catch(error => Promise.reject(error))
+
+    // })
+    // .catch(error => Promise.reject(error))
   }
 
   editMessageInFbColl(totalUsers: string[], uploadId: string, updateObj: any) {
@@ -158,7 +166,24 @@ export class MailService {
         .doc(uploadId)
         .update(updateObj)
         .then(() => { return Promise.resolve('success') })
-        .catch(error => { return Promise.reject(error) })
+        .catch(error => {
+          Promise.reject(error)
+        })
+    }))
+  }
+
+  checkIfUsersHaveUpload(totalUsers: string[], uploadId: string): Promise<any> {
+    this.validUsers = [];
+    return Promise.all(totalUsers.map((userId, index) => {
+      return this.db.collection('/uploads/' + userId + '/uploads')
+        .doc(uploadId)
+        .get()
+        .pipe(take(1))
+        .subscribe(doc => {
+          if (doc.exists)
+            this.validUsers.push(userId);
+          Promise.resolve('success')
+        }, error => Promise.reject(error))
     }))
   }
 
